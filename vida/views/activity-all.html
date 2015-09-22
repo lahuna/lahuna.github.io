@@ -1,0 +1,39 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>All Activity</h4>
+        </div>
+    </div>
+    <!--<div class="row">
+        <div class="col-md-3 col-md-offset-4">
+            <div class="input-group">
+                <input ng-model="search" type="text" class="form-control" placeholder="Filter results...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="ClearFilter()"><span class="glyphicon glyphicon-remove-circle" title="Clear Filter"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>-->
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <button class="btn btn-default" ng-click="Sort()"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Sort</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="list-group">
+                <a ng-repeat="item in list.items" class="list-group-item" href="">
+                    <div><img ng-src="{{item.snippet.thumbnails.default.url}}" class="img-responsive" /></div>
+                    <div>{{item.snippet.title}}</div>
+                    <div>{{item.snippet.publishedAt | date}}</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

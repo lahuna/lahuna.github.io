@@ -1,0 +1,183 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>Video Search</h4>
+            <!--<h4>Video Search: {{list.items.length | number}}</h4>-->
+        </div>
+        <div class="col-md-offset-4 col-md-3" ng-show="needSignIn">
+            <h4>Please go to the main page and sign in.</h4>
+            <a href="/vida" class="btn btn-default">Go</a>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="input-group">
+                <input ng-model="search" ng-keydown="GoSearch($event)"
+                       typeahead="item for item in GetSearchList($viewValue)"
+                       type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="Search()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="order_addon">Order By:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddOrder" data-toggle="dropdown" aria-expanded="true">
+                        {{orderText}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ddOrder">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('relevance')">Relevance</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('viewCount')">View Count</a></li>
+                        <li role="presentation" ng-show="orderVisible"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('rating')">Rating</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('date')">Date</a></li>
+                        <li role="presentation" ng-show="orderVisible"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('title')">Title</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--<div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="input-group">
+                <input ng-model="search" ng-keydown="GoSearch($event)"
+                       typeahead="item for item in GetSearchList($viewValue)"
+                       type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="Search()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="order_addon">Order By:</span>
+                <select ng-model="order" class="form-control" aria-describedby="order_addon">
+                    <option value="relevance">Relevance</option>
+                    <option value="viewCount">View Count</option>
+                    <option value="rating" ng-show="orderVisible">Rating</option>
+                    <option value="date">Date</option>
+                    <option value="title" ng-show="orderVisible">Title</option>
+                </select>
+            </div>
+        </div>
+    </div>-->
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="playlist_addon">Add To:</span>
+                <input ng-model="playlist" aria-describedby="playlist_addon"
+                       typeahead="item for item in GetPlaylistHints($viewValue)"
+                       type="text" class="form-control" placeholder="Enter a playlist name...">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <a href="#/playlist/me/{{playlistId}}" ng-show="playlistId.length > 0" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-play-circle"></span> Go To Playlist</a>
+        </div>
+    </div>
+
+
+
+
+    <!--<div class="row">
+        <form class="form-horizontal col-md-3 col-md-offset-4" role="form">
+            <div class="form-group">
+                <div class="input-group">
+                    <input ng-model="search" ng-keydown="GoSearch($event)"
+                           typeahead="item for item in GetSearchList($viewValue)"
+                           type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="Search()"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon" id="order_addon">Order By:</span>
+                    <select ng-model="order" class="form-control" aria-describedby="order_addon">
+                        <option value="relevance">Relevance</option>
+                        <option value="viewCount">View Count</option>
+                        <option value="rating" ng-show="orderVisible">Rating</option>
+                        <option value="date">Date</option>
+                        <option value="title" ng-show="orderVisible">Title</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon" id="playlist_addon">Add To:</span>
+                    <input ng-model="playlist" aria-describedby="playlist_addon"
+                           typeahead="item for item in GetPlaylistHints($viewValue)"
+                           type="text" class="form-control" placeholder="Enter a playlist name...">
+                </div>
+            </div>
+            <div class="form-group">
+                <a href="#/playlist/{{owner}}/{{playlistId}}" ng-show="playlistId.length > 0" class="btn btn-primary"><span class="glyphicon glyphicon glyphicon-play-circle"></span> Go To Playlist</a>
+            </div>
+        </form>
+    </div>-->
+
+
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat="item in list.items">
+                        <td>
+                            <a href="/player/#/video/{{item.id.videoId}}">
+                                <img ng-src="{{item.snippet.thumbnails.default.url}}" />
+                            </a>
+                            <div>{{item.snippet.title}}</div>
+                        </td>
+                        <td ng-show="playlist.length > 0">
+                            <button class="btn btn-default btnNoBorder" ng-click="AddToPlaylist($index)" title="Add to Playlist">
+                                <span class="glyphicon" ng-class="item.inPlaylist ? 'glyphicon-check' : 'glyphicon-unchecked'"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!--<div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="list-group">
+                <div ng-repeat="item in list.items" class="list-group-item" ng-class="{active: item.inPlaylist && playlist.length > 0}">
+                    <div>
+                        <span>
+                            <a href="/player/#/video/{{owner}}/{{item.id.videoId}}">
+                                <img ng-src="{{item.snippet.thumbnails.default.url}}" />
+                            </a>
+                        </span>
+                        <button class="btn btn-default btn-lg btnNoBorder" ng-show="playlist.length > 0" ng-click="AddToPlaylist($index)" title="Add to Playlist">
+                            <span class="glyphicon" ng-class="item.inPlaylist ? 'glyphicon-check' : 'glyphicon-unchecked'"></span>
+                        </button>
+                    </div>
+                    <div>{{item.snippet.title}}</div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>

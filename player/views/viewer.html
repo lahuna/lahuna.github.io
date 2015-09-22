@@ -1,0 +1,117 @@
+﻿<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3" ng-show="needSignIn">
+            <h4>Please go to the main page and sign in.</h4>
+            <a href="/vida" class="btn btn-default">Go</a>
+        </div>
+        <div class="col-md-12">
+            <div class="embed-responsive embed-responsive-16by9">
+                <div id="ytPlayer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group" ng-show="editVisible" ng-class="{'has-error': item.snippet.title.length == 0}">
+                <span class="input-group-addon" id="addonTitle">Title:</span>
+                <input type="text" ng-model="item.snippet.title" ng-keydown="GoSave($event)" ng-change="TitleChanged()"
+                       class="form-control" placeholder="Enter a title..." aria-describedby="addonTitle" />
+                <span class="input-group-btn" ng-show="saveVisible && item.snippet.title.length > 0">
+                    <button class="btn btn-default" ng-click="Save(false)">Save</button>
+                </span>
+                <span class="input-group-addon" ng-show="successVisible">
+                    <span class="glyphicon glyphicon-ok text-success"></span>
+                </span>
+            </div>
+            <div class="col-md-12 no-pad" ng-show="type == 'Video'">
+                <div class="input-group form-margin">
+                    <span class="input-group-addon" id="addonPlaylist">Playlist:</span>
+                    <input type="text" ng-model="playlist.title" ng-keydown="GoAddPlaylist($event)" typeahead="item for item in GetPlaylistHints($viewValue)"
+                           class="form-control" placeholder="Enter a playlist name..." aria-describedby="addonPlaylist" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="AddPlaylist()">Add</button>
+                    </span>
+                </div>
+                <span ng-repeat="pl in playlists.list">
+                    <button class="btn btn-default form-margin" ng-click="RemovePlaylist($index)" title="Remove">{{pl.title}} <span class="glyphicon glyphicon-remove"></span></button>
+                </span>
+            </div>
+            <!--<div class="col-md-12 no-pad" ng-show="type == 'Video'">
+                <div class="input-group form-margin">
+                    <span class="input-group-addon" id="add-to-addon">Add To:</span>
+                    <input ng-model="playlist" aria-describedby="add-to-addon" ng-keydown="GoAddToPlaylist($event)" ng-change="AddToChanged()"
+                           typeahead="item for item in GetPlaylistHints($viewValue)"
+                           type="text" class="form-control" placeholder="Enter a playlist name...">
+                    <span class="input-group-btn" ng-show="saveAddToVisible">
+                        <button class="btn btn-default" ng-click="AddToPlaylist()">Save</button>
+                    </span>
+                    <span class="input-group-addon" ng-show="successAddToVisible">
+                        <span class="glyphicon glyphicon-ok text-success"></span>
+                    </span>
+                </div>
+            </div>-->
+            <div class="col-md-12 no-pad" ng-show="editVisible">
+                <div class="input-group form-margin dropdown-width">
+                    <span class="input-group-addon" id="addonPrivacy">Privacy:</span>
+                    <!--<datalist ng-model="item.status.privacyStatus" ng-change="Save(true)" class="form-control" aria-describedby="addonPrivacy">
+                        <option value="private">Private</option>
+                        <option value="unlisted">Unlisted</option>
+                        <option value="public">Public</option>
+                    </datalist>-->
+                    <span class="input-group-btn">
+                        <button popover-placement="top" popover-append-to-body="true" popover="{{privacyInfo}}" class="btn btn-default">?</button>
+                    </span>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="ddPrivacy" data-toggle="dropdown" aria-expanded="true">
+                            {{privacyText}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="ddPrivacy">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectPrivacy('private')">Private</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectPrivacy('unlisted')">Unlisted</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectPrivacy('public')">Public</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-md-6 no-pad">
+                <pre>{{item.status.embeddable}}</pre>
+                <div class="input-group form-margin checkbox-width">
+                    <span class="input-group-addon" id="addonEmbed">Embeddable:</span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default form-control" ng-click="Save(true)" ng-model="item.status.embeddable" btn-checkbox btn-checkbox-true=true btn-checkbox-false=false>
+                            <span class="{{embedClass}}"></span>
+                        </button>
+                    </span>
+                    <span class="input-group-btn">
+                        <button popover-placement="top" popover-append-to-body="true" popover="{{embedInfo}}" class="btn btn-default">?</button>
+                    </span>
+                </div>
+            </div>-->
+        </div>
+        <div class="col-md-6" ng-show="editVisible">
+            <div class="input-group">
+                <span class="input-group-addon" id="addonTag">Tag:</span>
+                <input type="text" ng-model="tag" ng-keydown="GoAddTag($event)" typeahead="item for item in GetSearchList($viewValue)"
+                       class="form-control" placeholder="Enter a tag..." aria-describedby="addonTag" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="AddTag()">Add</button>
+                </span>
+            </div>
+            <span ng-repeat="tag in item.snippet.tags">
+                <button class="btn btn-default form-margin" ng-click="RemoveTag(tag)" title="Remove">{{tag}} <span class="glyphicon glyphicon-remove"></span></button>
+            </span>
+        </div>
+    </div>
+    <div class="row" ng-show="editVisible">
+        <div class="col-md-3">
+            <button class="btn btn-default" ng-click="open()"><span class="glyphicon glyphicon-trash"></span> Delete {{type}}</button>
+        </div>
+    </div>
+</div>

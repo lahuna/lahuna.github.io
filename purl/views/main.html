@@ -1,0 +1,58 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" ng-model="url" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-default" ng-click="Get()">Get</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p>{{result}}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <textarea ng-model="tArea" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-default" ng-click="Push()">Push</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input ng-model="search" type="text" class="form-control" placeholder="Filter results...">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table>
+                <!--<thead>
+                    <tr>
+                        <th>Word</th>
+                        <th>Def</th>
+                    </tr>
+                </thead>-->
+                <tbody ng-repeat="item in list | filter: search track by $index">
+                    <tr>
+                        <!--<td>{{item | word}}</td>
+            <td>{{item | whole}}</td>
+            <td>{{item | def}}</td>-->
+                        <td>{{item}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

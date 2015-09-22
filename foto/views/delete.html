@@ -1,0 +1,24 @@
+﻿<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal" role="form">
+            
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <p>Are you sure you want to delete this item?</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-3">
+                    <p>{{item}}</p>
+                    <button class="btn btn-primary" type="button" ng-click="delete()">Delete</button>
+                    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+﻿<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lahuna Media | Embed</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta name="description" content="See your posted public media on Lahuna" />
+    <meta name="author" content="Lahuna" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/sticky-footer-navbar.css" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-48421139-1', 'lahuna.com');
+        ga('send', 'pageview');
+    </script>
+
+    <script>
+        function ShowMedia() {
+            var url = "";
+            if (location.search.length > 1)
+                url = location.href.replace('https://lahuna.com/media/embed/?', '') + "?autoplay=1";
+            else
+                url = "https://www.youtube.com/embed/_JwkB06dISY?autoplay=1";
+                
+            document.getElementById("mediaItem").src = url;
+        }
+    </script>
+
+</head>
+<body onload="ShowMedia()">
+
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#lNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/#/"><div class="aLogo img-rounded">Lahuna</div></a>
+                <a class="navbar-brand aTitle">Embed</a>
+            </div>
+            <div class="collapse navbar-collapse" id="lNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Apps <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#/apps">Info</a></li>
+                            <li><a href="/foto">Foto</a></li>
+                            <li><a href="/vida">Vida</a></li>
+                            <!--<li><a href="/upload">Upload</a></li>-->
+                            <li><a href="/blitz">Blitz</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#/about">About</a></li>
+                            <li><a href="/#/tech">Tech</a></li>
+                            <li><a href="/#/consult">Consult</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/#/contact">Contact</a></li>
+                    <li><a href="/#/privacy">Privacy</a></li>
+                    <li><a href="/#/terms">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe id="mediaItem" class="embed-responsive-item" src="" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Copyright © 2014-2015 Lahuna. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+

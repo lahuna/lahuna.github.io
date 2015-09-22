@@ -1,0 +1,25 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div ng-controller="MainCtrl"></div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>My Channel: {{list.items[0].snippet.title}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="list-group">
+                <a class="list-group-item" href="#/playlist/yt/{{list.items[0].contentDetails.relatedPlaylists.favorites}}"><h4>Favorites</h4></a>
+                <a class="list-group-item" href="#/playlist/yt/{{list.items[0].contentDetails.relatedPlaylists.likes}}"><h4>Likes</h4></a>
+                <a class="list-group-item" href="#/playlist/yt/{{list.items[0].contentDetails.relatedPlaylists.uploads}}"><h4>Uploads</h4></a>
+                <a class="list-group-item" href="#/playlist/yt/{{list.items[0].contentDetails.relatedPlaylists.watchHistory}}"><h4>Watch History</h4></a>
+                <a class="list-group-item" href="#/playlist/yt/{{list.items[0].contentDetails.relatedPlaylists.watchLater}}"><h4>Watch Later</h4></a>
+            </div>
+        </div>
+    </div>
+</div>

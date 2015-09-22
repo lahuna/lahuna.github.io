@@ -1,0 +1,23 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-4">
+            <h4>Errors</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-3 col-md-4">
+            <div class="list-group">
+                <div ng-repeat="item in items.list" class="list-group-item">
+                    <div><a ng-href="#/error-detail/{{item.Id}}">{{item.Message}}</a><span ng-click="Delete(item)" class="glyphicon glyphicon-trash pull-right iconBtn" title="Delete"></span></div>
+                    <div>{{item.Method}}</div>
+                    <div>{{item.Date}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

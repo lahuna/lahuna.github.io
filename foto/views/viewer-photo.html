@@ -1,0 +1,30 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container-fluid">
+     <div class="row text-center">
+        <ul>
+            <!--<li ng-click="Delete()" class="glyphicon glyphicon-trash photo-icon" title="Delete"></li>
+            <li ng-click="Rotate(-90)" class="glyphicon glyphicon-share-alt photo-icon gly-flip-horizontal" title="Rotate Left"></li>
+            <li ng-click="Rotate(90)" class="glyphicon glyphicon-share-alt photo-icon" title="Rotate Right"></li>
+            <li ng-click="open('sm', photo.gphoto$id.$t)" class="glyphicon glyphicon-tasks photo-icon" title="More"></li>-->
+            <li class="photo-icon"><input ng-model="size" type="range" value="800" min="72" max="2048" title="Size"></li>
+            <!--<li class="photo-icon">{{size}}</li>-->
+        </ul>
+    </div>
+    <!--<div class="row">
+        <div class="col-md-offset-6 col-md-3">
+            <input ng-model="size" type="range" value="800" min="72" max="2048"><span>{{size}}</span>
+            <input ng-model="size" type="text" class="form-control" placeholder="Enter a size...">
+        </div>
+    </div>-->
+    <div class="row">
+        <img src="{{photoUrl}}" class="{{photo.position}} img-responsive center-block">
+        <!--<a href="{{photo.media$group.media$thumbnail[0].url | enlarge}}">
+            <img src="{{photo.media$group.media$thumbnail[0].url | enlarge}}" class="{{photo.position}} img-responsive center-block imgMaxHeight">
+        </a>-->
+    </div>
+</div>

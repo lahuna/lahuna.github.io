@@ -1,0 +1,57 @@
+﻿<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<title>Contact Us | Suggestions | Feedback | Questions</title>
+<meta name="description" content="Let us know if you have any suggestions, feedback, or questions.
+        We will do out best to get back to you in a timely manner." />
+        
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-3">
+            <h2>Contact Us</h2>
+            <p>Use this form to send us any suggestions, feedback, or questions you may have:</p>
+            <div class="{{alertClass}}" role="alert">{{response}}</div>
+        </div>
+    </div>
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-1" for="Subject">Subject:</label>
+            <div class="col-md-4">
+                <input ng-model="subject" class="form-control" id="Subject" type="text" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-1" for="Body">Message:</label>
+            <div class="col-md-4">
+                <textarea ng-model="body" class="form-control" id="Body" rows="7" maxlength="1000"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-1" for="FromAddress">Your Email:</label>
+            <div class="col-md-4">
+                <input ng-model="fromAddress" class="form-control" id="FromAddress" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-1" for="FirstName">First Name:</label>
+            <div class="col-md-4">
+                <input ng-model="firstName" class="form-control" id="FirstName" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-1" for="LastName">Last Name:</label>
+            <div class="col-md-4">
+                <input ng-model="lastName" class="form-control" id="LastName" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-3">
+                <button class="btn btn-primary" type="button" ng-click="SendEmail()">Send</button>
+                <button class="btn btn-default" type="button" ng-click="ClearForm()">Clear</button>
+            </div>
+        </div>
+    </form>
+</div>

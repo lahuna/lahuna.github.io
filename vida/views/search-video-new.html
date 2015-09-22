@@ -1,0 +1,59 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div ng-controller="MainCtrl"></div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>Video Search: {{list.items.length | number}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <form class="form-horizontal col-md-3 col-md-offset-4" role="form">
+            <div class="form-group">
+                <div class="input-group">
+                    <input ng-model="search" ng-keydown="GoSearch($event)"
+                           typeahead="item for item in GetSearchList($viewValue)"
+                           type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="Search()"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon" id="order_addon">Order By:</span>
+                    <select ng-model="order" class="form-control" aria-describedby="order_addon">
+                        <option value="relevance">Relevance</option>
+                        <option value="viewCount">View Count</option>
+                        <option value="rating" ng-show="orderVisible">Rating</option>
+                        <option value="date">Date</option>
+                        <option value="title" ng-show="orderVisible">Title</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="list-inline">
+                <li ng-repeat="item in list.items">
+                    <a href="/player/#/video/{{item.id.videoId}}">
+                        <img ng-src="{{item.snippet.thumbnails.default.url}}" class="img-responsive" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--<ul class="list-inline">
+            <li ng-repeat="item in list.items" class="list-group-item liWidth">
+                <a href="/player/#/video/{{owner}}/{{item.id.videoId}}">
+                    <img ng-src="{{item.snippet.thumbnails.default.url}}" class="img-responsive" />
+                </a>
+                <div>{{item.snippet.title}}</div>
+            </li>
+        </ul>-->
+    </div>
+</div>

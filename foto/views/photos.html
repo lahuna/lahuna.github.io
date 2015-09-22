@@ -1,0 +1,37 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input ng-model="search" ng-keydown="GoSearch($event)"
+                       typeahead="item for item in GetSearchList($viewValue)"
+                       type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="Search()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Total Results: {{list.feed.openSearch$totalResults.$t}}</p>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <span ng-repeat="photo in list.feed.entry">
+                <a href="#/photos/viewer/{{path}}" ng-click="StoreId(photo.gphoto$id.$t)">
+                    <img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" />
+                </a>
+                <!--<a href="#/photos/viewer/{{path}}/{{photo.gphoto$id.$t}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
+                <!--<a href="#/{{photo.gphoto$originalvideo | type}}/viewer/{{path}}/{{photo.gphoto$id.$t}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
+                <!--<a href="#/photos/viewer/{{path}}/{{$index}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
+            </span>
+        </div>
+    </div>
+</div>

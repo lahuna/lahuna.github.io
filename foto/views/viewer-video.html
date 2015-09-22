@@ -1,0 +1,25 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="embed-responsive embed-responsive-16by9">
+                <video controls autoplay class="embed-responsive-item {{photo.position}}" ng-src="{{videoUrl}}" type="video/mp4" preload="auto"></video>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default navbar-static-bottom">
+                <span ng-click="Delete()" class="glyphicon glyphicon-trash viewer-icon" title="Delete"></span>
+                <span ng-click="Rotate(-90)" class="glyphicon glyphicon-share-alt viewer-icon gly-flip-horizontal" title="Rotate Left"></span>
+                <span ng-click="Rotate(90)" class="glyphicon glyphicon-share-alt viewer-icon" title="Rotate Right"></span>
+                <span ng-click="open('sm', photo.gphoto$id.$t)" class="glyphicon glyphicon-tasks viewer-icon" title="More"></span>
+            </nav>
+        </div>
+    </div>
+</div>

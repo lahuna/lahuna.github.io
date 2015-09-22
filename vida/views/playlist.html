@@ -1,0 +1,95 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>{{playlist.items[0].snippet.title}}</h4>
+        </div>
+        <div class="col-md-offset-4 col-md-3" ng-show="needSignIn">
+            <h4>Please go to the main page and sign in.</h4>
+            <a href="/vida" class="btn btn-default">Go</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div ng-show="list.items.length > 0">
+                <a href="/player/#/{{playlistType}}/{{id}}" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span> {{playBtn}}</a>
+            </div>
+            <div ng-show="emptyPlaylist">
+                <div ng-show="owner == 'me'">
+                    <h4>This playlist has no videos. Would you like to delete it?</h4>
+                    <button class="btn btn-primary" ng-click="Delete()">Delete</button>
+                    <button class="btn btn-default" ng-click="Back()">Cancel</button>
+                </div>
+                <div ng-show="owner == 'yt'">
+                    <h4>This playlist has no videos.</h4>
+                    <button class="btn btn-default" ng-click="Back()">Back</button>
+                </div>
+            </div>
+            <div ng-show="notFound">
+                <h4>Playlist not found. It may have been deleted.</h4>
+                <button class="btn btn-default" ng-click="Back()">Back</button>
+            </div>
+            <div class="alert alert-danger" role="alert" ng-show="playlistError && !notFound">
+                <h4>There was an error. Try reloading the page.</h4>
+                <button class="btn btn-default" ng-click="Reload()">Reload</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat="item in list.items" ng-click="select(item)" ng-class="{info: item.Selected == 1}">
+                        <td ng-show="owner == 'me'">
+                            <button ng-show="$index > 0" class="btn btn-default btn-lg btnNoBorder btnTop" ng-click="MoveUp($index)" title="Move Up">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            </button>
+                            <button ng-show="$index < list.items.length - 1" class="btn btn-default btn-lg btnNoBorder btnBottom" ng-click="MoveDown($index)" title="Move Down">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <a href="/player/#/video/{{item.snippet.resourceId.videoId}}">
+                                <img ng-src="{{item.snippet.thumbnails.default.url}}" />
+                            </a>
+                            <div>{{item.snippet.title}}</div>
+                        </td>
+                        <td ng-show="owner == 'me'">
+                            <button class="btn btn-default btn-lg btnNoBorder" ng-click="Remove($index)" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <!--<div class="list-group">
+                
+                <div ng-repeat="item in list.items" class="list-group-item">
+                    <div>
+                        <span>
+                            <a href="/player/#/video/{{owner}}/{{item.snippet.resourceId.videoId}}">
+                                <img ng-src="{{item.snippet.thumbnails.default.url}}" />
+                            </a>
+                        </span>
+                        <span class="glyphicon glyphicon-remove glyphBtn iconBtn" ng-click="DeleteItem($index)" title="Delete Item"></span>
+                    </div>
+                    <div>{{item.snippet.title}}</div>
+                </div>-->
+                
+                
+                
+                <!--<a ng-repeat="item in list.items" class="list-group-item" href="/player/#/video/{{owner}}/{{item.snippet.resourceId.videoId}}">
+                    <div><img ng-src="{{item.snippet.thumbnails.default.url}}" class="img-responsive" /></div>
+                    <div>{{item.snippet.title}}</div>
+                </a>-->
+            </div>
+        </div>
+    </div>
+</div>

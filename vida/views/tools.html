@@ -1,0 +1,67 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>Tools</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <button class="btn btn-default" ng-click="ImportVideos()" title="Import videos from Youtube"><span class="glyphicon glyphicon-refresh"></span> Import Videos</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <button class="btn btn-default" ng-click="ImportPlaylistItems()" title="Import playlist items from Youtube"><span class="glyphicon glyphicon-refresh"></span> Import Playlist Items</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+    </div>
+    <!--<div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="input-group">
+                <input ng-model="search" ng-keydown="GoSearch($event)"
+                       typeahead="item for item in GetSearchList($viewValue)"
+                       type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="Search()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>-->
+    <!--<div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="order_addon">Order By:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddOrder" data-toggle="dropdown" aria-expanded="true">
+                        {{orderText}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ddOrder">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('date')">Date</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('title')">Title</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="list-group">
+                <a ng-repeat="item in items" class="list-group-item" href="/player/#/video/{{item.id}}">
+                    <div><img ng-src="{{item.thumbnail}}" class="img-responsive" /></div>
+                    <div>{{item.title}}</div>
+                </a>
+            </div>
+        </div>
+    </div>-->
+</div>

@@ -1,0 +1,52 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>{{heading}}</h4>
+            <!--<h4>{{heading}}: {{items.list.length | number}}</h4>-->
+        </div>
+        <div class="col-md-offset-4 col-md-3" ng-show="needSignIn">
+            <h4>Please go to the main page and sign in.</h4>
+            <a href="/vida" class="btn btn-default">Go</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-4">
+            <div class="input-group">
+                <input ng-model="search" type="text" class="form-control" placeholder="Filter results...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="ClearFilter()"><span class="glyphicon glyphicon-remove-circle" title="Clear Filter"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div ng-repeat="item in items.list | orderBy:'title' | filter: { title:search }">
+                <div class="btn-group btnGroup">
+                    <a href="#/{{path}}/{{item.title}}" ng-click="StoreFilter()" class="btn btn-default btnWidth">{{item.title}}</a>
+                    <button class="btn btn-default" type="button" ng-click="Delete(item)"><span class="glyphicon glyphicon-trash" title="Delete"></span></button>
+                </div>
+            </div>
+
+            <!--<table class="table">
+                <tbody>
+                    <tr ng-repeat="item in items.list | orderBy:'title' | filter: { title:search }">
+                        <td><a href="#/videos/{{item.title}}" ng-click="StoreFilter()"><p>{{item.title}}</p></a></td>
+                        <td><span class="glyphicon glyphicon-trash" title="Clear Filter" ng-click="Delete({{item.id}})"></span></td>
+                    </tr>
+                </tbody>
+            </table>-->
+            <!--<div class="list-group">
+                <a ng-repeat="item in items.list | orderBy:'title' | filter: { title:search }" class="list-group-item" href="#/videos/{{item.title}}" ng-click="StoreFilter()">
+                    <p>{{item.title}}</p>
+                </a>
+            </div>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>{{heading}}</h4>
+            <h4>Recommendations</h4>
+            <!--<h4>Recommendations: {{list.items.length | number}}</h4>-->
+        </div>
+        <div class="col-md-offset-4 col-md-3" ng-show="needSignIn">
+            <h4>Please go to the main page and sign in.</h4>
+            <a href="/vida" class="btn btn-default">Go</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="playlist_addon">Add To:</span>
+                <input ng-model="playlist" aria-describedby="playlist_addon"
+                       typeahead="item for item in GetPlaylistHints($viewValue)"
+                       type="text" class="form-control" placeholder="Enter a playlist name...">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <span>
+                <a href="/player/#/videolist/{{videoId}}" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-play"></span> Play All</a>
+            </span>
+            <span>
+                <a href="#/playlist/me/{{playlistId}}" ng-show="playlistId.length > 0" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-play-circle"></span> Go To Playlist</a>
+            </span>     
+        </div>
+    </div>
+
+
+
+
+
+    <!--<div class="row">
+        <form class="form-horizontal col-md-3 col-md-offset-4" role="form">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon" id="playlist_addon">Add To:</span>
+                    <input ng-model="playlist" aria-describedby="playlist_addon"
+                           typeahead="item for item in GetPlaylistHints($viewValue)"
+                           type="text" class="form-control" placeholder="Enter a playlist name...">
+                </div>
+            </div>
+            <div class="form-group">
+                <span>
+                    <a href="/player/#/videolist/{{owner}}/{{videoId}}" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-play"></span> Play All</a>
+                </span>
+                <span>
+                    <a href="#/playlist/{{owner}}/{{playlistId}}" ng-show="playlistId.length > 0" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-play-circle"></span> Go To Playlist</a>
+                </span>                
+            </div>
+        </form>
+    </div>-->
+
+
+
+
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat="item in list.items">
+                        <td>
+                            <a href="/player/#/video/{{item.id.videoId}}">
+                                <img ng-src="{{item.snippet.thumbnails.default.url}}" />
+                            </a>
+                            <div>{{item.snippet.title}}</div>
+                        </td>
+                        <td ng-show="playlist.length > 0">
+                            <button class="btn btn-default btnNoBorder" ng-click="AddToPlaylist($index)" title="Add to Playlist">
+                                <span class="glyphicon" ng-class="item.inPlaylist ? 'glyphicon-check' : 'glyphicon-unchecked'"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+            <!--<div class="list-group">
+                <div ng-repeat="item in list.items" class="list-group-item" ng-class="{active: item.inPlaylist && playlist.length > 0}">
+                    <div>
+                        <span>
+                            <a href="/player/#/video/{{owner}}/{{item.id.videoId}}">
+                                <img ng-src="{{item.snippet.thumbnails.default.url}}" />
+                            </a>
+                        </span>
+                        <span class="glyphicon glyphBtn iconBtn" ng-class="item.inPlaylist ? 'glyphicon-check' : 'glyphicon-unchecked'"
+                              ng-show="playlist.length > 0" ng-click="AddToPlaylist($index)" title="Add to Playlist"></span>
+                    </div>
+                    <div>{{item.snippet.title}}</div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>

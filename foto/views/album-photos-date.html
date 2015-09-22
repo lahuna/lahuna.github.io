@@ -1,0 +1,28 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container" style="visibility:{{visible}};">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>{{title}}</h4>
+            <p>Showing photos: {{startIndex}} - {{upper}} of {{count}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <span ng-repeat="photo in photos.list">
+                <a href="#/albums/{{type}}/{{year}}/{{month}}/{{day}}/photos/viewer/{{albumId}}/{{startIndex}}/{{maxResults}}/{{photos.list.indexOf(photo)}}"><img class="photoGrid" ng-src="{{photo.Url | thumb}}" /></a>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <p>
+                ( Page: {{currentPage}} / {{numPages}} ) <a href="#/albums/{{type}}/{{year}}/{{month}}/{{day}}/photos/{{albumId}}/{{next}}/{{maxResults}}/0">Next >></a>
+            </p>
+        </div>
+    </div>
+</div>
