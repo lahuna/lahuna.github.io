@@ -6,73 +6,73 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
   <url>
-    <loc>https://lahuna.com/</loc>
+    <loc>https://lahuna.net/</loc>
     <lastmod>2015-04-21T07:13:14+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/#/apps/</loc>
+    <loc>https://lahuna.net/#/apps/</loc>
     <lastmod>2015-04-21T07:05:47+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/#/consult/</loc>
+    <loc>https://lahuna.net/#/consult/</loc>
     <lastmod>2015-04-21T07:07:38+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/#/tech/</loc>
+    <loc>https://lahuna.net/#/tech/</loc>
     <lastmod>2015-04-21T07:09:58+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/#/terms/</loc>
+    <loc>https://lahuna.net/#/terms/</loc>
     <lastmod>2015-04-21T07:08:11+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/#/privacy/</loc>
+    <loc>https://lahuna.net/#/privacy/</loc>
     <lastmod>2015-04-21T07:08:11+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/#/contact/</loc>
+    <loc>https://lahuna.net/#/contact/</loc>
     <lastmod>2015-04-21T07:08:11+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/upload/</loc>
+    <loc>https://lahuna.net/upload/</loc>
     <lastmod>2015-04-21T07:08:11+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/foto/</loc>
+    <loc>https://lahuna.net/foto/</loc>
     <lastmod>2015-04-21T07:08:11+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/blitz/</loc>
+    <loc>https://lahuna.net/blitz/</loc>
     <lastmod>2015-04-21T07:08:11+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/vida/</loc>
+    <loc>https://lahuna.net/vida/</loc>
     <lastmod>2015-04-21T07:08:11+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://lahuna.com/ryan/</loc>
+    <loc>https://lahuna.net/ryan/</loc>
     <lastmod>2015-04-21T07:08:11+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
