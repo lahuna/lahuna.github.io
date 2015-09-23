@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -18,6 +18,7 @@ Controllers.controller('MainCtrl',
         // AUTHENTICATE
         //****************************************
 
+        $scope.origin = location.origin;
         $scope.needSignIn = false;
         Authenticate();
 
@@ -76,7 +77,7 @@ Controllers.controller('MainCtrl',
                     accessToken: GetAccessToken(),
                     refreshToken: GetRefreshToken()
                 });
-            });  
+            });
         }
 
 
@@ -587,7 +588,7 @@ Controllers.controller('VideosCtrl',
                 $scope.order = localStorage.getItem("video_order");
 
             Search();
-        }          
+        }
 
         //****************************************
         // SEARCH
@@ -697,7 +698,7 @@ Controllers.controller('VideosCtrl',
                 query: query,
                 type: "youtube"
             });
-        }        
+        }
 
         //****************************************
         // ADD TO PLAYLIST
@@ -949,7 +950,7 @@ Controllers.controller('RecommendCtrl',
                 $scope.list.items.splice(0, 0, data.items[0]);
             })
         }
-        
+
         //****************************************
         // ADD TO PLAYLIST
         //****************************************
@@ -1236,7 +1237,7 @@ Controllers.controller('PlaylistsCtrl',
 
         $scope.$watch('order', function (value) {
             switch(value) {
-                
+
                 case 'date':
                     $scope.orderText = 'Date';
                     break;
@@ -1453,7 +1454,7 @@ Controllers.controller('PlaylistCtrl',
 
             GetPlaylist();
             GetPlaylistItems();
-        }        
+        }
 
         function GetPlaylist() {
             PlaylistResource(GetAccessToken()).Get({
@@ -1574,9 +1575,9 @@ Controllers.controller('PlaylistCtrl',
             }).$promise.then(function (data) {
                 var pl = data.items[0];
                 UpdatePlaylistResource.Update({
-                    playlistId: pl.id, 
+                    playlistId: pl.id,
                     title: pl.snippet.title,
-                    thumbnail: pl.snippet.thumbnails.default.url, 
+                    thumbnail: pl.snippet.thumbnails.default.url,
                     tags: SetTags(pl),
                     publishedDate: pl.snippet.publishedAt,
                     privacy: pl.status.privacyStatus,
@@ -1661,7 +1662,7 @@ Controllers.controller('TagsCtrl',
                 userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
                 type: GetType()
             });
-        }        
+        }
 
         $scope.StoreFilter = function () {
             localStorage.setItem("tag_search", $scope.search);
@@ -1679,7 +1680,7 @@ Controllers.controller('TagsCtrl',
                 userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
                 query: item.title,
                 type: GetType()
-            });                
+            });
         }
 
         function IsVideo() {
@@ -1812,7 +1813,7 @@ Controllers.controller('ChannelCtrl',
                 maxResults: "50",
                 mine: "true"
             });
-        }        
+        }
     });
 
 Controllers.controller('ActivityCtrl',
@@ -2163,7 +2164,7 @@ Controllers.controller('ActivityAllCtrl',
 
             GetPlaylistItems(playlistIds);
         }
-        
+
         function GetPlaylistItems(playlistIds) {
             var playlistItems = [];
             var i = 0;

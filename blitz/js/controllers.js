@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -29,6 +29,8 @@ Controllers.controller('MainCtrl', ['$scope', '$routeParams',
       TwitterRequestTokenResource, TwitterProfileResource, TwitterPostResource,
       TumblrRequestTokenResource, TumblrProfileResource, TumblrPostResource) {
 
+      $scope.origin = location.origin;
+
       GetGoogleProfile();
       GetFacebookProfile();
       GetImgurProfile();
@@ -36,7 +38,7 @@ Controllers.controller('MainCtrl', ['$scope', '$routeParams',
       GetTwitterProfile();
       GetTumblrProfile();
       GetLinkedInProfile();
-      
+
 
       $scope.Post = function () {
           //PostFacebook();
@@ -187,9 +189,9 @@ Controllers.controller('MainCtrl', ['$scope', '$routeParams',
           var accessToken = localStorage.getItem("imgur_access_token");
           ImgurPostResource(accessToken).Post({
               image: $scope.body,
-              title: $scope.title              
+              title: $scope.title
           });
-      }     
+      }
 
       function GetRedditProfile() {
           RedditProfileResource.Get({
@@ -325,7 +327,7 @@ Controllers.controller('FacebookMediaCtrl', ['$scope', '$routeParams', '$locatio
                 access_token: localStorage.getItem("facebook_access_token")
             });
         };
-        
+
     }]);
 
 Controllers.controller('ImgurCtrl', ['$scope', '$routeParams', '$location',
@@ -345,7 +347,7 @@ Controllers.controller('RedditCtrl', ['$scope', '$routeParams', '$location', 'Re
 
         if ($routeParams.state == "reddit") {
             localStorage.setItem("reddit_code", $routeParams.code);
-            RedditAccessTokenResource.Get({ code: $routeParams.code })
+            RedditAccessTokenResource.Get({ code: $routeParams.code, redirectUri: location.origin + "/blitz/reddit" })
             .$promise.then(function (data) {
                 localStorage.setItem("reddit_access_token", data.access_token);
                 localStorage.setItem("reddit_expires_in", data.expires_in);
@@ -363,7 +365,7 @@ Controllers.controller('LinkedInCtrl', ['$scope', '$routeParams', '$location', '
 
         if ($routeParams.state == "linkedin") {
             localStorage.setItem("linkedin_code", $routeParams.code);
-            LinkedInAccessTokenResource.Get({ code: $routeParams.code })
+            LinkedInAccessTokenResource.Get({ code: $routeParams.code, redirectUri: location.origin + "/blitz/linkedin" })
             .$promise.then(function (data) {
                 localStorage.setItem("linkedin_access_token", data.access_token);
                 localStorage.setItem("linkedin_expires_in", data.expires_in);

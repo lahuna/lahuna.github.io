@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Authenticate
 Services.factory('AuthenticateResource',
   function ($resource) {
-      return $resource('/api/google/authenticate', {}, {
+      return $resource('https://lahuna.com/api/google/authenticate', {}, {
           Get: {
               method: 'GET'
           }
@@ -23,7 +23,7 @@ Services.factory('AuthenticateResource',
 // Get Status
 Services.factory('GetStatusResource', ['$resource',
   function ($resource) {
-      return $resource('/api/common/get-jobs', {}, {
+      return $resource('https://lahuna.com/api/common/get-jobs', {}, {
           Get: {
               method: 'GET'
           }
@@ -33,7 +33,7 @@ Services.factory('GetStatusResource', ['$resource',
 // Delete Status
 Services.factory('DeleteStatusResource', ['$resource',
   function ($resource) {
-      return $resource('/api/common/delete-job', {}, {
+      return $resource('https://lahuna.com/api/common/delete-job', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -43,7 +43,7 @@ Services.factory('DeleteStatusResource', ['$resource',
 // Get Errors
 Services.factory('GetErrorsResource', ['$resource',
   function ($resource) {
-      return $resource('/api/common/get-errors', {}, {
+      return $resource('https://lahuna.com/api/common/get-errors', {}, {
           Get: {
               method: 'GET'
           }
@@ -53,7 +53,7 @@ Services.factory('GetErrorsResource', ['$resource',
 // Get Errors List
 Services.factory('GetErrorsListResource', ['$resource',
   function ($resource) {
-      return $resource('/api/common/get-errors-list', {}, {
+      return $resource('https://lahuna.com/api/common/get-errors-list', {}, {
           Get: {
               method: 'GET'
           }
@@ -63,7 +63,7 @@ Services.factory('GetErrorsListResource', ['$resource',
 // Get Error Detail
 Services.factory('GetErrorDetailResource', ['$resource',
   function ($resource) {
-      return $resource('/api/common/get-error-detail', {}, {
+      return $resource('https://lahuna.com/api/common/get-error-detail', {}, {
           Get: {
               method: 'GET'
           }
@@ -73,7 +73,7 @@ Services.factory('GetErrorDetailResource', ['$resource',
 // Delete Error
 Services.factory('DeleteErrorResource', ['$resource',
   function ($resource) {
-      return $resource('/api/common/delete-error', {}, {
+      return $resource('https://lahuna.com/api/common/delete-error', {}, {
           Delete: {
               method: 'DELETE'
           }

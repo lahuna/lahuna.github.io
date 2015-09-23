@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Get Api
 Services.factory('GetApiResource', ['$resource',
   function ($resource) {
-      return $resource('/api/common/get-api', {}, {
+      return $resource('https://lahuna.com/api/common/get-api', {}, {
           Get: {
               method: 'GET'
           }
@@ -66,7 +66,7 @@ Services.factory('BloggerPostResource',
 //// Google Access Token
 //Services.factory('GoogleAccessTokenResource', ['$resource',
 //  function ($resource) {
-//      return $resource('/api/google/get-access-token', {}, {
+//      return $resource('https://lahuna.com/api/google/get-access-token', {}, {
 //          Get: {
 //              method: 'GET'
 //          }
@@ -76,7 +76,7 @@ Services.factory('BloggerPostResource',
 // Google Refresh Token
 Services.factory('GoogleRefreshTokenResource',
   function ($resource) {
-      return $resource('/api/google/get-refresh-token', {}, {
+      return $resource('https://lahuna.com/api/google/get-refresh-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -200,7 +200,7 @@ Services.factory('ImgurPostResource',
 // Imgur Refresh Token
 Services.factory('ImgurRefreshTokenResource', ['$resource',
   function ($resource) {
-      return $resource('/api/imgur/get-refresh-token', {}, {
+      return $resource('https://lahuna.com/api/imgur/get-refresh-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -210,7 +210,7 @@ Services.factory('ImgurRefreshTokenResource', ['$resource',
 // Reddit Access Token
 Services.factory('RedditAccessTokenResource', ['$resource',
   function ($resource) {
-      return $resource('/api/reddit/get-access-token', {}, {
+      return $resource('https://lahuna.com/api/reddit/get-access-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -220,7 +220,7 @@ Services.factory('RedditAccessTokenResource', ['$resource',
 // Reddit Refresh Token
 Services.factory('RedditRefreshTokenResource', ['$resource',
   function ($resource) {
-      return $resource('/api/reddit/get-refresh-token', {}, {
+      return $resource('https://lahuna.com/api/reddit/get-refresh-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -230,7 +230,7 @@ Services.factory('RedditRefreshTokenResource', ['$resource',
 // Reddit Profile
 Services.factory('RedditProfileResource', ['$resource',
   function ($resource) {
-      return $resource('/api/reddit/get-profile', {}, {
+      return $resource('https://lahuna.com/api/reddit/get-profile', {}, {
           Get: {
               method: 'GET'
           }
@@ -241,7 +241,7 @@ Services.factory('RedditProfileResource', ['$resource',
 Services.factory('RedditPostResource',
   function ($resource) {
       return function (accessToken) {
-          return $resource('/api/reddit/post', {}, {
+          return $resource('https://lahuna.com/api/reddit/post', {}, {
               Post: {
                   method: 'POST',
                   params: {
@@ -260,7 +260,7 @@ Services.factory('RedditPostResource',
 // LinkedIn Access Token
 Services.factory('LinkedInAccessTokenResource', ['$resource',
   function ($resource) {
-      return $resource('/api/linkedin/get-access-token', {}, {
+      return $resource('https://lahuna.com/api/linkedin/get-access-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -270,7 +270,7 @@ Services.factory('LinkedInAccessTokenResource', ['$resource',
 // LinkedIn Profile
 Services.factory('LinkedInProfileResource', ['$resource',
   function ($resource) {
-      return $resource('/api/linkedin/get-profile', {}, {
+      return $resource('https://lahuna.com/api/linkedin/get-profile', {}, {
           Get: {
               method: 'GET'
           }
@@ -281,7 +281,7 @@ Services.factory('LinkedInProfileResource', ['$resource',
 Services.factory('LinkedInPostResource',
   function ($resource) {
       return function (accessToken) {
-          return $resource('/api/linkedin/post', {}, {
+          return $resource('https://lahuna.com/api/linkedin/post', {}, {
               Post: {
                   method: 'POST',
                   params: { accessToken: accessToken }
@@ -293,7 +293,7 @@ Services.factory('LinkedInPostResource',
 // Twitter Request Token
 Services.factory('TwitterRequestTokenResource', ['$resource',
   function ($resource) {
-      return $resource('/api/twitter/get-request-token', {}, {
+      return $resource('https://lahuna.com/api/twitter/get-request-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -303,7 +303,7 @@ Services.factory('TwitterRequestTokenResource', ['$resource',
 // Twitter Access Token
 Services.factory('TwitterAccessTokenResource', ['$resource',
   function ($resource) {
-      return $resource('/api/twitter/get-access-token', {}, {
+      return $resource('https://lahuna.com/api/twitter/get-access-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -313,7 +313,7 @@ Services.factory('TwitterAccessTokenResource', ['$resource',
 // Twitter Profile
 Services.factory('TwitterProfileResource', ['$resource',
   function ($resource) {
-      return $resource('/api/twitter/get-profile', {}, {
+      return $resource('https://lahuna.com/api/twitter/get-profile', {}, {
           Get: {
               method: 'GET'
           }
@@ -323,7 +323,7 @@ Services.factory('TwitterProfileResource', ['$resource',
 // Twitter Post
 Services.factory('TwitterPostResource', ['$resource',
   function ($resource) {
-      return $resource('/api/twitter/post-status', {}, {
+      return $resource('https://lahuna.com/api/twitter/post-status', {}, {
           Post: {
               method: 'POST',
               params: { oauthToken: '@oauthToken', oauthTokenSecret: '@oauthTokenSecret', status: '@status' }
@@ -334,7 +334,7 @@ Services.factory('TwitterPostResource', ['$resource',
 // Tumblr Request Token
 Services.factory('TumblrRequestTokenResource', ['$resource',
   function ($resource) {
-      return $resource('/api/tumblr/get-request-token', {}, {
+      return $resource('https://lahuna.com/api/tumblr/get-request-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -344,7 +344,7 @@ Services.factory('TumblrRequestTokenResource', ['$resource',
 // Tumblr Access Token
 Services.factory('TumblrAccessTokenResource', ['$resource',
   function ($resource) {
-      return $resource('/api/tumblr/get-access-token', {}, {
+      return $resource('https://lahuna.com/api/tumblr/get-access-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -354,7 +354,7 @@ Services.factory('TumblrAccessTokenResource', ['$resource',
 // Tumblr Profile
 Services.factory('TumblrProfileResource', ['$resource',
   function ($resource) {
-      return $resource('/api/tumblr/get-profile', {}, {
+      return $resource('https://lahuna.com/api/tumblr/get-profile', {}, {
           Get: {
               method: 'GET'
           }
@@ -364,7 +364,7 @@ Services.factory('TumblrProfileResource', ['$resource',
 // Tumblr Post
 Services.factory('TumblrPostResource', ['$resource',
   function ($resource) {
-      return $resource('/api/tumblr/post', {}, {
+      return $resource('https://lahuna.com/api/tumblr/post', {}, {
           Post: {
               method: 'POST',
               params: {

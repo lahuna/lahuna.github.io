@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -17,6 +17,7 @@ Controllers.controller('MainCtrl',
       // AUTHENTICATE
       //****************************************
 
+      $scope.origin = location.origin;
       $scope.needSignIn = false;
       Authenticate();
 
@@ -302,7 +303,7 @@ Controllers.controller('SplitCtrl',
                   accessToken: GetAccessToken(),
                   refreshToken: localStorage.getItem("google_refresh_token"),
               });
-          }          
+          }
       };
   });
 
@@ -348,7 +349,7 @@ Controllers.controller('ImportCtrl',
       //****************************************
 
       function Initialize() {
-          
+
       }
 
       $scope.ImportAlbumJob = function () {
@@ -1250,7 +1251,7 @@ Controllers.controller('CreateAlbumCtrl',
       //****************************************
 
       function Initialize() {
-          
+
       }
 
       $scope.reset = function () {
@@ -1481,7 +1482,7 @@ Controllers.controller('DeleteAlbumCtrl',
       //****************************************
 
       function Initialize() {
-          
+
       }
 
       $scope.delete = function () {
@@ -1588,7 +1589,7 @@ Controllers.controller('ViewerAlbumCtrl',
                   keywords = "rotate-right-270";
               else
                   keywords = "rotate-left-270";
-          
+
           $scope.photos.list[index].Keywords = keywords;
           UpdatePhotoPartialResource.Update({
               photoId: photoItem.Id,
@@ -1599,11 +1600,11 @@ Controllers.controller('ViewerAlbumCtrl',
       };
 
       $scope.Tag = function (photoId) {
-          
+
       };
 
       $scope.Share = function (photoId) {
-          
+
       };
 
       $scope.Slideshow = function (photoItem) {
@@ -1894,7 +1895,7 @@ Controllers.controller('ViewerPhotosCtrl',
       //    }
 
       //}
-      
+
       $scope.Delete = function (photoItem) {
           var index = $scope.list.feed.entry.indexOf(photoItem);
           $scope.list.feed.entry.splice(index, 1);

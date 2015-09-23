@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Authenticate
 Services.factory('AuthenticateResource',
   function ($resource) {
-      return $resource('/api/google/authenticate', {}, {
+      return $resource('https://lahuna.com/api/google/authenticate', {}, {
           Get: {
               method: 'GET'
           }
@@ -24,7 +24,7 @@ Services.factory('AuthenticateResource',
 //// Verify Token
 //Services.factory('VerifyTokenResource',
 //  function ($resource) {
-//      return $resource('/api/google/verify-access-token', {}, {
+//      return $resource('https://lahuna.com/api/google/verify-access-token', {}, {
 //          Get: {
 //              method: 'GET'
 //          }
@@ -34,7 +34,7 @@ Services.factory('AuthenticateResource',
 //// Refresh Token
 //Services.factory('RefreshTokenResource',
 //  function ($resource) {
-//      return $resource('/api/google/get-refresh-token', {}, {
+//      return $resource('https://lahuna.com/api/google/get-refresh-token', {}, {
 //          Get: {
 //              method: 'GET'
 //          }
@@ -70,7 +70,7 @@ Services.factory('SearchResource',
 // Get Videos All
 Services.factory('VideosAllResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/get-videos-all", {}, {
+      return $resource("https://lahuna.com/api/youtube/get-videos-all", {}, {
           Get: {
               method: 'GET'
           }
@@ -207,7 +207,7 @@ Services.factory('PlaylistItemResource',
 // Insert Playlist into DB
 Services.factory('InsertPlaylistResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/insert-playlist", {}, {
+      return $resource("https://lahuna.com/api/youtube/insert-playlist", {}, {
           Insert: {
               method: 'GET'
           }
@@ -217,7 +217,7 @@ Services.factory('InsertPlaylistResource', ['$resource',
 // Update Playlist in DB
 Services.factory('UpdatePlaylistResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/update-playlist", {}, {
+      return $resource("https://lahuna.com/api/youtube/update-playlist", {}, {
           Update: {
               method: 'GET'
           }
@@ -227,7 +227,7 @@ Services.factory('UpdatePlaylistResource', ['$resource',
 // Delete Playlist from DB
 Services.factory('DeletePlaylistResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/delete-playlist", {}, {
+      return $resource("https://lahuna.com/api/youtube/delete-playlist", {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -237,7 +237,7 @@ Services.factory('DeletePlaylistResource', ['$resource',
 // Get Playlist Id
 Services.factory('GetPlaylistIdResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/get-playlist-id", {}, {
+      return $resource("https://lahuna.com/api/youtube/get-playlist-id", {}, {
           Get: {
               method: 'GET'
           }
@@ -247,7 +247,7 @@ Services.factory('GetPlaylistIdResource', ['$resource',
 // Search Playlists
 Services.factory('SearchPlaylistsResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/get-playlists", {}, {
+      return $resource("https://lahuna.com/api/youtube/get-playlists", {}, {
           Get: {
               method: 'GET'
           }
@@ -257,7 +257,7 @@ Services.factory('SearchPlaylistsResource', ['$resource',
 // Import Playlists
 Services.factory('ImportPlaylistsResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/import-playlists", {}, {
+      return $resource("https://lahuna.com/api/youtube/import-playlists", {}, {
           Get: {
               method: 'GET'
           }
@@ -267,7 +267,7 @@ Services.factory('ImportPlaylistsResource', ['$resource',
 // Import PlaylistItems
 Services.factory('ImportPlaylistItemsResource',
   function ($resource) {
-      return $resource("/api/youtube/import-playlist-items", {}, {
+      return $resource("https://lahuna.com/api/youtube/import-playlist-items", {}, {
           Get: {
               method: 'GET'
           }
@@ -277,7 +277,7 @@ Services.factory('ImportPlaylistItemsResource',
 // Import Videos
 Services.factory('ImportVideosResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/import-videos", {}, {
+      return $resource("https://lahuna.com/api/youtube/import-videos", {}, {
           Get: {
               method: 'GET'
           }
@@ -288,7 +288,7 @@ Services.factory('ImportVideosResource', ['$resource',
 // Get Playlists All
 Services.factory('PlaylistsAllResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/get-playlists-all", {}, {
+      return $resource("https://lahuna.com/api/youtube/get-playlists-all", {}, {
           Get: {
               method: 'GET'
           }
@@ -298,7 +298,7 @@ Services.factory('PlaylistsAllResource', ['$resource',
 // Get Playlist Hints
 Services.factory('GetPlaylistHintsResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/get-playlist-hints", {}, {
+      return $resource("https://lahuna.com/api/youtube/get-playlist-hints", {}, {
           Get: {
               method: 'GET',
               isArray: true
@@ -309,7 +309,7 @@ Services.factory('GetPlaylistHintsResource', ['$resource',
 // Insert Playlist Item
 Services.factory('InsertPlaylistItemResource',
   function ($resource) {
-      return $resource("/api/youtube/insert-playlist-item", {}, {
+      return $resource("https://lahuna.com/api/youtube/insert-playlist-item", {}, {
           Insert: {
               method: 'GET'
           }
@@ -319,7 +319,7 @@ Services.factory('InsertPlaylistItemResource',
 // Delete Playlist
 Services.factory('DeletePlaylistItemResource',
   function ($resource) {
-      return $resource("/api/youtube/delete-playlist-item", {}, {
+      return $resource("https://lahuna.com/api/youtube/delete-playlist-item", {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -340,7 +340,7 @@ Services.factory('AutoCompleteResource', ['$resource',
 // Get Search
 Services.factory('GetSearchResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/get-search", {}, {
+      return $resource("https://lahuna.com/api/youtube/get-search", {}, {
           Get: {
               method: 'GET',
               isArray: true
@@ -351,7 +351,7 @@ Services.factory('GetSearchResource', ['$resource',
 // Get Search All
 Services.factory('GetSearchAllResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/get-search-all", {}, {
+      return $resource("https://lahuna.com/api/youtube/get-search-all", {}, {
           Get: {
               method: 'GET'
           }
@@ -361,7 +361,7 @@ Services.factory('GetSearchAllResource', ['$resource',
 // Insert Search
 Services.factory('InsertSearchResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/insert-search", {}, {
+      return $resource("https://lahuna.com/api/youtube/insert-search", {}, {
           Insert: {
               method: 'GET'
           }
@@ -371,7 +371,7 @@ Services.factory('InsertSearchResource', ['$resource',
 // Delete Search
 Services.factory('DeleteSearchResource', ['$resource',
   function ($resource) {
-      return $resource("/api/youtube/delete-search", {}, {
+      return $resource("https://lahuna.com/api/youtube/delete-search", {}, {
           Delete: {
               method: 'DELETE'
           }

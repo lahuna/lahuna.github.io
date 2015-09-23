@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -14,14 +14,14 @@ Controllers.controller('MainCtrl',
     function ($scope, $routeParams) {
 
     });
-      
+
 Controllers.controller('GoogleCtrl',
     function ($scope, $routeParams, $modal, $location, GoogleAccessTokenResource,
         GetUserResource, CreateUserResource, GoogleProfileResource) {
 
         var code = $routeParams.code.replace('xxxx', '/');
 
-        GoogleAccessTokenResource.Get({ code: code })
+        GoogleAccessTokenResource.Get({ code: code, redirectUri: location.origin + "/auth/google" })
             .$promise.then(function (token) {
                 StoreTokens(token);
                 GetUser(token);
@@ -113,7 +113,7 @@ Controllers.controller('GoogleCtrl',
                     break;
 
                 case "vida":
-                    location.href = "/vida";                    
+                    location.href = "/vida";
                     break;
 
                 case "blitz":
@@ -122,7 +122,7 @@ Controllers.controller('GoogleCtrl',
 
                 default:
                     $location.path('/');
-            }  
+            }
         }
     });
 

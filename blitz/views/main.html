@@ -1,5 +1,5 @@
 <!--*****************************************************************************************************************
-     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
      You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
      make available to the public any content or code on this website without prior written permission from Lahuna.
     *****************************************************************************************************************-->
@@ -33,18 +33,18 @@
         <div class="col-md-offset-4 col-md-3">
             <div class="list-group">
                 <!--<a class="list-group-item"
-                   href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com&redirect_uri=https://lahuna.com/auth/google&scope=profile email https://picasaweb.google.com/data https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/blogger&state=blitz">
+                   href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com&redirect_uri={{origin}}/auth/google&scope=profile email https://picasaweb.google.com/data https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/blogger&state=blitz">
                     Google ({{google_profile.displayName}})
                 </a>-->
                 <a class="list-group-item"
-                   href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com&redirect_uri=https://lahuna.com/auth/google&scope=profile email https://www.googleapis.com/auth/blogger&state=blitz&approval_prompt=force">
+                   href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com&redirect_uri={{origin}}/auth/google&scope=profile email https://www.googleapis.com/auth/blogger&state=blitz&approval_prompt=force">
                     Blogger ({{google_profile.displayName}})
                     <div ng-repeat="blog in blogger.items">
                         {{blog.name}}
                     </div>
                 </a>
                 <a class="list-group-item"
-                    href="https://www.facebook.com/dialog/oauth?client_id=1417261691879442&redirect_uri=https://lahuna.com/blitz/facebook&response_type=token&scope=publish_actions&state=main">
+                    href="https://www.facebook.com/dialog/oauth?client_id=1417261691879442&redirect_uri={{origin}}/blitz/facebook&response_type=token&scope=publish_actions&state=main">
                     Facebook ({{facebook_profile.name}})
                 </a>
                 <a class="list-group-item"
@@ -52,22 +52,22 @@
                     Twitter ({{twitter_profile.name}})
                 </a>
                 <a class="list-group-item"
-                    href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=75sj8yigui8qcj&redirect_uri=https://lahuna.com/blitz/linkedin&state=linkedin">
+                    href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=75sj8yigui8qcj&redirect_uri={{origin}}/blitz/linkedin&state=linkedin">
                     LinkedIn ({{linkedin_profile.firstName}} {{linkedin_profile.lastName}})
                 </a>
                 <a class="list-group-item"
-                    href="https://www.reddit.com/api/v1/authorize?client_id=lDJLSnlz3c3oIw&response_type=code&redirect_uri=https://lahuna.com/blitz/reddit&duration=permanent&scope=identity,submit&state=reddit">
+                    href="https://www.reddit.com/api/v1/authorize?client_id=lDJLSnlz3c3oIw&response_type=code&redirect_uri={{origin}}/blitz/reddit&duration=permanent&scope=identity,submit&state=reddit">
                     Reddit ({{reddit_profile.name}})
                 </a>
                 <a class="list-group-item"
                     href="https://api.imgur.com/oauth2/authorize?client_id=5fbea163dbb02ce&response_type=token">
                     Imgur ({{imgur_username}})
-                </a>                
+                </a>
                 <a class="list-group-item"
                     href="/blitz/#/" ng-click="LoginToTumblr()">
                     Tumblr ({{tumblr_profile.response.user.name}})
                     <div ng-repeat="blog in tumblr_profile.response.user.blogs">
-                        {{blog.title}}                   
+                        {{blog.title}}
                     </div>
                 </a>
             </div>
@@ -77,14 +77,14 @@
 
     <!--<div class="row">
         <div class="col-md-offset-3 col-md-4">
-            <p><a href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com&redirect_uri=https://lahuna.com/blitz/google&scope=profile email https://picasaweb.google.com/data https://www.googleapis.com/auth/youtube">Login to Google</a></p>
+            <p><a href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com&redirect_uri={{origin}}/blitz/google&scope=profile email https://picasaweb.google.com/data https://www.googleapis.com/auth/youtube">Login to Google</a></p>
             <p>{{google_profile.name}}</p>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-offset-3 col-md-4">
-            <p><a href="https://www.facebook.com/dialog/oauth?client_id=1417261691879442&redirect_uri=https://lahuna.com/blitz/facebook&response_type=token&scope=publish_actions">Login to Facebook</a></p>
+            <p><a href="https://www.facebook.com/dialog/oauth?client_id=1417261691879442&redirect_uri={{origin}}/blitz/facebook&response_type=token&scope=publish_actions">Login to Facebook</a></p>
             <p>{{facebook_profile.name}}</p>
             <p><a href="/blitz/#/facebook">My Facebook Photos and Videos</a></p>
         </div>
@@ -97,7 +97,7 @@
     </div>-->
     <!--<div class="row">
         <div class="col-md-offset-3 col-md-4">
-            <p><a href="https://www.reddit.com/api/v1/authorize?client_id=lDJLSnlz3c3oIw&response_type=code&redirect_uri=https://lahuna.com/blitz/reddit&duration=permanent&scope=identity&state=reddit">Login to Reddit</a></p>
+            <p><a href="https://www.reddit.com/api/v1/authorize?client_id=lDJLSnlz3c3oIw&response_type=code&redirect_uri={{origin}}/blitz/reddit&duration=permanent&scope=identity&state=reddit">Login to Reddit</a></p>
             <p>{{reddit_profile.name}}</p>
         </div>
     </div>-->
@@ -115,7 +115,7 @@
     </div>-->
     <!--<div class="row">
         <div class="col-md-offset-3 col-md-4">
-            <p><a href="https://instagram.com/oauth/authorize/?client_id=307e762659c443deaa39663f9c506bc9&redirect_uri=https://localhost:44301/blitz&response_type=token">Login to Instagram</a></p>
+            <p><a href="https://instagram.com/oauth/authorize/?client_id=307e762659c443deaa39663f9c506bc9&redirect_uri={{origin}}:44301/blitz&response_type=token">Login to Instagram</a></p>
             <p>{{instagram_profile.name}}</p>
         </div>
     </div>-->

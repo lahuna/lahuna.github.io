@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Send Email
 Services.factory('SendEmailResource', ['$resource',
   function ($resource) {
-      return $resource("/api/common/send-email", {}, {
+      return $resource("https://lahuna.com/api/common/send-email", {}, {
           Send: {
               method: 'GET'
           }
@@ -23,7 +23,7 @@ Services.factory('SendEmailResource', ['$resource',
 // Get Api
 Services.factory('GetApiResource', ['$resource',
   function ($resource) {
-      return $resource("/api/common/get-api", {}, {
+      return $resource("https://lahuna.com/api/common/get-api", {}, {
           Get: {
               method: 'GET'
           }
