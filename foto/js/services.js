@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Authenticate
 Services.factory('AuthenticateResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/google/authenticate', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/google/authenticate', {}, {
           Get: {
               method: 'GET'
           }
@@ -36,7 +36,7 @@ Services.factory('ProfileResource',
 // Search Albums
 Services.factory('SearchAlbumsResource',
   function ($resource) {
-      return $resource("https://lahuna.com/api/picasa/get-albums", {}, {
+      return $resource("https://lahunaweb.azurewebsites.net/api/picasa/get-albums", {}, {
           Get: {
               method: 'GET'
           }
@@ -46,7 +46,7 @@ Services.factory('SearchAlbumsResource',
 // Album
 Services.factory('AlbumResource',
   function ($resource) {
-      return $resource("https://lahuna.com/api/picasa/get-album", {}, {
+      return $resource("https://lahunaweb.azurewebsites.net/api/picasa/get-album", {}, {
           Get: {
               method: 'GET'
           }
@@ -56,7 +56,7 @@ Services.factory('AlbumResource',
 // Albums
 Services.factory('AlbumsResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-album-type', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-type', {}, {
           GetAlbums: {
               method: 'GET'
           }
@@ -66,7 +66,7 @@ Services.factory('AlbumsResource',
 // Album Types
 Services.factory('AlbumTypesResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-album-types', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-types', {}, {
           GetAlbumTypes: {
               method: 'GET'
           }
@@ -76,7 +76,7 @@ Services.factory('AlbumTypesResource',
 // Album Id
 Services.factory('AlbumIdResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-album-id', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-id', {}, {
           GetAlbumId: {
               method: 'GET'
           }
@@ -86,7 +86,7 @@ Services.factory('AlbumIdResource',
 // Albums Year
 Services.factory('AlbumsYearResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-albums-year', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-albums-year', {}, {
           GetAlbums: {
               method: 'GET'
           }
@@ -96,7 +96,7 @@ Services.factory('AlbumsYearResource',
 // Albums Month
 Services.factory('AlbumsMonthResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-albums-month', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-albums-month', {}, {
           GetAlbums: {
               method: 'GET'
           }
@@ -106,7 +106,7 @@ Services.factory('AlbumsMonthResource',
 // Albums Day
 Services.factory('AlbumsDayResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-albums-day', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-albums-day', {}, {
           GetAlbums: {
               method: 'GET'
           }
@@ -116,7 +116,7 @@ Services.factory('AlbumsDayResource',
 // Album Count
 Services.factory('AlbumCountResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-album-count', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-count', {}, {
           GetAlbumCount: {
               method: 'GET'
           }
@@ -126,7 +126,7 @@ Services.factory('AlbumCountResource',
 // Import Albums
 Services.factory('ImportAlbumResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/import-albums', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/import-albums', {}, {
           ImportAlbums: {
               method: 'GET'
           }
@@ -136,7 +136,7 @@ Services.factory('ImportAlbumResource',
 // Import Photos
 Services.factory('ImportPhotoResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/import-photos', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/import-photos', {}, {
           ImportPhotos: {
               method: 'GET'
           }
@@ -146,7 +146,7 @@ Services.factory('ImportPhotoResource',
 // Import Albums All
 Services.factory('ImportAlbumsAllResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/import-albums-all', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/import-albums-all', {}, {
           ImportAlbums: {
               method: 'GET'
           }
@@ -156,7 +156,7 @@ Services.factory('ImportAlbumsAllResource',
 // Import Albums Job
 Services.factory('ImportAlbumJobResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/import-albums-job', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/import-albums-job', {}, {
           ImportAlbums: {
               method: 'GET'
           }
@@ -166,7 +166,7 @@ Services.factory('ImportAlbumJobResource',
 // Import Photos Job
 Services.factory('ImportPhotoJobResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/import-photos-job', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/import-photos-job', {}, {
           ImportPhotos: {
               method: 'GET'
           }
@@ -176,7 +176,7 @@ Services.factory('ImportPhotoJobResource',
 // Split Auto Backup
 Services.factory('SplitAutoBackupResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/split-auto-backup', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/split-auto-backup', {}, {
           SplitAlbum: {
               method: 'GET'
           }
@@ -187,7 +187,7 @@ Services.factory('SplitAutoBackupResource',
 // Dup Albums
 Services.factory('DupAlbumsResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-dup-albums', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-dup-albums', {}, {
           GetDupAlbums: {
               method: 'GET'
           }
@@ -197,7 +197,7 @@ Services.factory('DupAlbumsResource',
 // Merge Dup Albums
 Services.factory('MergeDupAlbumResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/merge-dup-albums', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/merge-dup-albums', {}, {
           MergeDupAlbums: {
               method: 'PATCH'
           }
@@ -207,7 +207,7 @@ Services.factory('MergeDupAlbumResource',
 // Merge Albums
 Services.factory('MergeAlbumsResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/merge-albums', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/merge-albums', {}, {
           Merge: {
               method: 'PATCH'
           }
@@ -217,7 +217,7 @@ Services.factory('MergeAlbumsResource',
 // Tags
 Services.factory('TagsResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-tags?startIndex=1&maxResults=100', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-tags?startIndex=1&maxResults=100', {}, {
           GetTags: {
               method: 'GET'
           }
@@ -227,7 +227,7 @@ Services.factory('TagsResource',
 // Album Photo List
 Services.factory('AlbumPhotoListResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-album-photo-list', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-photo-list', {}, {
           GetAlbumPhotos: {
               method: 'GET'
           }
@@ -237,7 +237,7 @@ Services.factory('AlbumPhotoListResource',
 // Album Photo Count
 Services.factory('AlbumPhotoCountResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-album-photo-count', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-photo-count', {}, {
           GetAlbumPhotoCount: {
               method: 'GET'
           }
@@ -247,7 +247,7 @@ Services.factory('AlbumPhotoCountResource',
 // Photo
 Services.factory('PhotoResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-photo', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-photo', {}, {
           Get: {
               method: 'GET'
           }
@@ -257,7 +257,7 @@ Services.factory('PhotoResource',
 // Photos
 Services.factory('PhotosResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-photos', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-photos', {}, {
           Get: {
               method: 'GET'
           }
@@ -267,7 +267,7 @@ Services.factory('PhotosResource',
 // Album Photos
 Services.factory('AlbumPhotosResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/get-album-photos', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-photos', {}, {
           Get: {
               method: 'GET'
           }
@@ -277,7 +277,7 @@ Services.factory('AlbumPhotosResource',
 // Update Photo
 Services.factory('UpdatePhotoResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/update-photo', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/update-photo', {}, {
           Save: {
               method: 'PATCH'
           }
@@ -287,7 +287,7 @@ Services.factory('UpdatePhotoResource',
 // Update Photo Partial
 Services.factory('UpdatePhotoPartialResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/update-photo-partial', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/update-photo-partial', {}, {
           Update: {
               method: 'PATCH'
           }
@@ -297,7 +297,7 @@ Services.factory('UpdatePhotoPartialResource',
 // Delete Photos
 Services.factory('DeletePhotosResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/delete-photos', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/delete-photos', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -307,7 +307,7 @@ Services.factory('DeletePhotosResource',
 // Delete Photo
 Services.factory('DeletePhotoResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/delete-photo', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/delete-photo', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -317,7 +317,7 @@ Services.factory('DeletePhotoResource',
 // Create Album
 Services.factory('CreateAlbumResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/create-album', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/create-album', {}, {
           Save: {
               method: 'POST'
           }
@@ -328,7 +328,7 @@ Services.factory('CreateAlbumResource',
 // Update Album
 Services.factory('UpdateAlbumResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/update-album', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/update-album', {}, {
           Save: {
               method: 'PATCH'
           }
@@ -338,7 +338,7 @@ Services.factory('UpdateAlbumResource',
 // Delete Albums
 Services.factory('DeleteAlbumsResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/delete-albums', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/delete-albums', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -348,7 +348,7 @@ Services.factory('DeleteAlbumsResource',
 // Delete Album
 Services.factory('DeleteAlbumResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/delete-album', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/delete-album', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -358,7 +358,7 @@ Services.factory('DeleteAlbumResource',
 // Delete Album Confirm
 Services.factory('DeleteAlbumConfirmResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/picasa/delete-album-confirm', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/delete-album-confirm', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -368,7 +368,7 @@ Services.factory('DeleteAlbumConfirmResource',
 // Get Search
 Services.factory('GetSearchResource',
   function ($resource) {
-      return $resource("https://lahuna.com/api/youtube/get-search", {}, {
+      return $resource("https://lahunaweb.azurewebsites.net/api/youtube/get-search", {}, {
           Get: {
               method: 'GET',
               isArray: true
@@ -379,7 +379,7 @@ Services.factory('GetSearchResource',
 // Get Search All
 Services.factory('GetSearchAllResource',
   function ($resource) {
-      return $resource("https://lahuna.com/api/youtube/get-search-all", {}, {
+      return $resource("https://lahunaweb.azurewebsites.net/api/youtube/get-search-all", {}, {
           Get: {
               method: 'GET'
           }
@@ -389,7 +389,7 @@ Services.factory('GetSearchAllResource',
 // Insert Search
 Services.factory('InsertSearchResource',
   function ($resource) {
-      return $resource("https://lahuna.com/api/youtube/insert-search", {}, {
+      return $resource("https://lahunaweb.azurewebsites.net/api/youtube/insert-search", {}, {
           Insert: {
               method: 'GET'
           }
@@ -399,7 +399,7 @@ Services.factory('InsertSearchResource',
 // Delete Search
 Services.factory('DeleteSearchResource',
   function ($resource) {
-      return $resource("https://lahuna.com/api/youtube/delete-search", {}, {
+      return $resource("https://lahunaweb.azurewebsites.net/api/youtube/delete-search", {}, {
           Delete: {
               method: 'DELETE'
           }

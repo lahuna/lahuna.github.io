@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Google Access Token
 Services.factory('GoogleAccessTokenResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/google/get-access-token', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/google/get-access-token', {}, {
           Get: {
               method: 'GET'
           }
@@ -36,7 +36,7 @@ Services.factory('GoogleProfileResource',
 // Get Lahuna User
 Services.factory('GetUserResource',
     function ($resource) {
-        return $resource('https://lahuna.com/api/user/get-user', {}, {
+        return $resource('https://lahunaweb.azurewebsites.net/api/user/get-user', {}, {
             Get: {
                 method: 'GET'
             }
@@ -46,7 +46,7 @@ Services.factory('GetUserResource',
 // Create Lahuna User
 Services.factory('CreateUserResource',
     function ($resource) {
-        return $resource('https://lahuna.com/api/user/create-user', {}, {
+        return $resource('https://lahunaweb.azurewebsites.net/api/user/create-user', {}, {
             Create: {
                 method: 'GET'
             }
@@ -57,7 +57,7 @@ Services.factory('CreateUserResource',
 //Services.factory('UpdateUserResource',
 //  function ($resource) {
 //      return function (accessToken, refreshToken) {
-//          return $resource('https://lahuna.com/api/user/get-user', {}, {
+//          return $resource('https://lahunaweb.azurewebsites.net/api/user/get-user', {}, {
 //              Update: {
 //                  method: 'PUT',
 //                  headers: {

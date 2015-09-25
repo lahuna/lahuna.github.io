@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Authenticate
 Services.factory('AuthenticateResource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/google/authenticate', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/google/authenticate', {}, {
           Get: {
               method: 'GET'
           }
@@ -23,7 +23,7 @@ Services.factory('AuthenticateResource',
 // Get Status
 Services.factory('GetStatusResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/common/get-jobs', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/common/get-jobs', {}, {
           Get: {
               method: 'GET'
           }
@@ -33,7 +33,7 @@ Services.factory('GetStatusResource', ['$resource',
 // Delete Status
 Services.factory('DeleteStatusResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/common/delete-job', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/common/delete-job', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -43,7 +43,7 @@ Services.factory('DeleteStatusResource', ['$resource',
 // Get Errors
 Services.factory('GetErrorsResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/common/get-errors', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/common/get-errors', {}, {
           Get: {
               method: 'GET'
           }
@@ -53,7 +53,7 @@ Services.factory('GetErrorsResource', ['$resource',
 // Get Errors List
 Services.factory('GetErrorsListResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/common/get-errors-list', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/common/get-errors-list', {}, {
           Get: {
               method: 'GET'
           }
@@ -63,7 +63,7 @@ Services.factory('GetErrorsListResource', ['$resource',
 // Get Error Detail
 Services.factory('GetErrorDetailResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/common/get-error-detail', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/common/get-error-detail', {}, {
           Get: {
               method: 'GET'
           }
@@ -73,7 +73,7 @@ Services.factory('GetErrorDetailResource', ['$resource',
 // Delete Error
 Services.factory('DeleteErrorResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahuna.com/api/common/delete-error', {}, {
+      return $resource('https://lahunaweb.azurewebsites.net/api/common/delete-error', {}, {
           Delete: {
               method: 'DELETE'
           }
