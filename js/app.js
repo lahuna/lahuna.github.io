@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -60,6 +60,10 @@ fotoApp.config(['$routeProvider',
             }).
             when('/chanthu', {
                 templateUrl: 'views/chanthu.html',
+                controller: 'MainCtrl'
+            }).
+            when('/notfound', {
+                templateUrl: 'views/notfound.html',
                 controller: 'MainCtrl'
             }).
             otherwise({

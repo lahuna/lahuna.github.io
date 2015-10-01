@@ -13,6 +13,10 @@ input[type=range] {
     width: 200px;
 }
 
+.MainHeading {
+    text-align: center;
+}
+
 .photo-icon {
     /*margin-left: 10px;
     margin-right: 10px;*/
@@ -150,15 +154,15 @@ input[type=range] {
     margin-bottom: 5px;
 }
 
-.nav, .pagination, .carousel, .panel-title a { 
+.nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
 }
 
-.iconBtn { 
+.iconBtn {
     cursor: pointer;
 }
 
-.pointer { 
+.pointer {
     cursor: pointer;
 }
 
@@ -166,20 +170,20 @@ input[type=range] {
     border-color: white !important;
 }
 
-.btnTop { 
+.btnTop {
     margin-bottom: 10px;
 }
 
-.btnBottom { 
+.btnBottom {
     margin-top: 10px;
 }
 
-.glyphBtn { 
+.glyphBtn {
     padding-left: 80px;
 }
 
-.carousel .carousel-indicators { 
-    visibility: hidden; 
+.carousel .carousel-indicators {
+    visibility: hidden;
 
 }
 
