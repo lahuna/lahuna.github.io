@@ -15,7 +15,7 @@ var fotoApp = angular.module('lahuna', [
   'Services'
 ]);
 
-fotoApp.config(['$routeProvider',
+fotoApp.config(
     function ($routeProvider) {
         $routeProvider.
             when('/', {
@@ -69,4 +69,4 @@ fotoApp.config(['$routeProvider',
             otherwise({
                 redirectTo: '/'
             });
-  }]);
+  });
