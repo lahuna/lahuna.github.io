@@ -200,9 +200,11 @@ Services.factory('ImgurPostResource',
 // Imgur Refresh Token
 Services.factory('ImgurRefreshTokenResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/imgur/get-refresh-token', {}, {
-          Get: {
-              method: 'GET'
+      return $resource('https://40.112.140.111:8000/oauth2/token', {}, {
+          Post: {
+              method: 'POST',
+              headers: {
+                desthost: 'api.imgur.com' }
           }
       });
   }]);
