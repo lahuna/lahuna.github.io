@@ -114,14 +114,14 @@ Services.factory('AlbumsDayResource',
   });
 
 // Album Count
-Services.factory('AlbumCountResource',
-  function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-count', {}, {
-          GetAlbumCount: {
-              method: 'GET'
-          }
-      });
-  });
+//Services.factory('AlbumCountResource',
+  //function ($resource) {
+      //return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-count', {}, {
+          //GetAlbumCount: {
+              //method: 'GET'
+          //}
+      //});
+  //});
 
 // Import Albums
 Services.factory('ImportAlbumResource',
@@ -244,35 +244,81 @@ Services.factory('AlbumPhotoCountResource',
       });
   });
 
-// Photo
-Services.factory('PhotoResource',
-  function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-photo', {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  });
+  // Picasa
+  Services.factory('PicasaResource',
+    function ($resource) {
+        return function (accessToken) {
+            return $resource('https://localhost:8000/data/feed/api/user/default', {}, {
+                Get: {
+                    method: 'GET',
+                    headers: {
+                      desthost: 'picasaweb.google.com',
+                      authorization: 'Bearer ' + accessToken }
+                }
+            });
+        }
+    });
 
-// Photos
-Services.factory('PhotosResource',
-  function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-photos', {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  });
+  // Picasa Photo
+  Services.factory('PicasaPhotoResource',
+    function ($resource) {
+        return function (photoId, accessToken) {
+            return $resource('https://localhost:8000/data/entry/api/user/default/photoid/' + photoId, {}, {
+                Get: {
+                    method: 'GET',
+                    headers: {
+                      desthost: 'picasaweb.google.com',
+                      authorization: 'Bearer ' + accessToken }
+                }
+            });
+        }
+    });
+
+  // Picasa Album
+  Services.factory('PicasaAlbumResource',
+    function ($resource) {
+        return function (albumId, accessToken) {
+            return $resource('https://localhost:8000/data/entry/api/user/default/albumid/' + albumId, {}, {
+                Get: {
+                    method: 'GET',
+                    headers: {
+                      desthost: 'picasaweb.google.com',
+                      authorization: 'Bearer ' + accessToken }
+                },
+                Post: {
+                    method: 'POST',
+                    headers: {
+                      desthost: 'picasaweb.google.com',
+                      authorization: 'Bearer ' + accessToken }
+                }
+            });
+        }
+    });
+
+  // Picasa Album Feed
+  Services.factory('PicasaAlbumFeedResource',
+    function ($resource) {
+        return function (albumId, accessToken) {
+            return $resource('https://localhost:8000/data/feed/api/user/default/albumid/' + albumId, {}, {
+                Get: {
+                    method: 'GET',
+                    headers: {
+                      desthost: 'picasaweb.google.com',
+                      authorization: 'Bearer ' + accessToken }
+                }
+            });
+        }
+    });
 
 // Album Photos
-Services.factory('AlbumPhotosResource',
-  function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-photos', {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  });
+//Services.factory('AlbumPhotosResource',
+  //function ($resource) {
+      //return $resource('https://lahunaweb.azurewebsites.net/api/picasa/get-album-photos', {}, {
+          //Get: {
+              //method: 'GET'
+          //}
+      //});
+  //});
 
 // Update Photo
 Services.factory('UpdatePhotoResource',

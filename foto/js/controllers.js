@@ -56,7 +56,7 @@ Controllers.controller('MainCtrl',
   });
 
 Controllers.controller('PhotosCtrl',
-  function ($scope, $routeParams, PhotosResource, AuthenticateResource,
+  function ($scope, $routeParams, PicasaResource, AuthenticateResource,
       GetSearchResource, InsertSearchResource, DeleteSearchResource) {
 
       //****************************************
@@ -139,11 +139,12 @@ Controllers.controller('PhotosCtrl',
           localStorage.setItem("photo_search", $scope.search);
 
           var query = $scope.search;
-          PhotosResource.Get({
-              keywords: GetSearch(),
-              startIndex: $scope.startIndex,
-              maxResults: $scope.maxResults,
-              accessToken: GetAccessToken()
+          PicasaResource(GetAccessToken()).Get({
+              'kind': 'photo',
+              'q': GetSearch(),
+              'start-index': $scope.startIndex,
+              'max-results': $scope.maxResults,
+              'alt': 'json'
           }).$promise.then(function (data) {
               $scope.list = data;
               if (query != "") {
@@ -198,7 +199,7 @@ Controllers.controller('PhotosCtrl',
   });
 
 Controllers.controller('DetailCtrl',
-  function ($scope, $routeParams, PhotoResource, AlbumResource, AuthenticateResource) {
+  function ($scope, $routeParams, PicasaPhotoResource, AlbumResource, AuthenticateResource) {
 
       //****************************************
       // AUTHENTICATE
@@ -238,9 +239,8 @@ Controllers.controller('DetailCtrl',
       //****************************************
 
       function Initialize() {
-          PhotoResource.Get({
-              photoId: $routeParams.photoId,
-              accessToken: GetAccessToken()
+          PicasaPhotoResource($routeParams.photoId, GetAccessToken()).Get({
+              'alt': 'json'
           }).$promise.then(function (data) {
               $scope.photo = data.entry;
               GetAlbum(data.entry.gphoto$albumid.$t)
@@ -308,7 +308,7 @@ Controllers.controller('SplitCtrl',
   });
 
 Controllers.controller('ImportCtrl',
-  function ($scope, ImportAlbumResource, ImportPhotoResource, AlbumCountResource, AlbumPhotoCountResource, AuthenticateResource,
+  function ($scope, ImportAlbumResource, ImportPhotoResource, PicasaResource, AlbumPhotoCountResource, AuthenticateResource,
       AlbumIdResource, DeleteAlbumsResource, DeletePhotosResource, ImportAlbumJobResource, ImportPhotoJobResource, SplitAutoBackupResource) {
 
       //****************************************
@@ -382,11 +382,14 @@ Controllers.controller('ImportCtrl',
           $scope.photoStatus = "";
 
           $scope.albumStatus = "Retrieving album count...";
-          AlbumCountResource.GetAlbumCount({
-              accessToken: GetAccessToken()
-          })
+          PicasaResource(GetAccessToken()).Get({
+              'kind': 'album',
+              'start-index': '1',
+              'max-results': '1',
+              'alt': 'json'
+            })
           .$promise.then(function (data) {
-              $scope.albumCount = data.count;
+              $scope.albumCount = data.feed.openSearch.totalResults.$t;
               ImportAlbums();
               //DeleteAlbums();
           });
@@ -1008,7 +1011,7 @@ Controllers.controller('AlbumsMaintCtrl',
   });
 
 Controllers.controller('AlbumPhotosCtrl',
-  function ($scope, $routeParams, AlbumPhotosResource, AuthenticateResource) {
+  function ($scope, $routeParams, PicasaAlbumFeedResource, AuthenticateResource) {
 
       //****************************************
       // AUTHENTICATE
@@ -1052,12 +1055,11 @@ Controllers.controller('AlbumPhotosCtrl',
           $scope.maxResults = 77;
           $scope.albumId = $routeParams.albumId;
 
-          $scope.list = AlbumPhotosResource.Get({
-              startIndex: $scope.startIndex,
-              maxResults: $scope.maxResults,
-              photoCount: '-1',
-              albumId: $routeParams.albumId,
-              accessToken: GetAccessToken()
+          $scope.list = PicasaAlbumFeedResource($routeParams.albumId, GetAccessToken()).Get({
+              'kind': 'photo',
+              'start-index': $scope.startIndex,
+              'max-results': $scope.maxResults,
+              'alt': 'json'
           });
       }
 
@@ -1324,7 +1326,7 @@ Controllers.controller('UpdateAlbumCtrl',
   });
 
 Controllers.controller('UpdatePhotoCtrl',
-  function ($scope, $routeParams, PhotoResource, UpdatePhotoResource,
+  function ($scope, $routeParams, PicasaPhotoResource, UpdatePhotoResource,
       InsertSearchResource, GetSearchResource, AuthenticateResource) {
 
       //****************************************
@@ -1367,9 +1369,8 @@ Controllers.controller('UpdatePhotoCtrl',
       function Initialize() {
           $scope.tags = [];
 
-          PhotoResource.Get({
-              photoId: $routeParams.photoId,
-              accessToken: GetAccessToken()
+          PicasaPhotoResource($routeParams.photoId, GetAccessToken()).Get({
+              'alt': 'json'
           }).$promise.then(function (data) {
               $scope.item = data.entry;
               $scope.tags = data.entry.media$group.media$keywords.$t.split(',');
@@ -1647,7 +1648,7 @@ Controllers.controller('ViewerAlbumCtrl',
   });
 
 Controllers.controller('ViewerPhotoCtrl',
-  function ($scope, $routeParams, $modal, $log, $sce, PhotoResource, DeletePhotoResource, UpdatePhotoPartialResource, AuthenticateResource) {
+  function ($scope, $routeParams, $modal, $log, $sce, PicasaPhotoResource, DeletePhotoResource, UpdatePhotoPartialResource, AuthenticateResource) {
 
       //****************************************
       // AUTHENTICATE
@@ -1688,9 +1689,8 @@ Controllers.controller('ViewerPhotoCtrl',
 
       function Initialize() {
 
-          PhotoResource.Get({
-              photoId: $routeParams.photoId,
-              accessToken: GetAccessToken()
+          PicasaPhotoResource($routeParams.photoId, GetAccessToken()).Get({
+              'alt': 'json'
           }).$promise.then(function (data) {
               $scope.photo = data.entry;
               $scope.size = '800';
@@ -1789,7 +1789,7 @@ Controllers.controller('ViewerPhotoCtrl',
   });
 
 Controllers.controller('ViewerPhotosCtrl',
-  function ($scope, $routeParams, $modal, $log, PhotosResource, PhotoResource, DeletePhotoResource, UpdatePhotoPartialResource, AuthenticateResource) {
+  function ($scope, $routeParams, $modal, $log, PicasaResource, PicasaPhotoResource, DeletePhotoResource, UpdatePhotoPartialResource, AuthenticateResource) {
 
       //****************************************
       // AUTHENTICATE
@@ -1834,9 +1834,8 @@ Controllers.controller('ViewerPhotosCtrl',
       }
 
       function GetPhoto() {
-          PhotoResource.Get({
-              photoId: localStorage.getItem('fotoId'),
-              accessToken: GetAccessToken()
+          PicasaPhotoResource(localStorage.getItem('fotoId'), GetAccessToken()).Get({
+              'alt': 'json'
           }).$promise.then(function (data) {
               $scope.photo = data.entry;
               GetPhotos();
@@ -1844,11 +1843,12 @@ Controllers.controller('ViewerPhotosCtrl',
       }
 
       function GetPhotos() {
-          PhotosResource.Get({
-              keywords: $routeParams.tag,
-              startIndex: $routeParams.startIndex,
-              maxResults: $routeParams.maxResults,
-              accessToken: GetAccessToken()
+          PicasaResource(GetAccessToken()).Get({
+              'kind': 'photo',
+              'q': $routeParams.tag,
+              'start-index': $routeParams.startIndex,
+              'max-results': $routeParams.maxResults,
+              'alt': 'json'
           }).$promise.then(function (data) {
               $scope.list = data;
               SetActive();
@@ -1994,7 +1994,7 @@ Controllers.controller('ViewerPhotosCtrl',
   });
 
 Controllers.controller('ViewerAlbumPhotosCtrl',
-  function ($scope, $routeParams, $modal, $log, AlbumPhotosResource, PhotoResource, DeletePhotoResource, UpdatePhotoPartialResource, AuthenticateResource) {
+  function ($scope, $routeParams, $modal, $log, PicasaAlbumFeedResource, PicasaPhotoResource, DeletePhotoResource, UpdatePhotoPartialResource, AuthenticateResource) {
 
       //****************************************
       // AUTHENTICATE
@@ -2039,9 +2039,8 @@ Controllers.controller('ViewerAlbumPhotosCtrl',
       }
 
       function GetPhoto() {
-          PhotoResource.Get({
-              photoId: localStorage.getItem('fotoId'),
-              accessToken: GetAccessToken()
+          PicasaPhotoResource(localStorage.getItem('fotoId'), GetAccessToken()).Get({
+              'alt': 'json'
           }).$promise.then(function (data) {
               $scope.photo = data.entry;
               GetPhotos();
@@ -2049,12 +2048,11 @@ Controllers.controller('ViewerAlbumPhotosCtrl',
       }
 
       function GetPhotos() {
-          AlbumPhotosResource.Get({
-              startIndex: $routeParams.startIndex,
-              maxResults: $routeParams.maxResults,
-              photoCount: '-1',
-              albumId: $routeParams.albumId,
-              accessToken: GetAccessToken()
+        PicasaAlbumFeedResource($routeParams.albumId, GetAccessToken()).Get({
+            'kind': 'photo',
+            'start-index': $scope.startIndex,
+            'max-results': $scope.maxResults,
+            'alt': 'json'
           }).$promise.then(function (data) {
               $scope.list = data;
               SetActive();
