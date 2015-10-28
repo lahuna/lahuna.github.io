@@ -145,9 +145,8 @@ Controllers.controller('MainCtrl', ['$scope', '$routeParams',
       }
 
       function GetLinkedInProfile() {
-          $scope.linkedin_profile = LinkedInProfileResource.Get({
-              access_token: localStorage.getItem("linkedin_access_token")
-          });
+          var accessToken = localStorage.getItem("linkedin_access_token");
+          $scope.linkedin_profile = LinkedInProfileResource(accessToken).Get();
       }
 
       function PostLinkedIn() {

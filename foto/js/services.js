@@ -248,7 +248,7 @@ Services.factory('AlbumPhotoCountResource',
   Services.factory('PicasaResource',
     function ($resource) {
         return function (accessToken) {
-            return $resource('https://lahuna.com:8000/data/feed/api/user/default', {}, {
+            return $resource(location.origin + ':8000/data/feed/api/user/default', {}, {
                 Get: {
                     method: 'GET',
                     headers: {
@@ -263,7 +263,7 @@ Services.factory('AlbumPhotoCountResource',
   Services.factory('PicasaPhotoResource',
     function ($resource) {
         return function (photoId, accessToken) {
-            return $resource('https://lahuna.com:8000/data/entry/api/user/default/photoid/' + photoId, {}, {
+            return $resource(location.origin + ':8000/data/entry/api/user/default/photoid/' + photoId, {}, {
                 Get: {
                     method: 'GET',
                     headers: {
@@ -278,15 +278,9 @@ Services.factory('AlbumPhotoCountResource',
   Services.factory('PicasaAlbumResource',
     function ($resource) {
         return function (albumId, accessToken) {
-            return $resource('https://lahuna.com:8000/data/entry/api/user/default/albumid/' + albumId, {}, {
+            return $resource(location.origin + ':8000/data/entry/api/user/default/albumid/' + albumId, {}, {
                 Get: {
                     method: 'GET',
-                    headers: {
-                      desthost: 'picasaweb.google.com',
-                      authorization: 'Bearer ' + accessToken }
-                },
-                Post: {
-                    method: 'POST',
                     headers: {
                       desthost: 'picasaweb.google.com',
                       authorization: 'Bearer ' + accessToken }
@@ -299,7 +293,7 @@ Services.factory('AlbumPhotoCountResource',
   Services.factory('PicasaAlbumFeedResource',
     function ($resource) {
         return function (albumId, accessToken) {
-            return $resource('https://lahuna.com:8000/data/feed/api/user/default/albumid/' + albumId, {}, {
+            return $resource(location.origin + ':8000/data/feed/api/user/default/albumid/' + albumId, {}, {
                 Get: {
                     method: 'GET',
                     headers: {

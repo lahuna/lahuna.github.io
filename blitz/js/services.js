@@ -198,16 +198,14 @@ Services.factory('ImgurPostResource',
   });
 
 // Imgur Refresh Token
-Services.factory('ImgurRefreshTokenResource', ['$resource',
+Services.factory('ImgurRefreshTokenResource',
   function ($resource) {
-      return $resource('https://lahuna.com:8000/oauth2/token', {}, {
+      return $resource('https://lahuna.com:8000/imgur/refresh_token', {}, {
           Post: {
-              method: 'POST',
-              headers: {
-                desthost: 'api.imgur.com' }
+              method: 'POST'
           }
       });
-  }]);
+  });
 
 // Reddit Access Token
 Services.factory('RedditAccessTokenResource', ['$resource',
@@ -260,33 +258,46 @@ Services.factory('RedditPostResource',
 
 
 // LinkedIn Access Token
-Services.factory('LinkedInAccessTokenResource', ['$resource',
+//Services.factory('LinkedInAccessTokenResource', ['$resource',
+  //function ($resource) {
+      //return $resource('https://lahunaweb.azurewebsites.net/api/linkedin/get-access-token', {}, {
+          //Get: {
+              //method: 'GET'
+          //}
+      //});
+  //}]);
+
+// LinkedIn Access Token
+Services.factory('LinkedInAccessTokenResource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/linkedin/get-access-token', {}, {
-          Get: {
-              method: 'GET'
+      return $resource('https://lahuna.com:8000/linkedin/aceess_token', {}, {
+          Post: {
+              method: 'POST'
           }
       });
-  }]);
+  });
 
 // LinkedIn Profile
-Services.factory('LinkedInProfileResource', ['$resource',
+Services.factory('LinkedInProfileResource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/linkedin/get-profile', {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
+      return function (accessToken) {
+          return $resource('https://lahuna.com:8000/linkedin/profile', {}, {
+              Get: {
+                  method: 'GET',
+                  headers: { "Authorization": "Bearer " + accessToken }
+              }
+          });
+      }
+  });
 
 // LinkedIn Post
 Services.factory('LinkedInPostResource',
   function ($resource) {
       return function (accessToken) {
-          return $resource('https://lahunaweb.azurewebsites.net/api/linkedin/post', {}, {
+          return $resource('https://lahuna.com:8000/linkedin/post', {}, {
               Post: {
                   method: 'POST',
-                  params: { accessToken: accessToken }
+                  headers: { "Authorization": "Bearer " + accessToken }
               }
           });
       }
