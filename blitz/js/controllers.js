@@ -10,15 +10,7 @@
 
 var Controllers = angular.module('Controllers', []);
 
-Controllers.controller('MainCtrl', ['$scope', '$routeParams',
-    'GoogleProfileResource', 'GoogleRefreshTokenResource',
-    'BloggerGetResource', 'BloggerPostResource', 'BloggerGetPostsResource',
-    'FacebookProfileResource', 'FacebookPostResource',
-    'LinkedInProfileResource', 'LinkedInPostResource',
-    'ImgurProfileResource', 'ImgurPostResource', 'ImgurRefreshTokenResource',
-    'RedditProfileResource', 'RedditPostResource', 'RedditRefreshTokenResource',
-    'TwitterRequestTokenResource', 'TwitterProfileResource', 'TwitterPostResource',
-    'TumblrRequestTokenResource', 'TumblrProfileResource', 'TumblrPostResource',
+Controllers.controller('MainCtrl',
   function ($scope, $routeParams,
       GoogleProfileResource, GoogleRefreshTokenResource,
       BloggerGetResource, BloggerPostResource, BloggerGetPostsResource,
@@ -171,7 +163,7 @@ Controllers.controller('MainCtrl', ['$scope', '$routeParams',
       }
 
       function GetImgurRefreshToken() {
-          ImgurRefreshTokenResource.Get({
+          ImgurRefreshTokenResource.Post({
               refresh_token: localStorage.getItem("imgur_refresh_token")
           })
           .$promise.then(function (data) {
@@ -270,7 +262,7 @@ Controllers.controller('MainCtrl', ['$scope', '$routeParams',
               body: $scope.body
           });
       }
-  }]);
+  });
 
 Controllers.controller('FacebookCtrl', ['$scope', '$routeParams', '$location',
     function ($scope, $routeParams, $location) {
@@ -359,12 +351,12 @@ Controllers.controller('RedditCtrl', ['$scope', '$routeParams', '$location', 'Re
 
     }]);
 
-Controllers.controller('LinkedInCtrl', ['$scope', '$routeParams', '$location', 'LinkedInAccessTokenResource',
+Controllers.controller('LinkedInCtrl',
     function ($scope, $routeParams, $location, LinkedInAccessTokenResource) {
 
         if ($routeParams.state == "linkedin") {
             localStorage.setItem("linkedin_code", $routeParams.code);
-            LinkedInAccessTokenResource.Get({ code: $routeParams.code, redirectUri: location.origin + "/blitz/linkedin" })
+            LinkedInAccessTokenResource.Post({ code: $routeParams.code, redirectUri: location.origin + "/blitz/linkedin" })
             .$promise.then(function (data) {
                 localStorage.setItem("linkedin_access_token", data.access_token);
                 localStorage.setItem("linkedin_expires_in", data.expires_in);
@@ -374,7 +366,7 @@ Controllers.controller('LinkedInCtrl', ['$scope', '$routeParams', '$location', '
         else
             console.log("Invalid linkedin state");
 
-    }]);
+    });
 
 Controllers.controller('TwitterCtrl', ['$scope', '$routeParams', '$location', 'TwitterAccessTokenResource',
     function ($scope, $routeParams, $location, TwitterAccessTokenResource) {
