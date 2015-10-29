@@ -200,7 +200,7 @@ Services.factory('ImgurPostResource',
 // Imgur Refresh Token
 Services.factory('ImgurRefreshTokenResource',
   function ($resource) {
-      return $resource('https://localhost:8000/imgur/refresh_token', {}, {
+      return $resource('https://lahuna.com:8000/imgur/refresh_token', {}, {
           Get: {
               method: 'GET'
           }
