@@ -270,7 +270,7 @@ Services.factory('RedditPostResource',
 // LinkedIn Access Token
 Services.factory('LinkedInAccessTokenResource',
   function ($resource) {
-      return $resource('https://lahuna.com:8000/linkedin/aceess_token', {}, {
+      return $resource('https://lahuna.com:8000/linkedin/access_token', {}, {
           Get: {
               method: 'GET'
           }
