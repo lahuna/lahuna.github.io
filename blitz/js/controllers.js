@@ -163,7 +163,7 @@ Controllers.controller('MainCtrl',
       }
 
       function GetImgurRefreshToken() {
-          ImgurRefreshTokenResource.Post({
+          ImgurRefreshTokenResource.Get({
               refresh_token: localStorage.getItem("imgur_refresh_token")
           })
           .$promise.then(function (data) {
@@ -356,7 +356,7 @@ Controllers.controller('LinkedInCtrl',
 
         if ($routeParams.state == "linkedin") {
             localStorage.setItem("linkedin_code", $routeParams.code);
-            LinkedInAccessTokenResource.Post({ code: $routeParams.code, redirectUri: location.origin + "/blitz/linkedin" })
+            LinkedInAccessTokenResource.Get({ code: $routeParams.code, redirectUri: location.origin + "/blitz/linkedin" })
             .$promise.then(function (data) {
                 localStorage.setItem("linkedin_access_token", data.access_token);
                 localStorage.setItem("linkedin_expires_in", data.expires_in);

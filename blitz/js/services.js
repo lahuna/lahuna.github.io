@@ -200,9 +200,9 @@ Services.factory('ImgurPostResource',
 // Imgur Refresh Token
 Services.factory('ImgurRefreshTokenResource',
   function ($resource) {
-      return $resource('https://lahuna.com:8000/imgur/refresh_token', {}, {
-          Post: {
-              method: 'POST'
+      return $resource('https://localhost:8000/imgur/refresh_token', {}, {
+          Get: {
+              method: 'GET'
           }
       });
   });
@@ -271,8 +271,8 @@ Services.factory('RedditPostResource',
 Services.factory('LinkedInAccessTokenResource',
   function ($resource) {
       return $resource('https://lahuna.com:8000/linkedin/aceess_token', {}, {
-          Post: {
-              method: 'POST'
+          Get: {
+              method: 'GET'
           }
       });
   });
