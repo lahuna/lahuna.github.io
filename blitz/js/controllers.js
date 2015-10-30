@@ -44,20 +44,24 @@ Controllers.controller('MainCtrl',
       };
 
       $scope.LoginToTwitter = function () {
-          TwitterRequestTokenResource.Get()
+          TwitterRequestTokenResource.Post({
+            redirectUri: location.origin + "/blitz/twitter"
+          })
           .$promise.then(function (data) {
-              localStorage.setItem("twitter_oauth_token", data.Token);
-              localStorage.setItem("twitter_oauth_token_secret", data.TokenSecret);
-              location.href = "https://api.twitter.com/oauth/authenticate?oauth_token=" + data.Token;
+              localStorage.setItem("twitter_oauth_token", data.oauth_token);
+              localStorage.setItem("twitter_oauth_token_secret", data.oauth_token_secret);
+              location.href = "https://api.twitter.com/oauth/authenticate?oauth_token=" + data.oauth_token;
           });
       };
 
       $scope.LoginToTumblr = function () {
-          TumblrRequestTokenResource.Get()
+          TumblrRequestTokenResource.Post({
+            redirectUri: location.origin + "/blitz/tumblr"
+          })
           .$promise.then(function (data) {
-              localStorage.setItem("tumblr_oauth_token", data.Token);
-              localStorage.setItem("tumblr_oauth_token_secret", data.TokenSecret);
-              location.href = "https://www.tumblr.com/oauth/authorize?oauth_token=" + data.Token;
+              localStorage.setItem("tumblr_oauth_token", data.oauth_token);
+              localStorage.setItem("tumblr_oauth_token_secret", data.oauth_token_secret);
+              location.href = "https://www.tumblr.com/oauth/authorize?oauth_token=" + data.oauth_token;
           });
       };
 
@@ -122,16 +126,16 @@ Controllers.controller('MainCtrl',
 
       function GetTwitterProfile() {
           $scope.twitter_profile = TwitterProfileResource.Get({
-              oauthToken: localStorage.getItem("twitter_access_token"),
-              oauthTokenSecret: localStorage.getItem("twitter_access_token_secret"),
-              userId: localStorage.getItem("twitter_user_id")
+              oauth_token: localStorage.getItem("twitter_access_token"),
+              oauth_token_secret: localStorage.getItem("twitter_access_token_secret"),
+              user_id: localStorage.getItem("twitter_user_id")
           });
       }
 
       function PostTwitter() {
           TwitterPostResource.Post({
-              oauthToken: localStorage.getItem("twitter_access_token"),
-              oauthTokenSecret: localStorage.getItem("twitter_access_token_secret"),
+              oauth_token: localStorage.getItem("twitter_access_token"),
+              oauth_token_secret: localStorage.getItem("twitter_access_token_secret"),
               status: $scope.body
           });
       }
@@ -185,9 +189,8 @@ Controllers.controller('MainCtrl',
       }
 
       function GetRedditProfile() {
-          RedditProfileResource.Get({
-              access_token: localStorage.getItem("reddit_access_token")
-          })
+          var accessToken = localStorage.getItem("reddit_access_token");
+          RedditProfileResource(accessToken).Get()
           .$promise.then(function (data) {
               if (data.name == undefined)
                   GetRedditRefreshToken();
@@ -206,9 +209,7 @@ Controllers.controller('MainCtrl',
               var accessToken = data.access_token;
               localStorage.setItem("reddit_access_token", accessToken);
               localStorage.setItem("reddit_expires_in", data.expires_in);
-              $scope.reddit_profile = RedditProfileResource.Get({
-                  access_token: accessToken
-              });
+              $scope.reddit_profile = RedditProfileResource(accessToken).Get();
           });
       }
 
@@ -247,15 +248,15 @@ Controllers.controller('MainCtrl',
 
       function GetTumblrProfile() {
           $scope.tumblr_profile = TumblrProfileResource.Get({
-              oauthToken: localStorage.getItem("tumblr_access_token"),
-              oauthTokenSecret: localStorage.getItem("tumblr_access_token_secret"),
+              oauth_token: localStorage.getItem("tumblr_access_token"),
+              oauth_token_secret: localStorage.getItem("tumblr_access_token_secret"),
           });
       }
 
       function PostTumblr() {
           TumblrPostResource.Post({
-              oauthToken: localStorage.getItem("tumblr_access_token"),
-              oauthTokenSecret: localStorage.getItem("tumblr_access_token_secret"),
+              oauth_token: localStorage.getItem("tumblr_access_token"),
+              oauth_token_secret: localStorage.getItem("tumblr_access_token_secret"),
               blogUrl: $scope.tumblr_profile.response.user.blogs[0].url.replace('http://', '').replace('/', ''),
               type: $scope.type,
               title: $scope.title,
@@ -373,16 +374,16 @@ Controllers.controller('TwitterCtrl', ['$scope', '$routeParams', '$location', 'T
 
         localStorage.setItem("twitter_oauth_verifier", $routeParams.oauth_verifier);
         if ($routeParams.oauth_token == localStorage.getItem("twitter_oauth_token")) {
-            TwitterAccessTokenResource.Get({
-                oauthToken: $routeParams.oauth_token,
-                oauthTokenSecret: localStorage.getItem("twitter_oauth_token_secret"),
-                oauthVerifier: $routeParams.oauth_verifier
+            TwitterAccessTokenResource.Post({
+                oauth_token: $routeParams.oauth_token,
+                oauth_token_secret: localStorage.getItem("twitter_oauth_token_secret"),
+                oauth_verifier: $routeParams.oauth_verifier
             })
             .$promise.then(function (data) {
-                localStorage.setItem("twitter_access_token", data.Token);
-                localStorage.setItem("twitter_access_token_secret", data.TokenSecret);
-                localStorage.setItem("twitter_user_id", data.UserId);
-                localStorage.setItem("twitter_screen_name", data.ScreenName);
+                localStorage.setItem("twitter_access_token", data.oauth_token);
+                localStorage.setItem("twitter_access_token_secret", data.oauth_token_secret);
+                localStorage.setItem("twitter_user_id", data.user_id);
+                localStorage.setItem("twitter_screen_name", data.screen_name);
                 $location.path('/');
             });
         }
@@ -396,14 +397,14 @@ Controllers.controller('TumblrCtrl', ['$scope', '$routeParams', '$location', 'Tu
 
         localStorage.setItem("tumblr_oauth_verifier", $routeParams.oauth_verifier);
         if ($routeParams.oauth_token == localStorage.getItem("tumblr_oauth_token")) {
-            TumblrAccessTokenResource.Get({
-                oauthToken: $routeParams.oauth_token,
-                oauthTokenSecret: localStorage.getItem("tumblr_oauth_token_secret"),
-                oauthVerifier: $routeParams.oauth_verifier
+            TumblrAccessTokenResource.Post({
+                oauth_token: $routeParams.oauth_token,
+                oauth_token_secret: localStorage.getItem("tumblr_oauth_token_secret"),
+                oauth_verifier: $routeParams.oauth_verifier
             })
             .$promise.then(function (data) {
-                localStorage.setItem("tumblr_access_token", data.Token);
-                localStorage.setItem("tumblr_access_token_secret", data.TokenSecret);
+                localStorage.setItem("tumblr_access_token", data.oauth_token);
+                localStorage.setItem("tumblr_access_token_secret", data.oauth_token_secret);
                 $location.path('/');
             });
         }

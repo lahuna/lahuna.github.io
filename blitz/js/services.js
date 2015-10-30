@@ -200,7 +200,7 @@ Services.factory('ImgurPostResource',
 // Imgur Refresh Token
 Services.factory('ImgurRefreshTokenResource',
   function ($resource) {
-      return $resource('https://lahuna.com:8000/imgur/refresh_token', {}, {
+      return $resource('https://localhost:8000/imgur/refresh_token', {}, {
           Get: {
               method: 'GET'
           }
@@ -210,7 +210,7 @@ Services.factory('ImgurRefreshTokenResource',
 // Reddit Access Token
 Services.factory('RedditAccessTokenResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/reddit/get-access-token', {}, {
+      return $resource('https://localhost:8000/reddit/access_token', {}, {
           Get: {
               method: 'GET'
           }
@@ -220,7 +220,7 @@ Services.factory('RedditAccessTokenResource', ['$resource',
 // Reddit Refresh Token
 Services.factory('RedditRefreshTokenResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/reddit/get-refresh-token', {}, {
+      return $resource('https://localhost:8000/reddit/refresh_token', {}, {
           Get: {
               method: 'GET'
           }
@@ -228,20 +228,23 @@ Services.factory('RedditRefreshTokenResource', ['$resource',
   }]);
 
 // Reddit Profile
-Services.factory('RedditProfileResource', ['$resource',
+Services.factory('RedditProfileResource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/reddit/get-profile', {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
+      return function (accessToken) {
+          return $resource('https://localhost:8000/reddit/profile', {}, {
+              Get: {
+                  method: 'GET',
+                  headers: { "Authorization": "Bearer " + accessToken }
+              }
+          });
+      }
+  });
 
 // Reddit Post
 Services.factory('RedditPostResource',
   function ($resource) {
       return function (accessToken) {
-          return $resource('https://lahunaweb.azurewebsites.net/api/reddit/post', {}, {
+          return $resource('https://localhost:8000/reddit/post', {}, {
               Post: {
                   method: 'POST',
                   params: {
@@ -270,7 +273,7 @@ Services.factory('RedditPostResource',
 // LinkedIn Access Token
 Services.factory('LinkedInAccessTokenResource',
   function ($resource) {
-      return $resource('https://lahuna.com:8000/linkedin/access_token', {}, {
+      return $resource('https://localhost:8000/linkedin/access_token', {}, {
           Get: {
               method: 'GET'
           }
@@ -281,7 +284,7 @@ Services.factory('LinkedInAccessTokenResource',
 Services.factory('LinkedInProfileResource',
   function ($resource) {
       return function (accessToken) {
-          return $resource('https://lahuna.com:8000/linkedin/profile', {}, {
+          return $resource('https://localhost:8000/linkedin/profile', {}, {
               Get: {
                   method: 'GET',
                   headers: { "Authorization": "Bearer " + accessToken }
@@ -294,7 +297,7 @@ Services.factory('LinkedInProfileResource',
 Services.factory('LinkedInPostResource',
   function ($resource) {
       return function (accessToken) {
-          return $resource('https://lahuna.com:8000/linkedin/post', {}, {
+          return $resource('https://localhost:8000/linkedin/post', {}, {
               Post: {
                   method: 'POST',
                   headers: { "Authorization": "Bearer " + accessToken }
@@ -306,9 +309,9 @@ Services.factory('LinkedInPostResource',
 // Twitter Request Token
 Services.factory('TwitterRequestTokenResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/twitter/get-request-token', {}, {
-          Get: {
-              method: 'GET'
+      return $resource('https://localhost:8000/twitter/request_token', {}, {
+          Post: {
+              method: 'POST'
           }
       });
   }]);
@@ -316,9 +319,9 @@ Services.factory('TwitterRequestTokenResource', ['$resource',
 // Twitter Access Token
 Services.factory('TwitterAccessTokenResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/twitter/get-access-token', {}, {
-          Get: {
-              method: 'GET'
+      return $resource('https://localhost:8000/twitter/access_token', {}, {
+          Post: {
+              method: 'POST'
           }
       });
   }]);
@@ -326,7 +329,7 @@ Services.factory('TwitterAccessTokenResource', ['$resource',
 // Twitter Profile
 Services.factory('TwitterProfileResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/twitter/get-profile', {}, {
+      return $resource('https://localhost:8000/twitter/profile', {}, {
           Get: {
               method: 'GET'
           }
@@ -336,10 +339,9 @@ Services.factory('TwitterProfileResource', ['$resource',
 // Twitter Post
 Services.factory('TwitterPostResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/twitter/post-status', {}, {
+      return $resource('https://localhost:8000/twitter/post', {}, {
           Post: {
-              method: 'POST',
-              params: { oauthToken: '@oauthToken', oauthTokenSecret: '@oauthTokenSecret', status: '@status' }
+              method: 'POST'
           }
       });
   }]);
@@ -347,9 +349,9 @@ Services.factory('TwitterPostResource', ['$resource',
 // Tumblr Request Token
 Services.factory('TumblrRequestTokenResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/tumblr/get-request-token', {}, {
-          Get: {
-              method: 'GET'
+      return $resource('https://localhost:8000/tumblr/request_token', {}, {
+          Post: {
+              method: 'POST'
           }
       });
   }]);
@@ -357,9 +359,9 @@ Services.factory('TumblrRequestTokenResource', ['$resource',
 // Tumblr Access Token
 Services.factory('TumblrAccessTokenResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/tumblr/get-access-token', {}, {
-          Get: {
-              method: 'GET'
+      return $resource('https://localhost:8000/tumblr/access_token', {}, {
+          Post: {
+              method: 'POST'
           }
       });
   }]);
@@ -367,7 +369,7 @@ Services.factory('TumblrAccessTokenResource', ['$resource',
 // Tumblr Profile
 Services.factory('TumblrProfileResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/tumblr/get-profile', {}, {
+      return $resource('https://localhost:8000/tumblr/profile', {}, {
           Get: {
               method: 'GET'
           }
@@ -377,17 +379,9 @@ Services.factory('TumblrProfileResource', ['$resource',
 // Tumblr Post
 Services.factory('TumblrPostResource', ['$resource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/tumblr/post', {}, {
+      return $resource('https://localhost:8000/tumblr/post', {}, {
           Post: {
-              method: 'POST',
-              params: {
-                  oauthToken: '@oauthToken',
-                  oauthTokenSecret: '@oauthTokenSecret',
-                  blogUrl: '@blogUrl',
-                  type: '@type',
-                  title: '@title',
-                  body: '@body'
-              }
+              method: 'POST'
           }
       });
   }]);
