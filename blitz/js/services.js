@@ -201,8 +201,8 @@ Services.factory('ImgurPostResource',
 Services.factory('ImgurRefreshTokenResource',
   function ($resource) {
       return $resource('https://localhost:8000/imgur/refresh_token', {}, {
-          Get: {
-              method: 'GET'
+          Post: {
+              method: 'POST'
           }
       });
   });
@@ -211,8 +211,8 @@ Services.factory('ImgurRefreshTokenResource',
 Services.factory('RedditAccessTokenResource', ['$resource',
   function ($resource) {
       return $resource('https://localhost:8000/reddit/access_token', {}, {
-          Get: {
-              method: 'GET'
+          Post: {
+              method: 'POST'
           }
       });
   }]);
@@ -221,8 +221,8 @@ Services.factory('RedditAccessTokenResource', ['$resource',
 Services.factory('RedditRefreshTokenResource', ['$resource',
   function ($resource) {
       return $resource('https://localhost:8000/reddit/refresh_token', {}, {
-          Get: {
-              method: 'GET'
+          Post: {
+              method: 'POST'
           }
       });
   }]);
@@ -274,8 +274,8 @@ Services.factory('RedditPostResource',
 Services.factory('LinkedInAccessTokenResource',
   function ($resource) {
       return $resource('https://localhost:8000/linkedin/access_token', {}, {
-          Get: {
-              method: 'GET'
+          Post: {
+              method: 'POST'
           }
       });
   });

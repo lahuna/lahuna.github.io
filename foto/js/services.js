@@ -252,7 +252,7 @@ Services.factory('AlbumPhotoCountResource',
                 Get: {
                     method: 'GET',
                     headers: {
-                      desthost: 'picasaweb.google.com',
+                      desthost: 'https://picasaweb.google.com',
                       authorization: 'Bearer ' + accessToken }
                 }
             });
@@ -267,7 +267,7 @@ Services.factory('AlbumPhotoCountResource',
                 Get: {
                     method: 'GET',
                     headers: {
-                      desthost: 'picasaweb.google.com',
+                      desthost: 'https://picasaweb.google.com',
                       authorization: 'Bearer ' + accessToken }
                 }
             });
@@ -282,7 +282,7 @@ Services.factory('AlbumPhotoCountResource',
                 Get: {
                     method: 'GET',
                     headers: {
-                      desthost: 'picasaweb.google.com',
+                      desthost: 'https://picasaweb.google.com',
                       authorization: 'Bearer ' + accessToken }
                 }
             });
@@ -297,7 +297,7 @@ Services.factory('AlbumPhotoCountResource',
                 Get: {
                     method: 'GET',
                     headers: {
-                      desthost: 'picasaweb.google.com',
+                      desthost: 'https://picasaweb.google.com',
                       authorization: 'Bearer ' + accessToken }
                 }
             });

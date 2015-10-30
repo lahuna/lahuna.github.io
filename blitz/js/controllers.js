@@ -31,7 +31,6 @@ Controllers.controller('MainCtrl',
       GetTumblrProfile();
       GetLinkedInProfile();
 
-
       $scope.Post = function () {
           //PostFacebook();
           //PostTwitter();
@@ -167,7 +166,7 @@ Controllers.controller('MainCtrl',
       }
 
       function GetImgurRefreshToken() {
-          ImgurRefreshTokenResource.Get({
+          ImgurRefreshTokenResource.Post({
               refresh_token: localStorage.getItem("imgur_refresh_token")
           })
           .$promise.then(function (data) {
@@ -202,7 +201,7 @@ Controllers.controller('MainCtrl',
       }
 
       function GetRedditRefreshToken() {
-          RedditRefreshTokenResource.Get({
+          RedditRefreshTokenResource.Post({
               refresh_token: localStorage.getItem("reddit_refresh_token")
           })
           .$promise.then(function (data) {
@@ -339,7 +338,7 @@ Controllers.controller('RedditCtrl', ['$scope', '$routeParams', '$location', 'Re
 
         if ($routeParams.state == "reddit") {
             localStorage.setItem("reddit_code", $routeParams.code);
-            RedditAccessTokenResource.Get({ code: $routeParams.code, redirectUri: location.origin + "/blitz/reddit" })
+            RedditAccessTokenResource.Post({ code: $routeParams.code, redirectUri: location.origin + "/blitz/reddit" })
             .$promise.then(function (data) {
                 localStorage.setItem("reddit_access_token", data.access_token);
                 localStorage.setItem("reddit_expires_in", data.expires_in);
@@ -357,7 +356,7 @@ Controllers.controller('LinkedInCtrl',
 
         if ($routeParams.state == "linkedin") {
             localStorage.setItem("linkedin_code", $routeParams.code);
-            LinkedInAccessTokenResource.Get({ code: $routeParams.code, redirectUri: location.origin + "/blitz/linkedin" })
+            LinkedInAccessTokenResource.Post({ code: $routeParams.code, redirectUri: location.origin + "/blitz/linkedin" })
             .$promise.then(function (data) {
                 localStorage.setItem("linkedin_access_token", data.access_token);
                 localStorage.setItem("linkedin_expires_in", data.expires_in);
