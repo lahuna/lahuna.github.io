@@ -17,11 +17,11 @@ Controllers.controller('MainCtrl',
 
 Controllers.controller('GoogleCtrl',
     function ($scope, $routeParams, $modal, $location, GoogleAccessTokenResource,
-        GetUserResource, CreateUserResource, GoogleProfileResource) {
+        UserResource, GoogleProfileResource) {
 
         var code = $routeParams.code.replace('xxxx', '/');
 
-        GoogleAccessTokenResource.Get({ code: code, redirectUri: location.origin + "/auth/google" })
+        GoogleAccessTokenResource.Post({ code: code, redirectUri: location.origin + "/auth/google" })
             .$promise.then(function (token) {
                 StoreTokens(token);
                 GetUser(token);
@@ -37,7 +37,7 @@ Controllers.controller('GoogleCtrl',
         //}
 
         function GetUser(token) {
-            GetUserResource.Get({
+            UserResource.Get({
                 accessToken: token.access_token
             }).$promise.then(function (data) {
                 if (data.message == 'Found')
@@ -127,8 +127,8 @@ Controllers.controller('GoogleCtrl',
     });
 
 Controllers.controller('AgreeCtrl',
-    function ($scope, $routeParams, $modal, $location, GoogleAccessTokenResource,
-        GetUserResource, CreateUserResource, GoogleProfileResource) {
+    function ($scope, $routeParams, $modal, $location,
+        UserResource, GoogleProfileResource) {
 
         $scope.Agree = function () {
             GetTokens();
@@ -143,7 +143,7 @@ Controllers.controller('AgreeCtrl',
         }
 
         function CreateUser(profile) {
-            CreateUserResource.Create({
+            UserResource.Post({
                 agreedDate: Date(),
                 displayName: profile.displayName,
                 email: profile.emails[0].value,

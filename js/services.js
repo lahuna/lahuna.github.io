@@ -21,11 +21,11 @@ Services.factory('SendEmailResource', ['$resource',
   }]);
 
 // Get Api
-Services.factory('GetApiResource', ['$resource',
-  function ($resource) {
-      return $resource("https://lahunaweb.azurewebsites.net/api/common/get-api", {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
+//Services.factory('GetApiResource', ['$resource',
+  //function ($resource) {
+      //return $resource("https://lahunaweb.azurewebsites.net/api/common/get-api", {}, {
+          //Get: {
+              //method: 'GET'
+          //}
+      //});
+  //}]);

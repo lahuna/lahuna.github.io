@@ -13,9 +13,9 @@ var Services = angular.module('Services', ['ngResource']);
 // Google Access Token
 Services.factory('GoogleAccessTokenResource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/google/get-access-token', {}, {
-          Get: {
-              method: 'GET'
+      return $resource(location.origin + ':8000/google/access_token', {}, {
+          Post: {
+              method: 'POST'
           }
       });
   });
@@ -33,23 +33,16 @@ Services.factory('GoogleProfileResource',
       }
   });
 
-// Get Lahuna User
-Services.factory('GetUserResource',
+// Lahuna User
+Services.factory('UserResource',
     function ($resource) {
-        return $resource('https://lahunaweb.azurewebsites.net/api/user/get-user', {}, {
+        return $resource(location.origin + ':8000/user', {}, {
             Get: {
                 method: 'GET'
-            }
-        });
-    });
-
-// Create Lahuna User
-Services.factory('CreateUserResource',
-    function ($resource) {
-        return $resource('https://lahunaweb.azurewebsites.net/api/user/create-user', {}, {
-            Create: {
-                method: 'GET'
-            }
+            },
+            Post: {
+                method: 'POST'
+            },
         });
     });
 

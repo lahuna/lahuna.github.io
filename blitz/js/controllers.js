@@ -80,7 +80,7 @@ Controllers.controller('MainCtrl',
       }
 
       function GetGoogleRefreshToken() {
-          GoogleRefreshTokenResource.Get({
+          GoogleRefreshTokenResource.Post({
               refresh_token: localStorage.getItem("blogger_refresh_token")
           })
           .$promise.then(function (data) {

@@ -11,14 +11,14 @@
 var Services = angular.module('Services', ['ngResource']);
 
 // Get Api
-Services.factory('GetApiResource', ['$resource',
-  function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/common/get-api', {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
+//Services.factory('GetApiResource', ['$resource',
+  //function ($resource) {
+      //return $resource('https://lahunaweb.azurewebsites.net/api/common/get-api', {}, {
+          //Get: {
+              //method: 'GET'
+          //}
+      //});
+  //}]);
 
 // Blogger Get Posts
 Services.factory('BloggerGetPostsResource',
@@ -76,9 +76,9 @@ Services.factory('BloggerPostResource',
 // Google Refresh Token
 Services.factory('GoogleRefreshTokenResource',
   function ($resource) {
-      return $resource('https://lahunaweb.azurewebsites.net/api/google/get-refresh-token', {}, {
-          Get: {
-              method: 'GET'
+      return $resource(location.origin + ':8000/google/refresh_token', {}, {
+          Post: {
+              method: 'POST'
           }
       });
   });
