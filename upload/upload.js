@@ -67,7 +67,7 @@ function GetAlbumId(albumTitle) {
 
         $.ajax({
             type: 'GET',
-            url: "https://lahunaweb.azurewebsites.net/api/picasa/get-album-id?albumTitle=" + albumTitle,
+            url: "todo/picasa/get-album-id?albumTitle=" + albumTitle,
             headers: { "AccessToken": accessToken, "RefreshToken": refreshToken },
             error: function (xhr, status, error) { FailGetAlbumId(xhr.responseText) }
         }).then(
@@ -156,7 +156,7 @@ function ReadBinary() {
 function UploadPhoto() {
     try {
 
-        var urlString = "https://lahunaweb.azurewebsites.net/api/picasa/upload-photo?" +
+        var urlString = "todo/picasa/upload-photo?" +
             "albumId=" + albumId + "&" +
             "jobId=" + jobId + "&" +
             "jobItemId=" + jobItemId;

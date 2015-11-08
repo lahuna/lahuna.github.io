@@ -57,7 +57,7 @@ Controllers.controller('MainCtrl',
 
 Controllers.controller('PhotosCtrl',
   function ($scope, $routeParams, PicasaResource, AuthenticateResource,
-      GetSearchResource, InsertSearchResource, DeleteSearchResource) {
+      SearchResource) {
 
       //****************************************
       // AUTHENTICATE
@@ -172,8 +172,7 @@ Controllers.controller('PhotosCtrl',
       //*********************************************
 
       $scope.GetSearchList = function (val) {
-          return GetSearchResource.Get({
-              userId: localStorage.getItem("google_user_id"), // TODO: pass access token instead?
+          return SearchResource(GetAccessToken()).Get({
               query: val,
               type: "photo"
           }).$promise.then(function (data) {
@@ -182,16 +181,14 @@ Controllers.controller('PhotosCtrl',
       }
 
       function InsertSearch(query) {
-          InsertSearchResource.Insert({
-              userId: localStorage.getItem("google_user_id"), // TODO: pass access token instead?
+          SearchResource(GetAccessToken()).Post({
               query: query,
               type: "photo"
           });
       }
 
       function DeleteSearch(query) {
-          DeleteSearchResource.Delete({
-              userId: localStorage.getItem("google_user_id"), // TODO: pass access token instead?
+          SearchResource(GetAccessToken()).Delete({
               query: query,
               type: "photo"
           });
@@ -489,8 +486,7 @@ Controllers.controller('ImportCtrl',
 Controllers.controller('AlbumsCtrl',
     function ($scope, $routeParams,
         ImportAlbumsAllResource, SearchAlbumsResource,
-        GetSearchResource, InsertSearchResource, DeleteSearchResource,
-        AuthenticateResource) {
+        SearchResource, AuthenticateResource) {
 
         //****************************************
         // AUTHENTICATE
@@ -642,8 +638,7 @@ Controllers.controller('AlbumsCtrl',
         //*********************************************
 
         $scope.GetSearchList = function (val) {
-            return GetSearchResource.Get({
-                userId: localStorage.getItem("google_user_id"), // TODO: pass access token instead?
+            return SearchResource(GetAccessToken()).Get({
                 query: val,
                 type: "album"
             }).$promise.then(function (data) {
@@ -652,16 +647,14 @@ Controllers.controller('AlbumsCtrl',
         }
 
         function InsertSearch(query) {
-            InsertSearchResource.Insert({
-                userId: localStorage.getItem("google_user_id"), // TODO: pass access token instead?
+            SearchResource(GetAccessToken()).Post({
                 query: query,
                 type: "album"
             });
         }
 
         function DeleteSearch(query) {
-            DeleteSearchResource.Delete({
-                userId: localStorage.getItem("google_user_id"), // TODO: pass access token instead?
+            SearchResource(GetAccessToken()).Delete({
                 query: query,
                 type: "album"
             });
@@ -1267,7 +1260,7 @@ Controllers.controller('CreateAlbumCtrl',
 
 Controllers.controller('UpdateAlbumCtrl',
   function ($scope, $routeParams, AlbumResource, UpdateAlbumResource,
-      InsertSearchResource, GetSearchResource, AuthenticateResource) {
+      AuthenticateResource) {
 
       //****************************************
       // AUTHENTICATE
@@ -1327,7 +1320,7 @@ Controllers.controller('UpdateAlbumCtrl',
 
 Controllers.controller('UpdatePhotoCtrl',
   function ($scope, $routeParams, PicasaPhotoResource, UpdatePhotoResource,
-      InsertSearchResource, GetSearchResource, AuthenticateResource) {
+      SearchResource, AuthenticateResource) {
 
       //****************************************
       // AUTHENTICATE
@@ -1391,8 +1384,7 @@ Controllers.controller('UpdatePhotoCtrl',
       }
 
       $scope.GetSearchList = function (val) {
-          return GetSearchResource.Get({
-              userId: localStorage.getItem("google_user_id"),
+          return SearchResource(GetAccessToken()).Get({
               query: val,
               type: 'photo'
           }).$promise.then(function (data) {
@@ -1403,8 +1395,7 @@ Controllers.controller('UpdatePhotoCtrl',
       function InsertSearch() {
           var query = $scope.tag;
           if (query != undefined && query != "")
-              InsertSearchResource.Insert({
-                  userId: localStorage.getItem("google_user_id"),
+              SearchResource(GetAccessToken).Insert({
                   query: query,
                   type: 'photo'
               });
@@ -2198,7 +2189,7 @@ Controllers.controller('ViewerAlbumPhotosCtrl',
   });
 
 Controllers.controller('TagsCtrl',
-    function ($scope, $routeParams, GetSearchAllResource, DeleteSearchResource,
+    function ($scope, $routeParams, SearchResource,
         AuthenticateResource) {
 
         //****************************************
@@ -2250,8 +2241,7 @@ Controllers.controller('TagsCtrl',
             else
                 $scope.search = localStorage.getItem("tag_search_picasa");
 
-            $scope.items = GetSearchAllResource.Get({
-                userId: localStorage.getItem("google_user_id"), // TODO: pass access token instead?
+            $scope.items = SearchResource(GetAccessToken()).Get({
                 type: GetType()
             });
         }
@@ -2266,11 +2256,10 @@ Controllers.controller('TagsCtrl',
         }
 
         $scope.Delete = function (item) {
-            var index = $scope.items.list.indexOf(item);
-            $scope.items.list.splice(index, 1);
-            DeleteSearchResource.Delete({
-                userId: localStorage.getItem("google_user_id"), // TODO: pass access token instead?
-                query: item.title,
+            var index = $scope.items.indexOf(item);
+            $scope.items.splice(index, 1);
+            SearchResource(GetAccessToken()).Delete({
+                query: item.query,
                 type: GetType()
             });
         }

@@ -35,22 +35,26 @@ Services.factory('GoogleProfileResource',
 
 // Lahuna User
 Services.factory('UserResource',
-    function ($resource) {
+  function ($resource) {
+      return function (accessToken) {
         return $resource(location.origin + ':8000/user', {}, {
             Get: {
-                method: 'GET'
+                method: 'GET',
+                headers: { "access_token": accessToken }
             },
             Post: {
-                method: 'POST'
+                method: 'POST',
+                headers: { "access_token": accessToken }
             },
         });
-    });
+      }
+  });
 
 //// Update Lahuna User
 //Services.factory('UpdateUserResource',
 //  function ($resource) {
 //      return function (accessToken, refreshToken) {
-//          return $resource('https://lahunaweb.azurewebsites.net/api/user/get-user', {}, {
+//          return $resource('todo/user/get-user', {}, {
 //              Update: {
 //                  method: 'PUT',
 //                  headers: {
