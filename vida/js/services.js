@@ -23,28 +23,7 @@ Services.factory('AuthenticateResource',
               }
           });
       }
-  });
-
-
-//// Verify Token
-//Services.factory('VerifyTokenResource',
-//  function ($resource) {
-//      return $resource('https://lahuna-need-to-fix-this/google/verify-access-token', {}, {
-//          Get: {
-//              method: 'GET'
-//          }
-//      });
-//  });
-
-//// Refresh Token
-//Services.factory('RefreshTokenResource',
-//  function ($resource) {
-//      return $resource('https://lahuna-need-to-fix-this/google/get-refresh-token', {}, {
-//          Get: {
-//              method: 'GET'
-//          }
-//      });
-//  });
+});
 
 // Profile
 Services.factory('ProfileResource',
@@ -57,10 +36,10 @@ Services.factory('ProfileResource',
               }
           });
       }
-  });
+});
 
-// Search
-Services.factory('VideoSearchResource',
+// Youtube Search
+Services.factory('YoutubeSearchResource',
   function ($resource) {
       return function (accessToken) {
           return $resource("https://www.googleapis.com/youtube/v3/search", {}, {
@@ -70,17 +49,7 @@ Services.factory('VideoSearchResource',
               }
           });
       }
-  });
-
-// Get Videos All
-Services.factory('VideosAllResource', ['$resource',
-  function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/get-videos-all", {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
+});
 
 // Subscriptions
 Services.factory('SubscriptionResource',
@@ -91,33 +60,20 @@ Services.factory('SubscriptionResource',
                   method: 'GET',
                   headers: { "Authorization": "Bearer " + accessToken }
               },
-              Subscribe: {
+              Post: {
                   method: 'POST',
                   headers: { "Authorization": "Bearer " + accessToken },
                   params: { part: 'snippet' }
               },
-              Unsubscribe: {
+              Delete: {
                   method: 'DELETE',
                   headers: { "Authorization": "Bearer " + accessToken }
               }
           });
       }
-  });
+});
 
-//// Get Activity
-//Services.factory('ActivityResource',
-//  function ($resource) {
-//      return function (accessToken) {
-//          return $resource("https://www.googleapis.com/youtube/v3/activities", {}, {
-//              Get: {
-//                  method: 'GET',
-//                  headers: { "Authorization": "Bearer " + accessToken }
-//              }
-//          });
-//      }
-//  });
-
-// Get Channel
+// Channel
 Services.factory('ChannelResource',
   function ($resource) {
       return function (accessToken) {
@@ -128,7 +84,7 @@ Services.factory('ChannelResource',
               }
           });
       }
-  });
+});
 
 // Video
 Services.factory('VideoResource',
@@ -138,9 +94,8 @@ Services.factory('VideoResource',
               Get: {
                   method: 'GET',
                   headers: { "Authorization": "Bearer " + accessToken },
-                  params: { part: 'snippet,status,recordingDetails' }
               },
-              Update: {
+              Put: {
                   method: 'PUT',
                   headers: { "Authorization": "Bearer " + accessToken },
                   params: { part: 'snippet,status,recordingDetials' }
@@ -151,7 +106,7 @@ Services.factory('VideoResource',
               }
           });
       }
-  });
+});
 
 // Playlist
 Services.factory('PlaylistResource',
@@ -161,14 +116,13 @@ Services.factory('PlaylistResource',
               Get: {
                   method: 'GET',
                   headers: { "Authorization": "Bearer " + accessToken },
-                  params: { part: 'snippet,status' }
               },
-              Create: {
+              Post: {
                   method: 'POST',
                   headers: { "Authorization": "Bearer " + accessToken },
                   params: { part: 'snippet,status' }
               },
-              Update: {
+              Put: {
                   method: 'PUT',
                   headers: { "Authorization": "Bearer " + accessToken },
                   params: { part: 'snippet,status' }
@@ -179,7 +133,7 @@ Services.factory('PlaylistResource',
               }
           });
       }
-  });
+});
 
 // Playlist Items
 Services.factory('PlaylistItemResource',
@@ -189,150 +143,142 @@ Services.factory('PlaylistItemResource',
               Get: {
                   method: 'GET',
                   headers: { "Authorization": "Bearer " + accessToken },
-                  params: { part: 'snippet' }
               },
-              Add: {
+              Post: {
                   method: 'POST',
                   headers: { "Authorization": "Bearer " + accessToken },
                   params: { part: 'snippet' }
               },
-              Move: {
+              Put: {
                   method: 'PUT',
                   headers: { "Authorization": "Bearer " + accessToken },
                   params: { part: 'snippet' }
               },
-              Remove: {
+              Delete: {
                   method: 'DELETE',
                   headers: { "Authorization": "Bearer " + accessToken }
               }
           });
       }
-  });
+});
 
-// Insert Playlist into DB
-Services.factory('InsertPlaylistResource', ['$resource',
+// Playlists Db
+Services.factory('PlaylistDbResource',
   function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/insert-playlist", {}, {
-          Insert: {
-              method: 'GET'
-          }
-      });
-  }]);
+      return function (accessToken) {
+          return $resource(location.origin + ':8000/playlist', {}, {
+              Get: {
+                  method: 'GET',
+                  isArray:true,
+                  headers: { 'access_token': accessToken }
+              },
+              Post: {
+                  method: 'POST',
+                  headers: { 'access_token': accessToken }
+              },
+              Put: {
+                  method: 'PUT',
+                  headers: { 'access_token': accessToken }
+              },
+              Delete: {
+                  method: 'DELETE',
+                  headers: { 'access_token': accessToken }
+              }
+          });
+      }
+});
 
-// Update Playlist in DB
-Services.factory('UpdatePlaylistResource', ['$resource',
+// Playlist Items Db
+Services.factory('PlaylistItemDbResource',
   function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/update-playlist", {}, {
-          Update: {
-              method: 'GET'
-          }
-      });
-  }]);
-
-// Delete Playlist from DB
-Services.factory('DeletePlaylistResource', ['$resource',
-  function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/delete-playlist", {}, {
-          Delete: {
-              method: 'DELETE'
-          }
-      });
-  }]);
-
-// Get Playlist Id
-Services.factory('GetPlaylistIdResource', ['$resource',
-  function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/get-playlist-id", {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
-
-// Search Playlists
-Services.factory('SearchPlaylistsResource', ['$resource',
-  function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/get-playlists", {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
+      return function (accessToken) {
+          return $resource(location.origin + ':8000/playlist_item', {}, {
+              Get: {
+                  method: 'GET',
+                  isArray:true,
+                  headers: { 'access_token': accessToken }
+              },
+              Post: {
+                  method: 'POST',
+                  headers: { 'access_token': accessToken }
+              },
+              Delete: {
+                  method: 'DELETE',
+                  headers: { 'access_token': accessToken }
+              }
+          });
+      }
+});
 
 // Import Playlists
-Services.factory('ImportPlaylistsResource', ['$resource',
+Services.factory('ImportPlaylistResource',
   function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/import-playlists", {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
+      return function (accessToken, refreshToken) {
+          return $resource(location.origin + ':8000/playlist/import', {}, {
+              Post: {
+                  method: 'POST',
+                  headers: {
+                    access_token: accessToken,
+                    refresh_token: refreshToken }
+              }
+          });
+      }
+});
 
-// Import PlaylistItems
-Services.factory('ImportPlaylistItemsResource',
+// Import Playlist Items
+Services.factory('ImportPlaylistItemResource',
   function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/import-playlist-items", {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  });
+      return function (accessToken, refreshToken) {
+          return $resource(location.origin + ':8000/playlist_item/import', {}, {
+              Post: {
+                  method: 'POST',
+                  headers: {
+                    access_token: accessToken,
+                    refresh_token: refreshToken }
+              }
+          });
+      }
+});
 
 // Import Videos
-Services.factory('ImportVideosResource', ['$resource',
+Services.factory('ImportVideoResource',
   function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/import-videos", {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
+      return function (accessToken, refreshToken) {
+          return $resource(location.origin + ':8000/video/import', {}, {
+              Post: {
+                  method: 'POST',
+                  headers: {
+                    access_token: accessToken,
+                    refresh_token: refreshToken }
+              }
+          });
+      }
+});
 
-
-// Get Playlists All
-Services.factory('PlaylistsAllResource', ['$resource',
+// Search
+Services.factory('SearchResource',
   function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/get-playlists-all", {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
-  }]);
-
-// Get Playlist Hints
-//Services.factory('GetPlaylistHintsResource', ['$resource',
-  //function ($resource) {
-    //  return $resource("https://lahuna-need-to-fix-this/youtube/get-playlist-hints", {}, {
-      //    Get: {
-        //      method: 'GET',
-          //    isArray: true
-          //}
-      //});
-  //}]);
-
-// Insert Playlist Item
-Services.factory('InsertPlaylistItemResource',
-  function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/insert-playlist-item", {}, {
-          Insert: {
-              method: 'GET'
-          }
-      });
-  });
-
-// Delete Playlist
-Services.factory('DeletePlaylistItemResource',
-  function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/youtube/delete-playlist-item", {}, {
-          Delete: {
-              method: 'DELETE'
-          }
-      });
-  });
+      return function (accessToken) {
+          return $resource(location.origin + ':8000/search', {}, {
+              Get: {
+                  method: 'GET',
+                  isArray:true,
+                  headers: { 'access_token': accessToken }
+              },
+              Post: {
+                  method: 'POST',
+                  headers: { 'access_token': accessToken }
+              },
+              Delete: {
+                  method: 'DELETE',
+                  headers: { 'access_token': accessToken }
+              }
+          });
+      }
+});
 
 // Auto Complete
-Services.factory('AutoCompleteResource', ['$resource',
+Services.factory('AutoCompleteResource',
   function ($resource) {
       return $resource("https://suggestqueries.google.com/complete/search", {}, {
           Get: {
@@ -340,45 +286,4 @@ Services.factory('AutoCompleteResource', ['$resource',
               isArray: true
           }
       });
-  }]);
-
-  // Search
-  Services.factory('SearchResource',
-    function ($resource) {
-        return function (accessToken) {
-            return $resource(location.origin + ':8000/search', {}, {
-                Get: {
-                    method: 'GET',
-                    isArray:true,
-                    headers: { 'access_token': accessToken }
-                },
-                Post: {
-                    method: 'POST',
-                    headers: { 'access_token': accessToken }
-                },
-                Delete: {
-                    method: 'DELETE',
-                    headers: { 'access_token': accessToken }
-                }
-            });
-        }
-    });
-
-//// Storage Service
-//Services.factory('StorageService', function () {
-
-//    var data;
-
-//    var set = function (item) {
-//        data = item;
-//    }
-
-//    var get = function () {
-//        return data;
-//    }
-
-//    return {
-//        set: set,
-//        get: get
-//    };
-//});
+});
