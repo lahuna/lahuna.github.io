@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Get Api
 //Services.factory('GetApiResource', ['$resource',
   //function ($resource) {
-      //return $resource('todo/common/get-api', {}, {
+      //return $resource('https://lahuna-need-to-fix-this/common/get-api', {}, {
           //Get: {
               //method: 'GET'
           //}
@@ -66,7 +66,7 @@ Services.factory('BloggerPostResource',
 //// Google Access Token
 //Services.factory('GoogleAccessTokenResource', ['$resource',
 //  function ($resource) {
-//      return $resource('todo/google/get-access-token', {}, {
+//      return $resource('https://lahuna-need-to-fix-this/google/get-access-token', {}, {
 //          Get: {
 //              method: 'GET'
 //          }
@@ -263,7 +263,7 @@ Services.factory('RedditPostResource',
 // LinkedIn Access Token
 //Services.factory('LinkedInAccessTokenResource', ['$resource',
   //function ($resource) {
-      //return $resource('todo/linkedin/get-access-token', {}, {
+      //return $resource('https://lahuna-need-to-fix-this/linkedin/get-access-token', {}, {
           //Get: {
               //method: 'GET'
           //}

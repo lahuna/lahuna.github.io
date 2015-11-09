@@ -13,11 +13,16 @@ var Services = angular.module('Services', ['ngResource']);
 // Authenticate
 Services.factory('AuthenticateResource',
   function ($resource) {
-      return $resource('todo/google/authenticate', {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
+      return function (accessToken, refreshToken) {
+          return $resource(location.origin + ':8000/google/authenticate', {}, {
+              Get: {
+                  method: 'GET',
+                  headers: {
+                    access_token: accessToken,
+                    refresh_token: refreshToken }
+              }
+          });
+      }
   });
 
 // Search
@@ -142,7 +147,7 @@ Services.factory('PlaylistItemResource',
 // Get Playlist Items
 Services.factory('GetPlaylistItemResource',
   function ($resource) {
-      return $resource("todo/youtube/get-playlist-items", {}, {
+      return $resource("https://lahuna-need-to-fix-this/youtube/get-playlist-items", {}, {
           Get: {
               method: 'GET'
           }
@@ -152,7 +157,7 @@ Services.factory('GetPlaylistItemResource',
 // Insert Playlist Item
 Services.factory('InsertPlaylistItemResource',
   function ($resource) {
-      return $resource("todo/youtube/insert-playlist-item", {}, {
+      return $resource("https://lahuna-need-to-fix-this/youtube/insert-playlist-item", {}, {
           Insert: {
               method: 'GET'
           }
@@ -162,7 +167,7 @@ Services.factory('InsertPlaylistItemResource',
 // Delete Playlist
 Services.factory('DeletePlaylistItemResource',
   function ($resource) {
-      return $resource("todo/youtube/delete-playlist-item", {}, {
+      return $resource("https://lahuna-need-to-fix-this/youtube/delete-playlist-item", {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -172,7 +177,7 @@ Services.factory('DeletePlaylistItemResource',
 // Insert Playlist
 Services.factory('InsertPlaylistResource', ['$resource',
   function ($resource) {
-      return $resource("todo/youtube/insert-playlist", {}, {
+      return $resource("https://lahuna-need-to-fix-this/youtube/insert-playlist", {}, {
           Insert: {
               method: 'GET'
           }
@@ -182,7 +187,7 @@ Services.factory('InsertPlaylistResource', ['$resource',
 // Update Playlist
 Services.factory('UpdatePlaylistResource', ['$resource',
   function ($resource) {
-      return $resource("todo/youtube/update-playlist", {}, {
+      return $resource("https://lahuna-need-to-fix-this/youtube/update-playlist", {}, {
           Update: {
               method: 'GET'
           }
@@ -192,7 +197,7 @@ Services.factory('UpdatePlaylistResource', ['$resource',
 // Delete Playlist
 Services.factory('DeletePlaylistResource', ['$resource',
   function ($resource) {
-      return $resource("todo/youtube/delete-playlist", {}, {
+      return $resource("https://lahuna-need-to-fix-this/youtube/delete-playlist", {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -202,7 +207,7 @@ Services.factory('DeletePlaylistResource', ['$resource',
 // Get Playlist Id
 Services.factory('GetPlaylistIdResource', ['$resource',
   function ($resource) {
-      return $resource("todo/youtube/get-playlist-id", {}, {
+      return $resource("https://lahuna-need-to-fix-this/youtube/get-playlist-id", {}, {
           Get: {
               method: 'GET'
           }
@@ -210,33 +215,34 @@ Services.factory('GetPlaylistIdResource', ['$resource',
   }]);
 
 // Get Playlist Hints
-Services.factory('GetPlaylistHintsResource', ['$resource',
-  function ($resource) {
-      return $resource("todo/youtube/get-playlist-hints", {}, {
-          Get: {
-              method: 'GET',
-              isArray: true
-          }
-      });
-  }]);
+//Services.factory('GetPlaylistHintsResource', ['$resource',
+  //function ($resource) {
+      //return $resource("https://lahuna-need-to-fix-this/youtube/get-playlist-hints", {}, {
+          //Get: {
+              //method: 'GET',
+              //isArray: true
+        //  }
+      //});
+//  }]);
 
-// Get Search
-Services.factory('GetSearchResource', ['$resource',
-  function ($resource) {
-      return $resource("todo/youtube/get-search", {}, {
-          Get: {
-              method: 'GET',
-              isArray: true
-          }
-      });
-  }]);
-
-// Insert Search
-Services.factory('InsertSearchResource', ['$resource',
-  function ($resource) {
-      return $resource("todo/youtube/insert-search", {}, {
-          Insert: {
-              method: 'GET'
-          }
-      });
-  }]);
+  // Search
+  Services.factory('SearchResource',
+    function ($resource) {
+        return function (accessToken) {
+            return $resource(location.origin + ':8000/search', {}, {
+                Get: {
+                    method: 'GET',
+                    isArray:true,
+                    headers: { 'access_token': accessToken }
+                },
+                Post: {
+                    method: 'POST',
+                    headers: { 'access_token': accessToken }
+                },
+                Delete: {
+                    method: 'DELETE',
+                    headers: { 'access_token': accessToken }
+                }
+            });
+        }
+    });

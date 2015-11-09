@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -26,11 +26,9 @@ Controllers.controller('StatusCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
@@ -40,15 +38,15 @@ Controllers.controller('StatusCtrl',
           switch ($routeParams.app) {
               case "foto":
               case "all":
-                  localStorage.setItem("google_access_token", data.AccessToken);
-                  localStorage.setItem("google_user_id", data.UserId);
-                  localStorage.setItem("google_expires_in", data.ExpiresIn);
+                  localStorage.setItem("google_access_token", data.access_token);
+                  localStorage.setItem("google_user_id", data.user_id);
+                  localStorage.setItem("google_expires_in", data.expires_in);
                   break;
 
               case "vida":
-                  localStorage.setItem("youtube_access_token", data.AccessToken);
-                  localStorage.setItem("youtube_user_id", data.UserId);
-                  localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+                  localStorage.setItem("youtube_access_token", data.access_token);
+                  localStorage.setItem("youtube_user_id", data.user_id);
+                  localStorage.setItem("youtube_expires_in", data.expires_in);
                   break;
           }
 
@@ -66,7 +64,7 @@ Controllers.controller('StatusCtrl',
               case "vida":
                   return localStorage.getItem("youtube_access_token");
                   break;
-          }          
+          }
       }
 
       function GetRefreshToken() {
@@ -80,7 +78,7 @@ Controllers.controller('StatusCtrl',
               case "vida":
                   return localStorage.getItem("youtube_refresh_token");
                   break;
-          }          
+          }
       }
 
       //****************************************
@@ -120,11 +118,9 @@ Controllers.controller('ErrorsCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
@@ -134,15 +130,15 @@ Controllers.controller('ErrorsCtrl',
           switch ($routeParams.app) {
               case "foto":
               case "all":
-                  localStorage.setItem("google_access_token", data.AccessToken);
-                  localStorage.setItem("google_user_id", data.UserId);
-                  localStorage.setItem("google_expires_in", data.ExpiresIn);
+                  localStorage.setItem("google_access_token", data.access_token);
+                  localStorage.setItem("google_user_id", data.user_id);
+                  localStorage.setItem("google_expires_in", data.expires_in);
                   break;
 
               case "vida":
-                  localStorage.setItem("youtube_access_token", data.AccessToken);
-                  localStorage.setItem("youtube_user_id", data.UserId);
-                  localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+                  localStorage.setItem("youtube_access_token", data.access_token);
+                  localStorage.setItem("youtube_user_id", data.user_id);
+                  localStorage.setItem("youtube_expires_in", data.expires_in);
                   break;
           }
 
@@ -188,7 +184,7 @@ Controllers.controller('ErrorsCtrl',
           });
 
           $scope.jobId = $routeParams.jobId;
-      }      
+      }
   });
 
 Controllers.controller('ErrorsListCtrl',
@@ -202,11 +198,9 @@ Controllers.controller('ErrorsListCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
@@ -216,15 +210,15 @@ Controllers.controller('ErrorsListCtrl',
           switch ($routeParams.app) {
               case "foto":
               case "all":
-                  localStorage.setItem("google_access_token", data.AccessToken);
-                  localStorage.setItem("google_user_id", data.UserId);
-                  localStorage.setItem("google_expires_in", data.ExpiresIn);
+                  localStorage.setItem("google_access_token", data.access_token);
+                  localStorage.setItem("google_user_id", data.user_id);
+                  localStorage.setItem("google_expires_in", data.expires_in);
                   break;
 
               case "vida":
-                  localStorage.setItem("youtube_access_token", data.AccessToken);
-                  localStorage.setItem("youtube_user_id", data.UserId);
-                  localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+                  localStorage.setItem("youtube_access_token", data.access_token);
+                  localStorage.setItem("youtube_user_id", data.user_id);
+                  localStorage.setItem("youtube_expires_in", data.expires_in);
                   break;
           }
 
@@ -291,11 +285,9 @@ Controllers.controller('ErrorDetailCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
@@ -305,15 +297,15 @@ Controllers.controller('ErrorDetailCtrl',
           switch ($routeParams.app) {
               case "foto":
               case "all":
-                  localStorage.setItem("google_access_token", data.AccessToken);
-                  localStorage.setItem("google_user_id", data.UserId);
-                  localStorage.setItem("google_expires_in", data.ExpiresIn);
+                  localStorage.setItem("google_access_token", data.access_token);
+                  localStorage.setItem("google_user_id", data.user_id);
+                  localStorage.setItem("google_expires_in", data.expires_in);
                   break;
 
               case "vida":
-                  localStorage.setItem("youtube_access_token", data.AccessToken);
-                  localStorage.setItem("youtube_user_id", data.UserId);
-                  localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+                  localStorage.setItem("youtube_access_token", data.access_token);
+                  localStorage.setItem("youtube_user_id", data.user_id);
+                  localStorage.setItem("youtube_expires_in", data.expires_in);
                   break;
           }
 
@@ -357,5 +349,5 @@ Controllers.controller('ErrorDetailCtrl',
               errorId: $routeParams.errorId,
               accessToken: GetAccessToken()
           });
-      }      
+      }
   });

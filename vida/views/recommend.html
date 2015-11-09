@@ -1,5 +1,5 @@
 <!--*****************************************************************************************************************
-     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
      You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
      make available to the public any content or code on this website without prior written permission from Lahuna.
     *****************************************************************************************************************-->
@@ -21,7 +21,7 @@
             <div class="input-group">
                 <span class="input-group-addon" id="playlist_addon">Add To:</span>
                 <input ng-model="playlist" aria-describedby="playlist_addon"
-                       typeahead="item for item in GetPlaylistHints($viewValue)"
+                       typeahead="item.query for item in GetPlaylistHints($viewValue)"
                        type="text" class="form-control" placeholder="Enter a playlist name...">
             </div>
         </div>
@@ -33,7 +33,7 @@
             </span>
             <span>
                 <a href="#/playlist/me/{{playlistId}}" ng-show="playlistId.length > 0" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-play-circle"></span> Go To Playlist</a>
-            </span>     
+            </span>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
                 </span>
                 <span>
                     <a href="#/playlist/{{owner}}/{{playlistId}}" ng-show="playlistId.length > 0" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-play-circle"></span> Go To Playlist</a>
-                </span>                
+                </span>
             </div>
         </form>
     </div>-->

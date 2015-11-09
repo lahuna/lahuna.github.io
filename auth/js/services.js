@@ -54,7 +54,7 @@ Services.factory('UserResource',
 //Services.factory('UpdateUserResource',
 //  function ($resource) {
 //      return function (accessToken, refreshToken) {
-//          return $resource('todo/user/get-user', {}, {
+//          return $resource('https://lahuna-need-to-fix-this/user/get-user', {}, {
 //              Update: {
 //                  method: 'PUT',
 //                  headers: {

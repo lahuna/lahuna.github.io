@@ -23,20 +23,18 @@ Controllers.controller('MainCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -132,7 +130,7 @@ Controllers.controller('MainCtrl',
 
 Controllers.controller('SearchCtrl',
     function ($scope, $routeParams, $location, SearchResource, AutoCompleteResource,
-        GetPlaylistHintsResource, PlaylistItemResource, PlaylistResource,
+        PlaylistItemResource, PlaylistResource, VideoSearchResource,
         InsertPlaylistResource, GetPlaylistIdResource, AuthenticateResource) {
 
         //****************************************
@@ -143,20 +141,18 @@ Controllers.controller('SearchCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -208,7 +204,7 @@ Controllers.controller('SearchCtrl',
             localStorage.setItem("youtube_order", $scope.order);
 
             var access_token = localStorage.getItem("youtube_access_token");
-            $scope.list = SearchResource(access_token).Get({
+            $scope.list = VideoSearchResource(access_token).Get({
                 q: GetSearch(),
                 part: "snippet",
                 order: GetOrder(),
@@ -308,9 +304,9 @@ Controllers.controller('SearchCtrl',
         $scope.playlistId = "";
 
         $scope.GetPlaylistHints = function (val) {
-            return GetPlaylistHintsResource.Get({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
-                query: val
+            return SearchResource(GetAccessToken).Get({
+                query: val,
+                type: 'playlist'
             }).$promise.then(function (data) {
                 return data;
             });
@@ -480,8 +476,7 @@ Controllers.controller('SearchCtrl',
 
 Controllers.controller('VideosCtrl',
     function ($scope, $routeParams, SearchResource,
-        GetSearchResource, InsertSearchResource, DeleteSearchResource,
-        GetPlaylistHintsResource, PlaylistItemResource, PlaylistResource,
+        PlaylistItemResource, PlaylistResource,
         InsertPlaylistResource, GetPlaylistIdResource,
         InsertPlaylistItemResource, DeletePlaylistItemResource, UpdatePlaylistResource,
         AuthenticateResource) {
@@ -494,20 +489,18 @@ Controllers.controller('VideosCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -675,9 +668,8 @@ Controllers.controller('VideosCtrl',
         //****************************************
 
         $scope.GetSearchList = function (val) {
-            return GetSearchResource.Get({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
-                query: val,
+            return SearchResource(GetAccessToken()).Get({
+                query: '^' + val,
                 type: "youtube"
             }).$promise.then(function (data) {
                 return data;
@@ -685,16 +677,14 @@ Controllers.controller('VideosCtrl',
         }
 
         function InsertSearch(query) {
-            InsertSearchResource.Insert({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
+            SearchResource(GetAccessToken()).Insert({
                 query: query,
                 type: "youtube"
             });
         }
 
         function DeleteSearch(query) {
-            DeleteSearchResource.Delete({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
+            SearchResource(GetAccessToken).Delete({
                 query: query,
                 type: "youtube"
             });
@@ -707,9 +697,9 @@ Controllers.controller('VideosCtrl',
         $scope.playlistId = "";
 
         $scope.GetPlaylistHints = function (val) {
-            return GetPlaylistHintsResource.Get({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
-                query: val
+            return SearchResource(GetAccessToken()).Get({
+                query: val,
+                type: 'playlist'
             }).$promise.then(function (data) {
                 return data;
             });
@@ -878,7 +868,7 @@ Controllers.controller('VideosCtrl',
     });
 
 Controllers.controller('RecommendCtrl',
-    function ($scope, $routeParams, $location, SearchResource, GetPlaylistHintsResource,
+    function ($scope, $routeParams, $location, SearchResource,
         PlaylistItemResource, PlaylistResource, VideoResource,
         InsertPlaylistResource, GetPlaylistIdResource,
         AuthenticateResource, ChannelResource) {
@@ -891,20 +881,18 @@ Controllers.controller('RecommendCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -958,9 +946,9 @@ Controllers.controller('RecommendCtrl',
         $scope.playlistId = "";
 
         $scope.GetPlaylistHints = function (val) {
-            return GetPlaylistHintsResource.Get({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
-                query: val
+            return SearchResource(GetAccessToken()).Get({
+                query: val,
+                type: 'playlist'
             }).$promise.then(function (data) {
                 return data;
             });
@@ -1127,8 +1115,7 @@ Controllers.controller('RecommendCtrl',
 Controllers.controller('PlaylistsCtrl',
     function ($scope, $routeParams,
         ImportPlaylistsResource, SearchPlaylistsResource,
-        GetSearchResource, InsertSearchResource, DeleteSearchResource,
-        AuthenticateResource) {
+        SearchResource, AuthenticateResource) {
 
         //****************************************
         // AUTHENTICATE
@@ -1138,20 +1125,18 @@ Controllers.controller('PlaylistsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -1282,9 +1267,8 @@ Controllers.controller('PlaylistsCtrl',
         //*********************************************
 
         $scope.GetSearchList = function (val) {
-            return GetSearchResource.Get({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
-                query: val,
+            return SearchResource(GetAccessToken()).Get({
+                query: '^' + val,
                 type: "youtube-playlist"
             }).$promise.then(function (data) {
                 return data;
@@ -1292,16 +1276,14 @@ Controllers.controller('PlaylistsCtrl',
         }
 
         function InsertSearch(query) {
-            InsertSearchResource.Insert({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
+            SearchResource(GetAccessToken()).Insert({
                 query: query,
                 type: "youtube-playlist"
             });
         }
 
         function DeleteSearch(query) {
-            DeleteSearchResource.Delete({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
+            SearchResource(GetAccessToken()).Delete({
                 query: query,
                 type: "youtube-playlist"
             });
@@ -1322,20 +1304,19 @@ Controllers.controller('ToolsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
+            //Initialize();
         }
 
         function GetAccessToken() {
@@ -1407,20 +1388,18 @@ Controllers.controller('PlaylistCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -1606,7 +1585,7 @@ Controllers.controller('PlaylistCtrl',
     });
 
 Controllers.controller('TagsCtrl',
-    function ($scope, $routeParams, GetSearchAllResource, DeleteSearchResource,
+    function ($scope, $routeParams, SearchResource,
         AuthenticateResource) {
 
         //****************************************
@@ -1617,20 +1596,18 @@ Controllers.controller('TagsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -1658,8 +1635,7 @@ Controllers.controller('TagsCtrl',
             else
                 $scope.search = localStorage.getItem("tag_search");
 
-            $scope.items = GetSearchAllResource.Get({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
+            $scope.items = SearchResource(GetAccessToken()).Get({
                 type: GetType()
             });
         }
@@ -1676,8 +1652,7 @@ Controllers.controller('TagsCtrl',
         $scope.Delete = function (item) {
             var index = $scope.items.list.indexOf(item);
             $scope.items.list.splice(index, 1);
-            DeleteSearchResource.Delete({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
+            SearchResource(GetAccessToken()).Delete({
                 query: item.title,
                 type: GetType()
             });
@@ -1724,20 +1699,18 @@ Controllers.controller('SubscriptionsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -1776,20 +1749,18 @@ Controllers.controller('ChannelCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -1818,7 +1789,7 @@ Controllers.controller('ChannelCtrl',
 
 Controllers.controller('ActivityCtrl',
     function ($scope, $routeParams, ChannelResource, PlaylistItemResource, SubscriptionResource,
-        GetPlaylistHintsResource, PlaylistResource,
+        PlaylistResource, SearchResource,
         InsertPlaylistResource, GetPlaylistIdResource,
         AuthenticateResource) {
 
@@ -1830,20 +1801,18 @@ Controllers.controller('ActivityCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -1940,9 +1909,9 @@ Controllers.controller('ActivityCtrl',
         $scope.playlistId = "";
 
         $scope.GetPlaylistHints = function (val) {
-            return GetPlaylistHintsResource.Get({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
-                query: val
+            return SearchResource(GetAccessToken()).Get({
+                query: val,
+                type: 'playlist'
             }).$promise.then(function (data) {
                 return data;
             });

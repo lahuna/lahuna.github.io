@@ -22,20 +22,18 @@ Controllers.controller('MainCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           GetProfile();
       }
 
@@ -67,20 +65,18 @@ Controllers.controller('PhotosCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -173,7 +169,7 @@ Controllers.controller('PhotosCtrl',
 
       $scope.GetSearchList = function (val) {
           return SearchResource(GetAccessToken()).Get({
-              query: val,
+              query: '^' + val,
               type: "photo"
           }).$promise.then(function (data) {
               return data;
@@ -206,20 +202,18 @@ Controllers.controller('DetailCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -266,20 +260,18 @@ Controllers.controller('SplitCtrl',
           Authenticate();
 
           function Authenticate() {
-              AuthenticateResource.Get({
-                  accessToken: GetAccessToken(),
-                  refreshToken: GetRefreshToken()
-              }).$promise.then(function (data) {
-                  StoreValues(data.authItem);
+              AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+              .$promise.then(function (data) {
+                  StoreValues(data);
               }, function (error) {
                   $scope.needSignIn = true;
               });
           }
 
           function StoreValues(data) {
-              localStorage.setItem("google_access_token", data.AccessToken);
-              localStorage.setItem("google_user_id", data.UserId);
-              localStorage.setItem("google_expires_in", data.ExpiresIn);
+              localStorage.setItem("google_access_token", data.access_token);
+              localStorage.setItem("google_user_id", data.user_id);
+              localStorage.setItem("google_expires_in", data.expires_in);
               Initialize();
           }
 
@@ -316,20 +308,18 @@ Controllers.controller('ImportCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -496,20 +486,18 @@ Controllers.controller('AlbumsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("google_access_token", data.AccessToken);
-            localStorage.setItem("google_user_id", data.UserId);
-            localStorage.setItem("google_expires_in", data.ExpiresIn);
+            localStorage.setItem("google_access_token", data.access_token);
+            localStorage.setItem("google_user_id", data.user_id);
+            localStorage.setItem("google_expires_in", data.expires_in);
             Initialize();
         }
 
@@ -639,7 +627,7 @@ Controllers.controller('AlbumsCtrl',
 
         $scope.GetSearchList = function (val) {
             return SearchResource(GetAccessToken()).Get({
-                query: val,
+                query: '^' + val,
                 type: "album"
             }).$promise.then(function (data) {
                 return data;
@@ -673,20 +661,18 @@ Controllers.controller('AlbumTypesCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -720,20 +706,18 @@ Controllers.controller('AlbumsYearCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -779,20 +763,18 @@ Controllers.controller('AlbumsMonthCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -830,20 +812,18 @@ Controllers.controller('AlbumsDayCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -883,20 +863,18 @@ Controllers.controller('AlbumsOtherCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -932,20 +910,18 @@ Controllers.controller('AlbumsMaintCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1014,20 +990,18 @@ Controllers.controller('AlbumPhotosCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1072,20 +1046,18 @@ Controllers.controller('AlbumPhotosDateCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1162,20 +1134,18 @@ Controllers.controller('DupAlbumsCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1216,20 +1186,18 @@ Controllers.controller('CreateAlbumCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1270,20 +1238,18 @@ Controllers.controller('UpdateAlbumCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1330,20 +1296,18 @@ Controllers.controller('UpdatePhotoCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1385,7 +1349,7 @@ Controllers.controller('UpdatePhotoCtrl',
 
       $scope.GetSearchList = function (val) {
           return SearchResource(GetAccessToken()).Get({
-              query: val,
+              query: '^' + val,
               type: 'photo'
           }).$promise.then(function (data) {
               return data;
@@ -1444,20 +1408,18 @@ Controllers.controller('DeleteAlbumCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1496,20 +1458,18 @@ Controllers.controller('ViewerAlbumCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1649,20 +1609,18 @@ Controllers.controller('ViewerPhotoCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1790,20 +1748,18 @@ Controllers.controller('ViewerPhotosCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -1995,20 +1951,18 @@ Controllers.controller('ViewerAlbumPhotosCtrl',
       Authenticate();
 
       function Authenticate() {
-          AuthenticateResource.Get({
-              accessToken: GetAccessToken(),
-              refreshToken: GetRefreshToken()
-          }).$promise.then(function (data) {
-              StoreValues(data.authItem);
+          AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          .$promise.then(function (data) {
+              StoreValues(data);
           }, function (error) {
               $scope.needSignIn = true;
           });
       }
 
       function StoreValues(data) {
-          localStorage.setItem("google_access_token", data.AccessToken);
-          localStorage.setItem("google_user_id", data.UserId);
-          localStorage.setItem("google_expires_in", data.ExpiresIn);
+          localStorage.setItem("google_access_token", data.access_token);
+          localStorage.setItem("google_user_id", data.user_id);
+          localStorage.setItem("google_expires_in", data.expires_in);
           Initialize();
       }
 
@@ -2200,20 +2154,18 @@ Controllers.controller('TagsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("google_access_token", data.AccessToken);
-            localStorage.setItem("google_user_id", data.UserId);
-            localStorage.setItem("google_expires_in", data.ExpiresIn);
+            localStorage.setItem("google_access_token", data.access_token);
+            localStorage.setItem("google_user_id", data.user_id);
+            localStorage.setItem("google_expires_in", data.expires_in);
             Initialize();
         }
 

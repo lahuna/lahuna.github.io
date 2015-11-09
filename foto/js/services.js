@@ -13,11 +13,16 @@ var Services = angular.module('Services', ['ngResource']);
 // Authenticate
 Services.factory('AuthenticateResource',
   function ($resource) {
-      return $resource('todo/google/authenticate', {}, {
-          Get: {
-              method: 'GET'
-          }
-      });
+      return function (accessToken, refreshToken) {
+          return $resource(location.origin + ':8000/google/authenticate', {}, {
+              Get: {
+                  method: 'GET',
+                  headers: {
+                    access_token: accessToken,
+                    refresh_token: refreshToken }
+              }
+          });
+      }
   });
 
 // Profile
@@ -36,7 +41,7 @@ Services.factory('ProfileResource',
 // Search Albums
 Services.factory('SearchAlbumsResource',
   function ($resource) {
-      return $resource("todo/picasa/get-albums", {}, {
+      return $resource("https://lahuna-need-to-fix-this/picasa/get-albums", {}, {
           Get: {
               method: 'GET'
           }
@@ -46,7 +51,7 @@ Services.factory('SearchAlbumsResource',
 // Album
 Services.factory('AlbumResource',
   function ($resource) {
-      return $resource("todo/picasa/get-album", {}, {
+      return $resource("https://lahuna-need-to-fix-this/picasa/get-album", {}, {
           Get: {
               method: 'GET'
           }
@@ -56,7 +61,7 @@ Services.factory('AlbumResource',
 // Albums
 Services.factory('AlbumsResource',
   function ($resource) {
-      return $resource('todo/picasa/get-album-type', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-album-type', {}, {
           GetAlbums: {
               method: 'GET'
           }
@@ -66,7 +71,7 @@ Services.factory('AlbumsResource',
 // Album Types
 Services.factory('AlbumTypesResource',
   function ($resource) {
-      return $resource('todo/picasa/get-album-types', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-album-types', {}, {
           GetAlbumTypes: {
               method: 'GET'
           }
@@ -76,7 +81,7 @@ Services.factory('AlbumTypesResource',
 // Album Id
 Services.factory('AlbumIdResource',
   function ($resource) {
-      return $resource('todo/picasa/get-album-id', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-album-id', {}, {
           GetAlbumId: {
               method: 'GET'
           }
@@ -86,7 +91,7 @@ Services.factory('AlbumIdResource',
 // Albums Year
 Services.factory('AlbumsYearResource',
   function ($resource) {
-      return $resource('todo/picasa/get-albums-year', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-albums-year', {}, {
           GetAlbums: {
               method: 'GET'
           }
@@ -96,7 +101,7 @@ Services.factory('AlbumsYearResource',
 // Albums Month
 Services.factory('AlbumsMonthResource',
   function ($resource) {
-      return $resource('todo/picasa/get-albums-month', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-albums-month', {}, {
           GetAlbums: {
               method: 'GET'
           }
@@ -106,7 +111,7 @@ Services.factory('AlbumsMonthResource',
 // Albums Day
 Services.factory('AlbumsDayResource',
   function ($resource) {
-      return $resource('todo/picasa/get-albums-day', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-albums-day', {}, {
           GetAlbums: {
               method: 'GET'
           }
@@ -116,7 +121,7 @@ Services.factory('AlbumsDayResource',
 // Album Count
 //Services.factory('AlbumCountResource',
   //function ($resource) {
-      //return $resource('todo/picasa/get-album-count', {}, {
+      //return $resource('https://lahuna-need-to-fix-this/picasa/get-album-count', {}, {
           //GetAlbumCount: {
               //method: 'GET'
           //}
@@ -126,7 +131,7 @@ Services.factory('AlbumsDayResource',
 // Import Albums
 Services.factory('ImportAlbumResource',
   function ($resource) {
-      return $resource('todo/picasa/import-albums', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/import-albums', {}, {
           ImportAlbums: {
               method: 'GET'
           }
@@ -136,7 +141,7 @@ Services.factory('ImportAlbumResource',
 // Import Photos
 Services.factory('ImportPhotoResource',
   function ($resource) {
-      return $resource('todo/picasa/import-photos', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/import-photos', {}, {
           ImportPhotos: {
               method: 'GET'
           }
@@ -146,7 +151,7 @@ Services.factory('ImportPhotoResource',
 // Import Albums All
 Services.factory('ImportAlbumsAllResource',
   function ($resource) {
-      return $resource('todo/picasa/import-albums-all', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/import-albums-all', {}, {
           ImportAlbums: {
               method: 'GET'
           }
@@ -156,7 +161,7 @@ Services.factory('ImportAlbumsAllResource',
 // Import Albums Job
 Services.factory('ImportAlbumJobResource',
   function ($resource) {
-      return $resource('todo/picasa/import-albums-job', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/import-albums-job', {}, {
           ImportAlbums: {
               method: 'GET'
           }
@@ -166,7 +171,7 @@ Services.factory('ImportAlbumJobResource',
 // Import Photos Job
 Services.factory('ImportPhotoJobResource',
   function ($resource) {
-      return $resource('todo/picasa/import-photos-job', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/import-photos-job', {}, {
           ImportPhotos: {
               method: 'GET'
           }
@@ -176,7 +181,7 @@ Services.factory('ImportPhotoJobResource',
 // Split Auto Backup
 Services.factory('SplitAutoBackupResource',
   function ($resource) {
-      return $resource('todo/picasa/split-auto-backup', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/split-auto-backup', {}, {
           SplitAlbum: {
               method: 'GET'
           }
@@ -187,7 +192,7 @@ Services.factory('SplitAutoBackupResource',
 // Dup Albums
 Services.factory('DupAlbumsResource',
   function ($resource) {
-      return $resource('todo/picasa/get-dup-albums', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-dup-albums', {}, {
           GetDupAlbums: {
               method: 'GET'
           }
@@ -197,7 +202,7 @@ Services.factory('DupAlbumsResource',
 // Merge Dup Albums
 Services.factory('MergeDupAlbumResource',
   function ($resource) {
-      return $resource('todo/picasa/merge-dup-albums', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/merge-dup-albums', {}, {
           MergeDupAlbums: {
               method: 'PATCH'
           }
@@ -207,7 +212,7 @@ Services.factory('MergeDupAlbumResource',
 // Merge Albums
 Services.factory('MergeAlbumsResource',
   function ($resource) {
-      return $resource('todo/picasa/merge-albums', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/merge-albums', {}, {
           Merge: {
               method: 'PATCH'
           }
@@ -217,7 +222,7 @@ Services.factory('MergeAlbumsResource',
 // Tags
 Services.factory('TagsResource',
   function ($resource) {
-      return $resource('todo/picasa/get-tags?startIndex=1&maxResults=100', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-tags?startIndex=1&maxResults=100', {}, {
           GetTags: {
               method: 'GET'
           }
@@ -227,7 +232,7 @@ Services.factory('TagsResource',
 // Album Photo List
 Services.factory('AlbumPhotoListResource',
   function ($resource) {
-      return $resource('todo/picasa/get-album-photo-list', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-album-photo-list', {}, {
           GetAlbumPhotos: {
               method: 'GET'
           }
@@ -237,7 +242,7 @@ Services.factory('AlbumPhotoListResource',
 // Album Photo Count
 Services.factory('AlbumPhotoCountResource',
   function ($resource) {
-      return $resource('todo/picasa/get-album-photo-count', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/get-album-photo-count', {}, {
           GetAlbumPhotoCount: {
               method: 'GET'
           }
@@ -307,7 +312,7 @@ Services.factory('AlbumPhotoCountResource',
 // Album Photos
 //Services.factory('AlbumPhotosResource',
   //function ($resource) {
-      //return $resource('todo/picasa/get-album-photos', {}, {
+      //return $resource('https://lahuna-need-to-fix-this/picasa/get-album-photos', {}, {
           //Get: {
               //method: 'GET'
           //}
@@ -317,7 +322,7 @@ Services.factory('AlbumPhotoCountResource',
 // Update Photo
 Services.factory('UpdatePhotoResource',
   function ($resource) {
-      return $resource('todo/picasa/update-photo', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/update-photo', {}, {
           Save: {
               method: 'PATCH'
           }
@@ -327,7 +332,7 @@ Services.factory('UpdatePhotoResource',
 // Update Photo Partial
 Services.factory('UpdatePhotoPartialResource',
   function ($resource) {
-      return $resource('todo/picasa/update-photo-partial', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/update-photo-partial', {}, {
           Update: {
               method: 'PATCH'
           }
@@ -337,7 +342,7 @@ Services.factory('UpdatePhotoPartialResource',
 // Delete Photos
 Services.factory('DeletePhotosResource',
   function ($resource) {
-      return $resource('todo/picasa/delete-photos', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/delete-photos', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -347,7 +352,7 @@ Services.factory('DeletePhotosResource',
 // Delete Photo
 Services.factory('DeletePhotoResource',
   function ($resource) {
-      return $resource('todo/picasa/delete-photo', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/delete-photo', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -357,7 +362,7 @@ Services.factory('DeletePhotoResource',
 // Create Album
 Services.factory('CreateAlbumResource',
   function ($resource) {
-      return $resource('todo/picasa/create-album', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/create-album', {}, {
           Save: {
               method: 'POST'
           }
@@ -368,7 +373,7 @@ Services.factory('CreateAlbumResource',
 // Update Album
 Services.factory('UpdateAlbumResource',
   function ($resource) {
-      return $resource('todo/picasa/update-album', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/update-album', {}, {
           Save: {
               method: 'PATCH'
           }
@@ -378,7 +383,7 @@ Services.factory('UpdateAlbumResource',
 // Delete Albums
 Services.factory('DeleteAlbumsResource',
   function ($resource) {
-      return $resource('todo/picasa/delete-albums', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/delete-albums', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -388,7 +393,7 @@ Services.factory('DeleteAlbumsResource',
 // Delete Album
 Services.factory('DeleteAlbumResource',
   function ($resource) {
-      return $resource('todo/picasa/delete-album', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/delete-album', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -398,7 +403,7 @@ Services.factory('DeleteAlbumResource',
 // Delete Album Confirm
 Services.factory('DeleteAlbumConfirmResource',
   function ($resource) {
-      return $resource('todo/picasa/delete-album-confirm', {}, {
+      return $resource('https://lahuna-need-to-fix-this/picasa/delete-album-confirm', {}, {
           Delete: {
               method: 'DELETE'
           }
@@ -430,7 +435,7 @@ Services.factory('SearchResource',
 // Get Search
 //Services.factory('GetSearchResource',
   //function ($resource) {
-      //return $resource("todo/youtube/get-search", {}, {
+      //return $resource("https://lahuna-need-to-fix-this/youtube/get-search", {}, {
           //Get: {
               //method: 'GET'
           //}
@@ -440,7 +445,7 @@ Services.factory('SearchResource',
 // Get Search All
 //Services.factory('GetSearchAllResource',
   //function ($resource) {
-      //return $resource("todo/youtube/get-search-all", {}, {
+      //return $resource("https://lahuna-need-to-fix-this/youtube/get-search-all", {}, {
           //Get: {
               //method: 'GET'
           //}
@@ -450,7 +455,7 @@ Services.factory('SearchResource',
 // Insert Search
 //Services.factory('InsertSearchResource',
   //function ($resource) {
-      //return $resource("todo/youtube/insert-search", {}, {
+      //return $resource("https://lahuna-need-to-fix-this/youtube/insert-search", {}, {
           //Insert: {
               //method: 'GET'
           //}
@@ -460,7 +465,7 @@ Services.factory('SearchResource',
 // Delete Search
 //Services.factory('DeleteSearchResource',
   //function ($resource) {
-      //return $resource("todo/youtube/delete-search", {}, {
+      //return $resource("https://lahuna-need-to-fix-this/youtube/delete-search", {}, {
           //Delete: {
               //method: 'DELETE'
           //}

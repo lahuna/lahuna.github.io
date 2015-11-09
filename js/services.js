@@ -13,7 +13,7 @@ var Services = angular.module('Services', ['ngResource']);
 // Send Email
 Services.factory('SendEmailResource', ['$resource',
   function ($resource) {
-      return $resource("todo/common/send-email", {}, {
+      return $resource("https://lahuna-need-to-fix-this/common/send-email", {}, {
           Send: {
               method: 'GET'
           }
@@ -23,7 +23,7 @@ Services.factory('SendEmailResource', ['$resource',
 // Get Api
 //Services.factory('GetApiResource', ['$resource',
   //function ($resource) {
-      //return $resource("todo/common/get-api", {}, {
+      //return $resource("https://lahuna-need-to-fix-this/common/get-api", {}, {
           //Get: {
               //method: 'GET'
           //}

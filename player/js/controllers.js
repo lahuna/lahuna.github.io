@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -12,8 +12,8 @@ var Controllers = angular.module('Controllers', []);
 Controllers.controller('ViewerCtrl',
     function ($scope, $routeParams, $window, $location, $modal,
         VideoResource, PlaylistResource, SearchResource,
-        InsertSearchResource, GetSearchResource, UpdatePlaylistResource, DeletePlaylistResource,
-        GetPlaylistHintsResource, PlaylistItemResource,
+        UpdatePlaylistResource, DeletePlaylistResource,
+        PlaylistItemResource,
         InsertPlaylistResource, GetPlaylistIdResource,
         GetPlaylistItemResource, InsertPlaylistItemResource, DeletePlaylistItemResource,
         AuthenticateResource, ChannelResource) {
@@ -26,20 +26,18 @@ Controllers.controller('ViewerCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource.Get({
-                accessToken: GetAccessToken(),
-                refreshToken: GetRefreshToken()
-            }).$promise.then(function (data) {
-                StoreValues(data.authItem);
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
             }, function (error) {
                 $scope.needSignIn = true;
             });
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.AccessToken);
-            localStorage.setItem("youtube_user_id", data.UserId);
-            localStorage.setItem("youtube_expires_in", data.ExpiresIn);
+            localStorage.setItem("youtube_access_token", data.access_token);
+            localStorage.setItem("youtube_user_id", data.user_id);
+            localStorage.setItem("youtube_expires_in", data.expires_in);
             GetChannelId();
         }
 
@@ -80,7 +78,7 @@ Controllers.controller('ViewerCtrl',
             tag.src = "https://www.youtube.com/iframe_api";
             var firstScriptTag = document.getElementsByTagName('script')[0];
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }        
+        }
 
         $window.onYouTubeIframeAPIReady = function () {
             LoadPlayer();
@@ -291,7 +289,7 @@ Controllers.controller('ViewerCtrl',
         $scope.TitleChanged = function () {
             $scope.successVisible = false;
             if ($scope.item.snippet.title.length > 0)
-                $scope.saveVisible = true;            
+                $scope.saveVisible = true;
         }
 
         //$scope.AddToChanged = function () {
@@ -430,17 +428,15 @@ Controllers.controller('ViewerCtrl',
         function InsertSearch() {
             var query = $scope.tag;
             if (query != undefined && query != "")
-                InsertSearchResource.Insert({
-                    userId: localStorage.getItem("youtube_user_id"),
+                SearchResource(GetAccessToken()).Insert({
                     query: query,
                     type: GetType()
                 });
         }
 
         $scope.GetSearchList = function (val) {
-            return GetSearchResource.Get({
-                userId: localStorage.getItem("youtube_user_id"),
-                query: val,
+            return SearchResource(GetAccessToken()).Get({
+                query: '^' + val,
                 type: GetType()
             }).$promise.then(function (data) {
                 return data;
@@ -500,9 +496,9 @@ Controllers.controller('ViewerCtrl',
         }
 
         $scope.GetPlaylistHints = function (val) {
-            return GetPlaylistHintsResource.Get({
-                userId: localStorage.getItem("youtube_user_id"), // TODO: pass access token instead?
-                query: val
+            return SearchResource(GetAccessToken).Get({
+                query: val,
+                type: 'playlist'
             }).$promise.then(function (data) {
                 return data;
             });

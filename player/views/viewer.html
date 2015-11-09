@@ -32,7 +32,7 @@
             <div class="col-md-12 no-pad" ng-show="type == 'Video'">
                 <div class="input-group form-margin">
                     <span class="input-group-addon" id="addonPlaylist">Playlist:</span>
-                    <input type="text" ng-model="playlist.title" ng-keydown="GoAddPlaylist($event)" typeahead="item for item in GetPlaylistHints($viewValue)"
+                    <input type="text" ng-model="playlist.title" ng-keydown="GoAddPlaylist($event)" typeahead="item.query for item in GetPlaylistHints($viewValue)"
                            class="form-control" placeholder="Enter a playlist name..." aria-describedby="addonPlaylist" />
                     <span class="input-group-btn">
                         <button class="btn btn-default" ng-click="AddPlaylist()">Add</button>
@@ -98,7 +98,7 @@
         <div class="col-md-6" ng-show="editVisible">
             <div class="input-group">
                 <span class="input-group-addon" id="addonTag">Tag:</span>
-                <input type="text" ng-model="tag" ng-keydown="GoAddTag($event)" typeahead="item for item in GetSearchList($viewValue)"
+                <input type="text" ng-model="tag" ng-keydown="GoAddTag($event)" typeahead="item.query for item in GetSearchList($viewValue)"
                        class="form-control" placeholder="Enter a tag..." aria-describedby="addonTag" />
                 <span class="input-group-btn">
                     <button class="btn btn-default" ng-click="AddTag()">Add</button>
