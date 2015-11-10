@@ -658,7 +658,7 @@ Controllers.controller('VideosCtrl',
 
         $scope.GetSearchList = function (val) {
             return SearchResource(GetAccessToken()).Get({
-                query: new RegExp('^' + val),
+                query: val,
                 type: "youtube"
             }).$promise.then(function (data) {
                 return data;
@@ -687,7 +687,7 @@ Controllers.controller('VideosCtrl',
 
         $scope.GetPlaylistHints = function (val) {
             return SearchResource(GetAccessToken()).Get({
-                query: new RegExp('^' + val),
+                query: val,
                 type: 'playlist'
             }).$promise.then(function (data) {
                 return data;
@@ -1174,9 +1174,9 @@ Controllers.controller('PlaylistsCtrl',
                 query: query,
                 order: GetOrder()
             }).$promise.then(function (data) {
-                $scope.items = data.list;
+                $scope.items = data;
                 if (query != "") {
-                    if (data.list.length > 0)
+                    if (data.length > 0)
                         InsertSearch(query);
                     else
                         DeleteSearch(query);
@@ -1244,7 +1244,7 @@ Controllers.controller('PlaylistsCtrl',
 
         $scope.GetSearchList = function (val) {
             return SearchResource(GetAccessToken()).Get({
-                query: new RegExp('^' + val),
+                query: val,
                 type: "youtube-playlist"
             }).$promise.then(function (data) {
                 return data;
@@ -1349,7 +1349,6 @@ Controllers.controller('ToolsCtrl',
 
 Controllers.controller('PlaylistCtrl',
     function ($scope, $routeParams, $window, PlaylistResource, PlaylistItemResource,
-        UpdatePlaylistResource, DeletePlaylistResource,
         AuthenticateResource) {
 
         //****************************************
@@ -1409,7 +1408,8 @@ Controllers.controller('PlaylistCtrl',
 
         function GetPlaylist() {
             PlaylistResource(GetAccessToken()).Get({
-                id: $routeParams.id
+                id: $routeParams.id,
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 if (data.items.length > 0)
                     $scope.playlist = data;
@@ -1424,7 +1424,8 @@ Controllers.controller('PlaylistCtrl',
         function GetPlaylistItems() {
             PlaylistItemResource(GetAccessToken()).Get({
                 playlistId: $routeParams.id,
-                maxResults: "50"
+                maxResults: "50",
+                part: 'snippet'
             }).$promise.then(function (data) {
                 if (data.items.length > 0)
                     $scope.list = data;
@@ -1470,7 +1471,7 @@ Controllers.controller('PlaylistCtrl',
         }
 
         $scope.MoveUp = function (index) {
-            PlaylistItemResource(GetAccessToken()).Move({
+            PlaylistItemResource(GetAccessToken()).Put({
                 id: $scope.list.items[index].id,
                 snippet: {
                     playlistId: $routeParams.id,
@@ -1488,7 +1489,7 @@ Controllers.controller('PlaylistCtrl',
         }
 
         $scope.MoveDown = function (index) {
-            PlaylistItemResource(GetAccessToken()).Move({
+            PlaylistItemResource(GetAccessToken()).Put({
                 id: $scope.list.items[index].id,
                 snippet: {
                     playlistId: $routeParams.id,
