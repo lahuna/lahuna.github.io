@@ -658,7 +658,7 @@ Controllers.controller('VideosCtrl',
 
         $scope.GetSearchList = function (val) {
             return SearchResource(GetAccessToken()).Get({
-                query: '^' + val,
+                query: new RegExp('^' + val),
                 type: "youtube"
             }).$promise.then(function (data) {
                 return data;
@@ -687,7 +687,7 @@ Controllers.controller('VideosCtrl',
 
         $scope.GetPlaylistHints = function (val) {
             return SearchResource(GetAccessToken()).Get({
-                query: val,
+                query: new RegExp('^' + val),
                 type: 'playlist'
             }).$promise.then(function (data) {
                 return data;
@@ -1244,7 +1244,7 @@ Controllers.controller('PlaylistsCtrl',
 
         $scope.GetSearchList = function (val) {
             return SearchResource(GetAccessToken()).Get({
-                query: '^' + val,
+                query: new RegExp('^' + val),
                 type: "youtube-playlist"
             }).$promise.then(function (data) {
                 return data;
