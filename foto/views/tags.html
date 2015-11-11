@@ -27,7 +27,7 @@
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
-            <div ng-repeat="item in items | orderBy:'query' | filter: { query:search }">
+            <div ng-repeat="item in items.list | orderBy:'query' | filter: { query:search }">
                 <div class="btn-group btnGroup">
                     <a href="#/{{path}}/{{item.query}}" ng-click="StoreFilter()" class="btn btn-default btnWidth">{{item.query}}</a>
                     <button class="btn btn-default" type="button" ng-click="Delete(item)"><span class="glyphicon glyphicon-trash" title="Delete"></span></button>

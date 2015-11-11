@@ -49,7 +49,7 @@
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
             <div class="list-group">
-                <a ng-repeat="item in items" class="list-group-item" href="#/playlist/{{item.playlistId | owner}}/{{item.playlistId}}">
+                <a ng-repeat="item in items.list" class="list-group-item" href="#/playlist/{{item.playlistId | owner}}/{{item.playlistId}}">
                     <div><img ng-src="{{item.thumbnail}}" class="img-responsive" /></div>
                     <div>{{item.title}}</div>
                 </a>

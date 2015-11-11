@@ -417,7 +417,7 @@ Services.factory('SearchResource',
           return $resource(location.origin + ':8000/search', {}, {
               Get: {
                   method: 'GET',
-                  isArray:true,
+                  //isArray:true,
                   headers: { 'access_token': accessToken }
               },
               Post: {

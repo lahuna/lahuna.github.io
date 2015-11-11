@@ -169,7 +169,7 @@ Services.factory('PlaylistDbResource',
           return $resource(location.origin + ':8000/playlist', {}, {
               Get: {
                   method: 'GET',
-                  isArray:true,
+                  //isArray:true,
                   headers: { 'access_token': accessToken }
               },
               Post: {
@@ -195,7 +195,7 @@ Services.factory('PlaylistItemDbResource',
           return $resource(location.origin + ':8000/playlist_item', {}, {
               Get: {
                   method: 'GET',
-                  isArray:true,
+                  //isArray:true,
                   headers: { 'access_token': accessToken }
               },
               Post: {
@@ -262,7 +262,7 @@ Services.factory('SearchResource',
           return $resource(location.origin + ':8000/search', {}, {
               Get: {
                   method: 'GET',
-                  isArray:true,
+                  //isArray:true,
                   headers: { 'access_token': accessToken }
               },
               Post: {

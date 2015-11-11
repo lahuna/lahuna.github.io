@@ -1222,7 +1222,7 @@ Controllers.controller('PlaylistsCtrl',
                 job: 'false'
             }).$promise.then(function (data) {
                 $scope.response = data.message;
-                if (!data.error) {
+                if (data.success) {
                     SetAlert('success', "Playlist import successful.");
                     Search();
                 } else
@@ -1269,7 +1269,7 @@ Controllers.controller('PlaylistsCtrl',
 
 Controllers.controller('ToolsCtrl',
     function ($scope, $routeParams,
-        ImportVideosResource, ImportPlaylistItemResource,
+        ImportVideoResource, ImportPlaylistItemResource,
         AuthenticateResource) {
 
         //****************************************
@@ -1307,34 +1307,27 @@ Controllers.controller('ToolsCtrl',
         // Import
         //*********************************************
 
-        //$scope.ImportVideos = function () {
-        //    SetAlert('warning', 'Importing videos...');
-
-        //    ImportVideosResource.Get({
-        //        accessToken: GetAccessToken()
-        //    }).$promise.then(function (data) {
-        //        $scope.response = data.message;
-        //        if (data.message == "Videos successfully imported.") {
-        //            SetAlert('success', data.message);
-        //            Search();
-        //        } else
-        //            SetAlert('danger', data.message);
-        //    });
-        //}
-
         $scope.ImportVideos = function () {
-
-            ImportVideosResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function () {
-                SetAlert('success', 'Import videos job queued...');
+            SetAlert('warning', 'Importing videos...');
+            ImportVideoResource(GetAccessToken(), GetRefreshToken()).Post({
+                job: 'false'
+            }).$promise.then(function (data) {
+                if (data.success) {
+                    SetAlert('success', "Video import successful.");
+                } else
+                    SetAlert('danger', "Video import failed.");
             });
         }
 
-        $scope.ImportPlaylistItems = function () {
-
-            ImportPlaylistItemResource(GetAccessToken(), GetRefreshToken())
-            .Post().$promise.then(function () {
-                SetAlert('success', 'Import playlist items job queued...');
+        $scope.ImportPlaylistItemResource = function () {
+            SetAlert('warning', 'Importing playlist items...');
+            ImportPlaylistItemResource(GetAccessToken(), GetRefreshToken()).Post({
+                job: 'false'
+            }).$promise.then(function (data) {
+                if (data.success) {
+                    SetAlert('success', "Playlist item import successful.");
+                } else
+                    SetAlert('danger', "Playlist item import failed.");
             });
         }
 
