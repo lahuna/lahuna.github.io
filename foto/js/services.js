@@ -129,7 +129,7 @@ Services.factory('AlbumsDayResource',
   //});
 
 // Import Albums
-Services.factory('ImportAlbumResource',
+Services.factory('ImportAlbumResourceOLD',
   function ($resource) {
       return $resource('https://lahuna-need-to-fix-this/picasa/import-albums', {}, {
           ImportAlbums: {
@@ -141,22 +141,32 @@ Services.factory('ImportAlbumResource',
 // Import Photos
 Services.factory('ImportPhotoResource',
   function ($resource) {
-      return $resource('https://lahuna-need-to-fix-this/picasa/import-photos', {}, {
-          ImportPhotos: {
-              method: 'GET'
-          }
-      });
-  });
+      return function (accessToken, refreshToken) {
+          return $resource(location.origin + ':8000/photo/import', {}, {
+              Post: {
+                  method: 'POST',
+                  headers: {
+                    access_token: accessToken,
+                    refresh_token: refreshToken }
+              }
+          });
+      }
+});
 
-// Import Albums All
-Services.factory('ImportAlbumsAllResource',
+// Import Albums
+Services.factory('ImportAlbumResource',
   function ($resource) {
-      return $resource('https://lahuna-need-to-fix-this/picasa/import-albums-all', {}, {
-          ImportAlbums: {
-              method: 'GET'
-          }
-      });
-  });
+      return function (accessToken, refreshToken) {
+          return $resource(location.origin + ':8000/album/import', {}, {
+              Post: {
+                  method: 'POST',
+                  headers: {
+                    access_token: accessToken,
+                    refresh_token: refreshToken }
+              }
+          });
+      }
+});
 
 // Import Albums Job
 Services.factory('ImportAlbumJobResource',

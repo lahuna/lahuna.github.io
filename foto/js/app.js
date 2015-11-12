@@ -27,7 +27,7 @@ fotoApp.config(
         }).
         when('/tools', {
             templateUrl: 'views/tools.html',
-            controller: 'MainCtrl'
+            controller: 'ToolsCtrl'
         }).
         when('/albums', {
             templateUrl: 'views/albums.html',

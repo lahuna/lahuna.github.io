@@ -471,11 +471,71 @@ Controllers.controller('ImportCtrl',
               });
           }
       };
-  });
+});
+
+Controllers.controller('ToolsCtrl',
+    function ($scope, $routeParams,
+        ImportPhotoResource, AuthenticateResource) {
+
+        //****************************************
+        // AUTHENTICATE
+        //****************************************
+
+        $scope.needSignIn = false;
+        Authenticate();
+
+        function Authenticate() {
+            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            .$promise.then(function (data) {
+                StoreValues(data);
+            }, function (error) {
+                $scope.needSignIn = true;
+            });
+        }
+
+        function StoreValues(data) {
+            localStorage.setItem("google_access_token", data.access_token);
+            localStorage.setItem("google_user_id", data.user_id);
+            localStorage.setItem("google_expires_in", data.expires_in);
+            //Initialize();
+        }
+
+        function GetAccessToken() {
+            return localStorage.getItem("google_access_token");
+        }
+
+        function GetRefreshToken() {
+            return localStorage.getItem("google_refresh_token");
+        }
+
+        //*********************************************
+        // Import
+        //*********************************************
+
+        $scope.ImportPhotos = function () {
+            SetAlert('warning', 'Importing photos...');
+            ImportPhotoResource(GetAccessToken(), GetRefreshToken()).Post({
+                job: 'false'
+            }).$promise.then(function (data) {
+                if (data.success) {
+                    SetAlert('success', "Photo import successful.");
+                } else
+                    SetAlert('danger', "Photo import failed.");
+            });
+        }
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
+
+        function SetAlert(type, msg) {
+            $scope.alerts = [{ type: type, msg: msg }];
+        }
+});
 
 Controllers.controller('AlbumsCtrl',
     function ($scope, $routeParams,
-        ImportAlbumsAllResource, SearchAlbumsResource,
+        ImportAlbumResource, SearchAlbumsResource,
         SearchResource, AuthenticateResource) {
 
         //****************************************
@@ -601,15 +661,14 @@ Controllers.controller('AlbumsCtrl',
         $scope.Import = function () {
             SetAlert('warning', 'Importing albums...');
 
-            ImportAlbumsAllResource.ImportAlbums({
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                $scope.response = data.message;
-                if (data.message == "Albums successfully imported.") {
-                    SetAlert('success', data.message);
+            ImportAlbumResource(GetAccessToken(), GetRefreshToken()).Post()
+            .$promise.then(function (data) {
+                //$scope.response = data.message;
+                if (data.success) {
+                    SetAlert('success', 'Album import successful.');
                     Search();
                 } else
-                    SetAlert('danger', data.message);
+                    SetAlert('danger', 'Album import failed');
             });
         }
 
