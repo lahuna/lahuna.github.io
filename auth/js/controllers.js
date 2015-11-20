@@ -37,8 +37,9 @@ Controllers.controller('GoogleCtrl',
         //}
 
         function GetUser(token) {
-            UserResource(token.access_token).Get()
-            .$promise.then(function (data) {
+            UserResource.Get({
+              accessToken: token.access_token
+            }).$promise.then(function (data) {
                 if (data.message == 'Found')
                     Reroute();
                     //UpdateUser(token);
@@ -142,10 +143,11 @@ Controllers.controller('AgreeCtrl',
         }
 
         function CreateUser(profile) {
-            UserResource($scope.access_token).Post({
+            UserResource.Post({
                 agreedDate: Date(),
                 displayName: profile.displayName,
-                email: profile.emails[0].value
+                email: profile.emails[0].value,
+                accessToken: $scope.access_token
             }).$promise.then(function () {
                 Reroute();
             });

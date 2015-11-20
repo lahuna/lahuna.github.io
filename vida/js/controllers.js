@@ -23,7 +23,10 @@ Controllers.controller('MainCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
             .$promise.then(function (data) {
                 StoreValues(data);
             }, function (error) {
@@ -66,10 +69,13 @@ Controllers.controller('MainCtrl',
 
         function Import() {
 
-            ImportPlaylistResource(GetAccessToken(), GetRefreshToken()).Post({
-                job: 'true'
+            ImportPlaylistResource.Post({
+                job: 'true',
+                accessToken: GetAccessToken()
             }).$promise.then(function () {
-                ImportPlaylistItemResource(GetAccessToken(), GetRefreshToken()).Post();
+                ImportPlaylistItemResource.Post({
+                  accessToken: GetAccessToken()
+                });
             });
         }
 
@@ -136,12 +142,15 @@ Controllers.controller('SearchCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -299,9 +308,10 @@ Controllers.controller('SearchCtrl',
         $scope.playlistId = "";
 
         $scope.GetPlaylistHints = function (val) {
-            return SearchResource(GetAccessToken).Get({
+            return SearchResource.Get({
                 query: val,
-                type: 'playlist'
+                type: 'playlist',
+                userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
                 return data;
             });
@@ -349,10 +359,11 @@ Controllers.controller('SearchCtrl',
         }
 
         function InsertPlaylistItem(data) {
-            PlaylistItemDbResource(GetAccessToken()).Post({
+            PlaylistItemDbResource.Post({
                 playlistItemId: data.id,
                 playlistId: data.snippet.playlistId,
-                videoId: data.snippet.resourceId.videoId
+                videoId: data.snippet.resourceId.videoId,
+                accessToken: GetAccessToken()
             });
         }
 
@@ -379,14 +390,16 @@ Controllers.controller('SearchCtrl',
         }
 
         function DeletePlaylistItem(id) {
-            PlaylistItemDbResource(GetAccessToken()).Delete({
-                playlistItemId: id
+            PlaylistItemDbResource.Delete({
+                playlistItemId: id,
+                accessToken: GetAccessToken()
             });
         }
 
         function GetPlaylistId(index) {
-            PlaylistDbResource(GetAccessToken()).Get({
-                title: $scope.playlist
+            PlaylistDbResource.Get({
+                title: $scope.playlist,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.id != null) {
                     $scope.playlistId = data.id;
@@ -413,13 +426,14 @@ Controllers.controller('SearchCtrl',
         }
 
         function InsertPlaylist(index, data) {
-            PlaylistDbResource(GetAccessToken()).Post({
+            PlaylistDbResource.Post({
                 playlistId: data.id,
                 title: data.snippet.title,
                 thumbnail: data.snippet.thumbnails.default.url,
                 tags: data.snippet.tags.toString(),
-                publishedDate: data.snippet.publishedAt,
-                privacy: data.status.privacyStatus
+                published: data.snippet.publishedAt,
+                privacy: data.status.privacyStatus,
+                accessToken: GetAccessToken()
             }).$promise.then(function () {
                 AddToPlaylist(index, data.id);
             });
@@ -435,7 +449,7 @@ Controllers.controller('SearchCtrl',
                     title: pl.snippet.title,
                     thumbnail: pl.snippet.thumbnails.default.url,
                     tags: SetTags(pl),
-                    publishedDate: pl.snippet.publishedAt,
+                    published: pl.snippet.publishedAt,
                     privacy: pl.status.privacyStatus
                 })
             });
@@ -478,12 +492,15 @@ Controllers.controller('VideosCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -657,25 +674,28 @@ Controllers.controller('VideosCtrl',
         //****************************************
 
         $scope.GetSearchList = function (val) {
-            return SearchResource(GetAccessToken()).Get({
+            return SearchResource.Get({
                 query: val,
-                type: "youtube"
+                type: "youtube",
+                userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
-                return data;
+                return data.list;
             });
         }
 
         function InsertSearch(query) {
-            SearchResource(GetAccessToken()).Post({
+            SearchResource.Post({
                 query: query,
-                type: "youtube"
+                type: "youtube",
+                accessToken: GetAccessToken()
             });
         }
 
         function DeleteSearch(query) {
-            SearchResource(GetAccessToken).Delete({
+            SearchResource.Delete({
                 query: query,
-                type: "youtube"
+                type: "youtube",
+                accessToken: GetAccessToken()
             });
         }
 
@@ -686,9 +706,10 @@ Controllers.controller('VideosCtrl',
         $scope.playlistId = "";
 
         $scope.GetPlaylistHints = function (val) {
-            return SearchResource(GetAccessToken()).Get({
+            return SearchResource.Get({
                 query: val,
-                type: 'playlist'
+                type: 'playlist',
+                userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
                 return data;
             });
@@ -736,10 +757,11 @@ Controllers.controller('VideosCtrl',
         }
 
         function InsertPlaylistItem(data) {
-            PlaylistItemDbResource(GetAccessToken()).Post({
+            PlaylistItemDbResource.Post({
                 playlistItemId: data.id,
                 playlistId: data.snippet.playlistId,
-                videoId: data.snippet.resourceId.videoId
+                videoId: data.snippet.resourceId.videoId,
+                accessToken: GetAccessToken()
             });
         }
 
@@ -766,14 +788,16 @@ Controllers.controller('VideosCtrl',
         }
 
         function DeletePlaylistItem(id) {
-            PlaylistItemDbResource(GetAccessToken()).Delete({
-                playlistItemId: id
+            PlaylistItemDbResource.Delete({
+                playlistItemId: id,
+                accessToken: GetAccessToken()
             });
         }
 
         function GetPlaylistId(index) {
-            PlaylistDbResource(GetAccessToken).Get({
-                title: $scope.playlist
+            PlaylistDbResource.Get({
+                title: $scope.playlist,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.id != null) {
                     $scope.playlistId = data.id;
@@ -800,13 +824,14 @@ Controllers.controller('VideosCtrl',
         }
 
         function InsertPlaylist(index, data) {
-            PlaylistDbResource(GetAccessToken()).Post({
+            PlaylistDbResource.Post({
                 playlistId: data.id,
                 title: data.snippet.title,
                 thumbnail: data.snippet.thumbnails.default.url,
                 tags: data.snippet.tags.toString(),
-                publishedDate: data.snippet.publishedAt,
-                privacy: data.status.privacyStatus
+                published: data.snippet.publishedAt,
+                privacy: data.status.privacyStatus,
+                accessToken: GetAccessToken()
             }).$promise.then(function () {
                 AddToPlaylist(index, data.id);
             });
@@ -817,13 +842,14 @@ Controllers.controller('VideosCtrl',
                 id: $scope.playlistId
             }).$promise.then(function (data) {
                 var pl = data.items[0];
-                PlaylistDbResource(GetAccessToken()).Put({
+                PlaylistDbResource.Put({
                     playlistId: pl.id,
                     title: pl.snippet.title,
                     thumbnail: pl.snippet.thumbnails.default.url,
                     tags: SetTags(pl),
-                    publishedDate: pl.snippet.publishedAt,
-                    privacy: pl.status.privacyStatus
+                    published: pl.snippet.publishedAt,
+                    privacy: pl.status.privacyStatus,
+                    accessToken: GetAccessToken()
                 })
             });
         }
@@ -865,12 +891,15 @@ Controllers.controller('RecommendCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -930,9 +959,10 @@ Controllers.controller('RecommendCtrl',
         $scope.playlistId = "";
 
         $scope.GetPlaylistHints = function (val) {
-            return SearchResource(GetAccessToken()).Get({
+            return SearchResource.Get({
                 query: val,
-                type: 'playlist'
+                type: 'playlist',
+                userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
                 return data;
             });
@@ -980,10 +1010,11 @@ Controllers.controller('RecommendCtrl',
         }
 
         function InsertPlaylistItem(data) {
-            PlaylistItemDbResource(GetAccessToken()).Post({
+            PlaylistItemDbResource.Post({
                 playlistItemId: data.id,
                 playlistId: data.snippet.playlistId,
-                videoId: data.snippet.resourceId.videoId
+                videoId: data.snippet.resourceId.videoId,
+                accessToken: GetAccessToken()
             });
         }
 
@@ -1010,14 +1041,16 @@ Controllers.controller('RecommendCtrl',
         }
 
         function DeletePlaylistItem(id) {
-            PlaylistItemDbResource(GetAccessToken()).Delete({
-                playlistItemId: id
+            PlaylistItemDbResource.Delete({
+                playlistItemId: id,
+                accessToken: GetAccessToken()
             });
         }
 
         function GetPlaylistId(index) {
-            PlaylistDbResource(GetAccessToken()).Get({
-                title: $scope.playlist
+            PlaylistDbResource.Get({
+                title: $scope.playlist,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.id != null) {
                     $scope.playlistId = data.id;
@@ -1044,13 +1077,14 @@ Controllers.controller('RecommendCtrl',
         }
 
         function InsertPlaylist(index, data) {
-            PlaylistDbResource(GetAccessToken()).Post({
+            PlaylistDbResource.Post({
                 playlistId: data.id,
                 title: data.snippet.title,
                 thumbnail: data.snippet.thumbnails.default.url,
                 tags: data.snippet.tags.toString(),
-                publishedDate: data.snippet.publishedAt,
-                privacy: data.status.privacyStatus
+                published: data.snippet.publishedAt,
+                privacy: data.status.privacyStatus,
+                accessToken: GetAccessToken()
             }).$promise.then(function () {
                 AddToPlaylist(index, data.id);
             });
@@ -1061,13 +1095,14 @@ Controllers.controller('RecommendCtrl',
                 id: $scope.playlistId
             }).$promise.then(function (data) {
                 var pl = data.items[0];
-                PlaylistDbResource(GetAccessToken()).Put({
+                PlaylistDbResource.Put({
                     playlistId: pl.id,
                     title: pl.snippet.title,
                     thumbnail: pl.snippet.thumbnails.default.url,
                     tags: SetTags(pl),
-                    publishedDate: pl.snippet.publishedAt,
-                    privacy: pl.status.privacyStatus
+                    published: pl.snippet.publishedAt,
+                    privacy: pl.status.privacyStatus,
+                    accessToken: GetAccessToken()
                 })
             });
         }
@@ -1104,12 +1139,15 @@ Controllers.controller('PlaylistsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -1170,13 +1208,14 @@ Controllers.controller('PlaylistsCtrl',
             localStorage.setItem("playlist_order", $scope.order);
 
             var query = $scope.search;
-            PlaylistDbResource(GetAccessToken()).Get({
+            PlaylistDbResource.Get({
                 query: query,
-                order: GetOrder()
+                order: GetOrder(),
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.items = data;
                 if (query != "") {
-                    if (data.length > 0)
+                    if (data.list.length > 0)
                         InsertSearch(query);
                     else
                         DeleteSearch(query);
@@ -1218,8 +1257,9 @@ Controllers.controller('PlaylistsCtrl',
         $scope.Import = function () {
             SetAlert('warning', 'Importing playlists...');
 
-            ImportPlaylistResource(GetAccessToken(), GetRefreshToken()).Post({
-                job: 'false'
+            ImportPlaylistResource.Post({
+                job: 'false',
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.response = data.message;
                 if (data.success) {
@@ -1243,25 +1283,28 @@ Controllers.controller('PlaylistsCtrl',
         //*********************************************
 
         $scope.GetSearchList = function (val) {
-            return SearchResource(GetAccessToken()).Get({
+            return SearchResource.Get({
                 query: val,
-                type: "youtube-playlist"
+                type: "youtube-playlist",
+                userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
-                return data;
+                return data.list;
             });
         }
 
         function InsertSearch(query) {
-            SearchResource(GetAccessToken()).Post({
+            SearchResource.Post({
                 query: query,
-                type: "youtube-playlist"
+                type: "youtube-playlist",
+                accessToken: GetAccessToken()
             });
         }
 
         function DeleteSearch(query) {
-            SearchResource(GetAccessToken()).Delete({
+            SearchResource.Delete({
                 query: query,
-                type: "youtube-playlist"
+                type: "youtube-playlist",
+                accessToken: GetAccessToken()
             });
         }
 
@@ -1280,12 +1323,15 @@ Controllers.controller('ToolsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -1309,8 +1355,9 @@ Controllers.controller('ToolsCtrl',
 
         $scope.ImportVideos = function () {
             SetAlert('warning', 'Importing videos...');
-            ImportVideoResource(GetAccessToken(), GetRefreshToken()).Post({
-                job: 'false'
+            ImportVideoResource.Post({
+                job: 'false',
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.success) {
                     SetAlert('success', "Video import successful.");
@@ -1319,10 +1366,11 @@ Controllers.controller('ToolsCtrl',
             });
         }
 
-        $scope.ImportPlaylistItemResource = function () {
+        $scope.ImportPlaylistItems = function () {
             SetAlert('warning', 'Importing playlist items...');
-            ImportPlaylistItemResource(GetAccessToken(), GetRefreshToken()).Post({
-                job: 'false'
+            ImportPlaylistItemResource.Post({
+                job: 'false',
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.success) {
                     SetAlert('success', "Playlist item import successful.");
@@ -1352,12 +1400,15 @@ Controllers.controller('PlaylistCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -1444,8 +1495,9 @@ Controllers.controller('PlaylistCtrl',
             }).$promise.then(function (data) {
                 // TODO: Handle Errors Here
 
-                PlaylistDbResource(GetAccessToken()).Delete({
-                    id: $routeParams.id
+                PlaylistDbResource.Delete({
+                    id: $routeParams.id,
+                    accessToken: GetAccessToken()
                 }).$promise.then(function () {
                     $window.history.back();
                 })
@@ -1518,13 +1570,14 @@ Controllers.controller('PlaylistCtrl',
                 id: $routeParams.id
             }).$promise.then(function (data) {
                 var pl = data.items[0];
-                PlaylistDbResource(GetAccessToken()).Put({
+                PlaylistDbResource.Put({
                     playlistId: pl.id,
                     title: pl.snippet.title,
                     thumbnail: pl.snippet.thumbnails.default.url,
                     tags: SetTags(pl),
-                    publishedDate: pl.snippet.publishedAt,
-                    privacy: pl.status.privacyStatus
+                    published: pl.snippet.publishedAt,
+                    privacy: pl.status.privacyStatus,
+                    accessToken: GetAccessToken()
                 })
             })
         }
@@ -1560,7 +1613,10 @@ Controllers.controller('TagsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
+            AuthenticateResource.Get({
+              accessToken: GetAccessToken(),
+              refreshToken: GetRefreshToken()
+            })
             .$promise.then(function (data) {
                 StoreValues(data);
             }, function (error) {
@@ -1599,8 +1655,9 @@ Controllers.controller('TagsCtrl',
             else
                 $scope.search = localStorage.getItem("tag_search");
 
-            $scope.items = SearchResource(GetAccessToken()).Get({
-                type: GetType()
+            $scope.items = SearchResource.Get({
+                type: GetType(),
+                userId: localStorage.getItem('youtube_user_id')
             });
         }
 
@@ -1616,9 +1673,10 @@ Controllers.controller('TagsCtrl',
         $scope.Delete = function (item) {
             var index = $scope.items.list.indexOf(item);
             $scope.items.list.splice(index, 1);
-            SearchResource(GetAccessToken()).Delete({
+            SearchResource.Delete({
                 query: item.title,
-                type: GetType()
+                type: GetType(),
+                accessToken: GetAccessToken()
             });
         }
 
@@ -1663,12 +1721,15 @@ Controllers.controller('SubscriptionsCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -1713,12 +1774,15 @@ Controllers.controller('ChannelCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -1763,12 +1827,15 @@ Controllers.controller('ActivityCtrl',
         Authenticate();
 
         function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
+          AuthenticateResource.Get({
+            accessToken: GetAccessToken(),
+            refreshToken: GetRefreshToken()
+          })
+          .$promise.then(function (data) {
+              StoreValues(data);
+          }, function (error) {
+              $scope.needSignIn = true;
+          });
         }
 
         function StoreValues(data) {
@@ -1871,9 +1938,10 @@ Controllers.controller('ActivityCtrl',
         $scope.playlistId = "";
 
         $scope.GetPlaylistHints = function (val) {
-            return SearchResource(GetAccessToken()).Get({
+            return SearchResource.Get({
                 query: val,
-                type: 'playlist'
+                type: 'playlist',
+                userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
                 return data;
             });
@@ -1951,14 +2019,16 @@ Controllers.controller('ActivityCtrl',
         }
 
         function DeletePlaylistItem(id) {
-            PlaylistItemDbResource(GetAccessToken()).Delete({
-                playlistItemId: id
+            PlaylistItemDbResource.Delete({
+                playlistItemId: id,
+                accessToken: GetAccessToken()
             });
         }
 
         function GetPlaylistId(index) {
-            PlaylistDbResource(GetAccessToken()).Get({
-                title: $scope.playlist
+            PlaylistDbResource.Get({
+                title: $scope.playlist,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.id != null) {
                     $scope.playlistId = data.id;
@@ -1985,13 +2055,14 @@ Controllers.controller('ActivityCtrl',
         }
 
         function InsertPlaylist(index, data) {
-            PlaylistDbResource(GetAccessToken()).Post({
+            PlaylistDbResource.Post({
                 playlistId: data.id,
                 title: data.snippet.title,
                 thumbnail: data.snippet.thumbnails.default.url,
                 tags: data.snippet.tags.toString(),
-                publishedDate: data.snippet.publishedAt,
-                privacy: data.status.privacyStatus
+                published: data.snippet.publishedAt,
+                privacy: data.status.privacyStatus,
+                accessToken: GetAccessToken()
             }).$promise.then(function () {
                 AddToPlaylist(index, data.id);
             });
@@ -2002,13 +2073,14 @@ Controllers.controller('ActivityCtrl',
                 id: $scope.playlistId
             }).$promise.then(function (data) {
                 var pl = data.items[0];
-                PlaylistDbResource(GetAccessToken()).Put({
+                PlaylistDbResource.Put({
                     playlistId: pl.id,
                     title: pl.snippet.title,
                     thumbnail: pl.snippet.thumbnails.default.url,
                     tags: SetTags(pl),
-                    publishedDate: pl.snippet.publishedAt,
-                    privacy: pl.status.privacyStatus
+                    published: pl.snippet.publishedAt,
+                    privacy: pl.status.privacyStatus,
+                    accessToken: GetAccessToken()
                 })
             });
         }
@@ -2164,7 +2236,9 @@ Controllers.controller('PlaylistsAllCtrl',
         else
             $scope.search = localStorage.getItem("playlist_all_search");
 
-        $scope.playlist = PlaylistDbResource(GetAccessToken()).Get();
+        $scope.playlist = PlaylistDbResource.Get({
+          accessToken: GetAccessToken()
+        });
 
         $scope.StoreFilter = function () {
             localStorage.setItem("playlist_all_search", $scope.search);

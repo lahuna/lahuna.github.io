@@ -13,16 +13,11 @@ var Services = angular.module('Services', ['ngResource']);
 // Authenticate
 Services.factory('AuthenticateResource',
   function ($resource) {
-      return function (accessToken, refreshToken) {
-          return $resource(location.origin + ':8000/google/authenticate', {}, {
-              Get: {
-                  method: 'GET',
-                  headers: {
-                    access_token: accessToken,
-                    refresh_token: refreshToken }
-              }
-          });
+    return $resource(location.origin + ':8000/google/authenticate', {}, {
+      Get: {
+          method: 'GET'
       }
+    });
 });
 
 // Profile
@@ -165,116 +160,82 @@ Services.factory('PlaylistItemResource',
 // Playlists Db
 Services.factory('PlaylistDbResource',
   function ($resource) {
-      return function (accessToken) {
-          return $resource(location.origin + ':8000/playlist', {}, {
-              Get: {
-                  method: 'GET',
-                  //isArray:true,
-                  headers: { 'access_token': accessToken }
-              },
-              Post: {
-                  method: 'POST',
-                  headers: { 'access_token': accessToken }
-              },
-              Put: {
-                  method: 'PUT',
-                  headers: { 'access_token': accessToken }
-              },
-              Delete: {
-                  method: 'DELETE',
-                  headers: { 'access_token': accessToken }
-              }
-          });
+    return $resource(location.origin + ':8000/playlist', {}, {
+      Get: {
+          method: 'GET'
+      },
+      Post: {
+          method: 'POST'
+      },
+      Put: {
+          method: 'PUT'
+      },
+      Delete: {
+          method: 'DELETE'
       }
+    });
 });
 
 // Playlist Items Db
 Services.factory('PlaylistItemDbResource',
   function ($resource) {
-      return function (accessToken) {
-          return $resource(location.origin + ':8000/playlist_item', {}, {
-              Get: {
-                  method: 'GET',
-                  //isArray:true,
-                  headers: { 'access_token': accessToken }
-              },
-              Post: {
-                  method: 'POST',
-                  headers: { 'access_token': accessToken }
-              },
-              Delete: {
-                  method: 'DELETE',
-                  headers: { 'access_token': accessToken }
-              }
-          });
+    return $resource(location.origin + ':8000/playlist_item', {}, {
+      Get: {
+          method: 'GET'
+      },
+      Post: {
+          method: 'POST'
+      },
+      Delete: {
+          method: 'DELETE'
       }
+    });
 });
 
 // Import Playlists
 Services.factory('ImportPlaylistResource',
   function ($resource) {
-      return function (accessToken, refreshToken) {
-          return $resource(location.origin + ':8000/playlist/import', {}, {
-              Post: {
-                  method: 'POST',
-                  headers: {
-                    access_token: accessToken,
-                    refresh_token: refreshToken }
-              }
-          });
+    return $resource(location.origin + ':8000/playlist/import', {}, {
+      Post: {
+          method: 'POST'
       }
+    });
 });
 
 // Import Playlist Items
 Services.factory('ImportPlaylistItemResource',
   function ($resource) {
-      return function (accessToken, refreshToken) {
-          return $resource(location.origin + ':8000/playlist_item/import', {}, {
-              Post: {
-                  method: 'POST',
-                  headers: {
-                    access_token: accessToken,
-                    refresh_token: refreshToken }
-              }
-          });
+    return $resource(location.origin + ':8000/playlist_item/import', {}, {
+      Post: {
+          method: 'POST'
       }
+    });
 });
 
 // Import Videos
 Services.factory('ImportVideoResource',
   function ($resource) {
-      return function (accessToken, refreshToken) {
-          return $resource(location.origin + ':8000/video/import', {}, {
-              Post: {
-                  method: 'POST',
-                  headers: {
-                    access_token: accessToken,
-                    refresh_token: refreshToken }
-              }
-          });
+    return $resource(location.origin + ':8000/video/import', {}, {
+      Post: {
+          method: 'POST'
       }
+    });
 });
 
 // Search
 Services.factory('SearchResource',
   function ($resource) {
-      return function (accessToken) {
-          return $resource(location.origin + ':8000/search', {}, {
-              Get: {
-                  method: 'GET',
-                  //isArray:true,
-                  headers: { 'access_token': accessToken }
-              },
-              Post: {
-                  method: 'POST',
-                  headers: { 'access_token': accessToken }
-              },
-              Delete: {
-                  method: 'DELETE',
-                  headers: { 'access_token': accessToken }
-              }
-          });
+    return $resource(location.origin + ':8000/search', {}, {
+      Get: {
+          method: 'GET'
+      },
+      Post: {
+          method: 'POST'
+      },
+      Delete: {
+          method: 'DELETE'
       }
+    });
 });
 
 // Auto Complete

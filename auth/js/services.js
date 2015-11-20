@@ -36,18 +36,14 @@ Services.factory('GoogleProfileResource',
 // Lahuna User
 Services.factory('UserResource',
   function ($resource) {
-      return function (accessToken) {
-        return $resource(location.origin + ':8000/user', {}, {
-            Get: {
-                method: 'GET',
-                headers: { "access_token": accessToken }
-            },
-            Post: {
-                method: 'POST',
-                headers: { "access_token": accessToken }
-            },
-        });
-      }
+    return $resource(location.origin + ':8000/user', {}, {
+      Get: {
+          method: 'GET'
+      },
+      Post: {
+          method: 'POST'
+      },
+    });
   });
 
 //// Update Lahuna User
