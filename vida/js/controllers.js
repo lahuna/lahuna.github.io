@@ -35,18 +35,18 @@ Controllers.controller('MainCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -110,22 +110,22 @@ Controllers.controller('MainCtrl',
         //}
 
         //function SetUserId(data) {
-        //    localStorage.setItem("youtube_user_id", data.user_id);
-        //    localStorage.setItem("youtube_expires_in", data.expires_in);
+        //    localStorage.setItem('youtube_user_id', data.user_id);
+        //    localStorage.setItem('youtube_expires_in', data.expires_in);
         //    GetProfile();
         //}
 
         //function SetAccessToken(data) {
-        //    localStorage.setItem("youtube_access_token", data.access_token);
+        //    localStorage.setItem('youtube_access_token', data.access_token);
         //    VerifyAccessToken(false);
         //}
 
         //function GetAccessToken() {
-        //    return localStorage.getItem("youtube_access_token");
+        //    return localStorage.getItem('youtube_access_token');
         //}
 
         //function GetRefreshToken() {
-        //    return localStorage.getItem("youtube_refresh_token");
+        //    return localStorage.getItem('youtube_refresh_token');
         //}
     });
 
@@ -154,18 +154,18 @@ Controllers.controller('SearchCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -176,15 +176,15 @@ Controllers.controller('SearchCtrl',
             $scope.owner = 'yt';
             $scope.orderVisible = true;
 
-            if (localStorage.getItem("youtube_search") == undefined)
-                $scope.search = "";
+            if (localStorage.getItem('youtube_search') == undefined)
+                $scope.search = '';
             else
-                $scope.search = localStorage.getItem("youtube_search");
+                $scope.search = localStorage.getItem('youtube_search');
 
-            if (localStorage.getItem("youtube_order") == undefined)
-                $scope.order = "viewCount";
+            if (localStorage.getItem('youtube_order') == undefined)
+                $scope.order = 'viewCount';
             else
-                $scope.order = localStorage.getItem("youtube_order");
+                $scope.order = localStorage.getItem('youtube_order');
 
             Search();
         }
@@ -204,28 +204,28 @@ Controllers.controller('SearchCtrl',
         }
 
         function Search() {
-            localStorage.setItem("youtube_search", $scope.search);
-            localStorage.setItem("youtube_order", $scope.order);
+            localStorage.setItem('youtube_search', $scope.search);
+            localStorage.setItem('youtube_order', $scope.order);
 
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             $scope.list = YoutubeSearchResource(access_token).Get({
                 q: GetSearch(),
-                part: "snippet",
+                part: 'snippet',
                 order: GetOrder(),
-                maxResults: "50",
+                maxResults: '50',
                 type: GetType()
             });
         }
 
         function GetSearch() {
-            if ($scope.search == "")
+            if ($scope.search == '')
                 return undefined;
             else
                 return $scope.search;
         }
 
         function GetOrder() {
-            if ($scope.order == "")
+            if ($scope.order == '')
                 return undefined;
             else
                 return $scope.order;
@@ -233,12 +233,12 @@ Controllers.controller('SearchCtrl',
 
         function GetType() {
             var path = $location.path();
-            if (path.indexOf("video") != -1 || path.indexOf("recommend") != -1)
-                return "video";
-            else if (path.indexOf("playlist") != -1)
-                return "playlist";
-            else if (path.indexOf("channel") != -1)
-                return "channel";
+            if (path.indexOf('video') != -1 || path.indexOf('recommend') != -1)
+                return 'video';
+            else if (path.indexOf('playlist') != -1)
+                return 'playlist';
+            else if (path.indexOf('channel') != -1)
+                return 'channel';
             else
                 return undefined;
         }
@@ -305,7 +305,7 @@ Controllers.controller('SearchCtrl',
         // ADD TO PLAYLIST
         //****************************************
 
-        $scope.playlistId = "";
+        $scope.playlistId = '';
 
         $scope.GetPlaylistHints = function (val) {
             return SearchResource.Get({
@@ -313,11 +313,11 @@ Controllers.controller('SearchCtrl',
                 type: 'playlist',
                 userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
-                return data;
+                return data.list;
             });
         }
 
-        $scope.PostToPlaylist = function (index) {
+        $scope.AddToPlaylist = function (index) {
             var inP = $scope.list.items[index].inPlaylist;
             if (inP == undefined || inP == false) {
                 $scope.list.items[index].inPlaylist = true;
@@ -347,7 +347,7 @@ Controllers.controller('SearchCtrl',
                 snippet: {
                     playlistId: playlistId,
                     resourceId: {
-                        kind: "youtube#video",
+                        kind: 'youtube#video',
                         videoId: videoId
                     }
                 }
@@ -417,7 +417,7 @@ Controllers.controller('SearchCtrl',
                     tags: [$scope.playlist]
                 },
                 status: {
-                    privacyStatus: "unlisted"
+                    privacyStatus: 'unlisted'
                 }
             }).$promise.then(function (data) {
                 $scope.playlistId = data.id;
@@ -441,22 +441,24 @@ Controllers.controller('SearchCtrl',
 
         function UpdatePlaylist() {
             PlaylistResource(GetAccessToken()).Get({
-                id: $scope.playlistId
+                id: $scope.playlistId,
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 var pl = data.items[0];
-                PlaylistResourceDb(GetAccessToken()).Put({
+                PlaylistDbResource.Put({
                     playlistId: pl.id,
                     title: pl.snippet.title,
                     thumbnail: pl.snippet.thumbnails.default.url,
                     tags: SetTags(pl),
                     published: pl.snippet.publishedAt,
-                    privacy: pl.status.privacyStatus
+                    privacy: pl.status.privacyStatus,
+                    accessToken: GetAccessToken()
                 })
             });
         }
 
         $scope.$watch('playlist', function (value) {
-            $scope.playlistId = "";
+            $scope.playlistId = '';
             if ($scope.list == undefined || $scope.list.items == undefined)
                 return;
 
@@ -470,11 +472,11 @@ Controllers.controller('SearchCtrl',
             if (pl.snippet.tags != undefined)
                 return pl.snippet.tags.toString();
             else
-                return "[]";
+                return '[]';
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
     });
 
@@ -504,18 +506,18 @@ Controllers.controller('VideosCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //$scope.needSignIn = false;
@@ -545,22 +547,22 @@ Controllers.controller('VideosCtrl',
         //}
 
         //function SetUserId(data) {
-        //    localStorage.setItem("youtube_user_id", data.user_id);
-        //    localStorage.setItem("youtube_expires_in", data.expires_in);
+        //    localStorage.setItem('youtube_user_id', data.user_id);
+        //    localStorage.setItem('youtube_expires_in', data.expires_in);
         //    Initialize();
         //}
 
         //function SetAccessToken(data) {
-        //    localStorage.setItem("youtube_access_token", data.access_token);
+        //    localStorage.setItem('youtube_access_token', data.access_token);
         //    VerifyAccessToken(false);
         //}
 
         //function GetAccessToken() {
-        //    return localStorage.getItem("youtube_access_token");
+        //    return localStorage.getItem('youtube_access_token');
         //}
 
         //function GetRefreshToken() {
-        //    return localStorage.getItem("youtube_refresh_token");
+        //    return localStorage.getItem('youtube_refresh_token');
         //}
 
         //****************************************
@@ -575,16 +577,16 @@ Controllers.controller('VideosCtrl',
             if (query != undefined && query.length > 0)
                 $scope.search = query;
             else {
-                if (localStorage.getItem("video_search") == undefined)
-                    $scope.search = "";
+                if (localStorage.getItem('video_search') == undefined)
+                    $scope.search = '';
                 else
-                    $scope.search = localStorage.getItem("video_search");
+                    $scope.search = localStorage.getItem('video_search');
             }
 
-            if (localStorage.getItem("video_order") == undefined)
-                $scope.order = "relevance";
+            if (localStorage.getItem('video_order') == undefined)
+                $scope.order = 'relevance';
             else
-                $scope.order = localStorage.getItem("video_order");
+                $scope.order = localStorage.getItem('video_order');
 
             Search();
         }
@@ -604,17 +606,17 @@ Controllers.controller('VideosCtrl',
         }
 
         function Search() {
-            localStorage.setItem("video_search", $scope.search);
-            localStorage.setItem("video_order", $scope.order);
+            localStorage.setItem('video_search', $scope.search);
+            localStorage.setItem('video_order', $scope.order);
 
             var query = GetSearch();
             YoutubeSearchResource(GetAccessToken()).Get({
                 q: query,
-                part: "snippet",
+                part: 'snippet',
                 order: GetOrder(),
-                maxResults: "50",
-                type: "video",
-                forMine: "true"
+                maxResults: '50',
+                type: 'video',
+                forMine: 'true'
             }).$promise.then(function (data) {
                 $scope.list = data;
                 if (query != undefined) {
@@ -627,14 +629,14 @@ Controllers.controller('VideosCtrl',
         }
 
         function GetSearch() {
-            if ($scope.search == "")
+            if ($scope.search == '')
                 return undefined;
             else
                 return $scope.search;
         }
 
         function GetOrder() {
-            if ($scope.order == "")
+            if ($scope.order == '')
                 return undefined;
             else
                 return $scope.order;
@@ -676,7 +678,7 @@ Controllers.controller('VideosCtrl',
         $scope.GetSearchList = function (val) {
             return SearchResource.Get({
                 query: val,
-                type: "youtube",
+                type: 'video',
                 userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
                 return data.list;
@@ -686,7 +688,7 @@ Controllers.controller('VideosCtrl',
         function InsertSearch(query) {
             SearchResource.Post({
                 query: query,
-                type: "youtube",
+                type: 'video',
                 accessToken: GetAccessToken()
             });
         }
@@ -694,7 +696,7 @@ Controllers.controller('VideosCtrl',
         function DeleteSearch(query) {
             SearchResource.Delete({
                 query: query,
-                type: "youtube",
+                type: 'video',
                 accessToken: GetAccessToken()
             });
         }
@@ -703,7 +705,7 @@ Controllers.controller('VideosCtrl',
         // ADD TO PLAYLIST
         //****************************************
 
-        $scope.playlistId = "";
+        $scope.playlistId = '';
 
         $scope.GetPlaylistHints = function (val) {
             return SearchResource.Get({
@@ -711,11 +713,11 @@ Controllers.controller('VideosCtrl',
                 type: 'playlist',
                 userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
-                return data;
+                return data.list;
             });
         }
 
-        $scope.PostToPlaylist = function (index) {
+        $scope.AddToPlaylist = function (index) {
             var inP = $scope.list.items[index].inPlaylist;
             if (inP == undefined || inP == false) {
                 $scope.list.items[index].inPlaylist = true;
@@ -745,7 +747,7 @@ Controllers.controller('VideosCtrl',
                 snippet: {
                     playlistId: playlistId,
                     resourceId: {
-                        kind: "youtube#video",
+                        kind: 'youtube#video',
                         videoId: videoId
                     }
                 }
@@ -815,7 +817,7 @@ Controllers.controller('VideosCtrl',
                     tags: [$scope.playlist]
                 },
                 status: {
-                    privacyStatus: "unlisted"
+                    privacyStatus: 'unlisted'
                 }
             }).$promise.then(function (data) {
                 $scope.playlistId = data.id;
@@ -839,7 +841,8 @@ Controllers.controller('VideosCtrl',
 
         function UpdatePlaylist() {
             PlaylistResource(GetAccessToken()).Get({
-                id: $scope.playlistId
+                id: $scope.playlistId,
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 var pl = data.items[0];
                 PlaylistDbResource.Put({
@@ -855,7 +858,7 @@ Controllers.controller('VideosCtrl',
         }
 
         $scope.$watch('playlist', function (value) {
-            $scope.playlistId = "";
+            $scope.playlistId = '';
             if ($scope.list == undefined || $scope.list.items == undefined)
                 return;
 
@@ -869,11 +872,11 @@ Controllers.controller('VideosCtrl',
             if (pl.snippet.tags != undefined)
                 return pl.snippet.tags.toString();
             else
-                return "[]";
+                return '[]';
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
     });
 
@@ -903,18 +906,18 @@ Controllers.controller('RecommendCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -929,11 +932,11 @@ Controllers.controller('RecommendCtrl',
         }
 
         function GetVideoList() {
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             YoutubeSearchResource(access_token).Get({
-                part: "snippet",
-                maxResults: "49",
-                type: "video",
+                part: 'snippet',
+                maxResults: '49',
+                type: 'video',
                 relatedToVideoId: $routeParams.id
             }).$promise.then(function (data) {
                 $scope.list = data;
@@ -942,9 +945,9 @@ Controllers.controller('RecommendCtrl',
         }
 
         function GetVideo() {
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             VideoResource(access_token).Get({
-                part: "snippet",
+                part: 'snippet',
                 id: $routeParams.id
             }).$promise.then(function (data) {
                 $scope.heading = data.items[0].snippet.title;
@@ -956,7 +959,7 @@ Controllers.controller('RecommendCtrl',
         // ADD TO PLAYLIST
         //****************************************
 
-        $scope.playlistId = "";
+        $scope.playlistId = '';
 
         $scope.GetPlaylistHints = function (val) {
             return SearchResource.Get({
@@ -964,11 +967,11 @@ Controllers.controller('RecommendCtrl',
                 type: 'playlist',
                 userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
-                return data;
+                return data.list;
             });
         }
 
-        $scope.PostToPlaylist = function (index) {
+        $scope.AddToPlaylist = function (index) {
             var inP = $scope.list.items[index].inPlaylist;
             if (inP == undefined || inP == false) {
                 $scope.list.items[index].inPlaylist = true;
@@ -998,7 +1001,7 @@ Controllers.controller('RecommendCtrl',
                 snippet: {
                     playlistId: playlistId,
                     resourceId: {
-                        kind: "youtube#video",
+                        kind: 'youtube#video',
                         videoId: videoId
                     }
                 }
@@ -1068,7 +1071,7 @@ Controllers.controller('RecommendCtrl',
                     tags: [$scope.playlist]
                 },
                 status: {
-                    privacyStatus: "unlisted"
+                    privacyStatus: 'unlisted'
                 }
             }).$promise.then(function (data) {
                 $scope.playlistId = data.id;
@@ -1092,7 +1095,8 @@ Controllers.controller('RecommendCtrl',
 
         function UpdatePlaylist() {
             PlaylistResource(GetAccessToken()).Get({
-                id: $scope.playlistId
+                id: $scope.playlistId,
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 var pl = data.items[0];
                 PlaylistDbResource.Put({
@@ -1108,7 +1112,7 @@ Controllers.controller('RecommendCtrl',
         }
 
         $scope.$watch('playlist', function (value) {
-            $scope.playlistId = "";
+            $scope.playlistId = '';
             if ($scope.list == undefined || $scope.list.items == undefined)
                 return;
 
@@ -1122,7 +1126,7 @@ Controllers.controller('RecommendCtrl',
             if (pl.snippet.tags != undefined)
                 return pl.snippet.tags.toString();
             else
-                return "[]";
+                return '[]';
         }
     });
 
@@ -1151,18 +1155,18 @@ Controllers.controller('PlaylistsCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -1175,16 +1179,16 @@ Controllers.controller('PlaylistsCtrl',
             if (query != undefined && query.length > 0)
                 $scope.search = query;
             else {
-                if (localStorage.getItem("playlist_search") == undefined)
-                    $scope.search = "";
+                if (localStorage.getItem('playlist_search') == undefined)
+                    $scope.search = '';
                 else
-                    $scope.search = localStorage.getItem("playlist_search");
+                    $scope.search = localStorage.getItem('playlist_search');
             }
 
-            if (localStorage.getItem("playlist_order") == undefined)
-                $scope.order = "date";
+            if (localStorage.getItem('playlist_order') == undefined)
+                $scope.order = 'date';
             else
-                $scope.order = localStorage.getItem("playlist_order");
+                $scope.order = localStorage.getItem('playlist_order');
 
             Search();
         }
@@ -1204,8 +1208,8 @@ Controllers.controller('PlaylistsCtrl',
         }
 
         function Search() {
-            localStorage.setItem("playlist_search", $scope.search);
-            localStorage.setItem("playlist_order", $scope.order);
+            localStorage.setItem('playlist_search', $scope.search);
+            localStorage.setItem('playlist_order', $scope.order);
 
             var query = $scope.search;
             PlaylistDbResource.Get({
@@ -1214,7 +1218,7 @@ Controllers.controller('PlaylistsCtrl',
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.items = data;
-                if (query != "") {
+                if (query != '') {
                     if (data.list.length > 0)
                         InsertSearch(query);
                     else
@@ -1224,7 +1228,7 @@ Controllers.controller('PlaylistsCtrl',
         }
 
         function GetOrder() {
-            if ($scope.order == "") {
+            if ($scope.order == '') {
                 $scope.order = 'date';
                 return 'date';
             }
@@ -1263,10 +1267,10 @@ Controllers.controller('PlaylistsCtrl',
             }).$promise.then(function (data) {
                 $scope.response = data.message;
                 if (data.success) {
-                    SetAlert('success', "Playlist import successful.");
+                    SetAlert('success', 'Playlist import successful.');
                     Search();
                 } else
-                    SetAlert('danger', "Playlist import failed.");
+                    SetAlert('danger', 'Playlist import failed.');
             });
         }
 
@@ -1285,7 +1289,7 @@ Controllers.controller('PlaylistsCtrl',
         $scope.GetSearchList = function (val) {
             return SearchResource.Get({
                 query: val,
-                type: "youtube-playlist",
+                type: 'playlist',
                 userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
                 return data.list;
@@ -1295,7 +1299,7 @@ Controllers.controller('PlaylistsCtrl',
         function InsertSearch(query) {
             SearchResource.Post({
                 query: query,
-                type: "youtube-playlist",
+                type: 'playlist',
                 accessToken: GetAccessToken()
             });
         }
@@ -1303,7 +1307,7 @@ Controllers.controller('PlaylistsCtrl',
         function DeleteSearch(query) {
             SearchResource.Delete({
                 query: query,
-                type: "youtube-playlist",
+                type: 'playlist',
                 accessToken: GetAccessToken()
             });
         }
@@ -1335,18 +1339,18 @@ Controllers.controller('ToolsCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             //Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //*********************************************
@@ -1360,9 +1364,9 @@ Controllers.controller('ToolsCtrl',
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.success) {
-                    SetAlert('success', "Video import successful.");
+                    SetAlert('success', 'Video import successful.');
                 } else
-                    SetAlert('danger', "Video import failed.");
+                    SetAlert('danger', 'Video import failed.');
             });
         }
 
@@ -1373,9 +1377,9 @@ Controllers.controller('ToolsCtrl',
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.success) {
-                    SetAlert('success', "Playlist item import successful.");
+                    SetAlert('success', 'Playlist item import successful.');
                 } else
-                    SetAlert('danger', "Playlist item import failed.");
+                    SetAlert('danger', 'Playlist item import failed.');
             });
         }
 
@@ -1390,7 +1394,7 @@ Controllers.controller('ToolsCtrl',
 
 Controllers.controller('PlaylistCtrl',
     function ($scope, $routeParams, $window, PlaylistResource, PlaylistItemResource,
-        AuthenticateResource) {
+        PlaylistDbResource, AuthenticateResource) {
 
         //****************************************
         // AUTHENTICATE
@@ -1412,18 +1416,18 @@ Controllers.controller('PlaylistCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -1468,7 +1472,7 @@ Controllers.controller('PlaylistCtrl',
         function GetPlaylistItems() {
             PlaylistItemResource(GetAccessToken()).Get({
                 playlistId: $routeParams.id,
-                maxResults: "50",
+                maxResults: '50',
                 part: 'snippet'
             }).$promise.then(function (data) {
                 if (data.items.length > 0)
@@ -1567,7 +1571,8 @@ Controllers.controller('PlaylistCtrl',
 
         function UpdatePlaylist() {
             PlaylistResource(GetAccessToken()).Get({
-                id: $routeParams.id
+                id: $routeParams.id,
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 var pl = data.items[0];
                 PlaylistDbResource.Put({
@@ -1586,7 +1591,7 @@ Controllers.controller('PlaylistCtrl',
             if (pl.snippet.tags != undefined)
                 return pl.snippet.tags.toString();
             else
-                return "[]";
+                return '[]';
         }
 
         //function GetError(item) {
@@ -1597,7 +1602,7 @@ Controllers.controller('PlaylistCtrl',
         //}
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
     });
 
@@ -1625,18 +1630,18 @@ Controllers.controller('TagsCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -1645,15 +1650,15 @@ Controllers.controller('TagsCtrl',
 
         function Initialize() {
 
-            $scope.search = "";
+            $scope.search = '';
 
             $scope.heading = GetHeading();
             $scope.path = GetPath();
 
-            if (localStorage.getItem("tag_search") == undefined)
-                $scope.search = "";
+            if (!localStorage.getItem('tag_search'))
+                $scope.search = '';
             else
-                $scope.search = localStorage.getItem("tag_search");
+                $scope.search = localStorage.getItem('tag_search');
 
             $scope.items = SearchResource.Get({
                 type: GetType(),
@@ -1662,12 +1667,12 @@ Controllers.controller('TagsCtrl',
         }
 
         $scope.StoreFilter = function () {
-            localStorage.setItem("tag_search", $scope.search);
+            localStorage.setItem('tag_search', $scope.search);
         }
 
         $scope.ClearFilter = function () {
-            $scope.search = "";
-            localStorage.setItem("tag_search", "");
+            $scope.search = '';
+            localStorage.setItem('tag_search', '');
         }
 
         $scope.Delete = function (item) {
@@ -1681,7 +1686,7 @@ Controllers.controller('TagsCtrl',
         }
 
         function IsVideo() {
-            if ($routeParams.type == "video")
+            if ($routeParams.type == 'video')
                 return true;
             else
                 return false
@@ -1689,23 +1694,23 @@ Controllers.controller('TagsCtrl',
 
         function GetType() {
             if (IsVideo())
-                return "youtube";
+                return 'video';
             else
-                return "youtube-playlist";
+                return 'playlist';
         }
 
         function GetHeading() {
             if (IsVideo())
-                return "Video Tags";
+                return 'Video Tags';
             else
-                return "Playlist Tags";
+                return 'Playlist Tags';
         }
 
         function GetPath() {
             if (IsVideo())
-                return "my-videos";
+                return 'my-videos';
             else
-                return "my-playlists";
+                return 'my-playlists';
         }
     });
 
@@ -1733,18 +1738,18 @@ Controllers.controller('SubscriptionsCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -1753,11 +1758,11 @@ Controllers.controller('SubscriptionsCtrl',
 
         function Initialize() {
 
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             $scope.list = SubscriptionResource(access_token).Get({
-                part: "snippet,contentDetails",
-                maxResults: "50",
-                mine: "true"
+                part: 'snippet,contentDetails',
+                maxResults: '50',
+                mine: 'true'
             });
         }
     });
@@ -1786,18 +1791,18 @@ Controllers.controller('ChannelCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -1806,11 +1811,11 @@ Controllers.controller('ChannelCtrl',
 
         function Initialize() {
 
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             $scope.list = ChannelResource(access_token).Get({
-                part: "snippet,contentDetails",
-                maxResults: "50",
-                mine: "true"
+                part: 'snippet,contentDetails',
+                maxResults: '50',
+                mine: 'true'
             });
         }
     });
@@ -1839,18 +1844,18 @@ Controllers.controller('ActivityCtrl',
         }
 
         function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
+            localStorage.setItem('youtube_access_token', data.access_token);
+            localStorage.setItem('youtube_user_id', data.user_id);
+            localStorage.setItem('youtube_expires_in', data.expires_in);
             Initialize();
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
 
         function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
+            return localStorage.getItem('youtube_refresh_token');
         }
 
         //****************************************
@@ -1861,16 +1866,16 @@ Controllers.controller('ActivityCtrl',
 
             $scope.btnVisible = ($routeParams.owner == 'yt')
             $scope.owner = $routeParams.owner;
-            $scope.subscriptionId = "-1";
+            $scope.subscriptionId = '-1';
 
             GetChannel();
             GetSubscription();
         }
 
         function GetChannel() {
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             ChannelResource(access_token).Get({
-                part: "snippet,contentDetails",
+                part: 'snippet,contentDetails',
                 id: $routeParams.channelId,
             }).$promise.then(function (data) {
                 $scope.heading = data.items[0].snippet.title;
@@ -1879,38 +1884,38 @@ Controllers.controller('ActivityCtrl',
         }
 
         function GetPlaylistItems(playlistId) {
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             $scope.list = PlaylistItemResource(access_token).Get({
                 playlistId: playlistId,
-                part: "snippet",
-                maxResults: "50"
+                part: 'snippet',
+                maxResults: '50'
             });
         }
 
         function GetSubscription() {
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             SubscriptionResource(access_token).Get({
-                part: "snippet",
+                part: 'snippet',
                 forChannelId: $routeParams.channelId,
-                mine: "true"
+                mine: 'true'
             }).$promise.then(function (data) {
                 if (data.items.length > 0) {
                     SetMode(data.items[0].id);
                 } else
-                    SetMode("-1");
+                    SetMode('-1');
             });
         }
 
         $scope.Subscribe = function () {
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             if ($scope.subscribed) {
-                SubscriptionResource(access_token).Unsubscribe({
+                SubscriptionResource(access_token).Delete({
                     id: $scope.subscriptionId
                 }).$promise.then(function (data) {
-                    SetMode("-1");
+                    SetMode('-1');
                 });
             } else {
-                SubscriptionResource(access_token).Subscribe({
+                SubscriptionResource(access_token).Post({
                     snippet: { resourceId: { channelId: $routeParams.channelId } }
                 }).$promise.then(function (data) {
                     SetMode(data.id);
@@ -1921,12 +1926,12 @@ Controllers.controller('ActivityCtrl',
         function SetMode(subscriptionId) {
             $scope.subscriptionId = subscriptionId;
             if (subscriptionId == -1) {
-                $scope.btnIcon = "glyphicon glyphicon-play";
-                $scope.btnText = "Subscribe";
+                $scope.btnIcon = 'glyphicon glyphicon-play';
+                $scope.btnText = 'Subscribe';
                 $scope.subscribed = false;
             } else {
-                $scope.btnIcon = "glyphicon glyphicon-remove";
-                $scope.btnText = "Unsubscribe";
+                $scope.btnIcon = 'glyphicon glyphicon-remove';
+                $scope.btnText = 'Unsubscribe';
                 $scope.subscribed = true;
             }
         }
@@ -1935,7 +1940,7 @@ Controllers.controller('ActivityCtrl',
         // ADD TO PLAYLIST
         //****************************************
 
-        $scope.playlistId = "";
+        $scope.playlistId = '';
 
         $scope.GetPlaylistHints = function (val) {
             return SearchResource.Get({
@@ -1943,11 +1948,11 @@ Controllers.controller('ActivityCtrl',
                 type: 'playlist',
                 userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
-                return data;
+                return data.list;
             });
         }
 
-        $scope.PostToPlaylist = function (index) {
+        $scope.AddToPlaylist = function (index) {
             var inP = $scope.list.items[index].inPlaylist;
             if (inP == undefined || inP == false) {
                 $scope.list.items[index].inPlaylist = true;
@@ -1977,7 +1982,7 @@ Controllers.controller('ActivityCtrl',
                 snippet: {
                     playlistId: playlistId,
                     resourceId: {
-                        kind: "youtube#video",
+                        kind: 'youtube#video',
                         videoId: videoId
                     }
                 }
@@ -2046,7 +2051,7 @@ Controllers.controller('ActivityCtrl',
                     tags: [$scope.playlist]
                 },
                 status: {
-                    privacyStatus: "unlisted"
+                    privacyStatus: 'unlisted'
                 }
             }).$promise.then(function (data) {
                 $scope.playlistId = data.id;
@@ -2070,7 +2075,8 @@ Controllers.controller('ActivityCtrl',
 
         function UpdatePlaylist() {
             PlaylistResource(GetAccessToken()).Get({
-                id: $scope.playlistId
+                id: $scope.playlistId,
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 var pl = data.items[0];
                 PlaylistDbResource.Put({
@@ -2086,7 +2092,7 @@ Controllers.controller('ActivityCtrl',
         }
 
         $scope.$watch('playlist', function (value) {
-            $scope.playlistId = "";
+            $scope.playlistId = '';
             if ($scope.list == undefined || $scope.list.items == undefined)
                 return;
 
@@ -2100,11 +2106,11 @@ Controllers.controller('ActivityCtrl',
             if (pl.snippet.tags != undefined)
                 return pl.snippet.tags.toString();
             else
-                return "[]";
+                return '[]';
         }
 
         function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
+            return localStorage.getItem('youtube_access_token');
         }
     });
 
@@ -2122,11 +2128,11 @@ Controllers.controller('ActivityAllCtrl',
         GetSubscriptions();
 
         function GetSubscriptions() {
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             SubscriptionResource(access_token).Get({
-                part: "snippet",
-                maxResults: "50",
-                mine: "true"
+                part: 'snippet',
+                maxResults: '50',
+                mine: 'true'
             }).$promise.then(function (data) {
                 BuildChannelIdList(data.items);
             });
@@ -2143,11 +2149,11 @@ Controllers.controller('ActivityAllCtrl',
         }
 
         function GetUploadActivity(channelIds) {
-            var access_token = localStorage.getItem("youtube_access_token");
+            var access_token = localStorage.getItem('youtube_access_token');
             ChannelResource(access_token).Get({
-                part: "contentDetails",
+                part: 'contentDetails',
                 id: channelIds.toString(),
-                maxResults: "50"
+                maxResults: '50'
             }).$promise.then(function (data) {
                 BuildPlaylistIdList(data.items);
             });
@@ -2167,11 +2173,11 @@ Controllers.controller('ActivityAllCtrl',
             var playlistItems = [];
             var i = 0;
             for (i = 0; i < playlistIds.length; i++) {
-                var access_token = localStorage.getItem("youtube_access_token");
+                var access_token = localStorage.getItem('youtube_access_token');
                 PlaylistItemResource(access_token).Get({
                     playlistId: playlistIds[i],
-                    part: "snippet",
-                    maxResults: "5"
+                    part: 'snippet',
+                    maxResults: '5'
                 }).$promise.then(function (data) {
                     ShowData(data.items);
                 });
@@ -2205,47 +2211,47 @@ Controllers.controller('ActivityAllCtrl',
 Controllers.controller('VideosAllCtrl', ['$scope', '$routeParams', 'VideosAllResource',
     function ($scope, $routeParams, VideosAllResource) {
 
-        $scope.search = "";
+        $scope.search = '';
 
-        if (localStorage.getItem("video_all_search") == undefined)
-            $scope.search = "";
+        if (localStorage.getItem('video_all_search') == undefined)
+            $scope.search = '';
         else
-            $scope.search = localStorage.getItem("video_all_search");
+            $scope.search = localStorage.getItem('video_all_search');
 
         $scope.video = VideosAllResource.Get({
-            accessToken: localStorage.getItem("youtube_access_token")
+            accessToken: localStorage.getItem('youtube_access_token')
         });
 
         $scope.StoreFilter = function () {
-            localStorage.setItem("video_all_search", $scope.search);
+            localStorage.setItem('video_all_search', $scope.search);
         }
 
         $scope.ClearFilter = function () {
-            $scope.search = "";
-            localStorage.setItem("video_all_search", "");
+            $scope.search = '';
+            localStorage.setItem('video_all_search', '');
         }
     }]);
 
 Controllers.controller('PlaylistsAllCtrl',
     function ($scope, $routeParams, PlaylistDbResource) {
 
-        $scope.search = "";
+        $scope.search = '';
 
-        if (localStorage.getItem("playlist_all_search") == undefined)
-            $scope.search = "";
+        if (localStorage.getItem('playlist_all_search') == undefined)
+            $scope.search = '';
         else
-            $scope.search = localStorage.getItem("playlist_all_search");
+            $scope.search = localStorage.getItem('playlist_all_search');
 
         $scope.playlist = PlaylistDbResource.Get({
           accessToken: GetAccessToken()
         });
 
         $scope.StoreFilter = function () {
-            localStorage.setItem("playlist_all_search", $scope.search);
+            localStorage.setItem('playlist_all_search', $scope.search);
         }
 
         $scope.ClearFilter = function () {
-            $scope.search = "";
-            localStorage.setItem("playlist_all_search", "");
+            $scope.search = '';
+            localStorage.setItem('playlist_all_search', '');
         }
     });
