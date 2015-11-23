@@ -8,14 +8,14 @@
 
 /* App Module */
 
-var fotoApp = angular.module('lahuna', [
+var app = angular.module('lahuna', [
   'ngRoute',
   'Controllers',
   'Filters',
   'Services'
 ]);
 
-fotoApp.config(
+app.config(
     function ($routeProvider) {
         $routeProvider.
             when('/', {

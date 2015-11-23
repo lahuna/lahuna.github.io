@@ -6,9 +6,7 @@
 
 'use strict';
 
-/* Controllers */
-
-var Controllers = angular.module('Controllers', []);
+var Controllers = angular.module('Controllers_Old', []);
 
 Controllers.controller('MainCtrl',
     function ($scope, $routeParams, $route, ProfileResource, AuthenticateResource,
@@ -397,17 +395,17 @@ Controllers.controller('SearchCtrl',
         }
 
         function GetPlaylistId(index) {
-            PlaylistDbResource.Get({
-                title: $scope.playlist,
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.id != null) {
-                    $scope.playlistId = data.id;
-                    GetPlaylistItem(index, data.id);
-                }
-                else
-                    CreatePlaylist(index);
-            })
+          PlaylistDbResource.Get({
+            title: $scope.playlist,
+            accessToken: GetAccessToken()
+          }).$promise.then(function (data) {
+              if (data.list.length > 0) {
+                $scope.playlistId = data.list[0].playlistId;
+                GetPlaylistItem(index, $scope.playlistId);
+              } else {
+                CreatePlaylist(index);
+              }
+          });
         }
 
         function CreatePlaylist(index) {
@@ -797,17 +795,17 @@ Controllers.controller('VideosCtrl',
         }
 
         function GetPlaylistId(index) {
-            PlaylistDbResource.Get({
-                title: $scope.playlist,
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.id != null) {
-                    $scope.playlistId = data.id;
-                    GetPlaylistItem(index, data.id);
-                }
-                else
-                    CreatePlaylist(index);
-            })
+          PlaylistDbResource.Get({
+            title: $scope.playlist,
+            accessToken: GetAccessToken()
+          }).$promise.then(function (data) {
+              if (data.list.length > 0) {
+                $scope.playlistId = data.list[0].playlistId;
+                GetPlaylistItem(index, $scope.playlistId);
+              } else {
+                CreatePlaylist(index);
+              }
+          });
         }
 
         function CreatePlaylist(index) {
@@ -1051,17 +1049,17 @@ Controllers.controller('RecommendCtrl',
         }
 
         function GetPlaylistId(index) {
-            PlaylistDbResource.Get({
-                title: $scope.playlist,
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.id != null) {
-                    $scope.playlistId = data.id;
-                    GetPlaylistItem(index, data.id);
-                }
-                else
-                    CreatePlaylist(index);
-            })
+          PlaylistDbResource.Get({
+            title: $scope.playlist,
+            accessToken: GetAccessToken()
+          }).$promise.then(function (data) {
+              if (data.list.length > 0) {
+                $scope.playlistId = data.list[0].playlistId;
+                GetPlaylistItem(index, $scope.playlistId);
+              } else {
+                CreatePlaylist(index);
+              }
+          });
         }
 
         function CreatePlaylist(index) {
@@ -1211,20 +1209,28 @@ Controllers.controller('PlaylistsCtrl',
             localStorage.setItem('playlist_search', $scope.search);
             localStorage.setItem('playlist_order', $scope.order);
 
-            var query = $scope.search;
+            var query = GetQuery();
             PlaylistDbResource.Get({
                 query: query,
                 order: GetOrder(),
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.items = data;
-                if (query != '') {
+                if (query != '*') {
                     if (data.list.length > 0)
                         InsertSearch(query);
                     else
                         DeleteSearch(query);
                 }
             });
+        }
+
+        function GetQuery() {
+          if ($scope.search.length == 0) {
+            return '*';
+          } else {
+            return $scope.search;
+          }
         }
 
         function GetOrder() {
@@ -2031,17 +2037,17 @@ Controllers.controller('ActivityCtrl',
         }
 
         function GetPlaylistId(index) {
-            PlaylistDbResource.Get({
-                title: $scope.playlist,
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.id != null) {
-                    $scope.playlistId = data.id;
-                    GetPlaylistItem(index, data.id);
-                }
-                else
-                    CreatePlaylist(index);
-            })
+          PlaylistDbResource.Get({
+            title: $scope.playlist,
+            accessToken: GetAccessToken()
+          }).$promise.then(function (data) {
+              if (data.list.length > 0) {
+                $scope.playlistId = data.list[0].playlistId;
+                GetPlaylistItem(index, $scope.playlistId);
+              } else {
+                CreatePlaylist(index);
+              }
+          });
         }
 
         function CreatePlaylist(index) {

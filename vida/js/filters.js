@@ -1,16 +1,14 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
 
 'use strict';
 
-/* Filters */
+var fil = angular.module('Filters', []);
 
-var Filters = angular.module('Filters', []);
-
-//Filters.filter('ytChannelUrl', function () {
+//fil.filter('ytChannelUrl', function () {
 //    return function (input) {
 //        if (input.channelTitle != "")
 //            return input.channelTitle;
@@ -21,7 +19,7 @@ var Filters = angular.module('Filters', []);
 //    };
 //});
 
-Filters.filter('ytChannelTitle', function () {
+fil.filter('ytChannelTitle', function () {
     return function (input) {
         if (input.channelTitle != "")
             return input.channelTitle;
@@ -32,7 +30,7 @@ Filters.filter('ytChannelTitle', function () {
     };
 });
 
-//Filters.filter('activityUrl', function () {
+//fil.filter('activityUrl', function () {
 //    return function (input) {
 //        if (input == undefined)
 //            return "** NO URL FOUND **";
@@ -56,13 +54,13 @@ Filters.filter('ytChannelTitle', function () {
 //    };
 //});
 
-Filters.filter('date', function () {
+fil.filter('date', function () {
     return function (input) {
         return new Date(input).toLocaleString();
     };
 });
 
-Filters.filter('owner', function () {
+fil.filter('owner', function () {
     return function (input) {
         if (input.indexOf('PL') == 0)
             return 'me';

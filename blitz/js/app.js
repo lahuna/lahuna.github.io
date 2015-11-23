@@ -8,7 +8,7 @@
 
 /* App Module */
 
-var App = angular.module('blitz', [
+var app = angular.module('blitz', [
   'ngRoute',
   'ngTouch',
   'Controllers',
@@ -16,7 +16,7 @@ var App = angular.module('blitz', [
   'Services'
 ]);
 
-App.config(['$routeProvider',
+app.config(['$routeProvider',
     function ($routeProvider) {
 
         $routeProvider.

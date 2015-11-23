@@ -1,22 +1,29 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
 
 'use strict';
 
-/* App Module */
-
-var fotoApp = angular.module('vida', [
+var app = angular.module('Vida', [
   'ngRoute',
-  'Controllers',
+  'ui.bootstrap',
   'Filters',
-  'Services',
-  'ui.bootstrap'
+  'ActivityController',
+  'ChannelController',
+  'MainController',
+  'PlaylistController',
+  'PlaylistsController',
+  'RecommendController',
+  'SearchController',
+  'SubscriptionsController',
+  'TagsController',
+  'ToolsController',
+  'VideosController'
 ]);
 
-fotoApp.config(['$routeProvider',
+app.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
             when('/', {
@@ -51,10 +58,10 @@ fotoApp.config(['$routeProvider',
                 templateUrl: 'views/search-video.html',
                 controller: 'VideosCtrl'
             }).
-            when('/my-videos-all', {
-                templateUrl: 'views/my-videos-all.html',
-                controller: 'VideosAllCtrl'
-            }).
+            //when('/my-videos-all', {
+                //templateUrl: 'views/my-videos-all.html',
+                //controller: 'VideosAllCtrl'
+            //}).
             when('/my-playlists', {
                 templateUrl: 'views/my-playlists.html',
                 controller: 'PlaylistsCtrl'
@@ -63,10 +70,10 @@ fotoApp.config(['$routeProvider',
                 templateUrl: 'views/my-playlists.html',
                 controller: 'PlaylistsCtrl'
             }).
-            when('/my-playlists-all', {
-                templateUrl: 'views/my-playlists-all.html',
-                controller: 'PlaylistsAllCtrl'
-            }).
+            //when('/my-playlists-all', {
+                //templateUrl: 'views/my-playlists-all.html',
+                //controller: 'PlaylistsAllCtrl'
+            //}).
             when('/tags/:type', {
                 templateUrl: 'views/tags.html',
                 controller: 'TagsCtrl'
@@ -83,10 +90,10 @@ fotoApp.config(['$routeProvider',
                 templateUrl: 'views/activity.html',
                 controller: 'ActivityCtrl'
             }).
-            when('/activity-all', {
-                templateUrl: 'views/activity-all.html',
-                controller: 'ActivityAllCtrl'
-            }).
+            //when('/activity-all', {
+                //templateUrl: 'views/activity-all.html',
+                //controller: 'ActivityAllCtrl'
+            //}).
             when('/my-videos-new', {
                 templateUrl: 'views/search-video-new.html',
                 controller: 'VideosCtrl'

@@ -8,7 +8,7 @@
 
 /* App Module */
 
-var fotoApp = angular.module('foto', [
+var app = angular.module('foto', [
   'ngRoute',
   'ngTouch',
   'Controllers',
@@ -18,7 +18,7 @@ var fotoApp = angular.module('foto', [
   'ui.bootstrap'
 ]);
 
-fotoApp.config(
+app.config(
   function ($routeProvider) {
       $routeProvider.
         when('/', {
