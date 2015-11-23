@@ -6,7 +6,7 @@
 
 'use strict';
 
-var app = angular.module('Vida', [
+var app = angular.module('vida', [
   'ngRoute',
   'ui.bootstrap',
   'Filters',

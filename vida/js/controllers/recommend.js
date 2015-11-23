@@ -6,17 +6,21 @@
 
 'use strict';
 
-var ctl = angular.module('RecommendController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('RecommendController', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
 
 ctl.controller('RecommendCtrl',
     function ($scope, $routeParams, $location, SearchResource, Auth,
         VideoResource, YoutubeSearchResource, ChannelResource, Playlist) {
 
         $scope.needSignIn = false;
-        Auth.authenticate(function (result) {
+        Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
           Initialize();
         });
+
+        function GetAccessToken() {
+          return localStorage.getItem('youtube_access_token');
+        }
 
         function Initialize() {
             $scope.owner = 'yt';
@@ -26,8 +30,7 @@ ctl.controller('RecommendCtrl',
         }
 
         function GetVideoList() {
-            var access_token = localStorage.getItem('youtube_access_token');
-            YoutubeSearchResource(access_token).Get({
+            YoutubeSearchResource(GetAccessToken()).Get({
                 part: 'snippet',
                 maxResults: '49',
                 type: 'video',
@@ -39,8 +42,7 @@ ctl.controller('RecommendCtrl',
         }
 
         function GetVideo() {
-            var access_token = localStorage.getItem('youtube_access_token');
-            VideoResource(access_token).Get({
+            VideoResource(GetAccessToken()).Get({
                 part: 'snippet',
                 id: $routeParams.id
             }).$promise.then(function (data) {

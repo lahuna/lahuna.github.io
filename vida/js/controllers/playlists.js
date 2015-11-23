@@ -13,10 +13,14 @@ ctl.controller('PlaylistsCtrl',
         SearchResource, Auth) {
 
         $scope.needSignIn = false;
-        Auth.authenticate(function (result) {
+        Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
           Initialize();
         });
+
+        function GetAccessToken() {
+          return localStorage.getItem('youtube_access_token');
+        }
 
         function Initialize() {
 
@@ -60,7 +64,7 @@ ctl.controller('PlaylistsCtrl',
             PlaylistDbResource.Get({
                 query: query,
                 order: GetOrder(),
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.items = data;
                 if (query != '*') {
@@ -116,7 +120,7 @@ ctl.controller('PlaylistsCtrl',
 
             ImportPlaylistResource.Post({
                 job: 'false',
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.response = data.message;
                 if (data.success) {
@@ -153,7 +157,7 @@ ctl.controller('PlaylistsCtrl',
             SearchResource.Post({
                 query: query,
                 type: 'playlist',
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             });
         }
 
@@ -161,7 +165,7 @@ ctl.controller('PlaylistsCtrl',
             SearchResource.Delete({
                 query: query,
                 type: 'playlist',
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             });
         }
 

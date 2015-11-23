@@ -14,6 +14,10 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   return { 'AddToPlaylist': AddToPlaylist,
            'UpdatePlaylist': UpdatePlaylist };
 
+   function GetAccessToken() {
+     return localStorage.getItem('youtube_access_token');
+   }
+
   function AddToPlaylist(video, title, callback) {
     GetPlaylistId(video, title, function (playlistItemId) {
       return callback(playlistItemId);
@@ -24,7 +28,7 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
    var videoId = GetVideoId(video);
    PlaylistDbResource.Get({
      title: title,
-     accessToken: Auth.getAccessToken()
+     accessToken: GetAccessToken()
    }).$promise.then(function (data) {
        if (data.list.length > 0) {
          var plid = data.list[0].playlistId;
@@ -46,7 +50,7 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function GetPlaylistItem(videoId, playlistId, callback) {
-    PlaylistItemResource(Auth.getAccessToken()).Get({
+    PlaylistItemResource(GetAccessToken()).Get({
       part: 'snippet',
       playlistId: playlistId,
       videoId: videoId,
@@ -63,7 +67,7 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function CreatePlaylist(videoId, title, callback) {
-    PlaylistResource(Auth.getAccessToken()).Post({
+    PlaylistResource(GetAccessToken()).Post({
       snippet: {
         title: title,
         tags: [title]
@@ -80,7 +84,7 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function AddPlaylistItem(videoId, playlistId, callback) {
-    PlaylistItemResource(Auth.getAccessToken()).Post({
+    PlaylistItemResource(GetAccessToken()).Post({
       snippet: {
         playlistId: playlistId,
         resourceId: {
@@ -98,7 +102,7 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function RemovePlaylistItem(playlistId, playlistItemId, callback) {
-    PlaylistItemResource(Auth.getAccessToken()).Delete({
+    PlaylistItemResource(GetAccessToken()).Delete({
       id: playlistItemId
     }).$promise.then(function (data) {
       callback();
@@ -130,14 +134,14 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
       playlistItemId: data.id,
       playlistId: data.snippet.playlistId,
       videoId: data.snippet.resourceId.videoId,
-      accessToken: Auth.getAccessToken()
+      accessToken: GetAccessToken()
     });
   }
 
   function DeletePlaylistItem(playlistItemId) {
     PlaylistItemDbResource.Delete({
       playlistItemId: playlistItemId,
-      accessToken: Auth.getAccessToken()
+      accessToken: GetAccessToken()
     });
   }
 
@@ -149,12 +153,12 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
       tags: data.snippet.tags.toString(),
       published: data.snippet.publishedAt,
       privacy: data.status.privacyStatus,
-      accessToken: Auth.getAccessToken()
+      accessToken: GetAccessToken()
     });
   }
 
   function UpdatePlaylist(playlistId, callback) {
-    PlaylistResource(Auth.getAccessToken()).Get({
+    PlaylistResource(GetAccessToken()).Get({
       id: playlistId,
       part: 'snippet,status'
     }).$promise.then(function (data) {
@@ -166,7 +170,7 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
          tags: SetTags(pl),
          published: pl.snippet.publishedAt,
          privacy: pl.status.privacyStatus,
-         accessToken: Auth.getAccessToken()
+         accessToken: GetAccessToken()
       }).$promise.then(function (result) {
         callback(result);
       });

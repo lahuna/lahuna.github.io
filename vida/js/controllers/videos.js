@@ -6,17 +6,21 @@
 
 'use strict';
 
-var ctl = angular.module('VideosController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('VideosController', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
 
 ctl.controller('VideosCtrl',
     function ($scope, $routeParams, SearchResource,
       YoutubeSearchResource, Playlist, Auth) {
 
         $scope.needSignIn = false;
-        Auth.authenticate(function (result) {
+        Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
           Initialize();
         });
+
+        function GetAccessToken() {
+          return localStorage.getItem('youtube_access_token');
+        }
 
         function Initialize() {
             $scope.owner = 'me';
@@ -59,7 +63,7 @@ ctl.controller('VideosCtrl',
             localStorage.setItem('video_order', $scope.order);
 
             var query = GetSearch();
-            YoutubeSearchResource(Auth.getAccessToken()).Get({
+            YoutubeSearchResource(GetAccessToken()).Get({
                 q: query,
                 part: 'snippet',
                 order: GetOrder(),
@@ -138,7 +142,7 @@ ctl.controller('VideosCtrl',
             SearchResource.Post({
                 query: query,
                 type: 'video',
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             });
         }
 
@@ -146,7 +150,7 @@ ctl.controller('VideosCtrl',
             SearchResource.Delete({
                 query: query,
                 type: 'video',
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             });
         }
 

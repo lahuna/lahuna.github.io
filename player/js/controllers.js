@@ -5,60 +5,34 @@
 //*****************************************************************************************************************
 'use strict';
 
-/* Controllers */
-
-var Controllers = angular.module('Controllers', []);
+var Controllers = angular.module('Controllers', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
 
 Controllers.controller('ViewerCtrl',
-    function ($scope, $routeParams, $window, $location, $modal,
-        VideoResource, PlaylistResource, SearchResource,
-        UpdatePlaylistResource, DeletePlaylistResource,
-        PlaylistItemResource,
-        InsertPlaylistResource, GetPlaylistIdResource,
-        GetPlaylistItemResource, InsertPlaylistItemResource, DeletePlaylistItemResource,
-        AuthenticateResource, ChannelResource) {
+  function ($scope, $routeParams, $window, $location, $modal,
+    Auth, Playlist, ChannelResource, VideoResource,
+    YoutubeSearchResource, SearchResource,
+    PlaylistResource, PlaylistDbResource,
+    PlaylistItemResource, PlaylistItemDbResource) {
 
-        //****************************************
-        // AUTHENTICATE
-        //****************************************
+    $scope.needSignIn = false;
+    Auth.Authenticate('vida', function (result) {
+      $scope.needSignIn = result;
+      GetChannelId();
+    });
 
-        $scope.needSignIn = false;
-        Authenticate();
+    function GetAccessToken() {
+      return localStorage.getItem('youtube_access_token');
+    }
 
-        function Authenticate() {
-            AuthenticateResource(GetAccessToken(), GetRefreshToken()).Get()
-            .$promise.then(function (data) {
-                StoreValues(data);
-            }, function (error) {
-                $scope.needSignIn = true;
-            });
-        }
-
-        function StoreValues(data) {
-            localStorage.setItem("youtube_access_token", data.access_token);
-            localStorage.setItem("youtube_user_id", data.user_id);
-            localStorage.setItem("youtube_expires_in", data.expires_in);
-            GetChannelId();
-        }
-
-        function GetAccessToken() {
-            return localStorage.getItem("youtube_access_token");
-        }
-
-        function GetRefreshToken() {
-            return localStorage.getItem("youtube_refresh_token");
-        }
-
-        function GetChannelId() {
-            var access_token = localStorage.getItem("youtube_access_token");
-            ChannelResource(access_token).Get({
-                part: "id",
-                mine: "true"
-            }).$promise.then(function (data) {
-                localStorage.setItem("youtube_channel_id", data.items[0].id);
-                Initialize();
-            });
-        }
+    function GetChannelId() {
+      ChannelResource(GetAccessToken()).Get({
+        part: "id",
+        mine: "true"
+      }).$promise.then(function (data) {
+        localStorage.setItem("youtube_channel_id", data.items[0].id);
+        Initialize();
+      });
+    }
 
         //****************************************
         // INITIALIZE
@@ -117,9 +91,7 @@ Controllers.controller('ViewerCtrl',
         }
 
         function GetVideoList() {
-
-            var access_token = localStorage.getItem("youtube_access_token");
-            SearchResource(access_token).Get({
+            YoutubeSearchResource(GetAccessToken()).Get({
                 part: "id",
                 maxResults: "49",
                 type: "video",
@@ -136,17 +108,14 @@ Controllers.controller('ViewerCtrl',
         }
 
         function GetPlaylistItems() {
-
-            var access_token = localStorage.getItem("youtube_access_token");
-            PlaylistItemResource(access_token).Get({
+            PlaylistItemResource(GetAccessToken()).Get({
                 part: "contentDetails",
                 maxResults: "50",
                 playlistId: $routeParams.id
             }).$promise.then(function (data) {
                 var videoList = [];
-                var i = 1;
                 var items = data.items;
-                for (i = 1; i < items.length; i++) {
+                for (var i = 1; i < items.length; i++) {
                     videoList.push(items[i].contentDetails.videoId)
                 }
                 LoadVideoListPlayer(items[0].contentDetails.videoId, videoList.toString());
@@ -265,6 +234,7 @@ Controllers.controller('ViewerCtrl',
         function GetVideo() {
             VideoResource(GetAccessToken()).Get({
                 id: $routeParams.id,
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 SetData(data);
                 GetVideoPlaylists();
@@ -274,16 +244,32 @@ Controllers.controller('ViewerCtrl',
         function GetPlaylist() {
             PlaylistResource(GetAccessToken()).Get({
                 id: $routeParams.id,
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 SetData(data);
             });
         }
 
         function GetVideoPlaylists() {
-            $scope.playlists = GetPlaylistItemResource.Get({
-                videoId: $routeParams.id,
+          $scope.playlists = [];
+          PlaylistItemDbResource.Get({
+            videoId: $routeParams.id,
+            accessToken: GetAccessToken()
+          }).$promise.then(function (items) {
+            for (var i = 0; i < items.list.length; i++) {
+              var item = items.list[i];
+              PlaylistDbResource.Get({
+                playlistId: item.playlistId,
                 accessToken: GetAccessToken()
-            });
+              }).$promise.then(function (result) {
+                var pl = {
+                  "playlistItemId": item.playlistItemId,
+                  "title": result.list[0].title
+                }
+                $scope.playlists.push(pl);
+              });
+            }
+          });
         }
 
         $scope.TitleChanged = function () {
@@ -316,7 +302,7 @@ Controllers.controller('ViewerCtrl',
         }
 
         function UpdateVideo(reload) {
-            VideoResource(GetAccessToken()).Update($scope.item)
+            VideoResource(GetAccessToken()).Put($scope.item)
                 .$promise.then(function (data) {
                     // TODO: Handle Errors Here
 
@@ -331,7 +317,7 @@ Controllers.controller('ViewerCtrl',
         }
 
         function UpdatePlaylistChange(reload) {
-            PlaylistResource(GetAccessToken()).Update($scope.item)
+            PlaylistResource(GetAccessToken()).Put($scope.item)
                 .$promise.then(function (data) {
                     // TODO: Handle Errors Here
 
@@ -343,13 +329,13 @@ Controllers.controller('ViewerCtrl',
                     if (reload)
                         $window.location.reload();
                     else
-                        UpdatePlaylistDB();
+                        UpdatePlaylist();
                 });
         }
 
-        function UpdatePlaylistDB() {
+        function UpdatePlaylist() {
             var pl = $scope.item;
-            UpdatePlaylistResource.Update({
+            PlaylistDbResource.Put({
                 playlistId: pl.id,
                 title: pl.snippet.title,
                 thumbnail: pl.snippet.thumbnails.default.url,
@@ -397,8 +383,7 @@ Controllers.controller('ViewerCtrl',
         }
 
         function RemoveVideoFromAllPlaylists() {
-            var i = 0;
-            for (i = 0; i < $scope.playlists.list.length; i++) {
+            for (var i = 0; i < $scope.playlists.length; i++) {
                 RemovePlaylist(i);
             }
         }
@@ -420,26 +405,28 @@ Controllers.controller('ViewerCtrl',
 
         function GetType() {
             if (IsVideo())
-                return "youtube";
+                return "video";
             else
-                return "youtube-playlist";
+                return "playlist";
         }
 
         function InsertSearch() {
             var query = $scope.tag;
             if (query != undefined && query != "")
-                SearchResource(GetAccessToken()).Insert({
+                SearchResource.Post({
                     query: query,
-                    type: GetType()
+                    type: GetType(),
+                    accessToken: GetAccessToken()
                 });
         }
 
         $scope.GetSearchList = function (val) {
-            return SearchResource(GetAccessToken()).Get({
-                query: '^' + val,
-                type: GetType()
+            return SearchResource.Get({
+                query: val,
+                type: GetType(),
+                userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
-                return data;
+                return data.list;
             });
         }
 
@@ -490,136 +477,44 @@ Controllers.controller('ViewerCtrl',
         function ClearPlaylist() {
             $scope.playlist = {
                 playlistItemId: '',
-                playlistId: '',
                 title: ''
             }
         }
 
         $scope.GetPlaylistHints = function (val) {
-            return SearchResource(GetAccessToken).Get({
+            return SearchResource.Get({
                 query: val,
-                type: 'playlist'
+                type: 'playlist',
+                userId: localStorage.getItem('youtube_user_id')
             }).$promise.then(function (data) {
-                return data;
+                return data.list;
             });
         }
 
         $scope.AddPlaylist = function () {
-            GetPlaylistId();
+            AddPlaylist();
         }
 
         $scope.GoAddPlaylist = function ($event) {
             var keypressed = $event.keyCode || $event.which;
             if (keypressed == 13 || keypressed == 9)
-                GetPlaylistId();
+                AddPlaylist();
         }
 
-        function GetPlaylistId() {
-            GetPlaylistIdResource.Get({
-                title: $scope.playlist.title,
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.id != null) {
-                    $scope.playlist.playlistId = data.id;
-                    GetPlaylistItem(data.id);
-                } else
-                    CreatePlaylist();
-            })
-        }
-
-        function CreatePlaylist() {
-            PlaylistResource(GetAccessToken()).Create({
-                snippet: {
-                    title: $scope.playlist.title,
-                    tags: [$scope.playlist.title]
-                },
-                status: {
-                    privacyStatus: "unlisted"
-                }
-            }).$promise.then(function (data) {
-                $scope.playlist.playlistId = data.id;
-                InsertPlaylist(data);
-            })
-        }
-
-        function InsertPlaylist(data) {
-            InsertPlaylistResource.Insert({
-                userId: localStorage.getItem("youtube_user_id"),
-                playlistId: data.id,
-                title: data.snippet.title,
-                thumbnail: data.snippet.thumbnails.default.url,
-                tags: data.snippet.tags.toString(),
-                publishedDate: data.snippet.publishedAt,
-                privacy: data.status.privacyStatus
-            }).$promise.then(function () {
-                AddToPlaylist(data.id);
-            });
-        }
-
-        function UpdatePlaylist(playlistId) {
-            PlaylistResource(GetAccessToken()).Get({
-                id: playlistId
-            }).$promise.then(function (data) {
-                var pl = data.items[0];
-                UpdatePlaylistResource.Update({
-                    playlistId: pl.id,
-                    title: pl.snippet.title,
-                    thumbnail: pl.snippet.thumbnails.default.url,
-                    tags: SetTags(pl),
-                    publishedDate: pl.snippet.publishedAt,
-                    privacy: pl.status.privacyStatus,
-                    accessToken: GetAccessToken()
-                })
-            });
-        }
-
-        function GetPlaylistItem(playlistId) {
-            PlaylistItemResource(GetAccessToken()).Get({
-                part: 'snippet',
-                playlistId: playlistId,
-                videoId: $scope.item.id,
-                maxResults: 50
-            }).$promise.then(function (data) {
-                if (data.items.length == 0)
-                    AddToPlaylist(playlistId);
-            });
-        }
-
-        function AddToPlaylist(playlistId) {
-            PlaylistItemResource(GetAccessToken()).Add({
-                snippet: {
-                    playlistId: playlistId,
-                    resourceId: {
-                        kind: "youtube#video",
-                        videoId: $scope.item.id
-                    }
-                }
-            }).$promise.then(function (data) {
-                //$scope.saveAddToVisible = false;
-                //$scope.successAddToVisible = true;
-                //$scope.playlist = "";
-                $scope.playlist.playlistItemId = data.id;
-                MovePlaylist();
-                InsertPlaylistItem(data);
-                UpdatePlaylist(playlistId);
-            });
-        }
-
-        function InsertPlaylistItem(data) {
-            InsertPlaylistItemResource.Insert({
-                userId: localStorage.getItem("youtube_user_id"),
-                playlistItemId: data.id,
-                playlistId: data.snippet.playlistId,
-                videoId: $scope.item.id
-            });
+        function AddPlaylist() {
+          var video = $scope.item;
+          var title = $scope.playlist.title;
+          Playlist.AddToPlaylist(video, title, function (playlistItemId) {
+            $scope.playlist.playlistItemId = playlistItemId;
+            MovePlaylist();
+          });
         }
 
         function MovePlaylist() {
+            if (!$scope.playlists)
+                $scope.playlists = [];
 
-            if ($scope.playlists.list == undefined)
-                $scope.playlists.list = [];
-
-            $scope.playlists.list.push($scope.playlist);
+            $scope.playlists.push($scope.playlist);
             ClearPlaylist();
 
             //if ($scope.playlists.list.indexOf($scope.playlist) == -1) {
@@ -633,14 +528,14 @@ Controllers.controller('ViewerCtrl',
         }
 
         function RemovePlaylist(index) {
-            var pl = $scope.playlists.list[index];
-            $scope.playlists.list.splice(index, 1);
+            var pl = $scope.playlists[index];
+            $scope.playlists.splice(index, 1);
             RemovePlaylistItem(pl);
             DeletePlaylistItem(pl);
         }
 
         function RemovePlaylistItem(pl) {
-            PlaylistItemResource(GetAccessToken()).Remove({
+            PlaylistItemResource(GetAccessToken()).Delete({
                 id: pl.playlistItemId
             }).$promise.then(function (data) {
                 UpdatePlaylist(pl.playlistId);
@@ -648,7 +543,7 @@ Controllers.controller('ViewerCtrl',
         }
 
         function DeletePlaylistItem(pl) {
-            DeletePlaylistItemResource.Delete({
+            PlaylistItemDbResource.Delete({
                 playlistItemId: pl.playlistItemId,
                 accessToken: GetAccessToken()
             });

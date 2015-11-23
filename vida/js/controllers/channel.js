@@ -11,15 +11,18 @@ var ctl = angular.module('ChannelController', ['ResourceFactory', 'AuthenticateF
 ctl.controller('ChannelCtrl', function ($scope, $routeParams, ChannelResource, Auth) {
 
   $scope.needSignIn = false;
-  Auth.authenticate(function (result) {
+  Auth.Authenticate('vida', function (result) {
     $scope.needSignIn = result;
     Initialize();
   });
 
+  function GetAccessToken() {
+    return localStorage.getItem('youtube_access_token');
+  }  
+
   function Initialize() {
 
-      var access_token = localStorage.getItem('youtube_access_token');
-      $scope.list = ChannelResource(access_token).Get({
+      $scope.list = ChannelResource(GetAccessToken()).Get({
           part: 'snippet,contentDetails',
           maxResults: '50',
           mine: 'true'

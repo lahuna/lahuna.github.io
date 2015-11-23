@@ -11,11 +11,17 @@ var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFact
 ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
   ProfileResource, ImportPlaylistResource, ImportPlaylistItemResource) {
 
+  $scope.origin = location.origin;
+
   $scope.needSignIn = false;
-  Auth.authenticate(function (result) {
+  Auth.Authenticate('vida', function (result) {
     $scope.needSignIn = result;
     Initialize();
   });
+
+  function GetAccessToken() {
+    return localStorage.getItem('youtube_access_token');
+  }
 
   function Initialize() {
     GetProfile();
@@ -25,7 +31,7 @@ ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
   }
 
   function GetProfile() {
-    ProfileResource(Auth.getAccessToken()).Get()
+    ProfileResource(GetAccessToken()).Get()
         .$promise.then(function (data) {
             $scope.profile = data;
         });
@@ -35,10 +41,10 @@ ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
 
     ImportPlaylistResource.Post({
         job: 'true',
-        accessToken: Auth.getAccessToken()
+        accessToken: GetAccessToken()
     }).$promise.then(function () {
         ImportPlaylistItemResource.Post({
-          accessToken: Auth.getAccessToken()
+          accessToken: GetAccessToken()
         });
     });
   }

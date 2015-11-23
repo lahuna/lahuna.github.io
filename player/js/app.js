@@ -10,10 +10,9 @@
 
 var app = angular.module('player', [
   'ngRoute',
+  'ui.bootstrap',
   'Controllers',
-  'Filters',
-  'Services',
-  'ui.bootstrap'
+  'Filters'
 ]);
 
 app.config(['$routeProvider',

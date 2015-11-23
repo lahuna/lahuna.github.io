@@ -12,15 +12,17 @@ ctl.controller('SubscriptionsCtrl',
     function ($scope, $routeParams, SubscriptionResource, Auth) {
 
         $scope.needSignIn = false;
-        Auth.authenticate(function (result) {
+        Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
           Initialize();
         });
 
-        function Initialize() {
+        function GetAccessToken() {
+          return localStorage.getItem('youtube_access_token');
+        }
 
-            var access_token = localStorage.getItem('youtube_access_token');
-            $scope.list = SubscriptionResource(access_token).Get({
+        function Initialize() {
+            $scope.list = SubscriptionResource(GetAccessToken()).Get({
                 part: 'snippet,contentDetails',
                 maxResults: '50',
                 mine: 'true'

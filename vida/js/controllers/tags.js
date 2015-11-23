@@ -12,10 +12,14 @@ ctl.controller('TagsCtrl',
     function ($scope, $routeParams, SearchResource, Auth) {
 
         $scope.needSignIn = false;
-        Auth.authenticate(function (result) {
+        Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
           Initialize();
         });
+
+        function GetAccessToken() {
+          return localStorage.getItem('youtube_access_token');
+        }
 
         function Initialize() {
 
@@ -50,7 +54,7 @@ ctl.controller('TagsCtrl',
             SearchResource.Delete({
                 query: item.title,
                 type: GetType(),
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             });
         }
 

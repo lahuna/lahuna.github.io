@@ -10,9 +10,8 @@
 
 var app = angular.module('auth', [
   'ngRoute',
-  'Controllers',
-  'Services',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'Controllers'
 ]);
 
 app.config(['$routeProvider',

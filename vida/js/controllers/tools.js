@@ -13,16 +13,20 @@ ctl.controller('ToolsCtrl',
         ImportVideoResource, ImportPlaylistItemResource, Auth) {
 
         $scope.needSignIn = false;
-        Auth.authenticate(function (result) {
+        Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
           Initialize();
         });
+
+        function GetAccessToken() {
+          return localStorage.getItem('youtube_access_token');
+        }
 
         $scope.ImportVideos = function () {
             SetAlert('warning', 'Importing videos...');
             ImportVideoResource.Post({
                 job: 'false',
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.success) {
                     SetAlert('success', 'Video import successful.');
@@ -35,7 +39,7 @@ ctl.controller('ToolsCtrl',
             SetAlert('warning', 'Importing playlist items...');
             ImportPlaylistItemResource.Post({
                 job: 'false',
-                accessToken: Auth.getAccessToken()
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.success) {
                     SetAlert('success', 'Playlist item import successful.');

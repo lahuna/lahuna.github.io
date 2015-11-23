@@ -8,7 +8,7 @@
 
 /* Controllers */
 
-var Controllers = angular.module('Controllers', []);
+var Controllers = angular.module('Controllers', ['ResourceFactory']);
 
 Controllers.controller('MainCtrl',
     function ($scope, $routeParams) {

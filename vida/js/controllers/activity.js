@@ -6,16 +6,20 @@
 
 'use strict';
 
-var ctl = angular.module('ActivityController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('ActivityController', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
 
 ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
   PlaylistItemResource, ChannelResource, SubscriptionResource, SearchResource) {
 
   $scope.needSignIn = false;
-  Auth.authenticate(function (result) {
+  Auth.Authenticate('vida', function (result) {
     $scope.needSignIn = result;
     Initialize();
   });
+
+  function GetAccessToken() {
+    return localStorage.getItem('youtube_access_token');
+  }
 
   function Initialize() {
 
@@ -28,8 +32,7 @@ ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
   }
 
   function GetChannel() {
-      var access_token = localStorage.getItem('youtube_access_token');
-      ChannelResource(access_token).Get({
+      ChannelResource(GetAccessToken()).Get({
           part: 'snippet,contentDetails',
           id: $routeParams.channelId,
       }).$promise.then(function (data) {
@@ -39,8 +42,7 @@ ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
   }
 
   function GetPlaylistItems(playlistId) {
-      var access_token = localStorage.getItem('youtube_access_token');
-      $scope.list = PlaylistItemResource(access_token).Get({
+      $scope.list = PlaylistItemResource(GetAccessToken()).Get({
           playlistId: playlistId,
           part: 'snippet',
           maxResults: '50'
@@ -48,8 +50,7 @@ ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
   }
 
   function GetSubscription() {
-      var access_token = localStorage.getItem('youtube_access_token');
-      SubscriptionResource(access_token).Get({
+      SubscriptionResource(GetAccessToken()).Get({
           part: 'snippet',
           forChannelId: $routeParams.channelId,
           mine: 'true'
@@ -62,15 +63,14 @@ ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
   }
 
   $scope.Subscribe = function () {
-      var access_token = localStorage.getItem('youtube_access_token');
       if ($scope.subscribed) {
-          SubscriptionResource(access_token).Delete({
+          SubscriptionResource(GetAccessToken()).Delete({
               id: $scope.subscriptionId
           }).$promise.then(function (data) {
               SetMode('-1');
           });
       } else {
-          SubscriptionResource(access_token).Post({
+          SubscriptionResource(GetAccessToken()).Post({
               snippet: { resourceId: { channelId: $routeParams.channelId } }
           }).$promise.then(function (data) {
               SetMode(data.id);

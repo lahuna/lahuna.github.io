@@ -38,7 +38,7 @@
                         <button class="btn btn-default" ng-click="AddPlaylist()">Add</button>
                     </span>
                 </div>
-                <span ng-repeat="pl in playlists.list">
+                <span ng-repeat="pl in playlists">
                     <button class="btn btn-default form-margin" ng-click="RemovePlaylist($index)" title="Remove">{{pl.title}} <span class="glyphicon glyphicon-remove"></span></button>
                 </span>
             </div>

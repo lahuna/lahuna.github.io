@@ -6,12 +6,10 @@
 
 'use strict';
 
-/* Services */
-
-var Services = angular.module('Services', ['ngResource']);
+var fac = angular.module('ResourceFactory', ['ngResource']);
 
 // Google Access Token
-Services.factory('GoogleAccessTokenResource',
+fac.factory('GoogleAccessTokenResource',
   function ($resource) {
       return $resource(location.origin + ':8000/google/access_token', {}, {
           Post: {
@@ -21,7 +19,7 @@ Services.factory('GoogleAccessTokenResource',
   });
 
 // Google Profile
-Services.factory('GoogleProfileResource',
+fac.factory('GoogleProfileResource',
   function ($resource) {
       return function (accessToken) {
           return $resource('https://www.googleapis.com/plus/v1/people/me', {}, {
@@ -34,7 +32,7 @@ Services.factory('GoogleProfileResource',
   });
 
 // Lahuna User
-Services.factory('UserResource',
+fac.factory('UserResource',
   function ($resource) {
     return $resource(location.origin + ':8000/user', {}, {
       Get: {
@@ -47,7 +45,7 @@ Services.factory('UserResource',
   });
 
 //// Update Lahuna User
-//Services.factory('UpdateUserResource',
+//fac.factory('UpdateUserResource',
 //  function ($resource) {
 //      return function (accessToken, refreshToken) {
 //          return $resource('https://lahuna-need-to-fix-this/user/get-user', {}, {

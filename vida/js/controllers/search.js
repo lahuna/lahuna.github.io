@@ -13,10 +13,14 @@ ctl.controller('SearchCtrl',
       AutoCompleteResource, YoutubeSearchResource, Playlist, Auth) {
 
         $scope.needSignIn = false;
-        Auth.authenticate(function (result) {
+        Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
           Initialize();
         });
+
+        function GetAccessToken() {
+          return localStorage.getItem('youtube_access_token');
+        }
 
         function Initialize() {
             $scope.owner = 'yt';
@@ -53,8 +57,7 @@ ctl.controller('SearchCtrl',
             localStorage.setItem('youtube_search', $scope.search);
             localStorage.setItem('youtube_order', $scope.order);
 
-            var access_token = localStorage.getItem('youtube_access_token');
-            $scope.list = YoutubeSearchResource(access_token).Get({
+            $scope.list = YoutubeSearchResource(GetAccessToken()).Get({
                 q: GetSearch(),
                 part: 'snippet',
                 order: GetOrder(),
