@@ -1,0 +1,129 @@
+//*****************************************************************************************************************
+// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+// make available to the public any content or code on this website without prior written permission from Lahuna.
+//*****************************************************************************************************************
+
+'use strict';
+
+var ctl = angular.module('PhotosController', ['ResourceFactory', 'AuthenticateFactory']);
+
+ctl.controller('PhotosCtrl',
+  function ($scope, $routeParams, PicasaResource, SearchResource, Auth) {
+
+  $scope.needSignIn = false;
+  Auth.Authenticate('foto', function (result) {
+    $scope.needSignIn = result;
+    Initialize();
+  });
+
+  function GetAccessToken() {
+    return localStorage.getItem('google_access_token');
+  }
+
+      //****************************************
+      // INITIALIZE
+      //****************************************
+
+      $scope.startIndex = 1;
+      $scope.maxResults = 77;
+
+      var query = $routeParams.query;
+      if (query != undefined && query.length > 0)
+          $scope.search = query;
+      else {
+          if (localStorage.getItem("photo_search") == undefined)
+              $scope.search = "";
+          else
+              $scope.search = localStorage.getItem("photo_search");
+      }
+
+      $scope.$watch('search', function (value) {
+          var path = $scope.startIndex + '/' + $scope.maxResults;
+          if (value == '' || value == undefined)
+              $scope.path = path;
+          else
+              $scope.path = value + '/' + path;
+      });
+
+      function Initialize() {
+          Search();
+      }
+
+      //****************************************
+      // SEARCH
+      //****************************************
+
+      $scope.GoSearch = function ($event) {
+          var keypressed = $event.keyCode || $event.which;
+          if (keypressed == 13)
+              Search();
+      }
+
+      $scope.Search = function () {
+          Search();
+      }
+
+      function Search() {
+          localStorage.setItem("photo_search", $scope.search);
+
+          var query = $scope.search;
+          PicasaResource.Get({
+              'kind': 'photo',
+              'q': GetSearch(),
+              'start-index': $scope.startIndex,
+              'max-results': $scope.maxResults,
+              'alt': 'json',
+              'accessToken': GetAccessToken()
+          }).$promise.then(function (data) {
+              $scope.list = data;
+              if (query != "") {
+                  if (data.feed.entry.length > 0)
+                      InsertSearch(query);
+                  else
+                      DeleteSearch(query);
+              }
+          });
+      }
+
+      function GetSearch() {
+          if ($scope.search == "")
+              return undefined;
+          else
+              return $scope.search;
+      }
+
+      $scope.StoreId = function (photoId) {
+          localStorage.setItem('fotoId', photoId);
+      }
+
+      //*********************************************
+      // Search Suggestions
+      //*********************************************
+
+      $scope.GetSearchList = function (val) {
+          return SearchResource.Get({
+              query: val,
+              type: "photo",
+              userId: localStorage.getItem('google_user_id')
+          }).$promise.then(function (data) {
+              return data;
+          });
+      }
+
+      function InsertSearch(query) {
+          SearchResource.Post({
+              query: query,
+              type: "photo",
+              accessToken: GetAccessToken()
+          });
+      }
+
+      function DeleteSearch(query) {
+          SearchResource.Delete({
+              query: query,
+              type: "photo",
+              accessToken: GetAccessToken()
+          });
+      }
+  });

@@ -1,0 +1,43 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <button class="btn btn-default" ng-click="Import()"><span class="glyphicon glyphicon-refresh"></span> Import</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <button class="btn btn-default" ng-click="ImportAlbumJob()"><span class="glyphicon glyphicon-refresh"></span> Run Album Import Job</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <button class="btn btn-default" ng-click="ImportPhotoJob()"><span class="glyphicon glyphicon-refresh"></span> Run Photo Import Job</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <p>{{status.message}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>Albums</h4>
+            <p>Total Albums: {{albumCount | number}}</p>
+            <p>Progress: {{albumProgress | number}}</p>
+            <p>{{albumStatus}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <h4>Photos</h4>
+            <p>Total Photos: {{photoCount | number}}</p>
+            <p>Progress: {{photoProgress | number}}</p>
+            <p>{{photoStatus}}</p>
+        </div>
+    </div>
+</div>

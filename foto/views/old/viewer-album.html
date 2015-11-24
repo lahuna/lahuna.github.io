@@ -1,0 +1,27 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+<div class="container-fluid">
+    <div class="row">
+        <carousel interval="myInterval">
+            <slide ng-repeat="photo in photos.list" active="photo.active">
+                <img ng-src="{{photo.Url | enlarge}}" class="{{photo.Keywords}} imgMaxHeight" style="margin:auto;">
+                <nav class="navbar navbar-default navbar-static-bottom">
+                    <div class="container">
+                        <!--<span ng-click="Tag(photo.Id)" class="glyphicon glyphicon-tag viewer-icon" title="Tag"></span>
+                        <span ng-click="Share(photo.Id)" class="glyphicon glyphicon-share viewer-icon" title="Share"></span>-->
+                        <!--<span ng-click="Slideshow(photo)" class="glyphicon glyphicon-picture viewer-icon" title="Slideshow"></span>-->
+                        <div>
+                            <span ng-click="Delete(photo)" class="glyphicon glyphicon-trash viewer-icon" title="Delete"></span>
+                            <span ng-click="Rotate(photo, -90)" class="glyphicon glyphicon-share-alt viewer-icon gly-flip-horizontal" title="Rotate Left"></span>
+                            <span ng-click="Rotate(photo, 90)" class="glyphicon glyphicon-share-alt viewer-icon" title="Rotate Right"></span>
+                            <span ng-click="open('sm', photo.Id)" class="glyphicon glyphicon-tasks viewer-icon" title="More"></span>
+                        </div>
+                    </div>
+                </nav>
+            </slide>
+        </carousel>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+//*****************************************************************************************************************
+// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+// make available to the public any content or code on this website without prior written permission from Lahuna.
+//*****************************************************************************************************************
+
+'use strict';
+
+var ctl = angular.module('AlbumsController', ['ResourceFactory', 'AuthenticateFactory']);
+
+ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
+        ImportAlbumResource, SearchAlbumsResource, SearchResource, Auth) {
+
+          $scope.needSignIn = false;
+          Auth.Authenticate('foto', function (result) {
+            $scope.needSignIn = result;
+            Initialize();
+          });
+
+          function GetAccessToken() {
+            return localStorage.getItem('google_access_token');
+          }
+
+        //****************************************
+        // INITIALIZE
+        //****************************************
+
+        function Initialize() {
+
+            var query = $routeParams.query;
+            if (query && query.length > 0)
+                $scope.search = query;
+            else {
+                if (!localStorage.getItem("album_search"))
+                    $scope.search = "";
+                else
+                    $scope.search = localStorage.getItem("album_search");
+            }
+
+            if (!localStorage.getItem("album_order"))
+                $scope.order = "date";
+            else
+                $scope.order = localStorage.getItem("album_order");
+
+            Search();
+        }
+
+        //*********************************************
+        // Search
+        //*********************************************
+
+        $scope.GoSearch = function ($event) {
+            var keypressed = $event.keyCode || $event.which;
+            if (keypressed == 13)
+                Search();
+        }
+
+        $scope.Search = function () {
+            Search();
+        }
+
+        function Search() {
+            localStorage.setItem("album_search", $scope.search);
+            localStorage.setItem("album_order", $scope.order);
+
+            var query = $scope.search;
+            AlbumDbResource.Get({
+                query: query,
+                order: GetOrder(),
+                accessToken: GetAccessToken()
+            }).$promise.then(function (data) {
+                $scope.items = data.list;
+                if (query != "") {
+                    if (data.list.length > 0)
+                        InsertSearch(query);
+                    else
+                        DeleteSearch(query);
+                }
+            });
+        }
+
+        function GetOrder() {
+            if ($scope.order == "") {
+                $scope.order = 'date';
+                return 'date';
+            }
+            else
+                return $scope.order;
+        }
+
+        $scope.SelectOrder = function (value) {
+            $scope.order = value;
+            Search();
+        }
+
+        $scope.$watch('order', function (value) {
+            switch (value) {
+
+                case 'date':
+                    $scope.orderText = 'Date';
+                    break;
+
+                case 'title':
+                    $scope.orderText = 'Title';
+                    break;
+            }
+        });
+
+        //*********************************************
+        // Import
+        //*********************************************
+
+        $scope.Import = function () {
+            SetAlert('warning', 'Importing albums...');
+
+            ImportAlbumResource.Post({
+              accessToken: GetAccessToken()
+            })
+            .$promise.then(function (data) {
+                //$scope.response = data.message;
+                if (data.success) {
+                    SetAlert('success', 'Album import successful.');
+                    Search();
+                } else
+                    SetAlert('danger', 'Album import failed');
+            });
+        }
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
+
+        function SetAlert(type, msg) {
+            $scope.alerts = [{ type: type, msg: msg }];
+        }
+
+        //*********************************************
+        // Search Suggestions
+        //*********************************************
+
+        $scope.GetSearchList = function (val) {
+            return SearchResource.Get({
+                query: val,
+                type: "album",
+                userId: localStorage.getItem('google_user_id')
+            }).$promise.then(function (data) {
+                return data;
+            });
+        }
+
+        function InsertSearch(query) {
+            SearchResource.Post({
+                query: query,
+                type: "album",
+                accessToken: GetAccessToken()
+            });
+        }
+
+        function DeleteSearch(query) {
+            SearchResource.Delete({
+                query: query,
+                type: "album",
+                accessToken: GetAccessToken()
+            });
+        }
+
+    });
