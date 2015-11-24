@@ -12,8 +12,7 @@ var app = angular.module('blitz', [
   'ngRoute',
   'ngTouch',
   'Controllers',
-  'Filters',
-  'Services'
+  'Filters'
 ]);
 
 app.config(['$routeProvider',

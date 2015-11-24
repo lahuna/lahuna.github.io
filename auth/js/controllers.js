@@ -6,18 +6,14 @@
 
 'use strict';
 
-/* Controllers */
+var ctl = angular.module('Controllers', ['ResourceFactory']);
 
-var Controllers = angular.module('Controllers', ['ResourceFactory']);
+ctl.controller('MainCtrl', function ($scope, $routeParams) {
 
-Controllers.controller('MainCtrl',
-    function ($scope, $routeParams) {
+});
 
-    });
-
-Controllers.controller('GoogleCtrl',
-    function ($scope, $routeParams, $modal, $location, GoogleAccessTokenResource,
-        UserResource, GoogleProfileResource) {
+ctl.controller('GoogleCtrl', function ($scope, $routeParams, $modal, $location,
+  GoogleAccessTokenResource, UserResource, GoogleProfileResource) {
 
         var code = $routeParams.code.replace('xxxx', '/');
 
@@ -126,8 +122,7 @@ Controllers.controller('GoogleCtrl',
         }
     });
 
-Controllers.controller('AgreeCtrl',
-    function ($scope, $routeParams, $modal, $location,
+ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
         UserResource, GoogleProfileResource) {
 
         $scope.Agree = function () {
@@ -192,7 +187,7 @@ Controllers.controller('AgreeCtrl',
         }
     });
 
-Controllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         $modalInstance.close('ok');

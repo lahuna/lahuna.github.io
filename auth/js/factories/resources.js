@@ -9,53 +9,34 @@
 var fac = angular.module('ResourceFactory', ['ngResource']);
 
 // Google Access Token
-fac.factory('GoogleAccessTokenResource',
-  function ($resource) {
-      return $resource(location.origin + ':8000/google/access_token', {}, {
-          Post: {
-              method: 'POST'
-          }
-      });
+fac.factory('GoogleAccessTokenResource', function ($resource) {
+  return $resource(location.origin + ':8000/google/access_token', {}, {
+    Post: {
+      method: 'POST'
+    }
   });
+});
 
 // Google Profile
-fac.factory('GoogleProfileResource',
-  function ($resource) {
-      return function (accessToken) {
-          return $resource('https://www.googleapis.com/plus/v1/people/me', {}, {
-              Get: {
-                  method: 'GET',
-                  headers: { "Authorization": "Bearer " + accessToken }
-              }
-          });
+fac.factory('GoogleProfileResource', function ($resource) {
+  return function (accessToken) {
+    return $resource('https://www.googleapis.com/plus/v1/people/me', {}, {
+      Get: {
+        method: 'GET',
+        headers: { "Authorization": "Bearer " + accessToken }
       }
-  });
+    });
+  }
+});
 
 // Lahuna User
-fac.factory('UserResource',
-  function ($resource) {
-    return $resource(location.origin + ':8000/user', {}, {
-      Get: {
-          method: 'GET'
-      },
-      Post: {
-          method: 'POST'
-      },
-    });
+fac.factory('UserResource', function ($resource) {
+  return $resource(location.origin + ':8000/user', {}, {
+    Get: {
+      method: 'GET'
+    },
+    Post: {
+      method: 'POST'
+    },
   });
-
-//// Update Lahuna User
-//fac.factory('UpdateUserResource',
-//  function ($resource) {
-//      return function (accessToken, refreshToken) {
-//          return $resource('https://lahuna-need-to-fix-this/user/get-user', {}, {
-//              Update: {
-//                  method: 'PUT',
-//                  headers: {
-//                      "AccessToken": accessToken,
-//                      "RefreshToken": refreshToken
-//                  }
-//              }
-//          });
-//      }
-//  });
+});
