@@ -62,7 +62,7 @@ fac.factory('PicasaResource', function ($resource) {
   return $resource(location.origin + ':8000/other', {}, {
     Get: {
       method: 'GET',
-      params: { resource: resource }
+      params: { 'resource': resource }
     }
   });
 });
@@ -74,7 +74,15 @@ fac.factory('PicasaPhotoResource', function ($resource) {
     return $resource(location.origin + ':8000/other', {}, {
       Get: {
         method: 'GET',
-        params: { resource: resource }
+        params: { 'resource': resource }
+      },
+      Delete: {
+        method: 'DELETE',
+        params: { 'resource': resource }
+      },
+      Patch: {
+        method: 'PATCH',
+        params: { 'resource': resource, 'alt': 'json' }
       }
     });
   }
@@ -87,7 +95,7 @@ fac.factory('PicasaAlbumResource', function ($resource) {
     return $resource(location.origin + ':8000/other', {}, {
       Get: {
         method: 'GET',
-        params: { resource: resource }
+        params: { 'resource': resource }
       }
     });
   }
@@ -100,7 +108,7 @@ fac.factory('PicasaAlbumFeedResource', function ($resource) {
     return $resource(location.origin + ':8000/other', {}, {
       Get: {
         method: 'GET',
-        params: { resource: resource }
+        params: { 'resource': resource }
       }
     });
   }

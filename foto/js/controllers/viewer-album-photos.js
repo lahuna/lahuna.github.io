@@ -6,10 +6,10 @@
 
 'use strict';
 
-var ctl = angular.module('ViewerAlbumPhotosController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('ViewerAlbumPhotosController', ['ResourceFactory', 'PhotoFactory', 'AuthenticateFactory']);
 
-ctl.controller('ViewerAlbumPhotosCtrl', function ($scope, $routeParams, $modal, $log, Auth,
-    PicasaAlbumFeedResource, PicasaPhotoResource) {
+ctl.controller('ViewerAlbumPhotosCtrl', function ($scope, $routeParams, $modal, $log,
+    PicasaAlbumFeedResource, PicasaPhotoResource, Photo, Auth) {
 
       $scope.needSignIn = false;
       Auth.Authenticate('foto', function (result) {
@@ -54,21 +54,26 @@ ctl.controller('ViewerAlbumPhotosCtrl', function ($scope, $routeParams, $modal, 
       }
 
       function SetActive() {
-          //var index = $scope.list.feed.entry.indexOf($scope.photo);
-          var index = GetIndex();
+        //var index = $scope.list.feed.entry.indexOf($scope.photo);
+        var index = GetIndex();
+        if (index > -1) {
           $scope.list.feed.entry[index].active = true;
+        }
       }
 
       function GetIndex() {
-          var i = 0;
-          for (i = 0; i < $scope.list.feed.entry.length; i++) {
-              if ($scope.list.feed.entry[i].gphoto$id.$t == localStorage.getItem('fotoId'))
-                  return i;
-          }
+        if (!$scope.list.feed.entry) {
+          return -1;
+        }
 
-          // not found in list, so add to list
-          $scope.list.feed.entry.splice(0, 1, $scope.photo);
-          return 0;
+        for (var i = 0; i < $scope.list.feed.entry.length; i++) {
+          if ($scope.list.feed.entry[i].gphoto$id.$t == localStorage.getItem('fotoId'))
+            return i;
+        }
+
+        // not found in list, so add to list
+        $scope.list.feed.entry.splice(0, 1, $scope.photo);
+        return 0;
       }
 
       //$scope.ShowVideo = function (photo) {
@@ -99,48 +104,17 @@ ctl.controller('ViewerAlbumPhotosCtrl', function ($scope, $routeParams, $modal, 
           $scope.list.feed.entry.splice(index, 1);
           if ($scope.list.feed.entry.length > 0)
               $scope.list.feed.entry[0].active = true;
-          DeletePhotoResource.Delete({
-              photoId: photoItem.Id,
-              albumId: $routeParams.albumId,
-              accessToken: GetAccessToken()
+
+          PicasaPhotoResource(photoItem.gphoto$id.$t).Delete({
+            accessToken: GetAccessToken()
           });
       };
 
       $scope.Rotate = function (photoItem, value) {
-          var position = "";
-          var index = $scope.list.feed.entry.indexOf(photoItem);
-
-          if (photoItem.position == undefined || photoItem.position == "")
-              if (value == 90)
-                  position = "rotate-right-90";
-              else
-                  position = "rotate-left-90";
-
-          else if (photoItem.position == "rotate-right-90")
-              if (value == 90)
-                  position = "rotate-right-180";
-              else
-                  position = "";
-
-          else if (photoItem.position == "rotate-left-90")
-              if (value == 90)
-                  position = "";
-              else
-                  position = "rotate-left-180";
-
-          else if (photoItem.position.indexOf("180") > 0)
-              if (value == 90)
-                  position = "rotate-right-270";
-              else
-                  position = "rotate-left-270";
-
+        var index = $scope.list.feed.entry.indexOf(photoItem);
+        Photo.Rotate(photoItem, value, function (position) {
           $scope.list.feed.entry[index].position = position;
-          UpdatePhotoPartialResource.Update({
-              photoId: photoItem.gphoto$id.$t,
-              type: "rotation",
-              value: value,
-              accessToken: GetAccessToken()
-          });
+        });
       };
 
       $scope.Tag = function (photoId) {
