@@ -8,9 +8,11 @@
 
 var fac = angular.module('PhotoFactory', ['ResourceFactory', 'AuthenticateFactory']);
 
-fac.factory('Photo', function (PicasaPhotoResource, Auth) {
+fac.factory('Photo', function (PicasaAlbumFeedResource,
+  PicasaResource, PicasaPhotoResource, Auth) {
 
-  return { 'Rotate': Rotate };
+  return { 'Rotate': Rotate,
+           'GetPhoto': GetPhoto };
 
   function GetAccessToken() {
    return localStorage.getItem('google_access_token');
@@ -61,4 +63,54 @@ fac.factory('Photo', function (PicasaPhotoResource, Auth) {
       accessToken: GetAccessToken()
     });
   };
+
+  function GetPhoto(input, callback) {
+    PicasaPhotoResource(input.photoId).Get({
+      'alt': 'json',
+      'accessToken': GetAccessToken()
+    }).$promise.then(function (data) {
+      var result = {
+        'photo': data.entry
+      }
+
+      if (input.albumId) {
+        GetAlbumPhotos(input, function (list) {
+          result.list = list;
+          return callback(result);
+        });
+      } else if (input.tag) {
+        GetSearchPhotos(input, function (list) {
+          result.list = list;
+          return callback(result);
+        });
+      } else {
+        return callback(result); // no list needed
+      }
+    });
+  }
+
+  function GetAlbumPhotos(input, callback) {
+    PicasaAlbumFeedResource(input.albumId).Get({
+      'kind': 'photo',
+      'start-index': input.startIndex,
+      'max-results': input.maxResults,
+      'alt': 'json',
+      'accessToken': GetAccessToken()
+      }).$promise.then(function (data) {
+        callback(data);
+      });
+  }
+
+  function GetSearchPhotos(input, callback) {
+    PicasaResource.Get({
+      'kind': 'photo',
+      'q': input.tag,
+      'start-index': input.startIndex,
+      'max-results': input.maxResults,
+      'alt': 'json',
+      'accessToken': GetAccessToken()
+    }).$promise.then(function (data) {
+      callback(data);
+    });
+  }
 });

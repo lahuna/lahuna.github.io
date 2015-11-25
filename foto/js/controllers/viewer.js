@@ -6,9 +6,9 @@
 
 'use strict';
 
-var ctl = angular.module('ViewerAlbumPhotosController', ['ResourceFactory', 'PhotoFactory', 'AuthenticateFactory']);
+var ctl = angular.module('ViewerController', ['ResourceFactory', 'PhotoFactory', 'AuthenticateFactory']);
 
-ctl.controller('ViewerAlbumPhotosCtrl', function ($scope, $routeParams, $modal, $log,
+ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
     PicasaAlbumFeedResource, PicasaPhotoResource, Photo, Auth) {
 
       $scope.needSignIn = false;
@@ -27,31 +27,46 @@ ctl.controller('ViewerAlbumPhotosCtrl', function ($scope, $routeParams, $modal, 
 
       function Initialize() {
           $scope.myInterval = -1;
-          GetPhoto();
-      }
+          var photoId;
+          if ($routeParams.photoId) {
+            photoId = $routeParams.photoId;
+          } else {
+            photoId = localStorage.getItem('fotoId');
+          }
 
-      function GetPhoto() {
-          PicasaPhotoResource(localStorage.getItem('fotoId')).Get({
-              'alt': 'json',
-              'accessToken': GetAccessToken()
-          }).$promise.then(function (data) {
-              $scope.photo = data.entry;
-              GetPhotos();
-          });
-      }
+          Photo.GetPhoto({
+            'photoId': photoId,
+            'albumId': $routeParams.albumId, // only for album photos
+            'tag': $routeParams.tag, // only for search photos
+            'startIndex': $routeParams.startIndex,
+            'maxResults': $routeParams.maxResults,
+          }, function (result) {
+            if (result.error) {
+              return;
+            }
+            $scope.photo = result.photo;
 
-      function GetPhotos() {
-        PicasaAlbumFeedResource($routeParams.albumId).Get({
-            'kind': 'photo',
-            'start-index': $scope.startIndex,
-            'max-results': $scope.maxResults,
-            'alt': 'json',
-            accessToken: GetAccessToken()
-          }).$promise.then(function (data) {
-              $scope.list = data;
+            if (result.list) {
+              $scope.list = result.list;
               SetActive();
+            } else {
+              $scope.size = '800';
+              SetVideoUrl(result.photo);
+            }
           });
       }
+
+      function SetVideoUrl(data) {
+        var resource = data.media$group.media$content[1];
+        if (resource)
+            $scope.videoUrl = $sce.trustAsResourceUrl(resource.url);
+      }
+
+      $scope.$watch('size', function (value) {
+          if ($scope.photo) {
+              $scope.photoUrl = $scope.photo.media$group.media$thumbnail[0].url.replace('72', value);
+          }
+      });
 
       function SetActive() {
         //var index = $scope.list.feed.entry.indexOf($scope.photo);
@@ -100,20 +115,26 @@ ctl.controller('ViewerAlbumPhotosCtrl', function ($scope, $routeParams, $modal, 
       //}
 
       $scope.Delete = function (photoItem) {
+        if ($scope.list) {
           var index = $scope.list.feed.entry.indexOf(photoItem);
           $scope.list.feed.entry.splice(index, 1);
           if ($scope.list.feed.entry.length > 0)
               $scope.list.feed.entry[0].active = true;
+        }
 
-          PicasaPhotoResource(photoItem.gphoto$id.$t).Delete({
-            accessToken: GetAccessToken()
-          });
+        PicasaPhotoResource(photoItem.gphoto$id.$t).Delete({
+          accessToken: GetAccessToken()
+        });
       };
 
       $scope.Rotate = function (photoItem, value) {
-        var index = $scope.list.feed.entry.indexOf(photoItem);
         Photo.Rotate(photoItem, value, function (position) {
-          $scope.list.feed.entry[index].position = position;
+          if ($scope.list) {
+            var index = $scope.list.feed.entry.indexOf(photoItem);
+            $scope.list.feed.entry[index].position = position;
+          } else {
+            $scope.photo.position = position;
+          }
         });
       };
 

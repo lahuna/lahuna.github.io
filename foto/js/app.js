@@ -16,9 +16,7 @@ var app = angular.module('foto', [
   'AlbumsController',
   'AlbumPhotosController',
   'PhotosController',
-  'ViewerAlbumPhotosController',
-  'ViewerPhotosController',
-  'ViewerPhotoController',
+  'ViewerController',
   'TagsController',
   'ToolsController'
 ]);
@@ -52,19 +50,19 @@ app.config(
         }).
         when('/album/photos/viewer/:albumId/:startIndex/:maxResults', {
             templateUrl: 'views/viewer-photos.html',
-            controller: 'ViewerAlbumPhotosCtrl'
+            controller: 'ViewerCtrl'
         }).
         when('/photos/viewer/:tag/:startIndex/:maxResults', {
             templateUrl: 'views/viewer-photos.html',
-            controller: 'ViewerPhotosCtrl'
+            controller: 'ViewerCtrl'
         }).
         when('/photo/viewer/:photoId', {
             templateUrl: 'views/viewer-photo.html',
-            controller: 'ViewerPhotoCtrl'
+            controller: 'ViewerCtrl'
         }).
         when('/video/viewer/:photoId', {
             templateUrl: 'views/viewer-video.html',
-            controller: 'ViewerPhotoCtrl'
+            controller: 'ViewerCtrl'
         }).
         when('/tags/:type', {
             templateUrl: 'views/tags.html',

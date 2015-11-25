@@ -6,7 +6,7 @@
 
 'use strict';
 
-var ctl = angular.module('ViewerPhotoController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('ViewerPhotoController', ['ResourceFactory', 'PhotoFactory', 'AuthenticateFactory']);
 
 ctl.controller('ViewerPhotoCtrl', function ($scope, $routeParams, $modal, $log, $sce,
   PicasaPhotoResource, Auth) {
@@ -26,68 +26,42 @@ ctl.controller('ViewerPhotoCtrl', function ($scope, $routeParams, $modal, $log, 
       //****************************************
 
       function Initialize() {
+        Photo.GetPhoto({
+          'photoId': $routeParams.photoId
+        }, function (result) {
+          if (result.error) {
+            return;
+          }
+          $scope.photo = result.photo;
+          $scope.size = '800';
+          SetVideoUrl(result.photo);
+        });
+      }
 
-          PicasaPhotoResource($routeParams.photoId).Get({
-              'alt': 'json',
-              accessToken: GetAccessToken()
-          }).$promise.then(function (data) {
-              $scope.photo = data.entry;
-              $scope.size = '800';
-
-              var resource = data.entry.media$group.media$content[1];
-              if (resource != undefined)
-                  $scope.videoUrl = $sce.trustAsResourceUrl(data.entry.media$group.media$content[1].url);
-          });
+      function SetVideoUrl(data) {
+        var resource = data.entry.media$group.media$content[1];
+        if (resource)
+            $scope.videoUrl = $sce.trustAsResourceUrl(data.entry.media$group.media$content[1].url);
       }
 
       $scope.$watch('size', function (value) {
-          if ($scope.photo != undefined) {
+          if ($scope.photo) {
               $scope.photoUrl = $scope.photo.media$group.media$thumbnail[0].url.replace('72', value);
           }
       });
 
       $scope.Delete = function () {
-          DeletePhotoResource.Delete({
-              photoId: $scope.photo.gphoto$id.$t,
-              albumId: $scope.photo.gphoto$albumid.$t,
-              accessToken: GetAccessToken()
-          });
+        PicasaPhotoResource($scope.photo.gphoto$id.$t).Delete({
+          accessToken: GetAccessToken()
+        });
+
+
       };
 
       $scope.Rotate = function (value) {
-          var position = "";
-
-          if ($scope.photo.position == undefined || $scope.photo.position == "")
-              if (value == 90)
-                  position = "rotate-right-90";
-              else
-                  position = "rotate-left-90";
-
-          else if ($scope.photo.position == "rotate-right-90")
-              if (value == 90)
-                  position = "rotate-right-180";
-              else
-                  position = "";
-
-          else if ($scope.photo.position == "rotate-left-90")
-              if (value == 90)
-                  position = "";
-              else
-                  position = "rotate-left-180";
-
-          else if ($scope.photo.position.indexOf("180") > 0)
-              if (value == 90)
-                  position = "rotate-right-270";
-              else
-                  position = "rotate-left-270";
-
+        Photo.Rotate($scope.photo, value, function (position) {
           $scope.photo.position = position;
-          UpdatePhotoPartialResource.Update({
-              photoId: $scope.photo.gphoto$id.$t,
-              type: "rotation",
-              value: value,
-              accessToken: GetAccessToken()
-          });
+        });
       };
 
       $scope.Tag = function (photoId) {
