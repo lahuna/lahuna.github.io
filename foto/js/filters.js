@@ -1,51 +1,51 @@
 //*****************************************************************************************************************
-// Copyright © 2014 - 2015 Lahuna. All rights reserved.
+// Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
 
 'use strict';
 
-/* Filters */
+/* fil */
 
-var Filters = angular.module('Filters', []);
+var fil = angular.module('Filters', []);
 
-Filters.filter('checkmark', function () {
+fil.filter('checkmark', function () {
     return function (input) {
         return input ? '\u2713' : '\u2718';
     };
 });
 
-Filters.filter('cmdate', function () {
+fil.filter('cmdate', function () {
     return function (input) {
-        if (input !== undefined)
+        if (input)
             return new Date(input).toLocaleString();
         else
             return '';
     };
 });
 
-Filters.filter('timestamp', function () {
+fil.filter('timestamp', function () {
     return function (input) {
-        if (input !== undefined)
+        if (input)
             return new Date(Number(input)).toLocaleString();
         else
             return '';
     };
 });
 
-Filters.filter('number', function () {
+fil.filter('number', function () {
     return function (input) {
-        if (input !== undefined)
+        if (input)
             return new Number(input).toLocaleString();
         else
             return '';
     };
 });
 
-Filters.filter('tofraction', function () {
+fil.filter('tofraction', function () {
     return function (input) {
-        if (input !== undefined)
+        if (input)
             if (Number(input) < 1)
                 return '1/' + (parseInt(1 / Number(input)))
             else
@@ -55,25 +55,25 @@ Filters.filter('tofraction', function () {
     };
 });
 
-Filters.filter('enlarge', function () {
+fil.filter('enlarge', function () {
     return function (input) {
-        if (input != undefined)
+        if (input)
             return input.replace('s72', 's1000');
         else
             return input;
     };
 });
 
-Filters.filter('type', function () {
+fil.filter('type', function () {
     return function (input) {
-        if (input == undefined)
+        if (!input)
             return 'photo';
         else
             return 'video';
     };
 });
 
-//Filters.filter('type', function () {
+//fil.filter('type', function () {
 //    return function (input) {
 //        if (input == undefined)
 //            return photo.media$group.media$thumbnail.url[0].replace('s72', 's1000');
@@ -82,7 +82,7 @@ Filters.filter('type', function () {
 //    };
 //});
 
-Filters.filter('thumb', function () {
+fil.filter('thumb', function () {
     return function (input) {
         if (input.indexOf('s72') > -1)
             return input.replace('s72', 's100-c');
@@ -93,25 +93,25 @@ Filters.filter('thumb', function () {
     };
 });
 
-Filters.filter('day', function () {
+fil.filter('day', function () {
     return function (input) {
         return input.substring(8);
     };
 });
 
-Filters.filter('truncString', function () {
+fil.filter('truncString', function () {
     return function (input) {
         return input.substring(0, 30) + "...";
     };
 });
 
-Filters.filter('escape', function () {
+fil.filter('escape', function () {
     return function (input) {
         return input.replace(/ /g, "%20");
     };
 });
 
-Filters.filter('unit', function () {
+fil.filter('unit', function () {
     return function (input) {
         if (input == "Other Albums")
             return "Albums";
@@ -120,9 +120,9 @@ Filters.filter('unit', function () {
     };
 });
 
-Filters.filter('sum', function () {
+fil.filter('sum', function () {
     return function (input) {
-        if (input == undefined)
+        if (input)
             return 0;
         var i = 0;
         var photoCount = 0;

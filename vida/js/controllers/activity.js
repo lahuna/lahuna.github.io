@@ -99,7 +99,8 @@ ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
       return SearchResource.Get({
           query: val,
           type: 'playlist',
-          userId: localStorage.getItem('youtube_user_id')
+          userId: localStorage.getItem('youtube_user_id'),
+          maxdocs: 10
       }).$promise.then(function (data) {
           return data.list;
       });

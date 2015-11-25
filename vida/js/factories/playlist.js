@@ -178,7 +178,7 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function SetTags(pl) {
-    if (pl.snippet.tags != undefined) {
+    if (pl.snippet.tags) {
       return pl.snippet.tags.toString();
     } else {
       return '[]';

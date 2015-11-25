@@ -32,14 +32,15 @@ ctl.controller('TagsCtrl',
             $scope.heading = GetHeading();
             $scope.path = GetPath();
 
-            if (localStorage.getItem("tag_search_picasa") == undefined)
+            if (!localStorage.getItem("tag_search_picasa"))
                 $scope.search = "";
             else
                 $scope.search = localStorage.getItem("tag_search_picasa");
 
             $scope.items = SearchResource.Get({
                 type: GetType(),
-                userId: localStorage.getItem('google_user_id')
+                userId: localStorage.getItem('google_user_id'),
+                maxdocs: 100
             });
         }
 
@@ -53,8 +54,8 @@ ctl.controller('TagsCtrl',
         }
 
         $scope.Delete = function (item) {
-            var index = $scope.items.indexOf(item);
-            $scope.items.splice(index, 1);
+            var index = $scope.items.list.indexOf(item);
+            $scope.items.list.splice(index, 1);
             SearchResource.Delete({
                 query: item.query,
                 type: GetType(),

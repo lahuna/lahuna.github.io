@@ -58,9 +58,11 @@ fac.factory('ImportAlbumResource', function ($resource) {
 
 // Picasa
 fac.factory('PicasaResource', function ($resource) {
-  return $resource(location.origin + ':8000/data/feed/api/user/default', {}, {
+  var resource = 'https://picasaweb.google.com/data/feed/api/user/default';
+  return $resource(location.origin + ':8000/other', {}, {
     Get: {
-      method: 'GET'
+      method: 'GET',
+      params: { resource: resource }
     }
   });
 });
@@ -68,20 +70,24 @@ fac.factory('PicasaResource', function ($resource) {
 // Picasa Photo
 fac.factory('PicasaPhotoResource', function ($resource) {
   return function (photoId) {
-    return $resource(location.origin + ':8000/data/entry/api/user/default/photoid/' + photoId, {}, {
+    var resource = 'https://picasaweb.google.com/data/entry/api/user/default/photoid/' + photoId;
+    return $resource(location.origin + ':8000/other', {}, {
       Get: {
-        method: 'GET'
+        method: 'GET',
+        params: { resource: resource }
       }
     });
   }
-  });
+});
 
 // Picasa Album
 fac.factory('PicasaAlbumResource', function ($resource) {
   return function (albumId) {
-    return $resource(location.origin + ':8000/data/entry/api/user/default/albumid/' + albumId, {}, {
+    var resource = 'https://picasaweb.google.com/data/entry/api/user/default/albumid/' + albumId;
+    return $resource(location.origin + ':8000/other', {}, {
       Get: {
-        method: 'GET'
+        method: 'GET',
+        params: { resource: resource }
       }
     });
   }
@@ -90,9 +96,11 @@ fac.factory('PicasaAlbumResource', function ($resource) {
 // Picasa Album Feed
 fac.factory('PicasaAlbumFeedResource', function ($resource) {
   return function (albumId) {
-    return $resource(location.origin + ':8000/data/feed/api/user/default/albumid/' + albumId, {}, {
+    var resource = 'https://picasaweb.google.com/data/feed/api/user/default/albumid/' + albumId;
+    return $resource(location.origin + ':8000/other', {}, {
       Get: {
-        method: 'GET'
+        method: 'GET',
+        params: { resource: resource }
       }
     });
   }

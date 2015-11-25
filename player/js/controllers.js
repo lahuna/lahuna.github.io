@@ -5,9 +5,9 @@
 //*****************************************************************************************************************
 'use strict';
 
-var Controllers = angular.module('Controllers', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
+var ctl = angular.module('Controllers', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
 
-Controllers.controller('ViewerCtrl',
+ctl.controller('ViewerCtrl',
   function ($scope, $routeParams, $window, $location, $modal,
     Auth, Playlist, ChannelResource, VideoResource,
     YoutubeSearchResource, SearchResource,
@@ -200,7 +200,7 @@ Controllers.controller('ViewerCtrl',
 
         function AddTag() {
 
-            if ($scope.item.snippet.tags == undefined)
+            if (!$scope.item.snippet.tags)
                 $scope.item.snippet.tags = [];
 
             if ($scope.item.snippet.tags.indexOf($scope.tag) == -1) {
@@ -254,8 +254,13 @@ Controllers.controller('ViewerCtrl',
           $scope.playlists = [];
           PlaylistItemDbResource.Get({
             videoId: $routeParams.id,
+            maxdocs: 20,
             accessToken: GetAccessToken()
           }).$promise.then(function (items) {
+            if (items.error) {
+              return;
+            }
+
             for (var i = 0; i < items.list.length; i++) {
               var item = items.list[i];
               PlaylistDbResource.Get({
@@ -347,14 +352,14 @@ Controllers.controller('ViewerCtrl',
         }
 
         function SetTags(pl) {
-            if (pl.snippet.tags != undefined)
+            if (pl.snippet.tags)
                 return pl.snippet.tags.toString();
             else
                 return "[]";
         }
 
         function GetError(item) {
-            if (item.status.rejectionReason != undefined)
+            if (item.status.rejectionReason)
                 return item.status.rejectionReason;
             else
                 return 'na';
@@ -412,7 +417,7 @@ Controllers.controller('ViewerCtrl',
 
         function InsertSearch() {
             var query = $scope.tag;
-            if (query != undefined && query != "")
+            if (query && query.length > 0)
                 SearchResource.Post({
                     query: query,
                     type: GetType(),
@@ -424,7 +429,8 @@ Controllers.controller('ViewerCtrl',
             return SearchResource.Get({
                 query: val,
                 type: GetType(),
-                userId: localStorage.getItem('youtube_user_id')
+                userId: localStorage.getItem('youtube_user_id'),
+                maxdocs: 10
             }).$promise.then(function (data) {
                 return data.list;
             });
@@ -485,7 +491,8 @@ Controllers.controller('ViewerCtrl',
             return SearchResource.Get({
                 query: val,
                 type: 'playlist',
-                userId: localStorage.getItem('youtube_user_id')
+                userId: localStorage.getItem('youtube_user_id'),
+                maxdocs: 10
             }).$promise.then(function (data) {
                 return data.list;
             });
@@ -550,7 +557,7 @@ Controllers.controller('ViewerCtrl',
         }
  });
 
-Controllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         $modalInstance.close('ok');

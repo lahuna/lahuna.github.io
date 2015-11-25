@@ -58,7 +58,7 @@ fac.factory('Auth', function (AuthenticateResource) {
   function GetRefreshToken(app) {
     switch (app) {
       case "foto":
-        return localStorage.getItem('youtube_refresh_token');
+        return localStorage.getItem('google_refresh_token');
         break;
 
       case "vida":

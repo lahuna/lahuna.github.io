@@ -82,14 +82,14 @@ ctl.controller('VideosCtrl',
         }
 
         function GetSearch() {
-            if ($scope.search == '')
+            if ($scope.search.length == 0)
                 return;
             else
                 return $scope.search;
         }
 
         function GetOrder() {
-            if ($scope.order == '')
+            if ($scope.order.length == 0)
                 return;
             else
                 return $scope.order;
@@ -132,7 +132,8 @@ ctl.controller('VideosCtrl',
             return SearchResource.Get({
                 query: val,
                 type: 'video',
-                userId: localStorage.getItem('youtube_user_id')
+                userId: localStorage.getItem('youtube_user_id'),
+                maxdocs: 10
             }).$promise.then(function (data) {
                 return data.list;
             });
@@ -162,7 +163,8 @@ ctl.controller('VideosCtrl',
             return SearchResource.Get({
                 query: val,
                 type: 'playlist',
-                userId: localStorage.getItem('youtube_user_id')
+                userId: localStorage.getItem('youtube_user_id'),
+                maxdocs: 10
             }).$promise.then(function (data) {
                 return data.list;
             });

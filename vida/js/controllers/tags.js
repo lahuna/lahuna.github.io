@@ -35,7 +35,8 @@ ctl.controller('TagsCtrl',
 
             $scope.items = SearchResource.Get({
                 type: GetType(),
-                userId: localStorage.getItem('youtube_user_id')
+                userId: localStorage.getItem('youtube_user_id'),
+                maxdocs: 100
             });
         }
 
@@ -52,7 +53,7 @@ ctl.controller('TagsCtrl',
             var index = $scope.items.list.indexOf(item);
             $scope.items.list.splice(index, 1);
             SearchResource.Delete({
-                query: item.title,
+                query: item.query,
                 type: GetType(),
                 accessToken: GetAccessToken()
             });

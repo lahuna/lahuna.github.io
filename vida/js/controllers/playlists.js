@@ -25,16 +25,16 @@ ctl.controller('PlaylistsCtrl',
         function Initialize() {
 
             var query = $routeParams.query;
-            if (query != undefined && query.length > 0)
+            if (query && query.length > 0)
                 $scope.search = query;
             else {
-                if (localStorage.getItem('playlist_search') == undefined)
+                if (!localStorage.getItem('playlist_search'))
                     $scope.search = '';
                 else
                     $scope.search = localStorage.getItem('playlist_search');
             }
 
-            if (localStorage.getItem('playlist_order') == undefined)
+            if (!localStorage.getItem('playlist_order'))
                 $scope.order = 'date';
             else
                 $scope.order = localStorage.getItem('playlist_order');
@@ -64,8 +64,13 @@ ctl.controller('PlaylistsCtrl',
             PlaylistDbResource.Get({
                 query: query,
                 order: GetOrder(),
+                maxdocs: 10,
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
+                if (data.error || !data.list) {
+                  return;
+                }
+
                 $scope.items = data;
                 if (query != '*') {
                     if (data.list.length > 0)
@@ -85,7 +90,7 @@ ctl.controller('PlaylistsCtrl',
         }
 
         function GetOrder() {
-            if ($scope.order == '') {
+            if ($scope.order.length == 0) {
                 $scope.order = 'date';
                 return 'date';
             }
@@ -147,7 +152,8 @@ ctl.controller('PlaylistsCtrl',
             return SearchResource.Get({
                 query: val,
                 type: 'playlist',
-                userId: localStorage.getItem('youtube_user_id')
+                userId: localStorage.getItem('youtube_user_id'),
+                maxdocs: 10
             }).$promise.then(function (data) {
                 return data.list;
             });

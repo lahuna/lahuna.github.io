@@ -163,7 +163,7 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
   }
 
   function SetTags(pl) {
-      if (pl.snippet.tags != undefined)
+      if (pl.snippet.tags)
           return pl.snippet.tags.toString();
       else
           return '[]';

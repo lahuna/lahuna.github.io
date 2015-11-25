@@ -15,7 +15,6 @@ ctl.controller('ToolsCtrl',
         $scope.needSignIn = false;
         Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
-          Initialize();
         });
 
         function GetAccessToken() {

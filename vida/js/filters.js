@@ -21,9 +21,9 @@ var fil = angular.module('Filters', []);
 
 fil.filter('ytChannelTitle', function () {
     return function (input) {
-        if (input.channelTitle != "")
+        if (input.channelTitle.length > 0)
             return input.channelTitle;
-        else if (input.title != "")
+        else if (input.title.length > 0)
             return input.title;
         else
             return "** NO TITLE FOUND **";

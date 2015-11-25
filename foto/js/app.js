@@ -12,8 +12,13 @@ var app = angular.module('foto', [
   'ngTouch',
   'Filters',
   'MainController',
+  'ModalInstanceController',
   'AlbumsController',
+  'AlbumPhotosController',
   'PhotosController',
+  'ViewerAlbumPhotosController',
+  'ViewerPhotosController',
+  'ViewerPhotoController',
   'TagsController',
   'ToolsController'
 ]);
@@ -29,9 +34,37 @@ app.config(
             templateUrl: 'views/photos.html',
             controller: 'PhotosCtrl'
         }).
+        when('/photos/:query', {
+            templateUrl: 'views/photos.html',
+            controller: 'PhotosCtrl'
+        }).
         when('/albums', {
             templateUrl: 'views/albums.html',
             controller: 'AlbumsCtrl'
+        }).
+        when('/albums/:query', {
+            templateUrl: 'views/albums.html',
+            controller: 'AlbumsCtrl'
+        }).
+        when('/album/photos/:albumId', {
+            templateUrl: 'views/album-photos.html',
+            controller: 'AlbumPhotosCtrl'
+        }).
+        when('/album/photos/viewer/:albumId/:startIndex/:maxResults', {
+            templateUrl: 'views/viewer-photos.html',
+            controller: 'ViewerAlbumPhotosCtrl'
+        }).
+        when('/photos/viewer/:tag/:startIndex/:maxResults', {
+            templateUrl: 'views/viewer-photos.html',
+            controller: 'ViewerPhotosCtrl'
+        }).
+        when('/photo/viewer/:photoId', {
+            templateUrl: 'views/viewer-photo.html',
+            controller: 'ViewerPhotoCtrl'
+        }).
+        when('/video/viewer/:photoId', {
+            templateUrl: 'views/viewer-video.html',
+            controller: 'ViewerPhotoCtrl'
         }).
         when('/tags/:type', {
             templateUrl: 'views/tags.html',

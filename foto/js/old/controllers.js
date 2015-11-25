@@ -83,7 +83,7 @@ Controllers.controller('PhotosCtrl',
 
       $scope.$watch('search', function (value) {
           var path = $scope.startIndex + '/' + $scope.maxResults;
-          if (value == '' || value == undefined)
+          if (!value || value.length == 0)
               $scope.path = path;
           else
               $scope.path = value + '/' + path;
@@ -119,7 +119,7 @@ Controllers.controller('PhotosCtrl',
               'alt': 'json'
           }).$promise.then(function (data) {
               $scope.list = data;
-              if (query != "") {
+              if (query.length > 0) {
                   if (data.feed.entry.length > 0)
                       InsertSearch(query);
                   else
@@ -594,7 +594,7 @@ Controllers.controller('AlbumsCtrl',
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.items = data.list;
-                if (query != "") {
+                if (query.length > 0) {
                     if (data.list.length > 0)
                         InsertSearch(query);
                     else
@@ -1393,7 +1393,7 @@ Controllers.controller('UpdatePhotoCtrl',
 
       function InsertSearch() {
           var query = $scope.tag;
-          if (query != undefined && query != "")
+          if (query != undefined && query.length > 0)
               SearchResource(GetAccessToken).Insert({
                   query: query,
                   type: 'photo'

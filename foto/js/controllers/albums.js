@@ -9,7 +9,7 @@
 var ctl = angular.module('AlbumsController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
-        ImportAlbumResource, SearchAlbumsResource, SearchResource, Auth) {
+        ImportAlbumResource, AlbumDbResource, SearchResource, Auth) {
 
           $scope.needSignIn = false;
           Auth.Authenticate('foto', function (result) {
@@ -65,12 +65,13 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
 
             var query = $scope.search;
             AlbumDbResource.Get({
-                query: query,
+                query: GetQuery(),
                 order: GetOrder(),
+                maxdocs: 10,
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.items = data.list;
-                if (query != "") {
+                if (query.length > 0) {
                     if (data.list.length > 0)
                         InsertSearch(query);
                     else
@@ -79,8 +80,16 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
             });
         }
 
+        function GetQuery() {
+            if ($scope.search.length == 0) {
+                return '*';
+            }
+            else
+                return $scope.search;
+        }
+
         function GetOrder() {
-            if ($scope.order == "") {
+            if ($scope.order.length == 0) {
                 $scope.order = 'date';
                 return 'date';
             }
@@ -142,7 +151,8 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
             return SearchResource.Get({
                 query: val,
                 type: "album",
-                userId: localStorage.getItem('google_user_id')
+                userId: localStorage.getItem('google_user_id'),
+                maxdocs: 10
             }).$promise.then(function (data) {
                 return data;
             });
