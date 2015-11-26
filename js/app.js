@@ -6,13 +6,11 @@
 
 'use strict';
 
-/* App Module */
-
 var app = angular.module('lahuna', [
   'ngRoute',
-  'Controllers',
-  'Filters',
-  'Services'
+  'MainController',
+  'ContactController',
+  'Filters'
 ]);
 
 app.config(
@@ -50,10 +48,10 @@ app.config(
                 templateUrl: 'views/tech.html',
                 controller: 'MainCtrl'
             }).
-            when('/rest', {
-                templateUrl: 'views/rest.html',
-                controller: 'RestCtrl'
-            }).
+            //when('/rest', {
+                //templateUrl: 'views/rest.html',
+                //controller: 'RestCtrl'
+            //}).
             when('/admin', {
                 templateUrl: 'views/admin.html',
                 controller: 'MainCtrl'

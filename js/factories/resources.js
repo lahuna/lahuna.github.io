@@ -6,19 +6,16 @@
 
 'use strict';
 
-/* Services */
-
-var Services = angular.module('Services', ['ngResource']);
+var res = angular.module('Resources', ['ngResource']);
 
 // Send Email
-Services.factory('SendEmailResource', ['$resource',
-  function ($resource) {
-      return $resource("https://lahuna-need-to-fix-this/common/send-email", {}, {
-          Send: {
-              method: 'GET'
-          }
-      });
-  }]);
+res.factory('EmailResource', function ($resource) {
+  return $resource(location.origin + ':8000/email', {}, {
+    Send: {
+        method: 'GET'
+    }
+  });
+});
 
 // Get Api
 //Services.factory('GetApiResource', ['$resource',
