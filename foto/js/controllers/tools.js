@@ -6,10 +6,10 @@
 
 'use strict';
 
-var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
 
 ctl.controller('ToolsCtrl',
-    function ($scope, $routeParams, ImportPhotoResource, Auth) {
+    function ($scope, $routeParams, $q, ImportPhotoResource, Auth, Oboe) {
 
           $scope.needSignIn = false;
           Auth.Authenticate('foto', function (result) {
@@ -24,17 +24,44 @@ ctl.controller('ToolsCtrl',
         // Import
         //*********************************************
 
+        ResetForm();
+
         $scope.ImportPhotos = function () {
-            SetAlert('warning', 'Importing photos...');
-            ImportPhotoResource.Post({
-                job: 'false',
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.success) {
-                    SetAlert('success', "Photo import successful.");
-                } else
-                    SetAlert('danger', "Photo import failed.");
-            });
+          SetAlert('warning', 'Importing photos...');
+
+          ResetForm();
+
+          Oboe.get({url: location.origin + ':8000/photo/import?accessToken=' + GetAccessToken()}
+          ).then(function() {
+              // finished loading
+          }, function(error) {
+              // handle errors
+          }, function(node) {
+
+            if (node.albumCount) {
+              $scope.albumCount = node.albumCount;
+            }
+
+            if (node.totalPhotos) {
+              $scope.totalPhotos = node.totalPhotos;
+            }
+
+            if (node.imported) {
+              $scope.imported += node.imported;
+            }
+
+            if (node.gErr) {
+              $scope.errors++;
+            }
+
+            if (node.dbErr) {
+              $scope.errors++;
+            }
+
+            if (node.success) {
+              SetAlert('success', "Photo import successful.");
+            }
+          });
         }
 
         $scope.closeAlert = function (index) {
@@ -43,5 +70,12 @@ ctl.controller('ToolsCtrl',
 
         function SetAlert(type, msg) {
             $scope.alerts = [{ type: type, msg: msg }];
+        }
+
+        function ResetForm() {
+          $scope.albumCount = 0;
+          $scope.totalPhotos = 0;
+          $scope.imported = 0;
+          $scope.errors = 0;
         }
 });

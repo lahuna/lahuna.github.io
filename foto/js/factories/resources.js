@@ -41,8 +41,8 @@ fac.factory('AlbumDbResource', function ($resource) {
 // Import Photos
 fac.factory('ImportPhotoResource', function ($resource) {
   return $resource(location.origin + ':8000/photo/import', {}, {
-    Post: {
-      method: 'POST'
+    Get: {
+      method: 'GET'
     }
   });
 });
@@ -50,8 +50,8 @@ fac.factory('ImportPhotoResource', function ($resource) {
 // Import Albums
 fac.factory('ImportAlbumResource', function ($resource) {
   return $resource(location.origin + ':8000/album/import', {}, {
-    Post: {
-      method: 'POST'
+    Get: {
+      method: 'GET'
     }
   });
 });
