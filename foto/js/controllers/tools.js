@@ -52,10 +52,12 @@ ctl.controller('ToolsCtrl',
 
             if (node.gErr) {
               $scope.errors++;
+              $scope.gErr.push(node.gErr);
             }
 
             if (node.dbErr) {
               $scope.errors++;
+              $scope.dbErr.push(node.dbErr);
             }
 
             if (node.success) {
@@ -77,5 +79,7 @@ ctl.controller('ToolsCtrl',
           $scope.totalPhotos = 0;
           $scope.imported = 0;
           $scope.errors = 0;
+          $scope.gErr = [];
+          $scope.dbErr = [];
         }
 });

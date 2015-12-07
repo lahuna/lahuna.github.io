@@ -122,7 +122,7 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
         $scope.Import = function () {
             SetAlert('warning', 'Importing albums...');
 
-            ImportAlbumResource.Post({
+            ImportAlbumResource.Get({
               accessToken: GetAccessToken()
             })
             .$promise.then(function (data) {
