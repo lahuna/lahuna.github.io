@@ -17,6 +17,17 @@ res.factory('EmailResource', function ($resource) {
   });
 });
 
+// Log
+res.factory('LogResource', function ($resource) {
+  return function (path) {
+    return $resource(location.origin + ':8000/log' + path, {}, {
+      Post: {
+        method: 'POST'
+      }
+    });
+  }
+});
+
 // Get Api
 //Services.factory('GetApiResource', ['$resource',
   //function ($resource) {

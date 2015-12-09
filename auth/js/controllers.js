@@ -142,6 +142,7 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
                 agreedDate: Date(),
                 displayName: profile.displayName,
                 email: profile.emails[0].value,
+                app: $routeParams.state,
                 accessToken: $scope.access_token
             }).$promise.then(function () {
                 Reroute();
