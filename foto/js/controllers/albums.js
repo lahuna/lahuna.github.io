@@ -55,7 +55,7 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
                 Search();
         }
 
-        $scope.Search = function () {
+        $scope.ClickSearch = function () {
             Search();
         }
 

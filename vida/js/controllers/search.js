@@ -49,7 +49,7 @@ ctl.controller('SearchCtrl',
                 Search();
         }
 
-        $scope.Search = function () {
+        $scope.ClickSearch = function () {
             Search();
         }
 
@@ -141,9 +141,10 @@ ctl.controller('SearchCtrl',
                 data = data[1];
                 var i;
                 for (var i in data) {
-                    var item = data[i][0];
-                    if (item)
-                        list.push(item);
+                  if (data[i][0]) {
+                    var item = {'query': data[i][0]}
+                    list.push(item);
+                  }
                 }
 
                 return list;
@@ -167,15 +168,16 @@ ctl.controller('SearchCtrl',
 
         $scope.AddToPlaylist = function (index) {
           var inP = $scope.list.items[index].inPlaylist;
-            if (!inP) {
-              $scope.list.items[index].inPlaylist = true;
-            } else {
-              $scope.list.items[index].inPlaylist = false;
-            }
+          if (!inP) {
+            $scope.list.items[index].inPlaylist = true;
+          } else {
+            $scope.list.items[index].inPlaylist = false;
+          }
 
           var video = $scope.list.items[index];
           var title = $scope.playlist;
-          Playlist.AddToPlaylist(video, title, function (playlistItemId) {
+          Playlist.AddToPlaylist(video, title, function (playlistId, playlistItemId) {
+            $scope.playlistId = playlistId;
             $scope.list.items[index].playlistItemId = playlistItemId;
           });
         }
@@ -184,8 +186,8 @@ ctl.controller('SearchCtrl',
             if (!$scope.list || !$scope.list.items)
                 return;
 
-            var i = 0;
-            for (i = 0; i < $scope.list.items.length; i++) {
+            $scope.playlistId = '';
+            for (var i = 0; i < $scope.list.items.length; i++) {
                 $scope.list.items[i].inPlaylist = false;
                 delete $scope.list.items[i].playlistItemId;
             }

@@ -8,17 +8,26 @@
 
 var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('MainCtrl', function ($scope, ProfileResource, Auth) {
+ctl.controller('MainCtrl', function ($scope, $route, Auth,
+  ProfileResource, ImportResource) {
 
   $scope.origin = location.origin;
   $scope.needSignIn = false;
   Auth.Authenticate('foto', function (result) {
     $scope.needSignIn = result;
-    GetProfile();
+    Initialize();
   });
 
   function GetAccessToken() {
     return localStorage.getItem('google_access_token');
+  }
+
+  function Initialize() {
+    GetProfile();
+
+    if ($route.current.originalPath == '/initial') {
+      Import();
+    }
   }
 
   function GetProfile() {
@@ -26,5 +35,12 @@ ctl.controller('MainCtrl', function ($scope, ProfileResource, Auth) {
       .$promise.then(function (data) {
           $scope.profile = data;
       });
+  }
+
+  function Import() {
+    ImportResource.Get({
+      job: 'true',
+      accessToken: GetAccessToken()
+    });
   }
 });

@@ -54,7 +54,7 @@ ctl.controller('VideosCtrl',
                 Search();
         }
 
-        $scope.Search = function () {
+        $scope.ClickSearch = function () {
             Search();
         }
 
@@ -180,7 +180,8 @@ ctl.controller('VideosCtrl',
 
           var video = $scope.list.items[index];
           var title = $scope.playlist;
-          Playlist.AddToPlaylist(video, title, function (playlistItemId) {
+          Playlist.AddToPlaylist(video, title, function (playlistId, playlistItemId) {
+            $scope.playlistId = playlistId;
             $scope.list.items[index].playlistItemId = playlistItemId;
           });
         }
@@ -189,8 +190,8 @@ ctl.controller('VideosCtrl',
             if (!$scope.list || !$scope.list.items)
                 return;
 
-            var i = 0;
-            for (i = 0; i < $scope.list.items.length; i++) {
+            $scope.playlistId = '';
+            for (var i = 0; i < $scope.list.items.length; i++) {
                 $scope.list.items[i].inPlaylist = false;
                 delete $scope.list.items[i].playlistItemId;
             }

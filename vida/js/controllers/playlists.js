@@ -15,7 +15,9 @@ ctl.controller('PlaylistsCtrl',
         $scope.needSignIn = false;
         Auth.Authenticate('vida', function (result) {
           $scope.needSignIn = result;
-          Initialize();
+          if (!result) {
+            Initialize();
+          }
         });
 
         function GetAccessToken() {
@@ -52,7 +54,7 @@ ctl.controller('PlaylistsCtrl',
                 Search();
         }
 
-        $scope.Search = function () {
+        $scope.ClickSearch = function () {
             Search();
         }
 
@@ -67,7 +69,21 @@ ctl.controller('PlaylistsCtrl',
                 maxdocs: 10,
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
-                if (data.error || !data.list) {
+                if (data.error) {
+                  if (data.error == 'invalid_token') {
+                    Auth.Authenticate('vida', function (result) {
+                      $scope.needSignIn = result;
+                      if (!result) {
+                        Search();
+                        return;
+                      }
+                    });
+                  } else {
+                    return;
+                  }
+                }
+
+                if (!data.list) {
                   return;
                 }
 
@@ -123,7 +139,7 @@ ctl.controller('PlaylistsCtrl',
         $scope.Import = function () {
             SetAlert('warning', 'Importing playlists...');
 
-            ImportPlaylistResource.Post({
+            ImportPlaylistResource.Get({
                 job: 'false',
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {

@@ -103,7 +103,7 @@ Controllers.controller('PhotosCtrl',
               Search();
       }
 
-      $scope.Search = function () {
+      $scope.ClickSearch = function () {
           Search();
       }
 
@@ -579,7 +579,7 @@ Controllers.controller('AlbumsCtrl',
                 Search();
         }
 
-        $scope.Search = function () {
+        $scope.ClickSearch = function () {
             Search();
         }
 

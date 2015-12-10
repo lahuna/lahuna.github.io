@@ -197,7 +197,7 @@ Controllers.controller('SearchCtrl',
                 Search();
         }
 
-        $scope.Search = function () {
+        $scope.ClickSearch = function () {
             Search();
         }
 
@@ -599,7 +599,7 @@ Controllers.controller('VideosCtrl',
                 Search();
         }
 
-        $scope.Search = function () {
+        $scope.ClickSearch = function () {
             Search();
         }
 
@@ -1201,7 +1201,7 @@ Controllers.controller('PlaylistsCtrl',
                 Search();
         }
 
-        $scope.Search = function () {
+        $scope.ClickSearch = function () {
             Search();
         }
 

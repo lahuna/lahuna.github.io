@@ -9,7 +9,7 @@
 var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
-  ProfileResource, ImportPlaylistResource, ImportPlaylistItemResource) {
+  ProfileResource, ImportResource) {
 
   $scope.origin = location.origin;
 
@@ -26,26 +26,22 @@ ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
   function Initialize() {
     GetProfile();
 
-    if ($route.current.originalPath == '/initial')
-        Import();
+    if ($route.current.originalPath == '/initial') {
+      Import();
+    }
   }
 
   function GetProfile() {
     ProfileResource(GetAccessToken()).Get()
-        .$promise.then(function (data) {
-            $scope.profile = data;
-        });
+      .$promise.then(function (data) {
+          $scope.profile = data;
+      });
   }
 
   function Import() {
-
-    ImportPlaylistResource.Post({
-        job: 'true',
-        accessToken: GetAccessToken()
-    }).$promise.then(function () {
-        ImportPlaylistItemResource.Post({
-          accessToken: GetAccessToken()
-        });
+    ImportResource.Get({
+      job: 'true',
+      accessToken: GetAccessToken()
     });
   }
 });

@@ -19,8 +19,8 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
    }
 
   function AddToPlaylist(video, title, callback) {
-    GetPlaylistId(video, title, function (playlistItemId) {
-      return callback(playlistItemId);
+    GetPlaylistId(video, title, function (playlistId, playlistItemId) {
+      return callback(playlistId, playlistItemId);
     });
   }
 
@@ -28,22 +28,23 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
    var videoId = GetVideoId(video);
    PlaylistDbResource.Get({
      title: title,
-     accessToken: GetAccessToken()
+     accessToken: GetAccessToken(),
+     maxdocs: 1
    }).$promise.then(function (data) {
        if (data.list.length > 0) {
          var plid = data.list[0].playlistId;
          if (video.playlistItemId) {
            RemovePlaylistItem(plid, video.playlistItemId, function () {
-             return callback();
+             return callback(plid, null);
            });
          } else {
            GetPlaylistItem(videoId, plid, function (playlistItemId) {
-             callback(playlistItemId);
+             callback(plid, playlistItemId);
            });
          }
        } else {
-         CreatePlaylist(videoId, title, function (playlistItemId) {
-          callback(playlistItemId);
+         CreatePlaylist(videoId, title, function (playlistId, playlistItemId) {
+          callback(playlistId, playlistItemId);
          });
        }
    });
@@ -77,7 +78,7 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
       }
     }).$promise.then(function (data) {
       AddPlaylistItem(videoId, data.id, function (playlistItemId) {
-        callback(playlistItemId)
+        callback(data.id, playlistItemId)
       });
       InsertPlaylist(videoId, data);
     });

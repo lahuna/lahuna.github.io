@@ -12,6 +12,16 @@
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
+            <button class="btn btn-default" ng-click="Import()" title="Import Youtube Data"><span class="glyphicon glyphicon-refresh"></span> Import All</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <button class="btn btn-default" ng-click="ImportPlaylists()" title="Import playlists from Youtube"><span class="glyphicon glyphicon-refresh"></span> Import Playlists</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
             <button class="btn btn-default" ng-click="ImportVideos()" title="Import videos from Youtube"><span class="glyphicon glyphicon-refresh"></span> Import Videos</button>
         </div>
     </div>
@@ -32,7 +42,7 @@
                        typeahead="item.query for item in GetSearchList($viewValue)"
                        type="text" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" ng-click="Search()"><span class="glyphicon glyphicon-search"></span></button>
+                    <button class="btn btn-default" type="button" ng-click="ClickSearch()"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
             </div>
         </div>

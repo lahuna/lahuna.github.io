@@ -9,7 +9,7 @@
 var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('ToolsCtrl',
-    function ($scope, $routeParams,
+    function ($scope, $routeParams, ImportResource, ImportPlaylistResource,
         ImportVideoResource, ImportPlaylistItemResource, Auth) {
 
         $scope.needSignIn = false;
@@ -21,9 +21,35 @@ ctl.controller('ToolsCtrl',
           return localStorage.getItem('youtube_access_token');
         }
 
+        $scope.Import = function () {
+            SetAlert('warning', 'Importing youtube data...');
+            ImportResource.Get({
+                job: 'false',
+                accessToken: GetAccessToken()
+            }).$promise.then(function (data) {
+                if (data.success) {
+                    SetAlert('success', 'Youtube import successful.');
+                } else
+                    SetAlert('danger', 'Youtube import failed.');
+            });
+        }
+
+        $scope.ImportPlaylists = function () {
+            SetAlert('warning', 'Importing playlists...');
+            ImportPlaylistResource.Get({
+                job: 'false',
+                accessToken: GetAccessToken()
+            }).$promise.then(function (data) {
+                if (data.success) {
+                    SetAlert('success', 'Playlist import successful.');
+                } else
+                    SetAlert('danger', 'Playlist import failed.');
+            });
+        }
+
         $scope.ImportVideos = function () {
             SetAlert('warning', 'Importing videos...');
-            ImportVideoResource.Post({
+            ImportVideoResource.Get({
                 job: 'false',
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
@@ -36,7 +62,7 @@ ctl.controller('ToolsCtrl',
 
         $scope.ImportPlaylistItems = function () {
             SetAlert('warning', 'Importing playlist items...');
-            ImportPlaylistItemResource.Post({
+            ImportPlaylistItemResource.Get({
                 job: 'false',
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {

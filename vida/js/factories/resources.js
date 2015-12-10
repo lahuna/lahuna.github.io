@@ -180,11 +180,20 @@ fac.factory('PlaylistItemDbResource', function ($resource) {
   });
 });
 
+// Import Playlists, Playlist Items, and Videos
+fac.factory('ImportResource', function ($resource) {
+  return $resource(location.origin + ':8080/youtube/import', {}, {
+    Get: {
+      method: 'GET'
+    }
+  });
+});
+
 // Import Playlists
 fac.factory('ImportPlaylistResource', function ($resource) {
   return $resource(location.origin + ':8080/playlist/import', {}, {
-    Post: {
-      method: 'POST'
+    Get: {
+      method: 'GET'
     }
   });
 });
@@ -192,8 +201,8 @@ fac.factory('ImportPlaylistResource', function ($resource) {
 // Import Playlist Items
 fac.factory('ImportPlaylistItemResource', function ($resource) {
   return $resource(location.origin + ':8080/playlist_item/import', {}, {
-    Post: {
-      method: 'POST'
+    Get: {
+      method: 'GET'
     }
   });
 });
@@ -201,8 +210,8 @@ fac.factory('ImportPlaylistItemResource', function ($resource) {
 // Import Videos
 fac.factory('ImportVideoResource', function ($resource) {
   return $resource(location.origin + ':8080/video/import', {}, {
-    Post: {
-      method: 'POST'
+    Get: {
+      method: 'GET'
     }
   });
 });

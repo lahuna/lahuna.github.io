@@ -56,6 +56,15 @@ fac.factory('ImportAlbumResource', function ($resource) {
   });
 });
 
+// Import All
+fac.factory('ImportResource', function ($resource) {
+  return $resource(location.origin + ':8080/picasa/import', {}, {
+    Get: {
+      method: 'GET'
+    }
+  });
+});
+
 // Picasa
 fac.factory('PicasaResource', function ($resource) {
   var resource = 'https://picasaweb.google.com/data/feed/api/user/default';

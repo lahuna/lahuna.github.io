@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
             <div ng-show="list.items.length > 0">
-                <a href="/player/#/{{playlistType}}/{{playlistId}}" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span> {{playBtn}}</a>
+                <a href="/player/#/{{playlistType}}/{{id}}" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span> {{playBtn}}</a>
             </div>
             <div ng-show="emptyPlaylist">
                 <div ng-show="owner == 'me'">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div ng-show="notFound">
-                <h4>Playlist not found. It may have been deleted.</h4>
+                <h4>Playlist deleted.</h4>
                 <button class="btn btn-default" ng-click="Back()">Back</button>
             </div>
             <div class="alert alert-danger" role="alert" ng-show="playlistError && !notFound">

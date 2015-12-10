@@ -62,7 +62,7 @@ ctl.controller('PhotosCtrl',
     }
   }
 
-  $scope.Search = function () {
+  $scope.ClickSearch = function () {
     Search();
   }
 

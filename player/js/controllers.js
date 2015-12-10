@@ -265,13 +265,16 @@ ctl.controller('ViewerCtrl',
               var item = items.list[i];
               PlaylistDbResource.Get({
                 playlistId: item.playlistId,
-                accessToken: GetAccessToken()
+                accessToken: GetAccessToken(),
+                maxdocs: 1
               }).$promise.then(function (result) {
-                var pl = {
-                  "playlistItemId": item.playlistItemId,
-                  "title": result.list[0].title
+                if (result.list && result.list[0]) {
+                  var pl = {
+                    "playlistItemId": item.playlistItemId,
+                    "title": result.list[0].title
+                  }
+                  $scope.playlists.push(pl);
                 }
-                $scope.playlists.push(pl);
               });
             }
           });
@@ -399,8 +402,8 @@ ctl.controller('ViewerCtrl',
             }).$promise.then(function (data) {
                 // TODO: Handle Errors Here
 
-                DeletePlaylistResource.Delete({
-                    id: $scope.item.id,
+                PlaylistDbResource.Delete({
+                    playlistId: $scope.item.id,
                     accessToken: GetAccessToken()
                 }).$promise.then(function () {
                     $window.history.back();
@@ -511,7 +514,7 @@ ctl.controller('ViewerCtrl',
         function AddPlaylist() {
           var video = $scope.item;
           var title = $scope.playlist.title;
-          Playlist.AddToPlaylist(video, title, function (playlistItemId) {
+          Playlist.AddToPlaylist(video, title, function (playlistId, playlistItemId) {
             $scope.playlist.playlistItemId = playlistItemId;
             MovePlaylist();
           });

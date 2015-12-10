@@ -9,7 +9,8 @@
 var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
 
 ctl.controller('ToolsCtrl',
-    function ($scope, $routeParams, $q, ImportPhotoResource, Auth, Oboe) {
+    function ($scope, $routeParams, $q, Auth, Oboe,
+    ImportResource, ImportAlbumResource, ImportPhotoResource) {
 
           $scope.needSignIn = false;
           Auth.Authenticate('foto', function (result) {
@@ -25,6 +26,32 @@ ctl.controller('ToolsCtrl',
         //*********************************************
 
         ResetForm();
+
+        $scope.Import = function () {
+            SetAlert('warning', 'Importing albums & photos...');
+            ImportResource.Get({
+                job: 'false',
+                accessToken: GetAccessToken()
+            }).$promise.then(function (data) {
+                if (data.success) {
+                    SetAlert('success', 'Album & Photo import successful.');
+                } else
+                    SetAlert('danger', 'Album & Photo import failed.');
+            });
+        }
+
+        $scope.ImportAlbums = function () {
+            SetAlert('warning', 'Importing albums...');
+            ImportAlbumResource.Get({
+                job: 'false',
+                accessToken: GetAccessToken()
+            }).$promise.then(function (data) {
+                if (data.success) {
+                    SetAlert('success', 'Album import successful.');
+                } else
+                    SetAlert('danger', 'Album import failed.');
+            });
+        }
 
         $scope.ImportPhotos = function () {
           SetAlert('warning', 'Importing photos...');

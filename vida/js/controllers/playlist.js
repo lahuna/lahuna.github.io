@@ -43,16 +43,21 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
 
   function GetPlaylist() {
       PlaylistResource(GetAccessToken()).Get({
-          id: $routeParams.id,
-          part: 'snippet,status'
+        id: $routeParams.id,
+        part: 'snippet,status'
       }).$promise.then(function (data) {
-          if (data.items.length > 0)
-              $scope.playlist = data;
-          else
-              $scope.notFound = true;
+        if (data.items.length > 0) {
+          $scope.playlist = data;
+        } else {
+          $scope.notFound = true;
+          PlaylistDbResource.Delete({
+            playlistId: $routeParams.id,
+            accessToken: GetAccessToken()
+          });
+        }
       }, function (error) {
-          $scope.playlistError = true;
-          //$scope.list.items = [];
+        $scope.playlistError = true;
+        //$scope.list.items = [];
       })
   }
 
@@ -87,7 +92,7 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
           // TODO: Handle Errors Here
 
           PlaylistDbResource.Delete({
-              id: $routeParams.id,
+              playlistId: $routeParams.id,
               accessToken: GetAccessToken()
           }).$promise.then(function () {
               $window.history.back();

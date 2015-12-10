@@ -18,10 +18,12 @@ fac.factory('Auth', function (AuthenticateResource) {
       refreshToken: GetRefreshToken(app)
     })
     .$promise.then(function (data) {
-        // TODO: test whether or not valid accessToken returned
-        // or some kind of error
+      if (data.error) {
+        return callback(true);
+      } else {
         StoreValues(data, app);
         return callback(false);
+      }
     }, function (error) {
         return callback(true);
     });
