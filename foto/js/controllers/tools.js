@@ -58,12 +58,14 @@ ctl.controller('ToolsCtrl',
 
           ResetForm();
 
-          Oboe.get({url: location.origin + ':8000/photo/import?accessToken=' + GetAccessToken()}
+          Oboe.get({url: location.origin + ':8080/photo/import?accessToken=' + GetAccessToken()}
           ).then(function() {
               // finished loading
           }, function(error) {
               // handle errors
           }, function(node) {
+
+            $scope.status = node;
 
             if (node.albumCount) {
               $scope.albumCount = node.albumCount;
@@ -87,8 +89,12 @@ ctl.controller('ToolsCtrl',
               $scope.dbErr.push(node.dbErr);
             }
 
-            if (node.success) {
-              SetAlert('success', "Photo import successful.");
+            if (node.done) {
+              if ($scope.errors == 0) {
+                SetAlert('success', "Photo import successful.");
+              } else {
+                SetAlert('danger', "Photo import failed.");
+              }
             }
           });
         }

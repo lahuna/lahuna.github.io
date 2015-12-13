@@ -38,4 +38,27 @@
             <p>Errors: {{errors | number}}</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <p>{{status}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="list-group">
+                <a ng-repeat="item in gErr" class="list-group-item">
+                    <div>{{item}}</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-3">
+            <div class="list-group">
+                <a ng-repeat="item in dbErr" class="list-group-item">
+                    <div>{{item}}</div>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
