@@ -17,6 +17,7 @@ var app = angular.module('foto', [
   'AlbumPhotosController',
   'PhotosController',
   'ViewerController',
+  'DetailController',
   'TagsController',
   'ToolsController'
 ]);
@@ -67,6 +68,14 @@ app.config(
         when('/video/viewer/:photoId', {
             templateUrl: 'views/viewer-video.html',
             controller: 'ViewerCtrl'
+        }).
+        when('/photo/detail/:photoId', {
+            templateUrl: 'views/detail-photo.html',
+            controller: 'DetailCtrl'
+        }).
+        when('/video/detail/:photoId', {
+            templateUrl: 'views/detail-video.html',
+            controller: 'DetailCtrl'
         }).
         when('/tags/:type', {
             templateUrl: 'views/tags.html',

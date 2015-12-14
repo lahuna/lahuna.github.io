@@ -9,7 +9,7 @@
 var ctl = angular.module('AlbumsController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
-        ImportAlbumResource, AlbumDbResource, SearchResource, Auth) {
+        AlbumDbResource, SearchResource, Auth) {
 
           $scope.needSignIn = false;
           Auth.Authenticate('foto', function (result) {

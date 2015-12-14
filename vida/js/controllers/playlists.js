@@ -9,7 +9,7 @@
 var ctl = angular.module('PlaylistsController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('PlaylistsCtrl',
-    function ($scope, $routeParams, ImportPlaylistResource, PlaylistDbResource,
+    function ($scope, $routeParams, PlaylistDbResource,
         SearchResource, Auth) {
 
         $scope.needSignIn = false;
