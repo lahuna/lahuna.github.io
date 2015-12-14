@@ -6,10 +6,10 @@
 
 'use strict';
 
-var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
 
 ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
-  ProfileResource, ImportResource) {
+  ProfileResource, Oboe) {
 
   $scope.origin = location.origin;
 
@@ -39,9 +39,13 @@ ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
   }
 
   function Import() {
-    ImportResource.Get({
-      job: 'true',
-      accessToken: GetAccessToken()
+    Oboe.get({url: location.origin + ':8080/youtube/import?accessToken=' + GetAccessToken()}
+    ).then(function() {
+        // finished loading
+    }, function(error) {
+        // handle errors
+    }, function(node) {
+        // handle node data
     });
   }
 });

@@ -180,7 +180,7 @@ fac.factory('PlaylistItemDbResource', function ($resource) {
   });
 });
 
-// Import Playlists, Playlist Items, and Videos
+/*// Import Playlists, Playlist Items, and Videos
 fac.factory('ImportResource', function ($resource) {
   return $resource(location.origin + ':8080/youtube/import', {}, {
     Get: {
@@ -214,7 +214,7 @@ fac.factory('ImportVideoResource', function ($resource) {
       method: 'GET'
     }
   });
-});
+});*/
 
 // Search
 fac.factory('SearchResource', function ($resource) {

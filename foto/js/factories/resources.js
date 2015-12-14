@@ -38,7 +38,7 @@ fac.factory('AlbumDbResource', function ($resource) {
   });
 });
 
-// Import Photos
+/*// Import Photos
 fac.factory('ImportPhotoResource', function ($resource) {
   return $resource(location.origin + ':8080/photo/import', {}, {
     Get: {
@@ -63,7 +63,7 @@ fac.factory('ImportResource', function ($resource) {
       method: 'GET'
     }
   });
-});
+});*/
 
 // Picasa
 fac.factory('PicasaResource', function ($resource) {

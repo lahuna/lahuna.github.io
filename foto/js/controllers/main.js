@@ -6,10 +6,10 @@
 
 'use strict';
 
-var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
 
 ctl.controller('MainCtrl', function ($scope, $route, Auth,
-  ProfileResource, ImportResource) {
+  ProfileResource, Oboe) {
 
   $scope.origin = location.origin;
   $scope.needSignIn = false;
@@ -38,9 +38,13 @@ ctl.controller('MainCtrl', function ($scope, $route, Auth,
   }
 
   function Import() {
-    ImportResource.Get({
-      job: 'true',
-      accessToken: GetAccessToken()
+    Oboe.get({url: location.origin + ':8080/picasa/import?accessToken=' + GetAccessToken()}
+    ).then(function() {
+        // finished loading
+    }, function(error) {
+        // handle errors
+    }, function(node) {
+        // handle node data
     });
   }
 });

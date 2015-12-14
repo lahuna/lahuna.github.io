@@ -1,16 +1,15 @@
-//*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
-// You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
-// make available to the public any content or code on this website without prior written permission from Lahuna.
-//*****************************************************************************************************************
+/*****************************************************************************************************************
+ Copyright � 2014 - 2015 Lahuna. All rights reserved.
+ You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+ make available to the public any content or code on this website without prior written permission from Lahuna.
+*****************************************************************************************************************/
 
 'use strict';
 
 var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
 
 ctl.controller('ToolsCtrl',
-    function ($scope, $routeParams, $q, Auth, Oboe,
-    ImportResource, ImportAlbumResource, ImportPhotoResource) {
+    function ($scope, $routeParams, Auth, Oboe) {
 
           $scope.needSignIn = false;
           Auth.Authenticate('foto', function (result) {
@@ -28,91 +27,52 @@ ctl.controller('ToolsCtrl',
         ResetForm();
 
         $scope.Import = function () {
-            SetAlert('warning', 'Importing albums & photos...');
-            ImportResource.Get({
-                job: 'false',
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.success) {
-                    SetAlert('success', 'Album & Photo import successful.');
-                } else
-                    SetAlert('danger', 'Album & Photo import failed.');
-            });
+          RunImport('picasa/import');
         }
 
         $scope.ImportAlbums = function () {
-            SetAlert('warning', 'Importing albums...');
-            ImportAlbumResource.Get({
-                job: 'false',
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.success) {
-                    SetAlert('success', 'Album import successful.');
-                } else
-                    SetAlert('danger', 'Album import failed.');
-            });
+          RunImport('album/import');
         }
 
         $scope.ImportPhotos = function () {
-          SetAlert('warning', 'Importing photos...');
-
-          ResetForm();
-
-          Oboe.get({url: location.origin + ':8080/photo/import?accessToken=' + GetAccessToken()}
-          ).then(function() {
-              // finished loading
-          }, function(error) {
-              // handle errors
-          }, function(node) {
-
-            $scope.status = node;
-
-            if (node.albumCount) {
-              $scope.albumCount = node.albumCount;
-            }
-
-            if (node.totalPhotos) {
-              $scope.totalPhotos = node.totalPhotos;
-            }
-
-            if (node.imported) {
-              $scope.imported += node.imported;
-            }
-
-            if (node.gErr) {
-              $scope.errors++;
-              $scope.gErr.push(node.gErr);
-            }
-
-            if (node.dbErr) {
-              $scope.errors++;
-              $scope.dbErr.push(node.dbErr);
-            }
-
-            if (node.done) {
-              if ($scope.errors == 0) {
-                SetAlert('success', "Photo import successful.");
-              } else {
-                SetAlert('danger', "Photo import failed.");
-              }
-            }
-          });
+          RunImport('photo/import');
         }
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
 
-        function SetAlert(type, msg) {
-            $scope.alerts = [{ type: type, msg: msg }];
+        function RunImport(path) {
+          SetAlert('warning', 'Importing...');
+          ResetForm();
+          Oboe.get({url: location.origin + ':8080/' + path + '?accessToken=' + GetAccessToken()}
+          ).then(function() {
+              // finished loading
+          }, function(error) {
+              // handle errors
+          }, function(node) {
+            HandleNode(node);
+          });
+        }
+
+        function HandleNode(node) {
+          if (node.imported) {
+            $scope.imported = node;
+          } else {
+            $scope.status.push(node);
+          }
+
+          if (node.done) {
+            SetAlert('success', "Import completed.");
+          }
         }
 
         function ResetForm() {
-          $scope.albumCount = 0;
-          $scope.totalPhotos = 0;
-          $scope.imported = 0;
-          $scope.errors = 0;
-          $scope.gErr = [];
-          $scope.dbErr = [];
+          $scope.imported = '';
+          $scope.status = [];
+        }
+
+        function SetAlert(type, msg) {
+            $scope.alerts = [{ type: type, msg: msg }];
         }
 });

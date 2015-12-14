@@ -32,33 +32,14 @@
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
-            <p>Album Count: {{albumCount | number}}</p>
-            <p>Total Photos: {{totalPhotos | number}}</p>
-            <p>Imported: {{imported | number}}</p>
-            <p>Errors: {{errors | number}}</p>
+            <p>{{imported}}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
-            <p>{{status}}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-4 col-md-3">
-            <div class="list-group">
-                <a ng-repeat="item in gErr" class="list-group-item">
-                    <div>{{item}}</div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-4 col-md-3">
-            <div class="list-group">
-                <a ng-repeat="item in dbErr" class="list-group-item">
-                    <div>{{item}}</div>
-                </a>
-            </div>
+          <div ng-repeat="item in status">
+              <p>{{item}}</p>
+          </div>
         </div>
     </div>
 </div>

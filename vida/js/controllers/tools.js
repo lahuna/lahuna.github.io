@@ -6,11 +6,10 @@
 
 'use strict';
 
-var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
 
 ctl.controller('ToolsCtrl',
-    function ($scope, $routeParams, ImportResource, ImportPlaylistResource,
-        ImportVideoResource, ImportPlaylistItemResource, Auth) {
+    function ($scope, $routeParams, Auth, Oboe) {
 
         $scope.needSignIn = false;
         Auth.Authenticate('vida', function (result) {
@@ -21,61 +20,61 @@ ctl.controller('ToolsCtrl',
           return localStorage.getItem('youtube_access_token');
         }
 
+        //*********************************************
+        // Import
+        //*********************************************
+
+        ResetForm();
+
         $scope.Import = function () {
-            SetAlert('warning', 'Importing youtube data...');
-            ImportResource.Get({
-                job: 'false',
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.success) {
-                    SetAlert('success', 'Youtube import successful.');
-                } else
-                    SetAlert('danger', 'Youtube import failed.');
-            });
+          RunImport('youtube/import');
         }
 
         $scope.ImportPlaylists = function () {
-            SetAlert('warning', 'Importing playlists...');
-            ImportPlaylistResource.Get({
-                job: 'false',
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.success) {
-                    SetAlert('success', 'Playlist import successful.');
-                } else
-                    SetAlert('danger', 'Playlist import failed.');
-            });
+          RunImport('playlist/import');
         }
 
         $scope.ImportVideos = function () {
-            SetAlert('warning', 'Importing videos...');
-            ImportVideoResource.Get({
-                job: 'false',
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.success) {
-                    SetAlert('success', 'Video import successful.');
-                } else
-                    SetAlert('danger', 'Video import failed.');
-            });
+          RunImport('video/import');
         }
 
         $scope.ImportPlaylistItems = function () {
-            SetAlert('warning', 'Importing playlist items...');
-            ImportPlaylistItemResource.Get({
-                job: 'false',
-                accessToken: GetAccessToken()
-            }).$promise.then(function (data) {
-                if (data.success) {
-                    SetAlert('success', 'Playlist item import successful.');
-                } else
-                    SetAlert('danger', 'Playlist item import failed.');
-            });
+          RunImport('playlist_item/import');
         }
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
+
+        function RunImport(path) {
+          SetAlert('warning', 'Importing...');
+          ResetForm();
+          Oboe.get({url: location.origin + ':8080/' + path + '?accessToken=' + GetAccessToken()}
+          ).then(function() {
+              // finished loading
+          }, function(error) {
+              // handle errors
+          }, function(node) {
+            HandleNode(node);
+          });
+        }
+
+        function HandleNode(node) {
+          if (node.imported) {
+            $scope.imported = node;
+          } else {
+            $scope.status.push(node);
+          }
+
+          if (node.done) {
+            SetAlert('success', "Import completed.");
+          }
+        }
+
+        function ResetForm() {
+          $scope.imported = '';
+          $scope.status = [];
+        }
 
         function SetAlert(type, msg) {
             $scope.alerts = [{ type: type, msg: msg }];
