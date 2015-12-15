@@ -129,7 +129,7 @@ fac.factory('PicasaAlbumFeedResource', function ($resource) {
     return $resource(location.origin + ':8000/other', {}, {
       Get: {
         method: 'GET',
-        params: { 'resource': resource }
+        params: { 'resource': resource, 'alt': 'json' }
       }
     });
   }
