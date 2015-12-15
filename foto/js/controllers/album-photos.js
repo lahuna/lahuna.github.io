@@ -34,7 +34,7 @@ ctl.controller('AlbumPhotosCtrl', function ($scope, $routeParams,
             'kind': 'photo',
             'start-index': $scope.startIndex,
             'max-results': $scope.maxResults,
-            'alt': 'json',
+            //'alt': 'json',
             accessToken: GetAccessToken()
         });
     }

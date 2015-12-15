@@ -4,6 +4,16 @@
      make available to the public any content or code on this website without prior written permission from Lahuna.
     *****************************************************************************************************************-->
 <div class="container">
+  <div class="row">
+      <div class="col-md-offset-2 col-md-4">
+          <h4>Album Edit</h4>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-offset-2 col-md-4">
+          <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+      </div>
+  </div>
     <div class="row">
         <form class="form-horizontal" role="form">
             <div class="form-group">
@@ -13,16 +23,22 @@
                 </div>
                 <div id="labelTitle"></div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label class="control-label col-sm-2" for="textboxTitle">Description:</label>
                 <div class="col-sm-6">
                     <textarea ng-model="item.summary.$t" class="form-control" id="textboxSummary" rows="5" cols="22" maxlength="1000"></textarea>
                 </div>
-            </div>
+            </div>-->
             <!--<div class="form-group">
                 <label class="control-label col-sm-2" for="textboxLocation">Location:</label>
                 <div class="col-sm-6">
                     <input ng-model="item.gphoto$location.$t" class="form-control" id="textboxLocation" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="textboxCoordinates">Coordinates:</label>
+                <div class="col-sm-6">
+                    <input ng-model="item.georss$where.gml$Point.gml$pos.$t" class="form-control" id="textboxCoordinates" type="text">
                 </div>
             </div>-->
             <!--<div class="form-group" id="divKeywords">
@@ -75,7 +91,7 @@
                 <div class="col-sm-offset-2 col-sm-3">
                     <!--<p>{{item}}</p>-->
                     <button class="btn btn-primary" type="button" ng-click="save()">Save</button>
-                    <button class="btn btn-default" type="button" ng-click="reset()">Cancel</button>
+                    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
                 </div>
             </div>
         </form>

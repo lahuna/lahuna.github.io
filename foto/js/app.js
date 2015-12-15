@@ -18,6 +18,8 @@ var app = angular.module('foto', [
   'PhotosController',
   'ViewerController',
   'DetailController',
+  'EditAlbumController',
+  'EditPhotoController',
   'TagsController',
   'ToolsController'
 ]);
@@ -68,6 +70,22 @@ app.config(
         when('/video/viewer/:photoId', {
             templateUrl: 'views/viewer-video.html',
             controller: 'ViewerCtrl'
+        }).
+        when('/album/edit/', {
+            templateUrl: 'views/edit-album.html',
+            controller: 'EditAlbumCtrl'
+        }).
+        when('/album/edit/:albumId', {
+            templateUrl: 'views/edit-album.html',
+            controller: 'EditAlbumCtrl'
+        }).
+        when('/photo/edit/:photoId', {
+            templateUrl: 'views/edit-photo.html',
+            controller: 'EditPhotoCtrl'
+        }).
+        when('/album/detail/:albumId', {
+            templateUrl: 'views/detail-album.html',
+            controller: 'DetailCtrl'
         }).
         when('/photo/detail/:photoId', {
             templateUrl: 'views/detail-photo.html',

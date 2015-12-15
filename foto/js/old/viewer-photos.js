@@ -32,7 +32,7 @@ ctl.controller('ViewerPhotosCtrl', function ($scope, $routeParams,
 
       function GetPhoto() {
           PicasaPhotoResource(localStorage.getItem('fotoId')).Get({
-              'alt': 'json',
+              //'alt': 'json',
               'accessToken': GetAccessToken()
           }).$promise.then(function (data) {
               $scope.photo = data.entry;
@@ -46,7 +46,7 @@ ctl.controller('ViewerPhotosCtrl', function ($scope, $routeParams,
               'q': $routeParams.tag,
               'start-index': $routeParams.startIndex,
               'max-results': $routeParams.maxResults,
-              'alt': 'json',
+              //'alt': 'json',
               'accessToken': GetAccessToken()
           }).$promise.then(function (data) {
               $scope.list = data;

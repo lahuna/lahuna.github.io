@@ -75,7 +75,7 @@ ctl.controller('PhotosCtrl',
       'q': GetSearch(),
       'start-index': $scope.startIndex,
       'max-results': $scope.maxResults,
-      'alt': 'json',
+      //'alt': 'json',
       'accessToken': GetAccessToken()
     }).$promise.then(function (data) {
       $scope.list = data;

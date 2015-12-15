@@ -26,8 +26,16 @@ ctl.controller('DetailCtrl',
   //****************************************
 
   function Initialize() {
-    PicasaPhotoResource($routeParams.photoId).Get({
-      'alt': 'json',
+    if ($routeParams.albumId) {
+      GetAlbum($routeParams.albumId);
+    } else if ($routeParams.photoId) {
+      GetPhoto($routeParams.photoId);
+    }
+  }
+
+  function GetPhoto(photoId) {
+    PicasaPhotoResource(photoId).Get({
+      //'alt': 'json',
       'accessToken': GetAccessToken()
     }).$promise.then(function (data) {
       $scope.photo = data.entry;
@@ -37,7 +45,7 @@ ctl.controller('DetailCtrl',
 
   function GetAlbum(albumId) {
     PicasaAlbumResource(albumId).Get({
-      'alt': 'json',
+      //'alt': 'json',
       'accessToken': GetAccessToken()
     }).$promise.then(function (data) {
       $scope.album = data.entry;

@@ -1,0 +1,29 @@
+<!--*****************************************************************************************************************
+     Copyright � 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-4">
+            <h4>Album Detail</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-3 col-md-4">
+            <table class="table table-border">
+                <tbody>
+                    <tr><td>Title:</td><td>{{album.title.$t}}</td></tr>
+                    <!--<tr><td>Summary:</td><td>{{album.summary.$t}}</td></tr>
+                    <tr><td>Description:</td><td>{{album.media$group.media$description.$t}}</td></tr>
+                    <tr><td>Location:</td><td>{{album.gphoto$location.$t}}</td></tr>
+                    <tr><td>Coordinates:</td><td>{{album.georss$where.gml$Point.gml$pos.$t}}</td></tr>-->
+                    <tr><td>Tags:</td><td>{{album.summary.$t}}</td></tr>
+                    <tr><td>Access:</td><td>{{album.gphoto$access.$t}}</td></tr>
+                    <tr><td>Published:</td><td>{{album.published.$t | cmdate}}</td></tr>
+                    <tr><td>Updated:</td><td>{{album.updated.$t | cmdate}}</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

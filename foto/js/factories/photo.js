@@ -66,7 +66,7 @@ fac.factory('Photo', function (PicasaAlbumFeedResource,
 
   function GetPhoto(input, callback) {
     PicasaPhotoResource(input.photoId).Get({
-      'alt': 'json',
+      //'alt': 'json',
       'accessToken': GetAccessToken()
     }).$promise.then(function (data) {
       var result = {
@@ -94,7 +94,7 @@ fac.factory('Photo', function (PicasaAlbumFeedResource,
       'kind': 'photo',
       'start-index': input.startIndex,
       'max-results': input.maxResults,
-      'alt': 'json',
+      //'alt': 'json',
       'accessToken': GetAccessToken()
       }).$promise.then(function (data) {
         callback(data);
@@ -107,7 +107,7 @@ fac.factory('Photo', function (PicasaAlbumFeedResource,
       'q': input.tag,
       'start-index': input.startIndex,
       'max-results': input.maxResults,
-      'alt': 'json',
+      //'alt': 'json',
       'accessToken': GetAccessToken()
     }).$promise.then(function (data) {
       callback(data);
