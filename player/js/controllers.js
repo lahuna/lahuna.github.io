@@ -178,7 +178,6 @@ ctl.controller('ViewerCtrl',
         }
 
         function SetData(data) {
-            $scope.raw = data;
             $scope.item = data.items[0];
 
             if (data.items[0].snippet.channelId == localStorage.getItem("youtube_channel_id"))
@@ -226,17 +225,28 @@ ctl.controller('ViewerCtrl',
         }
 
         function GetItem() {
-            if (IsVideo())
-                GetVideo();
-            else
-                GetPlaylist();
+          if (IsVideo()) {
+            GetVideo();
+            GetVideoDetails();
+          } else {
+            GetPlaylist();
+          }
+        }
+
+        function GetVideoDetails() {
+            VideoResource(GetAccessToken()).Get({
+                id: $routeParams.id,
+                part: 'snippet,status,contentDetails,topicDetails,' +
+                  'recordingDetails,fileDetails,processingDetails,suggestions'
+            }).$promise.then(function (data) {
+              $scope.raw = data;
+            });
         }
 
         function GetVideo() {
             VideoResource(GetAccessToken()).Get({
                 id: $routeParams.id,
-                part: 'snippet,status,contentDetails,topicDetails,' +
-                  'recordingDetails,fileDetails,processingDetails,suggestions'
+                part: 'snippet,status'
             }).$promise.then(function (data) {
                 SetData(data);
                 GetVideoPlaylists();
@@ -249,6 +259,7 @@ ctl.controller('ViewerCtrl',
                 part: 'snippet,status'
             }).$promise.then(function (data) {
                 SetData(data);
+                $scope.raw = data;
             });
         }
 
