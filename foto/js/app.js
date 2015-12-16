@@ -83,6 +83,14 @@ app.config(
             templateUrl: 'views/edit-photo.html',
             controller: 'EditPhotoCtrl'
         }).
+        when('/album/raw/:albumId', {
+            templateUrl: 'views/raw.html',
+            controller: 'DetailCtrl'
+        }).
+        when('/photo/raw/:photoId', {
+            templateUrl: 'views/raw.html',
+            controller: 'DetailCtrl'
+        }).
         when('/album/detail/:albumId', {
             templateUrl: 'views/detail-album.html',
             controller: 'DetailCtrl'

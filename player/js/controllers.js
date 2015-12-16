@@ -178,6 +178,7 @@ ctl.controller('ViewerCtrl',
         }
 
         function SetData(data) {
+            $scope.raw = data;
             $scope.item = data.items[0];
 
             if (data.items[0].snippet.channelId == localStorage.getItem("youtube_channel_id"))
@@ -234,7 +235,8 @@ ctl.controller('ViewerCtrl',
         function GetVideo() {
             VideoResource(GetAccessToken()).Get({
                 id: $routeParams.id,
-                part: 'snippet,status'
+                part: 'snippet,status,contentDetails,topicDetails,' +
+                  'recordingDetails,fileDetails,processingDetails,suggestions'
             }).$promise.then(function (data) {
                 SetData(data);
                 GetVideoPlaylists();
@@ -319,8 +321,11 @@ ctl.controller('ViewerCtrl',
                         $scope.successVisible = true;
                     }
 
-                    if (reload)
+                    Playlist.UpdateVideo($scope.item.id, function(result) {
+                      if (reload) {
                         $window.location.reload();
+                      }
+                    });
                 });
         }
 
@@ -334,14 +339,15 @@ ctl.controller('ViewerCtrl',
                         $scope.successVisible = true;
                     }
 
-                    if (reload)
+                    Playlist.UpdatePlaylist($scope.item.id, function(result) {
+                      if (reload) {
                         $window.location.reload();
-                    else
-                        UpdatePlaylist();
+                      }
+                    });
                 });
         }
 
-        function UpdatePlaylist() {
+        /*function UpdatePlaylist() {
             var pl = $scope.item;
             PlaylistDbResource.Put({
                 playlistId: pl.id,
@@ -352,7 +358,7 @@ ctl.controller('ViewerCtrl',
                 privacy: pl.status.privacyStatus,
                 accessToken: GetAccessToken()
             })
-        }
+        }*/
 
         function SetTags(pl) {
             if (pl.snippet.tags)
@@ -381,6 +387,10 @@ ctl.controller('ViewerCtrl',
             }).$promise.then(function (data) {
                 // TODO: Handle Errors Here
 
+                VideoDbResource.Delete({
+                  videoId: $scope.item.id,
+                  accessToken: GetAccessToken()
+                });
                 RemoveVideoFromAllPlaylists();
                 $window.history.back();
                 //if ($routeParams.ref == 'p')
@@ -540,24 +550,21 @@ ctl.controller('ViewerCtrl',
         function RemovePlaylist(index) {
             var pl = $scope.playlists[index];
             $scope.playlists.splice(index, 1);
-            RemovePlaylistItem(pl);
             DeletePlaylistItem(pl);
         }
 
-        function RemovePlaylistItem(pl) {
+        function DeletePlaylistItem(pl) {
             PlaylistItemResource(GetAccessToken()).Delete({
                 id: pl.playlistItemId
             }).$promise.then(function (data) {
-                UpdatePlaylist(pl.playlistId);
+              PlaylistItemDbResource.Delete({
+                  playlistItemId: pl.playlistItemId,
+                  accessToken: GetAccessToken()
+              });
+              UpdatePlaylist(pl.playlistId);
             });
         }
 
-        function DeletePlaylistItem(pl) {
-            PlaylistItemDbResource.Delete({
-                playlistItemId: pl.playlistItemId,
-                accessToken: GetAccessToken()
-            });
-        }
  });
 
 ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {

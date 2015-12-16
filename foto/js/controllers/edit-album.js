@@ -10,7 +10,8 @@ var ctl = angular.module('EditAlbumController', ['ResourceFactory', 'Authenticat
 
 ctl.controller('EditAlbumCtrl',
   function ($scope, $routeParams, PicasaAlbumResource,
-    PicasaPhotoResource, PicasaResource, SearchResource, Auth) {
+    PicasaPhotoResource, PicasaResource, SearchResource,
+    AlbumDbResource, Auth) {
 
   $scope.needSignIn = false;
   Auth.Authenticate('foto', function (result) {
@@ -92,7 +93,10 @@ ctl.controller('EditAlbumCtrl',
         xml: xml,
         accessToken: GetAccessToken()
       }).$promise.then(function (data) {
-        SetAlert('success', "Album updated.");
+        AlbumDbResource.Put(dbItem(data.entry))
+        .$promise.then(function (data) {
+          SetAlert('success', "Album updated.");
+        });
       });
     } else {
       PicasaResource.Post({
@@ -103,11 +107,29 @@ ctl.controller('EditAlbumCtrl',
         if (data.error) {
           SetAlert('danger', data.error);
         } else {
-          $routeParams.albumId = data.entry.gphoto$id.$t;
-          SetAlert('success', "Album created.");
+          var item = data.entry;
+          $routeParams.albumId = item.gphoto$id.$t;
+          AlbumDbResource.Post(dbItem(item))
+          .$promise.then(function (data) {
+            SetAlert('success', "Album created.");
+          });
         }
       });
     }
+  }
+
+  function dbItem (item) {
+    var dbItem = {
+      albumId: item.gphoto$id.$t,
+      title: item.title.$t,
+      numPhotos: item.gphoto$numphotos.$t,
+      thumbnail: item.media$group.media$thumbnail[0].url,
+      published: item.published.$t,
+      updated: item.updated.$t,
+      access: item.gphoto$access.$t,
+      accessToken: GetAccessToken()
+    };
+    return dbItem;
   }
 
   $scope.GetSearchList = function (val) {

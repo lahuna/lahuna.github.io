@@ -10,7 +10,8 @@ var ctl = angular.module('EditPhotoController', ['ResourceFactory', 'Authenticat
 
 ctl.controller('EditPhotoCtrl',
   function ($scope, $routeParams, PicasaAlbumResource,
-    PicasaPhotoResource, SearchResource, Auth) {
+    PicasaPhotoResource, SearchResource,
+    PhotoDbResource, Auth) {
 
   $scope.needSignIn = false;
   Auth.Authenticate('foto', function (result) {
@@ -89,8 +90,24 @@ ctl.controller('EditPhotoCtrl',
       xml: xml,
       accessToken: GetAccessToken()
     }).$promise.then(function (data) {
-      SetAlert('success', "Photo updated.");
+      PhotoDbResource.Put(dbItem(data.entry))
+      .$promise.then(function (data) {
+        SetAlert('success', "Photo updated.");
+      });
     });
+  }
+
+  function dbItem (item) {
+    var dbItem = {
+      photoId: item.gphoto$id.$t,
+      title: item.title.$t,
+      thumbnail: item.media$group.media$thumbnail[0].url,
+      published: item.published.$t,
+      updated: item.updated.$t,
+      access: item.gphoto$access.$t,
+      accessToken: GetAccessToken()
+    };
+    return dbItem;
   }
 
   $scope.GetSearchList = function (val) {
@@ -124,7 +141,7 @@ ctl.controller('EditPhotoCtrl',
   }
 
   function AddTag() {
-    if ($scope.tags.indexOf($scope.tag) == -1) {
+    if ($scope.tag.length > 0 && $scope.tags.indexOf($scope.tag) == -1) {
       $scope.tags.push($scope.tag);
       InsertSearch();
       $scope.tag = '';

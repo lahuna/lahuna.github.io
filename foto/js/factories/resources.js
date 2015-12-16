@@ -29,11 +29,38 @@ fac.factory('ProfileResource', function ($resource) {
   }
 });
 
-// Search Albums
+// Albums Db
 fac.factory('AlbumDbResource', function ($resource) {
   return $resource(location.origin + ':8000/album', {}, {
     Get: {
       method: 'GET'
+    },
+    Post: {
+      method: 'POST'
+    },
+    Put: {
+      method: 'PUT'
+    },
+    Delete: {
+      method: 'DELETE'
+    }
+  });
+});
+
+// Photos Db
+fac.factory('PhotoDbResource', function ($resource) {
+  return $resource(location.origin + ':8000/photo', {}, {
+    Get: {
+      method: 'GET'
+    },
+    Post: {
+      method: 'POST'
+    },
+    Put: {
+      method: 'PUT'
+    },
+    Delete: {
+      method: 'DELETE'
     }
   });
 });

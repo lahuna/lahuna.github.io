@@ -101,10 +101,15 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
   }
 
   $scope.Remove = function (index) {
+      var playlistItemId = $scope.list.items[index].id;
       PlaylistItemResource(GetAccessToken()).Delete({
-          id: $scope.list.items[index].id
+          id: playlistItemId
       }).$promise.then(function (data) {
           $scope.list.items.splice(index, 1);
+          PlaylistItemDbResource.Delete({
+              playlistItemId: playlistItemId,
+              accessToken: GetAccessToken()
+          })
           UpdatePlaylist();
           if ($scope.list.items.length == 0)
               $scope.emptyPlaylist = true;

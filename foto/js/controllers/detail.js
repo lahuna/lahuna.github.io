@@ -35,20 +35,22 @@ ctl.controller('DetailCtrl',
 
   function GetPhoto(photoId) {
     PicasaPhotoResource(photoId).Get({
-      //'alt': 'json',
       'accessToken': GetAccessToken()
     }).$promise.then(function (data) {
       $scope.photo = data.entry;
+      $scope.raw = data;
       GetAlbum(data.entry.gphoto$albumid.$t)
     });
   }
 
   function GetAlbum(albumId) {
     PicasaAlbumResource(albumId).Get({
-      //'alt': 'json',
       'accessToken': GetAccessToken()
     }).$promise.then(function (data) {
       $scope.album = data.entry;
+      if (!$scope.raw) {
+        $scope.raw = data;
+      }
     });
   }
 });

@@ -6,13 +6,10 @@
 
 'use strict';
 
-/* App Module */
-
 var app = angular.module('player', [
   'ngRoute',
   'ui.bootstrap',
-  'Controllers',
-  'Filters'
+  'Controllers'
 ]);
 
 app.config(['$routeProvider',
@@ -20,6 +17,10 @@ app.config(['$routeProvider',
       $routeProvider.
         when('/:type/:id', {
             templateUrl: 'views/viewer.html',
+            controller: 'ViewerCtrl'
+        }).
+        when('/:type/raw/:id', {
+            templateUrl: 'views/raw.html',
             controller: 'ViewerCtrl'
         }).
         otherwise({

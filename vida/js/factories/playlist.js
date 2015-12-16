@@ -9,10 +9,12 @@
 var fac = angular.module('PlaylistFactory', ['ResourceFactory', 'AuthenticateFactory']);
 
 fac.factory('Playlist', function (Auth, PlaylistDbResource,
-  PlaylistResource, PlaylistItemDbResource, PlaylistItemResource) {
+  PlaylistResource, PlaylistItemDbResource, PlaylistItemResource,
+  VideoResource, VideoDbResource) {
 
   return { 'AddToPlaylist': AddToPlaylist,
-           'UpdatePlaylist': UpdatePlaylist };
+           'UpdatePlaylist': UpdatePlaylist,
+           'UpdateVideo': UpdateVideo};
 
    function GetAccessToken() {
      return localStorage.getItem('youtube_access_token');
@@ -178,9 +180,29 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
     });
   }
 
-  function SetTags(pl) {
-    if (pl.snippet.tags) {
-      return pl.snippet.tags.toString();
+  function UpdateVideo(videoId, callback) {
+    VideoResource(GetAccessToken()).Get({
+      id: videoId,
+      part: 'snippet,status'
+    }).$promise.then(function (data) {
+      var v = data.items[0];
+      VideoDbResource.Put({
+         videoId: v.id,
+         title: v.snippet.title,
+         thumbnail: v.snippet.thumbnails.default.url,
+         tags: SetTags(v),
+         published: v.snippet.publishedAt,
+         privacy: v.status.privacyStatus,
+         accessToken: GetAccessToken()
+      }).$promise.then(function (result) {
+        callback(result);
+      });
+    });
+  }
+
+  function SetTags(item) {
+    if (item.snippet.tags) {
+      return item.snippet.tags.toString();
     } else {
       return '[]';
     }

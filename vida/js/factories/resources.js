@@ -85,7 +85,7 @@ fac.factory('VideoResource', function ($resource) {
       Put: {
         method: 'PUT',
         headers: { "Authorization": "Bearer " + accessToken },
-        params: { part: 'snippet,status,recordingDetials' }
+        params: { part: 'snippet,status' }
       },
       Delete: {
         method: 'DELETE',
@@ -173,6 +173,27 @@ fac.factory('PlaylistItemDbResource', function ($resource) {
     },
     Post: {
       method: 'POST'
+    },
+    Put: {
+      method: 'PUT'
+    },
+    Delete: {
+      method: 'DELETE'
+    }
+  });
+});
+
+// Videos Db
+fac.factory('VideoDbResource', function ($resource) {
+  return $resource(location.origin + ':8000/video', {}, {
+    Get: {
+      method: 'GET'
+    },
+    Post: {
+      method: 'POST'
+    },
+    Put: {
+      method: 'PUT'
     },
     Delete: {
       method: 'DELETE'
