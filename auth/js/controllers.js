@@ -171,11 +171,13 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
         function Reroute() {
             switch ($routeParams.state) {
                 case "foto":
-                    location.href = "/foto/#/initial";
+                    //location.href = "/foto/#/initial";
+                    location.href = "/foto";
                     break;
 
                 case "vida":
-                    location.href = "/vida/#/initial";
+                    //location.href = "/vida/#/initial";
+                    location.href = "/vida";
                     break;
 
                 case "blitz":

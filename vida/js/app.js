@@ -30,10 +30,10 @@ app.config(['$routeProvider',
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
             }).
-            when('/initial', {
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
-            }).
+            //when('/initial', {
+                //templateUrl: 'views/main.html',
+                //controller: 'MainCtrl'
+            //}).
             when('/videos', {
                 templateUrl: 'views/search-video.html',
                 controller: 'SearchCtrl'

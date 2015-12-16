@@ -26,9 +26,9 @@ ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
   function Initialize() {
     GetProfile();
 
-    if ($route.current.originalPath == '/initial') {
-      Import();
-    }
+    //if ($route.current.originalPath == '/initial') {
+      //Import();
+    //}
   }
 
   function GetProfile() {
@@ -38,7 +38,7 @@ ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
       });
   }
 
-  function Import() {
+  /*function Import() {
     Oboe.get({url: location.origin + ':8080/youtube/import?accessToken=' + GetAccessToken()}
     ).then(function() {
         // finished loading
@@ -47,5 +47,5 @@ ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
     }, function(node) {
         // handle node data
     });
-  }
+  }*/
 });

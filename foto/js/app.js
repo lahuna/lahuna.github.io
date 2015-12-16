@@ -31,10 +31,10 @@ app.config(
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
         }).
-        when('/initial', {
-            templateUrl: 'views/main.html',
-            controller: 'MainCtrl'
-        }).
+        //when('/initial', {
+            //templateUrl: 'views/main.html',
+            //controller: 'MainCtrl'
+        //}).
         when('/photos', {
             templateUrl: 'views/photos.html',
             controller: 'PhotosCtrl'
