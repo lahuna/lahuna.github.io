@@ -13,19 +13,26 @@ fac.factory('Auth', function (AuthenticateResource) {
   return { 'Authenticate': Authenticate };
 
   function Authenticate(app, callback) {
+    var accessToken = GetAccessToken(app);
+    var refreshToken = GetRefreshToken(app);
+
+    if (!accessToken || !refreshToken) {
+      return callback();
+    }
+
     AuthenticateResource.Get({
-      accessToken: GetAccessToken(app),
-      refreshToken: GetRefreshToken(app)
+      'accessToken': accessToken,
+      'refreshToken': refreshToken
     })
     .$promise.then(function (data) {
       if (data.error) {
-        return callback(true);
+        return callback();
       } else {
         StoreValues(data, app);
-        return callback(false);
+        return callback(data.displayName);
       }
     }, function (error) {
-        return callback(true);
+        return callback();
     });
   }
 

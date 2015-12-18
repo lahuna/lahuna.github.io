@@ -12,9 +12,9 @@ ctl.controller('DataVideoCtrl',
     function ($scope, $routeParams, VideoDbResource,
         SearchResource, Auth) {
 
-        $scope.needSignIn = false;
+        // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.needSignIn = result;
+          $scope.displayName = result;
           if (!result) {
             Initialize();
           }
@@ -100,7 +100,7 @@ ctl.controller('DataVideoCtrl',
                 if (data.error) {
                   if (data.error == 'invalid_token') {
                     Auth.Authenticate('vida', function (result) {
-                      $scope.needSignIn = result;
+                      $scope.displayName = result;
                       if (!result) {
                         Search();
                         return;

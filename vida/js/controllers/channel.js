@@ -10,9 +10,9 @@ var ctl = angular.module('ChannelController', ['ResourceFactory', 'AuthenticateF
 
 ctl.controller('ChannelCtrl', function ($scope, $routeParams, ChannelResource, Auth) {
 
-  $scope.needSignIn = false;
+  // Authenticate
   Auth.Authenticate('vida', function (result) {
-    $scope.needSignIn = result;
+    $scope.displayName = result;
     Initialize();
   });
 

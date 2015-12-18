@@ -11,9 +11,9 @@ var ctl = angular.module('PlaylistController', ['ResourceFactory', 'Authenticate
 ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
   PlaylistResource, PlaylistItemResource, PlaylistDbResource, Playlist) {
 
-  $scope.needSignIn = false;
+  // Authenticate
   Auth.Authenticate('vida', function (result) {
-    $scope.needSignIn = result;
+    $scope.displayName = result;
     Initialize();
   });
 

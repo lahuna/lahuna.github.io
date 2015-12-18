@@ -12,9 +12,9 @@ ctl.controller('RecommendCtrl',
     function ($scope, $routeParams, $location, SearchResource, Auth,
         VideoResource, YoutubeSearchResource, ChannelResource, Playlist) {
 
-        $scope.needSignIn = false;
+        // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.needSignIn = result;
+          $scope.displayName = result;
           Initialize();
         });
 

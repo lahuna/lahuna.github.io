@@ -12,9 +12,9 @@ ctl.controller('VideosCtrl',
     function ($scope, $routeParams, SearchResource,
       YoutubeSearchResource, Playlist, Auth) {
 
-        $scope.needSignIn = false;
+        // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.needSignIn = result;
+          $scope.displayName = result;
           Initialize();
         });
 

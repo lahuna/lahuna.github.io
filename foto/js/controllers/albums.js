@@ -11,9 +11,9 @@ var ctl = angular.module('AlbumsController', ['ResourceFactory', 'AuthenticateFa
 ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
         AlbumDbResource, SearchResource, Auth) {
 
-          $scope.needSignIn = false;
+          // Authenticate
           Auth.Authenticate('foto', function (result) {
-            $scope.needSignIn = result;
+            $scope.displayName = result;
             Initialize();
           });
 

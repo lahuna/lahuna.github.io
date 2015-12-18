@@ -11,9 +11,9 @@ var ctl = angular.module('SubscriptionsController', ['ResourceFactory', 'Authent
 ctl.controller('SubscriptionsCtrl',
     function ($scope, $routeParams, SubscriptionResource, Auth) {
 
-        $scope.needSignIn = false;
+        // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.needSignIn = result;
+          $scope.displayName = result;
           Initialize();
         });
 

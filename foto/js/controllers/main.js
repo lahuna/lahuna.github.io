@@ -8,34 +8,34 @@
 
 var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('MainCtrl', function ($scope, $route, Auth,
-  ProfileResource) {
+ctl.controller('MainCtrl', function ($scope, $route, Auth) {
 
   $scope.origin = location.origin;
-  $scope.needSignIn = false;
+  //// Authenticate
   Auth.Authenticate('foto', function (result) {
-    $scope.needSignIn = result;
-    Initialize();
+    $scope.displayName = result;
+    //$scope.displayName = result;
+    //Initialize();
   });
 
-  function GetAccessToken() {
-    return localStorage.getItem('google_access_token');
-  }
+  //function GetAccessToken() {
+    //return localStorage.getItem('google_access_token');
+  //}
 
-  function Initialize() {
-    GetProfile();
+  //function Initialize() {
+    //GetProfile();
 
     //if ($route.current.originalPath == '/initial') {
       //Import();
     //}
-  }
+  //}
 
-  function GetProfile() {
-    ProfileResource(GetAccessToken()).Get()
-      .$promise.then(function (data) {
-          $scope.profile = data;
-      });
-  }
+  //function GetProfile() {
+    //ProfileResource(GetAccessToken()).Get()
+      //.$promise.then(function (data) {
+          //$scope.profile = data;
+    //  });
+  //}
 
   /*function Import() {
     Oboe.get({url: location.origin + ':8080/picasa/import?accessToken=' + GetAccessToken()}

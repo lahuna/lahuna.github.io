@@ -12,9 +12,9 @@ ctl.controller('PlaylistsCtrl',
     function ($scope, $routeParams, PlaylistDbResource,
         SearchResource, Auth) {
 
-        $scope.needSignIn = false;
+        // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.needSignIn = result;
+          $scope.displayName = result;
           if (!result) {
             Initialize();
           }
@@ -72,7 +72,7 @@ ctl.controller('PlaylistsCtrl',
                 if (data.error) {
                   if (data.error == 'invalid_token') {
                     Auth.Authenticate('vida', function (result) {
-                      $scope.needSignIn = result;
+                      $scope.displayName = result;
                       if (!result) {
                         Search();
                         return;

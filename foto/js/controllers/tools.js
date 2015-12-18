@@ -11,9 +11,9 @@ var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFac
 ctl.controller('ToolsCtrl',
     function ($scope, $routeParams, Auth, Oboe) {
 
-          $scope.needSignIn = false;
+          // Authenticate
           Auth.Authenticate('foto', function (result) {
-            $scope.needSignIn = result;
+            $scope.displayName = result;
           });
 
           function GetAccessToken() {

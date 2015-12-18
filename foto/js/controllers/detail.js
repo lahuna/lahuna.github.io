@@ -11,9 +11,9 @@ var ctl = angular.module('DetailController', ['ResourceFactory', 'AuthenticateFa
 ctl.controller('DetailCtrl',
   function ($scope, $routeParams, PicasaAlbumResource, PicasaPhotoResource, Auth) {
 
-  $scope.needSignIn = false;
+  // Authenticate
   Auth.Authenticate('foto', function (result) {
-    $scope.needSignIn = result;
+    $scope.displayName = result;
     Initialize();
   });
 

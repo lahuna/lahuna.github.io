@@ -13,9 +13,9 @@ ctl.controller('EditAlbumCtrl',
     PicasaPhotoResource, PicasaResource, SearchResource,
     AlbumDbResource, Auth) {
 
-  $scope.needSignIn = false;
+  // Authenticate
   Auth.Authenticate('foto', function (result) {
-    $scope.needSignIn = result;
+    $scope.displayName = result;
     Initialize();
   });
 

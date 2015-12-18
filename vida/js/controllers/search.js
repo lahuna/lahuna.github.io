@@ -12,9 +12,9 @@ ctl.controller('SearchCtrl',
     function ($scope, $routeParams, $location, SearchResource,
       AutoCompleteResource, YoutubeSearchResource, Playlist, Auth) {
 
-        $scope.needSignIn = false;
+        // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.needSignIn = result;
+          $scope.displayName = result;
           Initialize();
         });
 

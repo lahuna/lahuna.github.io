@@ -18,7 +18,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 });
 
 // Profile
-fac.factory('ProfileResource', function ($resource) {
+/*fac.factory('ProfileResource', function ($resource) {
   return function (accessToken) {
     return $resource('https://www.googleapis.com/plus/v1/people/me', {}, {
       Get: {
@@ -27,7 +27,7 @@ fac.factory('ProfileResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Albums Db
 fac.factory('AlbumDbResource', function ($resource) {

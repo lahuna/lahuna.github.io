@@ -22,7 +22,7 @@ Controllers.controller('StatusCtrl',
       // AUTHENTICATE
       //****************************************
 
-      $scope.needSignIn = false;
+      // Authenticate
       Authenticate();
 
       function Authenticate() {
@@ -114,7 +114,7 @@ Controllers.controller('ErrorsCtrl',
       // AUTHENTICATE
       //****************************************
 
-      $scope.needSignIn = false;
+      // Authenticate
       Authenticate();
 
       function Authenticate() {
@@ -194,7 +194,7 @@ Controllers.controller('ErrorsListCtrl',
       // AUTHENTICATE
       //****************************************
 
-      $scope.needSignIn = false;
+      // Authenticate
       Authenticate();
 
       function Authenticate() {
@@ -281,7 +281,7 @@ Controllers.controller('ErrorDetailCtrl',
       // AUTHENTICATE
       //****************************************
 
-      $scope.needSignIn = false;
+      // Authenticate
       Authenticate();
 
       function Authenticate() {

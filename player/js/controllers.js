@@ -14,10 +14,15 @@ ctl.controller('ViewerCtrl',
     PlaylistResource, PlaylistDbResource,
     PlaylistItemResource, PlaylistItemDbResource) {
 
-    $scope.needSignIn = false;
+    var player;
+
+    // Authenticate
     Auth.Authenticate('vida', function (result) {
-      $scope.needSignIn = result;
-      GetChannelId();
+      $scope.displayName = result;
+      if ($scope.displayName) {
+        GetChannelId();
+      }
+      InitializePlayer();
     });
 
     function GetAccessToken() {
@@ -25,9 +30,10 @@ ctl.controller('ViewerCtrl',
     }
 
     function GetChannelId() {
-      ChannelResource(GetAccessToken()).Get({
+      ChannelResource.Get({
         part: "id",
-        mine: "true"
+        mine: "true",
+        accessToken: GetAccessToken()
       }).$promise.then(function (data) {
         localStorage.setItem("youtube_channel_id", data.items[0].id);
         Initialize();
@@ -47,19 +53,19 @@ ctl.controller('ViewerCtrl',
             SetType();
             ClearPlaylist();
             GetItem();
+        }
 
+        function InitializePlayer() {
             var tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             var firstScriptTag = document.getElementsByTagName('script')[0];
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            $window.onYouTubeIframeAPIReady = function () {
+                LoadPlayer();
+            }
         }
-
-        $window.onYouTubeIframeAPIReady = function () {
-            LoadPlayer();
-        }
-
-        var player;
-
+        
         function LoadPlayer() {
             switch ($routeParams.type) {
                 case 'video':
@@ -91,11 +97,12 @@ ctl.controller('ViewerCtrl',
         }
 
         function GetVideoList() {
-            YoutubeSearchResource(GetAccessToken()).Get({
+            YoutubeSearchResource.Get({
                 part: "id",
                 maxResults: "49",
                 type: "video",
-                relatedToVideoId: $routeParams.id
+                relatedToVideoId: $routeParams.id,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 var videoList = [];
                 var i = 0;
@@ -108,10 +115,11 @@ ctl.controller('ViewerCtrl',
         }
 
         function GetPlaylistItems() {
-            PlaylistItemResource(GetAccessToken()).Get({
+            PlaylistItemResource.Get({
                 part: "contentDetails",
                 maxResults: "50",
-                playlistId: $routeParams.id
+                playlistId: $routeParams.id,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 var videoList = [];
                 var items = data.items;
@@ -234,19 +242,21 @@ ctl.controller('ViewerCtrl',
         }
 
         function GetVideoDetails() {
-            VideoResource(GetAccessToken()).Get({
+            VideoResource.Get({
                 id: $routeParams.id,
                 part: 'snippet,status,contentDetails,topicDetails,' +
-                  'recordingDetails,fileDetails,processingDetails,suggestions'
+                  'recordingDetails,fileDetails,processingDetails,suggestions',
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
               $scope.raw = data;
             });
         }
 
         function GetVideo() {
-            VideoResource(GetAccessToken()).Get({
+            VideoResource.Get({
                 id: $routeParams.id,
-                part: 'snippet,status'
+                part: 'snippet,status',
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 SetData(data);
                 GetVideoPlaylists();
@@ -254,9 +264,10 @@ ctl.controller('ViewerCtrl',
         }
 
         function GetPlaylist() {
-            PlaylistResource(GetAccessToken()).Get({
+            PlaylistResource.Get({
                 id: $routeParams.id,
-                part: 'snippet,status'
+                part: 'snippet,status',
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 SetData(data);
                 $scope.raw = data;
@@ -323,7 +334,8 @@ ctl.controller('ViewerCtrl',
         }
 
         function UpdateVideo(reload) {
-            VideoResource(GetAccessToken()).Put($scope.item)
+            $scope.item.accessToken = GetAccessToken();
+            VideoResource.Put($scope.item)
                 .$promise.then(function (data) {
                     // TODO: Handle Errors Here
 
@@ -341,7 +353,8 @@ ctl.controller('ViewerCtrl',
         }
 
         function UpdatePlaylistChange(reload) {
-            PlaylistResource(GetAccessToken()).Put($scope.item)
+            $scope.item.accessToken = GetAccessToken();
+            PlaylistResource.Put($scope.item)
                 .$promise.then(function (data) {
                     // TODO: Handle Errors Here
 
@@ -393,8 +406,9 @@ ctl.controller('ViewerCtrl',
         }
 
         function DeleteVideo() {
-            VideoResource(GetAccessToken()).Delete({
-                id: $scope.item.id
+            VideoResource.Delete({
+                id: $scope.item.id,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 // TODO: Handle Errors Here
 
@@ -418,8 +432,9 @@ ctl.controller('ViewerCtrl',
         }
 
         function DeletePlaylist() {
-            PlaylistResource(GetAccessToken()).Delete({
-                id: $scope.item.id
+            PlaylistResource.Delete({
+                id: $scope.item.id,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 // TODO: Handle Errors Here
 
@@ -565,8 +580,9 @@ ctl.controller('ViewerCtrl',
         }
 
         function DeletePlaylistItem(pl) {
-            PlaylistItemResource(GetAccessToken()).Delete({
-                id: pl.playlistItemId
+            PlaylistItemResource.Delete({
+                id: pl.playlistItemId,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
               PlaylistItemDbResource.Delete({
                   playlistItemId: pl.playlistItemId,

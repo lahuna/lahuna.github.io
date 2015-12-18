@@ -11,9 +11,9 @@ var ctl = angular.module('TagsController', ['ResourceFactory', 'AuthenticateFact
 ctl.controller('TagsCtrl',
     function ($scope, $routeParams, SearchResource, Auth) {
 
-          $scope.needSignIn = false;
+          // Authenticate
           Auth.Authenticate('foto', function (result) {
-            $scope.needSignIn = result;
+            $scope.displayName = result;
             Initialize();
           });
 

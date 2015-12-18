@@ -11,9 +11,9 @@ var ctl = angular.module('ViewerController', ['ResourceFactory', 'PhotoFactory',
 ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
     PicasaAlbumFeedResource, PicasaPhotoResource, Photo, Auth) {
 
-      $scope.needSignIn = false;
+      // Authenticate
       Auth.Authenticate('foto', function (result) {
-        $scope.needSignIn = result;
+        $scope.displayName = result;
         Initialize();
       });
 

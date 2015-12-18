@@ -18,7 +18,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 });
 
 // Profile
-fac.factory('ProfileResource', function ($resource) {
+/*fac.factory('ProfileResource', function ($resource) {
   return function (accessToken) {
     return $resource('https://www.googleapis.com/plus/v1/people/me', {}, {
       Get: {
@@ -27,10 +27,19 @@ fac.factory('ProfileResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Youtube Search
 fac.factory('YoutubeSearchResource', function ($resource) {
+  var resource = 'https://www.googleapis.com/youtube/v3/search';
+  return $resource(location.origin + ':8000/other', {}, {
+    Get: {
+      method: 'GET',
+      params: { 'resource': resource }
+    }
+  });
+});
+/*fac.factory('YoutubeSearchResource', function ($resource) {
   return function (accessToken) {
     return $resource("https://www.googleapis.com/youtube/v3/search", {}, {
       Get: {
@@ -39,10 +48,27 @@ fac.factory('YoutubeSearchResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Subscriptions
 fac.factory('SubscriptionResource', function ($resource) {
+  var resource = 'https://www.googleapis.com/youtube/v3/subscriptions';
+  return $resource(location.origin + ':8000/other', {}, {
+    Get: {
+      method: 'GET',
+      params: { 'resource': resource }
+    },
+    Post: {
+      method: 'POST',
+      params: { 'resource': resource, part: 'snippet' }
+    },
+    Delete: {
+      method: 'DELETE',
+      params: { 'resource': resource }
+    }
+  });
+});
+/*fac.factory('SubscriptionResource', function ($resource) {
   return function (accessToken) {
     return $resource("https://www.googleapis.com/youtube/v3/subscriptions", {}, {
       Get: {
@@ -60,10 +86,19 @@ fac.factory('SubscriptionResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Channel
 fac.factory('ChannelResource', function ($resource) {
+  var resource = 'https://www.googleapis.com/youtube/v3/channels';
+  return $resource(location.origin + ':8000/other', {}, {
+    Get: {
+      method: 'GET',
+      params: { 'resource': resource }
+    }
+  });
+});
+/*fac.factory('ChannelResource', function ($resource) {
   return function (accessToken) {
     return $resource("https://www.googleapis.com/youtube/v3/channels", {}, {
       Get: {
@@ -72,10 +107,27 @@ fac.factory('ChannelResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Video
 fac.factory('VideoResource', function ($resource) {
+  var resource = 'https://www.googleapis.com/youtube/v3/videos';
+  return $resource(location.origin + ':8000/other', {}, {
+    Get: {
+      method: 'GET',
+      params: { 'resource': resource }
+    },
+    Put: {
+      method: 'PUT',
+      params: { 'resource': resource, part: 'snippet,status' }
+    },
+    Delete: {
+      method: 'DELETE',
+      params: { 'resource': resource }
+    }
+  });
+});
+/*fac.factory('VideoResource', function ($resource) {
   return function (accessToken) {
     return $resource("https://www.googleapis.com/youtube/v3/videos", {}, {
       Get: {
@@ -93,10 +145,31 @@ fac.factory('VideoResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Playlist
 fac.factory('PlaylistResource', function ($resource) {
+  var resource = 'https://www.googleapis.com/youtube/v3/playlists';
+  return $resource(location.origin + ':8000/other', {}, {
+    Get: {
+      method: 'GET',
+      params: { 'resource': resource }
+    },
+    Post: {
+      method: 'POST',
+      params: { 'resource': resource, part: 'snippet,status' }
+    },
+    Put: {
+      method: 'PUT',
+      params: { 'resource': resource, part: 'snippet,status' }
+    },
+    Delete: {
+      method: 'DELETE',
+      params: { 'resource': resource }
+    }
+  });
+});
+/*fac.factory('PlaylistResource', function ($resource) {
   return function (accessToken) {
     return $resource("https://www.googleapis.com/youtube/v3/playlists", {}, {
       Get: {
@@ -119,15 +192,37 @@ fac.factory('PlaylistResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Playlist Items
 fac.factory('PlaylistItemResource', function ($resource) {
+  var resource = 'https://www.googleapis.com/youtube/v3/playlistItems';
+  return $resource(location.origin + ':8000/other', {}, {
+    Get: {
+      method: 'GET',
+      params: { 'resource': resource }
+    },
+    Post: {
+      method: 'POST',
+      params: { 'resource': resource, part: 'snippet' }
+    },
+    Put: {
+      method: 'PUT',
+      params: { 'resource': resource, part: 'snippet' }
+    },
+    Delete: {
+      method: 'DELETE',
+      params: { 'resource': resource }
+    }
+  });
+});
+/*fac.factory('PlaylistItemResource', function ($resource) {
   return function (accessToken) {
     return $resource("https://www.googleapis.com/youtube/v3/playlistItems", {}, {
       Get: {
         method: 'GET',
-        headers: { "Authorization": "Bearer " + accessToken },
+        params: { key: 'AIzaSyAhXUfc4ISI65ORq9BAUgrNTehsV6f_oIk' }
+        //headers: { "Authorization": "Bearer " + accessToken },
       },
       Post: {
         method: 'POST',
@@ -145,7 +240,7 @@ fac.factory('PlaylistItemResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Playlists Db
 fac.factory('PlaylistDbResource', function ($resource) {
