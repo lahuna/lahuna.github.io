@@ -1,0 +1,141 @@
+<!--*****************************************************************************************************************
+     Copyright � 2014 - 2015 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>Video Data Search</h4>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="input-group">
+                <input ng-model="search" ng-keydown="GoSearch($event)"
+                       typeahead="item.query for item in GetSearchList($viewValue)"
+                       type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="ClickSearch()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="order_addon">Order By:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddOrder" data-toggle="dropdown" aria-expanded="true">
+                        {{orderText}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ddOrder">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('date')">Date</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('title')">Title</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="privacy_addon">Privacy:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddPrivacy" data-toggle="dropdown" aria-expanded="true">
+                        {{privacyText}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ddPrivacy">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectPrivacy('all')">all</a></li>
+                        <li class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectPrivacy('private')">private</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectPrivacy('unlisted')">unlisted</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectPrivacy('public')">public</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="def_addon">Quality:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddDef" data-toggle="dropdown" aria-expanded="true">
+                        {{defText}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ddDef">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectDef('all')">all</a></li>
+                        <li class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectDef('sd')">sd</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectDef('hd')">hd</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="embed_addon">Embed:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddEmbed" data-toggle="dropdown" aria-expanded="true">
+                        {{embedText}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ddEmbed">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectEmbed('all')">all</a></li>
+                        <li class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectEmbed('true')">true</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectEmbed('false')">false</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <span class="input-group-addon" id="issue_addon">Issue:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddIssue" data-toggle="dropdown" aria-expanded="true">
+                        {{issueText}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ddIssue">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectIssue('all')">all</a></li>
+                        <li class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectIssue('true')">true</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectIssue('false')">false</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Video Id</th>
+              <th>Title</th>
+              <th>Tags</th>
+              <th>Published</th>
+              <th>Privacy</th>
+              <th>Embed</th>
+              <th>Duration</th>
+              <th>Quality</th>
+              <th>Issue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in items.list">
+            <td>{{ x.videoId }}</td>
+            <td>{{ x.title }}</td>
+            <td>{{ x.tags }}</td>
+            <td>{{ x.published | date }}</td>
+            <td>{{ x.privacy }}</td>
+            <td>{{ x.embeddable }}</td>
+            <td>{{ x.duration }}</td>
+            <td>{{ x.definition }}</td>
+            <td>{{ x.issue }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>

@@ -8,6 +8,18 @@
 
 var fil = angular.module('Filters', []);
 
+fil.filter('issue', function () {
+    return function (input) {
+        if (input.rejectionReason) {
+          return input.rejectionReason;
+        } else if (input.failureReason) {
+          return input.failureReason;
+        } else {
+          return '';
+        }
+    };
+});
+
 //fil.filter('ytChannelUrl', function () {
 //    return function (input) {
 //        if (input.channelTitle != "")

@@ -6,10 +6,10 @@
 
 'use strict';
 
-var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
+var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth,
-  ProfileResource, Oboe) {
+  ProfileResource) {
 
   $scope.origin = location.origin;
 

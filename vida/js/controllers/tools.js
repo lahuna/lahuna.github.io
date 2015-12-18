@@ -27,7 +27,7 @@ ctl.controller('ToolsCtrl',
         ResetForm();
 
         $scope.Import = function () {
-          RunImport('youtube/import');
+          RunImport('vida/import');
         }
 
         $scope.ImportPlaylists = function () {
@@ -62,6 +62,8 @@ ctl.controller('ToolsCtrl',
         function HandleNode(node) {
           if (node.imported) {
             $scope.imported = node;
+          } else if (node.totalResults) {
+            $scope.totalResults = node;
           } else {
             $scope.status.push(node);
           }
@@ -72,6 +74,7 @@ ctl.controller('ToolsCtrl',
         }
 
         function ResetForm() {
+          $scope.totalResults = '';
           $scope.imported = '';
           $scope.status = [];
         }

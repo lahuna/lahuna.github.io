@@ -6,7 +6,7 @@
 
 'use strict';
 
-var ctl = angular.module('Controllers', ['ResourceFactory']);
+var ctl = angular.module('Controllers', ['ResourceFactory', 'OboeFactory']);
 
 ctl.controller('MainCtrl', function ($scope, $routeParams) {
 
@@ -123,7 +123,7 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams, $modal, $location,
     });
 
 ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
-        UserResource, GoogleProfileResource) {
+        UserResource, GoogleProfileResource, Oboe) {
 
         $scope.Agree = function () {
             GetTokens();
@@ -172,11 +172,13 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
             switch ($routeParams.state) {
                 case "foto":
                     //location.href = "/foto/#/initial";
+                    Import();
                     location.href = "/foto";
                     break;
 
                 case "vida":
                     //location.href = "/vida/#/initial";
+                    Import();
                     location.href = "/vida";
                     break;
 
@@ -187,6 +189,17 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
                 default:
                     $location.path('/');
             }
+        }
+
+        function Import() {
+          Oboe.get({url: location.origin + ':8080/' + $routeParams.state + '/import?accessToken=' + $scope.access_token}
+          ).then(function() {
+              // finished loading
+          }, function(error) {
+              // handle errors
+          }, function(node) {
+              // handle node data
+          });
         }
     });
 

@@ -20,7 +20,8 @@ var app = angular.module('vida', [
   'SubscriptionsController',
   'TagsController',
   'ToolsController',
-  'VideosController'
+  'VideosController',
+  'DataVideoController'
 ]);
 
 app.config(['$routeProvider',
@@ -34,6 +35,10 @@ app.config(['$routeProvider',
                 //templateUrl: 'views/main.html',
                 //controller: 'MainCtrl'
             //}).
+            when('/video/data', {
+                templateUrl: 'views/data-video.html',
+                controller: 'DataVideoCtrl'
+            }).
             when('/videos', {
                 templateUrl: 'views/search-video.html',
                 controller: 'SearchCtrl'

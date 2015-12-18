@@ -27,7 +27,7 @@ ctl.controller('ToolsCtrl',
         ResetForm();
 
         $scope.Import = function () {
-          RunImport('picasa/import');
+          RunImport('foto/import');
         }
 
         $scope.ImportAlbums = function () {
