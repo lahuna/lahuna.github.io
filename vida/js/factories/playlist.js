@@ -53,11 +53,12 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function GetPlaylistItem(videoId, playlistId, callback) {
-    PlaylistItemResource(GetAccessToken()).Get({
+    PlaylistItemResource.Get({
       part: 'snippet',
       playlistId: playlistId,
       videoId: videoId,
-      maxResults: 50
+      maxResults: 50,
+      accessToken: GetAccessToken()
     }).$promise.then(function (data) {
       if (data.items.length == 0) {
         AddPlaylistItem(videoId, playlistId, function (playlistItemId) {
@@ -70,14 +71,15 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function CreatePlaylist(videoId, title, callback) {
-    PlaylistResource(GetAccessToken()).Post({
+    PlaylistResource.Post({
       snippet: {
         title: title,
         tags: [title]
       },
       status: {
         privacyStatus: 'unlisted'
-      }
+      },
+      accessToken: GetAccessToken()
     }).$promise.then(function (data) {
       AddPlaylistItem(videoId, data.id, function (playlistItemId) {
         callback(data.id, playlistItemId)
@@ -87,14 +89,15 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function AddPlaylistItem(videoId, playlistId, callback) {
-    PlaylistItemResource(GetAccessToken()).Post({
+    PlaylistItemResource.Post({
       snippet: {
         playlistId: playlistId,
         resourceId: {
            kind: 'youtube#video',
            videoId: videoId
         }
-      }
+      },
+      accessToken: GetAccessToken()
     }).$promise.then(function (data) {
       callback(data.id);
       InsertPlaylistItem(data);
@@ -105,8 +108,9 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function RemovePlaylistItem(playlistId, playlistItemId, callback) {
-    PlaylistItemResource(GetAccessToken()).Delete({
-      id: playlistItemId
+    PlaylistItemResource.Delete({
+      id: playlistItemId,
+      accessToken: GetAccessToken()
     }).$promise.then(function (data) {
       callback();
       DeletePlaylistItem(playlistItemId);
@@ -161,9 +165,10 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function UpdatePlaylist(playlistId, callback) {
-    PlaylistResource(GetAccessToken()).Get({
+    PlaylistResource.Get({
       id: playlistId,
-      part: 'snippet,status'
+      part: 'snippet,status',
+      accessToken: GetAccessToken()
     }).$promise.then(function (data) {
       var pl = data.items[0];
       PlaylistDbResource.Put({
@@ -181,9 +186,10 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
   }
 
   function UpdateVideo(videoId, callback) {
-    VideoResource(GetAccessToken()).Get({
+    VideoResource.Get({
       id: videoId,
-      part: 'snippet,status'
+      part: 'snippet,status',
+      accessToken: GetAccessToken()
     }).$promise.then(function (data) {
       var v = data.items[0];
       VideoDbResource.Put({

@@ -16,10 +16,9 @@ ctl.controller('ViewerCtrl',
 
     var player;
 
-    // Authenticate
     Auth.Authenticate('vida', function (result) {
       $scope.displayName = result;
-      if ($scope.displayName) {
+      if (result) {
         GetChannelId();
       }
       InitializePlayer();
@@ -65,7 +64,7 @@ ctl.controller('ViewerCtrl',
                 LoadPlayer();
             }
         }
-        
+
         function LoadPlayer() {
             switch ($routeParams.type) {
                 case 'video':

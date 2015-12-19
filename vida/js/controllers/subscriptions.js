@@ -22,10 +22,11 @@ ctl.controller('SubscriptionsCtrl',
         }
 
         function Initialize() {
-            $scope.list = SubscriptionResource(GetAccessToken()).Get({
+            $scope.list = SubscriptionResource.Get({
                 part: 'snippet,contentDetails',
                 maxResults: '50',
-                mine: 'true'
+                mine: 'true',
+                accessToken: GetAccessToken()
             });
         }
     });

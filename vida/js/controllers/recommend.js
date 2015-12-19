@@ -30,11 +30,12 @@ ctl.controller('RecommendCtrl',
         }
 
         function GetVideoList() {
-            YoutubeSearchResource(GetAccessToken()).Get({
+            YoutubeSearchResource.Get({
                 part: 'snippet',
                 maxResults: '49',
                 type: 'video',
-                relatedToVideoId: $routeParams.id
+                relatedToVideoId: $routeParams.id,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.list = data;
                 GetVideo();
@@ -42,9 +43,10 @@ ctl.controller('RecommendCtrl',
         }
 
         function GetVideo() {
-            VideoResource(GetAccessToken()).Get({
+            VideoResource.Get({
                 part: 'snippet',
-                id: $routeParams.id
+                id: $routeParams.id,
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.heading = data.items[0].snippet.title;
                 $scope.list.items.splice(0, 0, data.items[0]);

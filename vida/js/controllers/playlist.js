@@ -42,9 +42,10 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
   }
 
   function GetPlaylist() {
-      PlaylistResource(GetAccessToken()).Get({
+      PlaylistResource.Get({
         id: $routeParams.id,
-        part: 'snippet,status'
+        part: 'snippet,status',
+        accessToken: GetAccessToken()
       }).$promise.then(function (data) {
         if (data.items.length > 0) {
           $scope.playlist = data;
@@ -62,10 +63,11 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
   }
 
   function GetPlaylistItems() {
-      PlaylistItemResource(GetAccessToken()).Get({
+      PlaylistItemResource.Get({
           playlistId: $routeParams.id,
           maxResults: '50',
-          part: 'snippet'
+          part: 'snippet',
+          accessToken: GetAccessToken()
       }).$promise.then(function (data) {
           if (data.items.length > 0)
               $scope.list = data;
@@ -86,8 +88,9 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
   }
 
   $scope.Delete = function () {
-      PlaylistResource(GetAccessToken()).Delete({
-          id: $routeParams.id
+      PlaylistResource.Delete({
+          id: $routeParams.id,
+          accessToken: GetAccessToken()
       }).$promise.then(function (data) {
           // TODO: Handle Errors Here
 
@@ -102,8 +105,9 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
 
   $scope.Remove = function (index) {
       var playlistItemId = $scope.list.items[index].id;
-      PlaylistItemResource(GetAccessToken()).Delete({
-          id: playlistItemId
+      PlaylistItemResource.Delete({
+          id: playlistItemId,
+          accessToken: GetAccessToken()
       }).$promise.then(function (data) {
           $scope.list.items.splice(index, 1);
           PlaylistItemDbResource.Delete({
@@ -117,7 +121,7 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
   }
 
   $scope.MoveUp = function (index) {
-      PlaylistItemResource(GetAccessToken()).Put({
+      PlaylistItemResource.Put({
           id: $scope.list.items[index].id,
           snippet: {
               playlistId: $routeParams.id,
@@ -126,7 +130,8 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
                   kind: 'youtube#video'
               },
               position: index - 1
-          }
+          },
+          accessToken: GetAccessToken()
       }).$promise.then(function (data) {
           var item = $scope.list.items.splice(index, 1);
           $scope.list.items.splice(index - 1, 0, item[0]);
@@ -135,7 +140,7 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
   }
 
   $scope.MoveDown = function (index) {
-      PlaylistItemResource(GetAccessToken()).Put({
+      PlaylistItemResource.Put({
           id: $scope.list.items[index].id,
           snippet: {
               playlistId: $routeParams.id,
@@ -144,7 +149,8 @@ ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
                   kind: 'youtube#video'
               },
               position: index + 1
-          }
+          },
+          accessToken: GetAccessToken()
       }).$promise.then(function (data) {
           var item = $scope.list.items.splice(index, 1);
           $scope.list.items.splice(index + 1, 0, item[0]);

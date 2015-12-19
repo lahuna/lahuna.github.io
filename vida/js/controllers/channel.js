@@ -10,7 +10,6 @@ var ctl = angular.module('ChannelController', ['ResourceFactory', 'AuthenticateF
 
 ctl.controller('ChannelCtrl', function ($scope, $routeParams, ChannelResource, Auth) {
 
-  // Authenticate
   Auth.Authenticate('vida', function (result) {
     $scope.displayName = result;
     Initialize();
@@ -18,14 +17,15 @@ ctl.controller('ChannelCtrl', function ($scope, $routeParams, ChannelResource, A
 
   function GetAccessToken() {
     return localStorage.getItem('youtube_access_token');
-  }  
+  }
 
   function Initialize() {
 
-      $scope.list = ChannelResource(GetAccessToken()).Get({
+      $scope.list = ChannelResource.Get({
           part: 'snippet,contentDetails',
           maxResults: '50',
-          mine: 'true'
+          mine: 'true',
+          accessToken: GetAccessToken()
       });
   }
 });

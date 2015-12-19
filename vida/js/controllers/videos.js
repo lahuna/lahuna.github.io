@@ -63,13 +63,14 @@ ctl.controller('VideosCtrl',
             localStorage.setItem('video_order', $scope.order);
 
             var query = GetSearch();
-            YoutubeSearchResource(GetAccessToken()).Get({
+            YoutubeSearchResource.Get({
                 q: query,
                 part: 'snippet',
                 order: GetOrder(),
                 maxResults: '50',
                 type: 'video',
-                forMine: 'true'
+                forMine: 'true',
+                accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.list = data;
                 if (query) {

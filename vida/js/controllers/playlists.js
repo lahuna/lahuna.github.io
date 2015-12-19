@@ -12,10 +12,9 @@ ctl.controller('PlaylistsCtrl',
     function ($scope, $routeParams, PlaylistDbResource,
         SearchResource, Auth) {
 
-        // Authenticate
         Auth.Authenticate('vida', function (result) {
           $scope.displayName = result;
-          if (!result) {
+          if (result) {
             Initialize();
           }
         });

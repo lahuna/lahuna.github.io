@@ -57,12 +57,13 @@ ctl.controller('SearchCtrl',
             localStorage.setItem('youtube_search', $scope.search);
             localStorage.setItem('youtube_order', $scope.order);
 
-            $scope.list = YoutubeSearchResource(GetAccessToken()).Get({
+            $scope.list = YoutubeSearchResource.Get({
                 q: GetSearch(),
                 part: 'snippet',
                 order: GetOrder(),
                 maxResults: '50',
-                type: GetType()
+                type: GetType(),
+                accessToken: GetAccessToken()
             });
         }
 

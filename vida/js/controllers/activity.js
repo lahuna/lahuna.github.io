@@ -32,9 +32,10 @@ ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
   }
 
   function GetChannel() {
-      ChannelResource(GetAccessToken()).Get({
+      ChannelResource.Get({
           part: 'snippet,contentDetails',
           id: $routeParams.channelId,
+          accessToken: GetAccessToken()
       }).$promise.then(function (data) {
           $scope.heading = data.items[0].snippet.title;
           GetPlaylistItems(data.items[0].contentDetails.relatedPlaylists.uploads);
@@ -42,18 +43,20 @@ ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
   }
 
   function GetPlaylistItems(playlistId) {
-      $scope.list = PlaylistItemResource(GetAccessToken()).Get({
+      $scope.list = PlaylistItemResource.Get({
           playlistId: playlistId,
           part: 'snippet',
-          maxResults: '50'
+          maxResults: '50',
+          accessToken: GetAccessToken()
       });
   }
 
   function GetSubscription() {
-      SubscriptionResource(GetAccessToken()).Get({
+      SubscriptionResource.Get({
           part: 'snippet',
           forChannelId: $routeParams.channelId,
-          mine: 'true'
+          mine: 'true',
+          accessToken: GetAccessToken()
       }).$promise.then(function (data) {
           if (data.items.length > 0) {
               SetMode(data.items[0].id);
@@ -64,14 +67,16 @@ ctl.controller('ActivityCtrl', function ($scope, $routeParams, Playlist, Auth,
 
   $scope.Subscribe = function () {
       if ($scope.subscribed) {
-          SubscriptionResource(GetAccessToken()).Delete({
-              id: $scope.subscriptionId
+          SubscriptionResource.Delete({
+              id: $scope.subscriptionId,
+              accessToken: GetAccessToken()
           }).$promise.then(function (data) {
               SetMode('-1');
           });
       } else {
-          SubscriptionResource(GetAccessToken()).Post({
-              snippet: { resourceId: { channelId: $routeParams.channelId } }
+          SubscriptionResource.Post({
+              snippet: { resourceId: { channelId: $routeParams.channelId } },
+              accessToken: GetAccessToken()
           }).$promise.then(function (data) {
               SetMode(data.id);
           });
