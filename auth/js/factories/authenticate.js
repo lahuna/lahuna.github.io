@@ -17,7 +17,7 @@ fac.factory('Auth', function (AuthenticateResource) {
     var refreshToken = GetRefreshToken(app);
 
     if (!accessToken || !refreshToken) {
-      return callback();
+      return callback('Sign In');
     }
 
     AuthenticateResource.Get({
@@ -26,13 +26,13 @@ fac.factory('Auth', function (AuthenticateResource) {
     })
     .$promise.then(function (data) {
       if (data.error) {
-        return callback();
+        return callback('Sign In');
       } else {
         StoreValues(data, app);
         return callback(data.displayName);
       }
     }, function (error) {
-        return callback();
+        return callback('Sign In');
     });
   }
 

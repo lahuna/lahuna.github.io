@@ -8,13 +8,13 @@
 
 var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('MainCtrl', function ($scope, $routeParams, $route, Auth) {
+ctl.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $route, Auth) {
 
   $scope.origin = location.origin;
 
-  //// Authenticate
   Auth.Authenticate('vida', function (result) {
     $scope.displayName = result;
+    $rootScope.displayName = result;
     //Initialize();
   });
 
