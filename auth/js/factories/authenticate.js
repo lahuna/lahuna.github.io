@@ -10,14 +10,16 @@ var fac = angular.module('AuthenticateFactory', ['ResourceFactory']);
 
 fac.factory('Auth', function (AuthenticateResource) {
 
-  return { 'Authenticate': Authenticate };
+  return { 'Authenticate': Authenticate,
+           'SignIn': SignIn,
+           'SignOut': SignOut };
 
   function Authenticate(app, callback) {
     var accessToken = GetAccessToken(app);
     var refreshToken = GetRefreshToken(app);
 
     if (!accessToken || !refreshToken) {
-      return callback('Sign In');
+      return callback();
     }
 
     AuthenticateResource.Get({
@@ -26,13 +28,13 @@ fac.factory('Auth', function (AuthenticateResource) {
     })
     .$promise.then(function (data) {
       if (data.error) {
-        return callback('Sign In');
+        return callback();
       } else {
         StoreValues(data, app);
         return callback(data.displayName);
       }
     }, function (error) {
-        return callback('Sign In');
+        return callback();
     });
   }
 
@@ -48,6 +50,47 @@ fac.factory('Auth', function (AuthenticateResource) {
         localStorage.setItem('youtube_access_token', data.access_token);
         localStorage.setItem('youtube_user_id', data.user_id);
         localStorage.setItem('youtube_expires_in', data.expires_in);
+        break;
+    }
+  }
+
+  function SignIn(app, state) {
+    var scope;
+    switch (app) {
+      case "foto":
+        scope = "https://picasaweb.google.com/data";
+        break;
+
+      case "vida":
+        scope = "https://www.googleapis.com/auth/youtube";
+        break;
+    }
+
+    location.href =
+    "https://accounts.google.com/o/oauth2/auth?" +
+    "response_type=code&" +
+    "access_type=offline&" +
+    "client_id=206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com&" +
+    "redirect_uri=" + location.origin + "/auth/google&" +
+    "scope=profile email " + scope + "&" +
+    "state=" + state + "&" +
+    "approval_prompt=force";
+  }
+
+  function SignOut(app) {
+    switch (app) {
+      case "foto":
+        localStorage.removeItem('google_access_token');
+        localStorage.removeItem('google_refresh_token');
+        localStorage.removeItem('google_user_id');
+        localStorage.removeItem('google_expires_in');
+        break;
+
+      case "vida":
+        localStorage.removeItem('youtube_access_token');
+        localStorage.removeItem('youtube_refresh_token');
+        localStorage.removeItem('youtube_user_id');
+        localStorage.removeItem('youtube_expires_in');
         break;
     }
   }

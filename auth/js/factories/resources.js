@@ -6,7 +6,7 @@
 
 'use strict';
 
-var fac = angular.module('ResourceFactory', ['ngResource']);
+var fac = angular.module('AuthResourceFactory', ['ngResource']);
 
 // Google Access Token
 fac.factory('GoogleAccessTokenResource', function ($resource) {

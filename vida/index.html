@@ -22,7 +22,9 @@
     <script src="js/app.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/factories/resources.js"></script>
+    <script src="/auth/js/factories/resources.js"></script>
     <script src="/auth/js/factories/authenticate.js"></script>
+    <script src="/auth/js/controllers/profile.js"></script>
     <script src="js/factories/playlist.js"></script>
     <script src="js/controllers/activity.js"></script>
     <script src="js/controllers/channel.js"></script>
@@ -129,7 +131,9 @@
                     <li><a href="/#/terms">Terms</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a ng-click="SignIn()"><span ng-show="displayName" class="glyphicon glyphicon-user"></span> {{displayName}}</a></li>
+                  <li><a><span ng-show="displayName" class="glyphicon glyphicon-user"></span> {{displayName}}</a></li>
+                  <li ng-show="showSignIn"><a ng-click="SignIn()">Sign In</a></li>
+                  <li ng-show="displayName"><a ng-click="SignOut()">Sign Out</a></li>
                 </ul>
             </div>
         </div>

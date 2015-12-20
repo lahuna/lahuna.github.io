@@ -21,7 +21,8 @@ var app = angular.module('vida', [
   'TagsController',
   'ToolsController',
   'VideosController',
-  'DataVideoController'
+  'DataVideoController',
+  'ProfileController'
 ]);
 
 app.config(['$routeProvider',
@@ -35,6 +36,10 @@ app.config(['$routeProvider',
                 //templateUrl: 'views/main.html',
                 //controller: 'MainCtrl'
             //}).
+            when('/profile', {
+                templateUrl: '/auth/views/profile.html',
+                controller: 'ProfileCtrl'
+            }).
             when('/video/data', {
                 templateUrl: 'views/data-video.html',
                 controller: 'DataVideoCtrl'

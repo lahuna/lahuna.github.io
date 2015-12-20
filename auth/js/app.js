@@ -11,7 +11,9 @@
 var app = angular.module('auth', [
   'ngRoute',
   'ui.bootstrap',
-  'Controllers'
+  'AgreeController',
+  'GoogleController',
+  'MainController'
 ]);
 
 app.config(['$routeProvider',

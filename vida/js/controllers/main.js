@@ -10,13 +10,24 @@ var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFact
 
 ctl.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $route, Auth) {
 
-  $scope.origin = location.origin;
+  //$scope.origin = location.origin;
 
   Auth.Authenticate('vida', function (result) {
-    $scope.displayName = result;
+    //$scope.displayName = result;
     $rootScope.displayName = result;
+    $rootScope.showSignIn = !result;
     //Initialize();
   });
+
+  $rootScope.SignIn = function () {
+    Auth.SignIn('vida', 'vida');
+  }
+
+  $rootScope.SignOut = function () {
+    Auth.SignOut('vida');
+    $rootScope.displayName = null;
+    $rootScope.showSignIn = true;
+  }
 
   //function GetAccessToken() {
     //return localStorage.getItem('youtube_access_token');
