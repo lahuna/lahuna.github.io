@@ -9,41 +9,42 @@
 var ctl = angular.module('AgreeController', ['AuthResourceFactory', 'OboeFactory']);
 
 ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
-        UserResource, GoogleProfileResource, Oboe) {
+        UserResource, Oboe) {
 
         $scope.Agree = function () {
-            GetTokens();
+            GetAccessToken();
         }
 
-        function GetTokens() {
+        function GetAccessToken() {
             switch ($routeParams.state) {
                 case "foto":
                     $scope.access_token = localStorage.getItem("google_access_token");
-                    $scope.refresh_token = localStorage.getItem("google_refresh_token");
+                    //$scope.refresh_token = localStorage.getItem("google_refresh_token");
                     break;
 
                 case "vida":
                     $scope.access_token = localStorage.getItem("youtube_access_token");
-                    $scope.refresh_token = localStorage.getItem("youtube_refresh_token");
+                    //$scope.refresh_token = localStorage.getItem("youtube_refresh_token");
                     break;
 
                 case "blitz":
                     $scope.access_token = localStorage.getItem("blogger_access_token");
-                    $scope.refresh_token = localStorage.getItem("blogger_refresh_token");
+                    //$scope.refresh_token = localStorage.getItem("blogger_refresh_token");
                     break;
             }
 
-            GetProfile();
+            //GetProfile();
+            CreateUser();
         }
 
-        function GetProfile() {
+        /*function GetProfile() {
             GoogleProfileResource($scope.access_token).Get()
                 .$promise.then(function (profile) {
                     CreateUser(profile);
                 });
-        }
+        }*/
 
-        function CreateUser(profile) {
+        /*function CreateUser(profile) {
             UserResource.Post({
                 agreedDate: Date(),
                 displayName: profile.displayName,
@@ -53,9 +54,26 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
             }).$promise.then(function () {
                 Reroute();
             });
+        }*/
+
+        function CreateUser() {
+            UserResource.Post({
+                agreedDate: Date(),
+                app: $routeParams.state,
+                accessToken: $scope.access_token
+            }).$promise.then(function () {
+                Reroute();
+            });
         }
 
         function Reroute() {
+          if ($routeParams.state == 'foto' || $routeParams.state == 'vida') {
+            Import();
+          }
+          location.href = localStorage.getItem('auth_redirect');
+        }
+
+        /*function Reroute() {
             switch ($routeParams.state) {
                 case "foto":
                     //location.href = "/foto/#/initial";
@@ -76,7 +94,7 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
                 default:
                     $location.path('/');
             }
-        }
+        }*/
 
         function Import() {
           Oboe.get({url: location.origin + ':8080/' + $routeParams.state + '/import?accessToken=' + $scope.access_token}

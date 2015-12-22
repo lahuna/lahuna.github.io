@@ -35,7 +35,9 @@
     <script src="js/factories/resources.js"></script>
     <script src="js/factories/photo.js"></script>
     <script src="/js/factories/oboe.js"></script>
+    <script src="/auth/js/factories/resources.js"></script>
     <script src="/auth/js/factories/authenticate.js"></script>
+    <script src="/auth/js/controllers/profile.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/common.css" />
@@ -116,6 +118,11 @@
                     </li>
                     <li><a href="/#/privacy">Privacy</a></li>
                     <li><a href="/#/terms">Terms</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/foto/#/profile"><span ng-show="displayName" class="glyphicon glyphicon-user"></span> {{displayName}}</a></li>
+                  <li ng-show="showSignIn"><a ng-click="SignIn()">Sign In</a></li>
+                  <li ng-show="displayName"><a ng-click="SignOut()">Sign Out</a></li>
                 </ul>
             </div>
         </div>

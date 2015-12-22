@@ -54,7 +54,7 @@ fac.factory('Auth', function (AuthenticateResource) {
     }
   }
 
-  function SignIn(app, state) {
+  function SignIn(app) {
     var scope;
     switch (app) {
       case "foto":
@@ -64,7 +64,13 @@ fac.factory('Auth', function (AuthenticateResource) {
       case "vida":
         scope = "https://www.googleapis.com/auth/youtube";
         break;
+
+      case "blitz":
+        scope = "https://www.googleapis.com/auth/blogger";
+        break;
     }
+
+    localStorage.setItem('auth_redirect', location.href);
 
     location.href =
     "https://accounts.google.com/o/oauth2/auth?" +
@@ -73,7 +79,7 @@ fac.factory('Auth', function (AuthenticateResource) {
     "client_id=206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com&" +
     "redirect_uri=" + location.origin + "/auth/google&" +
     "scope=profile email " + scope + "&" +
-    "state=" + state + "&" +
+    "state=" + app + "&" +
     "approval_prompt=force";
   }
 

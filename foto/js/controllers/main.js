@@ -8,15 +8,27 @@
 
 var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('MainCtrl', function ($scope, $route, Auth) {
+ctl.controller('MainCtrl', function ($scope, $route, Auth, $rootScope) {
 
   $scope.origin = location.origin;
   //// Authenticate
   Auth.Authenticate('foto', function (result) {
-    $scope.displayName = result;
+    $rootScope.displayName = result;
+    $rootScope.showSignIn = !result;
     //$scope.displayName = result;
     //Initialize();
   });
+
+  $rootScope.SignIn = function () {
+    Auth.SignIn('foto');
+  }
+
+  $rootScope.SignOut = function () {
+    Auth.SignOut('foto');
+    $rootScope.displayName = null;
+    $rootScope.showSignIn = true;
+    $route.reload();
+  }
 
   //function GetAccessToken() {
     //return localStorage.getItem('google_access_token');

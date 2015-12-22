@@ -9,14 +9,26 @@
 var ctl = angular.module('RecommendController', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
 
 ctl.controller('RecommendCtrl',
-    function ($scope, $routeParams, $location, SearchResource, Auth,
-        VideoResource, YoutubeSearchResource, ChannelResource, Playlist) {
+    function ($scope, $rootScope, $routeParams, $location, SearchResource, Auth,
+        VideoResource, YoutubeSearchResource, ChannelResource, Playlist, $route) {
 
         // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.displayName = result;
+          $rootScope.displayName = result;
+          $rootScope.showSignIn = !result;
           Initialize();
         });
+
+        $rootScope.SignIn = function () {
+          Auth.SignIn('vida');
+        }
+
+        $rootScope.SignOut = function () {
+          Auth.SignOut('vida');
+          $rootScope.displayName = null;
+          $rootScope.showSignIn = true;
+          $route.reload();
+        }
 
         function GetAccessToken() {
           return localStorage.getItem('youtube_access_token');

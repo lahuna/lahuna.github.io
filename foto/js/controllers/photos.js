@@ -9,13 +9,26 @@
 var ctl = angular.module('PhotosController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('PhotosCtrl',
-  function ($scope, $routeParams, PicasaResource, SearchResource, Auth) {
+  function ($scope, $routeParams, PicasaResource,
+    SearchResource, Auth, $route, $rootScope) {
 
   // Authenticate
   Auth.Authenticate('foto', function (result) {
-    $scope.displayName = result;
+    $rootScope.displayName = result;
+    $rootScope.showSignIn = !result;
     Initialize();
   });
+
+  $rootScope.SignIn = function () {
+    Auth.SignIn('foto');
+  }
+
+  $rootScope.SignOut = function () {
+    Auth.SignOut('foto');
+    $rootScope.displayName = null;
+    $rootScope.showSignIn = true;
+    $route.reload();
+  }
 
   function GetAccessToken() {
     return localStorage.getItem('google_access_token');

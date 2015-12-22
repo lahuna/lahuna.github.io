@@ -8,12 +8,24 @@
 
 var ctl = angular.module('ChannelController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('ChannelCtrl', function ($scope, $routeParams, ChannelResource, Auth) {
+ctl.controller('ChannelCtrl', function ($scope, $rootScope, $route, $routeParams, ChannelResource, Auth) {
 
   Auth.Authenticate('vida', function (result) {
-    $scope.displayName = result;
+    $rootScope.displayName = result;
+    $rootScope.showSignIn = !result;
     Initialize();
   });
+
+  $rootScope.SignIn = function () {
+    Auth.SignIn('vida');
+  }
+
+  $rootScope.SignOut = function () {
+    Auth.SignOut('vida');
+    $rootScope.displayName = null;
+    $rootScope.showSignIn = true;
+    $route.reload();
+  }
 
   function GetAccessToken() {
     return localStorage.getItem('youtube_access_token');

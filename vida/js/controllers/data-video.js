@@ -9,16 +9,28 @@
 var ctl = angular.module('DataVideoController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('DataVideoCtrl',
-    function ($scope, $routeParams, VideoDbResource,
-        SearchResource, Auth) {
+    function ($scope, $rootScope, $routeParams, VideoDbResource,
+        SearchResource, Auth, $route) {
 
         // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.displayName = result;
-          if (!result) {
+          $rootScope.displayName = result;
+          $rootScope.showSignIn = !result;
+          if (result) {
             Initialize();
           }
         });
+
+        $rootScope.SignIn = function () {
+          Auth.SignIn('vida');
+        }
+
+        $rootScope.SignOut = function () {
+          Auth.SignOut('vida');
+          $rootScope.displayName = null;
+          $rootScope.showSignIn = true;
+          $route.reload();
+        }
 
         function GetAccessToken() {
           return localStorage.getItem('youtube_access_token');

@@ -9,12 +9,24 @@
 var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
 
 ctl.controller('ToolsCtrl',
-    function ($scope, $routeParams, Auth, Oboe) {
+    function ($scope, $routeParams, Auth, Oboe, $route, $rootScope) {
 
           // Authenticate
           Auth.Authenticate('foto', function (result) {
-            $scope.displayName = result;
+            $rootScope.displayName = result;
+            $rootScope.showSignIn = !result;
           });
+
+          $rootScope.SignIn = function () {
+            Auth.SignIn('foto');
+          }
+
+          $rootScope.SignOut = function () {
+            Auth.SignOut('foto');
+            $rootScope.displayName = null;
+            $rootScope.showSignIn = true;
+            $route.reload();
+          }
 
           function GetAccessToken() {
             return localStorage.getItem('google_access_token');

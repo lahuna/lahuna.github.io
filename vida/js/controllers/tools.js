@@ -9,12 +9,24 @@
 var ctl = angular.module('ToolsController', ['ResourceFactory', 'AuthenticateFactory', 'OboeFactory']);
 
 ctl.controller('ToolsCtrl',
-    function ($scope, $routeParams, Auth, Oboe) {
+    function ($scope, $rootScope, $routeParams, Auth, Oboe, $route) {
 
         // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $scope.displayName = result;
+          $rootScope.displayName = result;
+          $rootScope.showSignIn = !result;
         });
+
+        $rootScope.SignIn = function () {
+          Auth.SignIn('vida');
+        }
+
+        $rootScope.SignOut = function () {
+          Auth.SignOut('vida');
+          $rootScope.displayName = null;
+          $rootScope.showSignIn = true;
+          $route.reload();
+        }
 
         function GetAccessToken() {
           return localStorage.getItem('youtube_access_token');

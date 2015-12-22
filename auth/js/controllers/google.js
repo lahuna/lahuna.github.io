@@ -8,17 +8,22 @@
 
 var ctl = angular.module('GoogleController', ['AuthResourceFactory']);
 
-ctl.controller('GoogleCtrl', function ($scope, $routeParams, $modal, $location,
-  GoogleAccessTokenResource, UserResource, GoogleProfileResource) {
+ctl.controller('GoogleCtrl', function ($scope, $routeParams,
+  GoogleAccessTokenResource, UserResource) {
 
-        var code = $routeParams.code.replace('xxxx', '/');
+      //localStorage.getItem('code');
+      //localStorage.getItem('state');
 
-        GoogleAccessTokenResource.Post({ code: code, redirectUri: location.origin + "/auth/google" })
-            .$promise.then(function (token) {
-                StoreTokens(token);
+        //var code = $routeParams.code.replace('xxxx', '/');
 
-                //GetProfile(token);
-            });
+        GoogleAccessTokenResource.Post({
+          'code': localStorage.getItem('code'),
+          'redirectUri': location.origin + "/auth/google" })
+        .$promise.then(function (token) {
+          StoreTokens(token);
+
+            //GetProfile(token);
+        });
 
         //function GetProfile(token) {
         //    GoogleProfileResource(token.access_token).Get()
@@ -28,9 +33,28 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams, $modal, $location,
         //        });
         //}
 
+        /*function StoreTokens(token) {
+          var state = localStorage.getItem('state');
+          if (state.indexOf('foto') > -1) {
+            localStorage.setItem("google_access_token", token.access_token);
+            localStorage.setItem("google_expires_in", token.expires_in);
+            localStorage.setItem("google_refresh_token", token.refresh_token);
+          } else if (state.indexOf('vida') > -1) {
+            localStorage.setItem("youtube_access_token", token.access_token);
+            localStorage.setItem("youtube_expires_in", token.expires_in);
+            localStorage.setItem("youtube_refresh_token", token.refresh_token);
+          } else if (state.indexOf('blitz') > -1) {
+            localStorage.setItem("blogger_access_token", token.access_token);
+            localStorage.setItem("blogger_expires_in", token.expires_in);
+            localStorage.setItem("blogger_refresh_token", token.refresh_token);
+          }
+
+          GetUser(token);
+        }*/
+
         function StoreTokens(token) {
-            $scope.access_token = token.access_token;
-            $scope.refresh_token = token.refresh_token;
+            //$scope.access_token = token.access_token;
+            //$scope.refresh_token = token.refresh_token;
             switch ($routeParams.state) {
                 case "foto":
                     localStorage.setItem("google_access_token", token.access_token);
@@ -58,10 +82,11 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams, $modal, $location,
             UserResource.Get({
               accessToken: token.access_token
             }).$promise.then(function (data) {
-                if (data.message == 'Found')
-                    Reroute();
+                if (data.message == 'Found') {
+                  location.href = localStorage.getItem('auth_redirect');
+                    //Reroute();
                     //UpdateUser(token);
-                else
+                } else
                     location.href = '/auth/#/agree/' + $routeParams.state;
                     //AgreePrompt();
                 });
@@ -102,7 +127,7 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams, $modal, $location,
 
 
 
-        function Reroute() {
+        /*function Reroute() {
             switch ($routeParams.state) {
                 case "foto":
                     location.href = "/foto";
@@ -119,5 +144,5 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams, $modal, $location,
                 default:
                     $location.path('/');
             }
-        }
+        }*/
     });

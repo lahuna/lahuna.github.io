@@ -11,7 +11,6 @@ var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFact
 ctl.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $route, Auth) {
 
   //$scope.origin = location.origin;
-
   Auth.Authenticate('vida', function (result) {
     //$scope.displayName = result;
     $rootScope.displayName = result;
@@ -20,13 +19,14 @@ ctl.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $route, A
   });
 
   $rootScope.SignIn = function () {
-    Auth.SignIn('vida', 'vida');
+    Auth.SignIn('vida');
   }
 
   $rootScope.SignOut = function () {
     Auth.SignOut('vida');
     $rootScope.displayName = null;
     $rootScope.showSignIn = true;
+    $route.reload();
   }
 
   //function GetAccessToken() {

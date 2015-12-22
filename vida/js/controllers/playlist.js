@@ -8,14 +8,26 @@
 
 var ctl = angular.module('PlaylistController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('PlaylistCtrl', function ($scope, $routeParams, $window, Auth,
-  PlaylistResource, PlaylistItemResource, PlaylistDbResource, Playlist) {
+ctl.controller('PlaylistCtrl', function ($scope, $rootScope, $routeParams, $window, Auth,
+  PlaylistResource, PlaylistItemResource, PlaylistDbResource, Playlist, $route) {
 
   // Authenticate
   Auth.Authenticate('vida', function (result) {
-    $scope.displayName = result;
+    $rootScope.displayName = result;
+    $rootScope.showSignIn = !result;
     Initialize();
   });
+
+  $rootScope.SignIn = function () {
+    Auth.SignIn('vida');
+  }
+
+  $rootScope.SignOut = function () {
+    Auth.SignOut('vida');
+    $rootScope.displayName = null;
+    $rootScope.showSignIn = true;
+    $route.reload();
+  }
 
   function GetAccessToken() {
     return localStorage.getItem('youtube_access_token');

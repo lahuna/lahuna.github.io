@@ -6,8 +6,6 @@
 
 'use strict';
 
-/* App Module */
-
 var app = angular.module('auth', [
   'ngRoute',
   'ui.bootstrap',
@@ -16,15 +14,14 @@ var app = angular.module('auth', [
   'MainController'
 ]);
 
-app.config(['$routeProvider',
+app.config(
     function ($routeProvider) {
-
         $routeProvider.
         when('/', {
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
         }).
-        when('/google/state=:state&code=:code', {
+        when('/google/:state', { ///state=:state&code=:code
             templateUrl: 'views/main.html',
             controller: 'GoogleCtrl'
         }).
@@ -35,4 +32,4 @@ app.config(['$routeProvider',
         otherwise({
             redirectTo: '/'
         });
-  }]);
+  });

@@ -8,35 +8,65 @@
 
 var ctl = angular.module('ProfileController', ['AuthResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('ProfileCtrl', function ($scope, $routeParams, Auth, GoogleProfileResource) {
-  //$scope.app = $routParams.app;
-  alert(GetAccessToken());
-  $scope.profile = GoogleProfileResource(GetAccessToken()).Get();
+ctl.controller('ProfileCtrl', function ($scope, $routeParams, $rootScope,
+  Auth, GoogleProfileResource, $route) {
 
-  function GetAccessToken(app) {
-    var app = GetApp();
-    switch (app) {
-        case "foto":
-            return localStorage.getItem("google_access_token");
-            break;
+  $scope.app = GetApp();
 
-        case "vida":
-            return localStorage.getItem("youtube_access_token");
-            break;
+  Auth.Authenticate($scope.app, function (result) {
+    $rootScope.displayName = result;
+    $rootScope.showSignIn = !result;
+    GetProfile();
+  });
 
-        case "blitz":
-            return localStorage.getItem("blogger_access_token");
-            break;
+  $rootScope.SignIn = function () {
+    Auth.SignIn($scope.app);
+  }
+
+  $rootScope.SignOut = function () {
+    Auth.SignOut($scope.app);
+    $rootScope.displayName = null;
+    $rootScope.showSignIn = true;
+    $route.reload();
+  }
+
+  function GetProfile() {
+    GoogleProfileResource(GetAccessToken()).Get()
+    .$promise.then(function (data) {
+      $scope.profile = data;
+      $scope.image = data.image.url.replace('sz=50', 'sz=150');
+      $scope.raw = JSON.stringify(data, null, '\t');
+    });
+  }
+
+  function GetAccessToken() {
+    switch ($scope.app) {
+      case "foto":
+        return localStorage.getItem("google_access_token");
+        break;
+
+      case "vida":
+        return localStorage.getItem("youtube_access_token");
+        break;
+
+      case "blitz":
+        return localStorage.getItem("blogger_access_token");
+        break;
     }
   }
 
   function GetApp() {
-    if (location.href.indexOf('foto')) {
+    if (location.href.indexOf('foto') > -1) {
       return 'foto';
-    } else if (location.href.indexOf('vida')) {
+    } else if (location.href.indexOf('vida') > -1) {
       return 'vida';
-    } else if (location.href.indexOf('blitz')) {
+    } else if (location.href.indexOf('blitz') > -1) {
       return 'blitz';
     }
   }
+
+  $scope.showRaw = function () {
+    $scope.rawVisible = !$scope.rawVisible;
+  }
+
 });

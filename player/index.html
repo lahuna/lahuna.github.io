@@ -112,6 +112,11 @@
                     <li><a href="/#/privacy">Privacy</a></li>
                     <li><a href="/#/terms">Terms</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/vida/#/profile"><span ng-show="displayName" class="glyphicon glyphicon-user"></span> {{displayName}}</a></li>
+                  <li ng-show="showSignIn"><a ng-click="SignIn()">Sign In</a></li>
+                  <li ng-show="displayName"><a ng-click="SignOut()">Sign Out</a></li>
+                </ul>
             </div>
         </div>
     </nav>

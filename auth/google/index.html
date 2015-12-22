@@ -3,10 +3,22 @@
 <head>
     <title></title>
     <script>
-        location.href = location.origin + "/auth/#/google/" + location.search.replace('?', '').replace('/', 'xxxx');
+      var q = location.search.split('&');
+      var state = q[0].split('=')[1];
+      localStorage.setItem('code', q[1].split('=')[1]);
+      location.href = '/auth/#/google/' + state;
+
+        //var q = location.href.split('?')[1].split('&');
+        //localStorage.setItem('state', q[0].split('=')[1]);
+        //location.href = location.origin + "/auth/#/google/" + location.search.replace('?', '').replace('/', 'xxxx');
+        //location.href = location.origin + "/auth/#/google/" + location.search;
+
+        //if (location.href.indexOf('?') > -1 && location.href.indexOf('google') > -1) {
+
+        //}
     </script>
 </head>
 <body>
-    
+
 </body>
 </html>

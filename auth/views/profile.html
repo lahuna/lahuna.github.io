@@ -5,19 +5,39 @@
     *****************************************************************************************************************-->
 <div class="container">
   <div class="row">
-    <div class="col-md-offset-3 col-md-4">
+    <div class="col-sm-4">
       <h4>Profile</h4>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-offset-3 col-md-4">
+    <div class="col-sm-6">
       <table class="table table-border">
         <tbody>
           <!--<tr><td>App:</td><td>{{app}}</td></tr>-->
           <tr><td>Display Name:</td><td>{{profile.displayName}}</td></tr>
           <tr><td>Email:</td><td>{{profile.emails[0].value}}</td></tr>
+          <tr><td>Gender:</td><td>{{profile.gender}}</td></tr>
+          <tr><td>Type:</td><td>{{profile.objectType}}</td></tr>
+          <tr><td>Language:</td><td>{{profile.language}}</td></tr>
+          <tr><td>Google+ User:</td><td>{{profile.isPlusUser}}</td></tr>
+          <tr><td>Circled:</td><td>{{profile.circledByCount}}</td></tr>
+          <tr><td>Url:</td><td><a href={{profile.url}} target="_blank">{{profile.url}}</a></td></tr>
         </tbody>
       </table>
     </div>
+    <div class="col-sm-2">
+      <img class="img-responsive" src={{image}}>
+    </div>
+    <div class="col-sm-4">
+      <img class="img-responsive" src={{profile.cover.coverPhoto.url}}>
+    </div>
   </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <a href="/{{app}}/#/profile" ng-click="showRaw()">Raw</a>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <pre ng-show="rawVisible">{{raw}}</pre>
 </div>

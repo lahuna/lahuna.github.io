@@ -21,7 +21,8 @@ var app = angular.module('foto', [
   'EditAlbumController',
   'EditPhotoController',
   'TagsController',
-  'ToolsController'
+  'ToolsController',
+  'ProfileController'
 ]);
 
 app.config(
@@ -35,6 +36,10 @@ app.config(
             //templateUrl: 'views/main.html',
             //controller: 'MainCtrl'
         //}).
+        when('/profile', {
+            templateUrl: '/auth/views/profile.html',
+            controller: 'ProfileCtrl'
+        }).
         when('/photos', {
             templateUrl: 'views/photos.html',
             controller: 'PhotosCtrl'
