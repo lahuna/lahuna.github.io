@@ -13,7 +13,7 @@ ctl.controller('MainCtrl', function ($scope, $route, Auth, $rootScope) {
   $scope.origin = location.origin;
   //// Authenticate
   Auth.Authenticate('foto', function (result) {
-    $rootScope.displayName = result;
+    $rootScope.profile = result;
     $rootScope.showSignIn = !result;
     //$scope.displayName = result;
     //Initialize();
@@ -25,7 +25,7 @@ ctl.controller('MainCtrl', function ($scope, $route, Auth, $rootScope) {
 
   $rootScope.SignOut = function () {
     Auth.SignOut('foto');
-    $rootScope.displayName = null;
+    $rootScope.profile = null;
     $rootScope.showSignIn = true;
     $route.reload();
   }

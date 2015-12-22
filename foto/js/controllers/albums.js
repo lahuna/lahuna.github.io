@@ -13,7 +13,7 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
 
           // Authenticate
           Auth.Authenticate('foto', function (result) {
-            $rootScope.displayName = result;
+            $rootScope.profile = result;
             $rootScope.showSignIn = !result;
             Initialize();
             Initialize();
@@ -25,7 +25,7 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
 
           $rootScope.SignOut = function () {
             Auth.SignOut('foto');
-            $rootScope.displayName = null;
+            $rootScope.profile = null;
             $rootScope.showSignIn = true;
             $route.reload();
           }

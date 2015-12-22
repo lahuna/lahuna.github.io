@@ -13,7 +13,7 @@ ctl.controller('ToolsCtrl',
 
         // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $rootScope.displayName = result;
+          $rootScope.profile = result;
           $rootScope.showSignIn = !result;
         });
 
@@ -23,7 +23,7 @@ ctl.controller('ToolsCtrl',
 
         $rootScope.SignOut = function () {
           Auth.SignOut('vida');
-          $rootScope.displayName = null;
+          $rootScope.profile = null;
           $rootScope.showSignIn = true;
           $route.reload();
         }

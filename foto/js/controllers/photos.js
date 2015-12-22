@@ -14,7 +14,7 @@ ctl.controller('PhotosCtrl',
 
   // Authenticate
   Auth.Authenticate('foto', function (result) {
-    $rootScope.displayName = result;
+    $rootScope.profile = result;
     $rootScope.showSignIn = !result;
     Initialize();
   });
@@ -25,7 +25,7 @@ ctl.controller('PhotosCtrl',
 
   $rootScope.SignOut = function () {
     Auth.SignOut('foto');
-    $rootScope.displayName = null;
+    $rootScope.profile = null;
     $rootScope.showSignIn = true;
     $route.reload();
   }

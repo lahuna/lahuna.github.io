@@ -14,7 +14,7 @@ ctl.controller('DataVideoCtrl',
 
         // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $rootScope.displayName = result;
+          $rootScope.profile = result;
           $rootScope.showSignIn = !result;
           if (result) {
             Initialize();
@@ -27,7 +27,7 @@ ctl.controller('DataVideoCtrl',
 
         $rootScope.SignOut = function () {
           Auth.SignOut('vida');
-          $rootScope.displayName = null;
+          $rootScope.profile = null;
           $rootScope.showSignIn = true;
           $route.reload();
         }

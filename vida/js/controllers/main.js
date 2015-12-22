@@ -13,7 +13,7 @@ ctl.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $route, A
   //$scope.origin = location.origin;
   Auth.Authenticate('vida', function (result) {
     //$scope.displayName = result;
-    $rootScope.displayName = result;
+    $rootScope.profile = result;
     $rootScope.showSignIn = !result;
     //Initialize();
   });
@@ -24,7 +24,7 @@ ctl.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $route, A
 
   $rootScope.SignOut = function () {
     Auth.SignOut('vida');
-    $rootScope.displayName = null;
+    $rootScope.profile = null;
     $rootScope.showSignIn = true;
     $route.reload();
   }

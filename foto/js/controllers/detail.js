@@ -24,7 +24,7 @@ ctl.controller('DetailCtrl',
 
   $rootScope.SignOut = function () {
     Auth.SignOut('foto');
-    $rootScope.displayName = null;
+    $rootScope.profile = null;
     $rootScope.showSignIn = true;
     $route.reload();
   }

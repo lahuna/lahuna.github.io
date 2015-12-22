@@ -12,7 +12,7 @@ ctl.controller('AlbumPhotosCtrl', function ($scope, $routeParams,
   PicasaAlbumFeedResource, Auth, $route, $rootScope) {
 
     Auth.Authenticate('foto', function (result) {
-      $rootScope.displayName = result;
+      $rootScope.profile = result;
       $rootScope.showSignIn = !result;
       Initialize();
     });
@@ -23,7 +23,7 @@ ctl.controller('AlbumPhotosCtrl', function ($scope, $routeParams,
 
     $rootScope.SignOut = function () {
       Auth.SignOut('foto');
-      $rootScope.displayName = null;
+      $rootScope.profile = null;
       $rootScope.showSignIn = true;
       $route.reload();
     }

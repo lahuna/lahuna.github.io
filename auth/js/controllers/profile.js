@@ -9,14 +9,17 @@
 var ctl = angular.module('ProfileController', ['AuthResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('ProfileCtrl', function ($scope, $routeParams, $rootScope,
-  Auth, GoogleProfileResource, $route) {
+  Auth, $route) {
 
   $scope.app = GetApp();
 
   Auth.Authenticate($scope.app, function (result) {
-    $rootScope.displayName = result;
+    $rootScope.profile = result;
     $rootScope.showSignIn = !result;
-    GetProfile();
+    if (result) {
+      $scope.image = result.image.url.replace('sz=50', 'sz=150');
+      $scope.raw = JSON.stringify(result, null, '\t');
+    }
   });
 
   $rootScope.SignIn = function () {
@@ -25,12 +28,12 @@ ctl.controller('ProfileCtrl', function ($scope, $routeParams, $rootScope,
 
   $rootScope.SignOut = function () {
     Auth.SignOut($scope.app);
-    $rootScope.displayName = null;
+    $rootScope.profile = null;
     $rootScope.showSignIn = true;
     $route.reload();
   }
 
-  function GetProfile() {
+  /*function GetProfile() {
     GoogleProfileResource(GetAccessToken()).Get()
     .$promise.then(function (data) {
       $scope.profile = data;
@@ -53,7 +56,7 @@ ctl.controller('ProfileCtrl', function ($scope, $routeParams, $rootScope,
         return localStorage.getItem("blogger_access_token");
         break;
     }
-  }
+  }*/
 
   function GetApp() {
     if (location.href.indexOf('foto') > -1) {

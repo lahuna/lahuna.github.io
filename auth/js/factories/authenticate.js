@@ -31,7 +31,7 @@ fac.factory('Auth', function (AuthenticateResource) {
         return callback();
       } else {
         StoreValues(data, app);
-        return callback(data.displayName);
+        return callback(data.profile);
       }
     }, function (error) {
         return callback();

@@ -11,7 +11,7 @@ var ctl = angular.module('ChannelController', ['ResourceFactory', 'AuthenticateF
 ctl.controller('ChannelCtrl', function ($scope, $rootScope, $route, $routeParams, ChannelResource, Auth) {
 
   Auth.Authenticate('vida', function (result) {
-    $rootScope.displayName = result;
+    $rootScope.profile = result;
     $rootScope.showSignIn = !result;
     Initialize();
   });
@@ -22,7 +22,7 @@ ctl.controller('ChannelCtrl', function ($scope, $rootScope, $route, $routeParams
 
   $rootScope.SignOut = function () {
     Auth.SignOut('vida');
-    $rootScope.displayName = null;
+    $rootScope.profile = null;
     $rootScope.showSignIn = true;
     $route.reload();
   }

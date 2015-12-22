@@ -16,6 +16,15 @@ fil.filter('checkmark', function () {
     };
 });
 
+fil.filter('profile', function () {
+    return function (input) {
+        if (input)
+            return input.replace('sz=50', 'sz=35');
+        else
+            return input;
+    };
+});
+
 fil.filter('cmdate', function () {
     return function (input) {
         if (input)

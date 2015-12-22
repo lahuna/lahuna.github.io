@@ -18,7 +18,7 @@ fac.factory('GoogleAccessTokenResource', function ($resource) {
 });
 
 // Google Profile
-fac.factory('GoogleProfileResource', function ($resource) {
+/*fac.factory('GoogleProfileResource', function ($resource) {
   return function (accessToken) {
     return $resource('https://www.googleapis.com/plus/v1/people/me', {}, {
       Get: {
@@ -27,7 +27,7 @@ fac.factory('GoogleProfileResource', function ($resource) {
       }
     });
   }
-});
+});*/
 
 // Lahuna User
 fac.factory('UserResource', function ($resource) {

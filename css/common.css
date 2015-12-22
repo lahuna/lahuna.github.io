@@ -272,6 +272,12 @@ input[type=range] {
     margin-top: -4px;
 }
 
+.profile {
+    margin-right: 10px;
+    margin-top: -8px;
+    margin-bottom: -8px;
+}
+
 .logo {
     background-color: #328ea3;
     width: 205px;

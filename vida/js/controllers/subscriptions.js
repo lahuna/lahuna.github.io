@@ -13,7 +13,7 @@ ctl.controller('SubscriptionsCtrl',
 
         // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $rootScope.displayName = result;
+          $rootScope.profile = result;
           $rootScope.showSignIn = !result;
           Initialize();
         });
@@ -24,7 +24,7 @@ ctl.controller('SubscriptionsCtrl',
 
         $rootScope.SignOut = function () {
           Auth.SignOut('vida');
-          $rootScope.displayName = null;
+          $rootScope.profile = null;
           $rootScope.showSignIn = true;
           $route.reload();
         }

@@ -13,7 +13,7 @@ ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
 
       // Authenticate
       Auth.Authenticate('foto', function (result) {
-        $rootScope.displayName = result;
+        $rootScope.profile = result;
         $rootScope.showSignIn = !result;
         Initialize();
       });
@@ -24,7 +24,7 @@ ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
 
       $rootScope.SignOut = function () {
         Auth.SignOut('foto');
-        $rootScope.displayName = null;
+        $rootScope.profile = null;
         $rootScope.showSignIn = true;
         $route.reload();
       }

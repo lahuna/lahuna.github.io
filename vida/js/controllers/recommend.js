@@ -14,7 +14,7 @@ ctl.controller('RecommendCtrl',
 
         // Authenticate
         Auth.Authenticate('vida', function (result) {
-          $rootScope.displayName = result;
+          $rootScope.profile = result;
           $rootScope.showSignIn = !result;
           Initialize();
         });
@@ -25,7 +25,7 @@ ctl.controller('RecommendCtrl',
 
         $rootScope.SignOut = function () {
           Auth.SignOut('vida');
-          $rootScope.displayName = null;
+          $rootScope.profile = null;
           $rootScope.showSignIn = true;
           $route.reload();
         }

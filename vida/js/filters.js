@@ -8,6 +8,15 @@
 
 var fil = angular.module('Filters', []);
 
+fil.filter('profile', function () {
+    return function (input) {
+        if (input)
+            return input.replace('sz=50', 'sz=35');
+        else
+            return input;
+    };
+});
+
 fil.filter('issue', function () {
     return function (input) {
         if (input.rejectionReason) {
