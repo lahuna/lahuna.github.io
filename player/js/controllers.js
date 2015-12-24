@@ -33,7 +33,7 @@ ctl.controller('ViewerCtrl',
       Auth.SignOut('vida');
       $rootScope.profile = null;
       $rootScope.showSignIn = true;
-      $route.reload();
+      $window.location.reload();
     }
 
     function GetAccessToken() {

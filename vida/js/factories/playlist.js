@@ -6,11 +6,10 @@
 
 'use strict';
 
-var fac = angular.module('PlaylistFactory', ['ResourceFactory', 'AuthenticateFactory']);
+var fac = angular.module('PlaylistFactory', ['ResourceFactory']);
 
-fac.factory('Playlist', function (Auth, PlaylistDbResource,
-  PlaylistResource, PlaylistItemDbResource, PlaylistItemResource,
-  VideoResource, VideoDbResource) {
+fac.factory('Playlist', function (AddToPlaylistResource,
+  UpdatePlaylistResource, UpdateVideoResource) {
 
   return { 'AddToPlaylist': AddToPlaylist,
            'UpdatePlaylist': UpdatePlaylist,
@@ -21,106 +20,37 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
    }
 
   function AddToPlaylist(video, title, callback) {
-    GetPlaylistId(video, title, function (playlistId, playlistItemId) {
-      return callback(playlistId, playlistItemId);
+    var videoId = GetVideoId(video);
+    AddToPlaylistResource.Post({
+      'videoId': videoId,
+      'playlistItemId': video.playlistItemId,
+      'title': title,
+      'accessToken': GetAccessToken()
+    })
+    .$promise.then(function (data) {
+      return callback(data.playlistId, data.playlistItemId);
     });
   }
 
-  function GetPlaylistId(video, title, callback) {
-   var videoId = GetVideoId(video);
-   PlaylistDbResource.Get({
-     title: title,
-     accessToken: GetAccessToken(),
-     maxdocs: 1
-   }).$promise.then(function (data) {
-       if (data.list.length > 0) {
-         var plid = data.list[0].playlistId;
-         if (video.playlistItemId) {
-           RemovePlaylistItem(plid, video.playlistItemId, function () {
-             return callback(plid, null);
-           });
-         } else {
-           GetPlaylistItem(videoId, plid, function (playlistItemId) {
-             callback(plid, playlistItemId);
-           });
-         }
-       } else {
-         CreatePlaylist(videoId, title, function (playlistId, playlistItemId) {
-          callback(playlistId, playlistItemId);
-         });
-       }
-   });
-  }
-
-  function GetPlaylistItem(videoId, playlistId, callback) {
-    PlaylistItemResource.Get({
-      part: 'snippet',
-      playlistId: playlistId,
-      videoId: videoId,
-      maxResults: 50,
-      accessToken: GetAccessToken()
-    }).$promise.then(function (data) {
-      if (data.items.length == 0) {
-        AddPlaylistItem(videoId, playlistId, function (playlistItemId) {
-          callback(playlistItemId)
-        });
-      } else {
-        callback(data.playlistItemId);
-      }
+  function UpdatePlaylist(playlistId, callback) {
+    UpdatePlaylistResource.Put({
+      'playlistId': playlistId,
+      'accessToken': GetAccessToken()
+    })
+    .$promise.then(function (data) {
+      return callback(data);
     });
   }
 
-  function CreatePlaylist(videoId, title, callback) {
-    PlaylistResource.Post({
-      snippet: {
-        title: title,
-        tags: [title]
-      },
-      status: {
-        privacyStatus: 'unlisted'
-      },
-      accessToken: GetAccessToken()
-    }).$promise.then(function (data) {
-      AddPlaylistItem(videoId, data.id, function (playlistItemId) {
-        callback(data.id, playlistItemId)
-      });
-      InsertPlaylist(videoId, data);
+  function UpdateVideo(videoId, callback) {
+    UpdateVideoResource.Put({
+      'videoId': videoId,
+      'accessToken': GetAccessToken()
+    })
+    .$promise.then(function (data) {
+      return callback(data);
     });
   }
-
-  function AddPlaylistItem(videoId, playlistId, callback) {
-    PlaylistItemResource.Post({
-      snippet: {
-        playlistId: playlistId,
-        resourceId: {
-           kind: 'youtube#video',
-           videoId: videoId
-        }
-      },
-      accessToken: GetAccessToken()
-    }).$promise.then(function (data) {
-      callback(data.id);
-      InsertPlaylistItem(data);
-      UpdatePlaylist(playlistId, function (result) {
-
-      });
-    });
-  }
-
-  function RemovePlaylistItem(playlistId, playlistItemId, callback) {
-    PlaylistItemResource.Delete({
-      id: playlistItemId,
-      accessToken: GetAccessToken()
-    }).$promise.then(function (data) {
-      callback();
-      DeletePlaylistItem(playlistItemId);
-      UpdatePlaylist(playlistId, function (result) {
-
-      });
-    });
-  }
-
-  //************************************************
 
   function GetVideoId(video) {
     var videoId = video.id.videoId;
@@ -134,83 +64,5 @@ fac.factory('Playlist', function (Auth, PlaylistDbResource,
     }
 
     return videoId;
-  }
-
-  function InsertPlaylistItem(data) {
-    PlaylistItemDbResource.Post({
-      playlistItemId: data.id,
-      playlistId: data.snippet.playlistId,
-      videoId: data.snippet.resourceId.videoId,
-      accessToken: GetAccessToken()
-    });
-  }
-
-  function DeletePlaylistItem(playlistItemId) {
-    PlaylistItemDbResource.Delete({
-      playlistItemId: playlistItemId,
-      accessToken: GetAccessToken()
-    });
-  }
-
-  function InsertPlaylist(videoId, data) {
-    PlaylistDbResource.Post({
-      playlistId: data.id,
-      title: data.snippet.title,
-      thumbnail: data.snippet.thumbnails.default.url,
-      tags: data.snippet.tags.toString(),
-      published: data.snippet.publishedAt,
-      privacy: data.status.privacyStatus,
-      accessToken: GetAccessToken()
-    });
-  }
-
-  function UpdatePlaylist(playlistId, callback) {
-    PlaylistResource.Get({
-      id: playlistId,
-      part: 'snippet,status',
-      accessToken: GetAccessToken()
-    }).$promise.then(function (data) {
-      var pl = data.items[0];
-      PlaylistDbResource.Put({
-         playlistId: pl.id,
-         title: pl.snippet.title,
-         thumbnail: pl.snippet.thumbnails.default.url,
-         tags: SetTags(pl),
-         published: pl.snippet.publishedAt,
-         privacy: pl.status.privacyStatus,
-         accessToken: GetAccessToken()
-      }).$promise.then(function (result) {
-        callback(result);
-      });
-    });
-  }
-
-  function UpdateVideo(videoId, callback) {
-    VideoResource.Get({
-      id: videoId,
-      part: 'snippet,status',
-      accessToken: GetAccessToken()
-    }).$promise.then(function (data) {
-      var v = data.items[0];
-      VideoDbResource.Put({
-         videoId: v.id,
-         title: v.snippet.title,
-         thumbnail: v.snippet.thumbnails.default.url,
-         tags: SetTags(v),
-         published: v.snippet.publishedAt,
-         privacy: v.status.privacyStatus,
-         accessToken: GetAccessToken()
-      }).$promise.then(function (result) {
-        callback(result);
-      });
-    });
-  }
-
-  function SetTags(item) {
-    if (item.snippet.tags) {
-      return item.snippet.tags.toString();
-    } else {
-      return '[]';
-    }
   }
 });

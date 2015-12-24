@@ -242,6 +242,35 @@ fac.factory('PlaylistItemResource', function ($resource) {
   }
 });*/
 
+// Add to Playlist
+fac.factory('AddToPlaylistResource', function ($resource) {
+  return $resource(location.origin + ':8000/playlist/addto', {}, {
+    Post: {
+      method: 'POST'
+    }
+  });
+});
+
+// Update Playlist
+fac.factory('UpdatePlaylistResource', function ($resource) {
+  return $resource(location.origin + ':8000/playlist/update', {}, {
+    Put: {
+      method: 'PUT'
+    }
+  });
+});
+
+// Update Video
+fac.factory('UpdateVideoResource', function ($resource) {
+  return $resource(location.origin + ':8000/video/update', {}, {
+    Put: {
+      method: 'PUT'
+    }
+  });
+});
+
+
+
 // Playlists Db
 fac.factory('PlaylistDbResource', function ($resource) {
   return $resource(location.origin + ':8000/playlist', {}, {
