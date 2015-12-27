@@ -71,8 +71,8 @@ ctl.controller('VideosCtrl',
         }
 
         function Search() {
-            localStorage.setItem('video_search', $scope.search);
-            localStorage.setItem('video_order', $scope.order);
+            Auth.Store('video_search', $scope.search);
+            Auth.Store('video_order', $scope.order);
 
             var query = GetSearch();
             YoutubeSearchResource.Get({

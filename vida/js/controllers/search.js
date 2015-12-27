@@ -66,8 +66,8 @@ ctl.controller('SearchCtrl',
         }
 
         function Search() {
-            localStorage.setItem('youtube_search', $scope.search);
-            localStorage.setItem('youtube_order', $scope.order);
+            Auth.Store('youtube_search', $scope.search);
+            Auth.Store('youtube_order', $scope.order);
 
             $scope.list = YoutubeSearchResource.Get({
                 q: GetSearch(),

@@ -6,7 +6,16 @@
 
 'use strict';
 
-var fac = angular.module('AuthResourceFactory', ['ngResource']);
+var fac = angular.module('ResourceFactory', ['ngResource']);
+
+// Authenticate
+fac.factory('AuthenticateResource', function ($resource) {
+  return $resource(location.origin + ':8000/google/authenticate', {}, {
+    Get: {
+      method: 'GET'
+    }
+  });
+});
 
 // Google Access Token
 fac.factory('GoogleAccessTokenResource', function ($resource) {

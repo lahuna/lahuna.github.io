@@ -6,10 +6,10 @@
 
 'use strict';
 
-var ctl = angular.module('GoogleController', ['AuthResourceFactory']);
+var ctl = angular.module('GoogleController', ['AuthenticateFactory', 'ResourceFactory']);
 
 ctl.controller('GoogleCtrl', function ($scope, $routeParams,
-  GoogleAccessTokenResource, UserResource) {
+  GoogleAccessTokenResource, UserResource, Auth) {
 
       //localStorage.getItem('code');
       //localStorage.getItem('state');
@@ -20,8 +20,9 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams,
           'code': localStorage.getItem('code'),
           'redirectUri': location.origin + "/auth/google" })
         .$promise.then(function (token) {
-          StoreTokens(token);
-
+          if (!token.error) {
+            StoreTokens(token);
+          }
             //GetProfile(token);
         });
 
@@ -36,17 +37,17 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams,
         /*function StoreTokens(token) {
           var state = localStorage.getItem('state');
           if (state.indexOf('foto') > -1) {
-            localStorage.setItem("google_access_token", token.access_token);
-            localStorage.setItem("google_expires_in", token.expires_in);
-            localStorage.setItem("google_refresh_token", token.refresh_token);
+            Auth.Store("google_access_token", token.access_token);
+            Auth.Store("google_expires_in", token.expires_in);
+            Auth.Store("google_refresh_token", token.refresh_token);
           } else if (state.indexOf('vida') > -1) {
-            localStorage.setItem("youtube_access_token", token.access_token);
-            localStorage.setItem("youtube_expires_in", token.expires_in);
-            localStorage.setItem("youtube_refresh_token", token.refresh_token);
+            Auth.Store("youtube_access_token", token.access_token);
+            Auth.Store("youtube_expires_in", token.expires_in);
+            Auth.Store("youtube_refresh_token", token.refresh_token);
           } else if (state.indexOf('blitz') > -1) {
-            localStorage.setItem("blogger_access_token", token.access_token);
-            localStorage.setItem("blogger_expires_in", token.expires_in);
-            localStorage.setItem("blogger_refresh_token", token.refresh_token);
+            Auth.Store("blogger_access_token", token.access_token);
+            Auth.Store("blogger_expires_in", token.expires_in);
+            Auth.Store("blogger_refresh_token", token.refresh_token);
           }
 
           GetUser(token);
@@ -57,30 +58,30 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams,
             //$scope.refresh_token = token.refresh_token;
             switch ($routeParams.state) {
                 case "foto":
-                    localStorage.setItem("google_access_token", token.access_token);
-                    localStorage.setItem("google_expires_in", token.expires_in);
-                    localStorage.setItem("google_refresh_token", token.refresh_token);
+                    Auth.Store("google_access_token", token.access_token);
+                    Auth.Store("google_expires_in", token.expires_in);
+                    Auth.Store("google_refresh_token", token.refresh_token);
                     break;
 
                 case "vida":
-                    localStorage.setItem("youtube_access_token", token.access_token);
-                    localStorage.setItem("youtube_expires_in", token.expires_in);
-                    localStorage.setItem("youtube_refresh_token", token.refresh_token);
+                    Auth.Store("youtube_access_token", token.access_token);
+                    Auth.Store("youtube_expires_in", token.expires_in);
+                    Auth.Store("youtube_refresh_token", token.refresh_token);
                     break;
 
                 case "blitz":
-                    localStorage.setItem("blogger_access_token", token.access_token);
-                    localStorage.setItem("blogger_expires_in", token.expires_in);
-                    localStorage.setItem("blogger_refresh_token", token.refresh_token);
+                    Auth.Store("blogger_access_token", token.access_token);
+                    Auth.Store("blogger_expires_in", token.expires_in);
+                    Auth.Store("blogger_refresh_token", token.refresh_token);
                     break;
             }
 
-            GetUser(token);
+            GetUser(token.access_token);
         }
 
-        function GetUser(token) {
+        function GetUser(accessToken) {
             UserResource.Get({
-              accessToken: token.access_token
+              'accessToken': accessToken
             }).$promise.then(function (data) {
                 if (data.message == 'Found') {
                   location.href = localStorage.getItem('auth_redirect');

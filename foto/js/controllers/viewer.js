@@ -112,15 +112,15 @@ ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
       //}
 
       $scope.StoreId = function (photoId) {
-          localStorage.setItem('fotoId', photoId);
+          Auth.Store('fotoId', photoId);
       }
 
       //$scope.Go = function (photo) {
       //    if (photo.gphoto$originalvideo != undefined) {
-      //        localStorage.setItem('fotoId', photo.gphoto$id.$t);
+      //        Auth.Store('fotoId', photo.gphoto$id.$t);
       //        location.href = "/foto/#/video/viewer/" + photo.gphoto$id.$t;
       //    } else {
-      //        localStorage.setItem('fotoId', photo.gphoto$id.$t);
+      //        Auth.Store('fotoId', photo.gphoto$id.$t);
       //        location.href = photo.media$group.media$thumbnail[0].url.replace('72', '1200');
       //    }
 

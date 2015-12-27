@@ -70,8 +70,8 @@ ctl.controller('PlaylistsCtrl',
         }
 
         function Search() {
-            localStorage.setItem('playlist_search', $scope.search);
-            localStorage.setItem('playlist_order', $scope.order);
+            Auth.Store('playlist_search', $scope.search);
+            Auth.Store('playlist_order', $scope.order);
 
             var query = GetQuery();
             PlaylistDbResource.Get({

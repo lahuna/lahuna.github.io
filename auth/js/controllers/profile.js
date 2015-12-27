@@ -6,7 +6,7 @@
 
 'use strict';
 
-var ctl = angular.module('ProfileController', ['AuthResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('ProfileController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('ProfileCtrl', function ($scope, $routeParams, $rootScope,
   Auth, $route) {

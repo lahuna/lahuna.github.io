@@ -1,5 +1,5 @@
 <!--*****************************************************************************************************************
-     Copyright © 2014 - 2015 Lahuna. All rights reserved.
+     Copyright ï¿½ 2014 - 2015 Lahuna. All rights reserved.
      You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
      make available to the public any content or code on this website without prior written permission from Lahuna.
     *****************************************************************************************************************-->
@@ -9,7 +9,13 @@
         <div class="col-md-offset-4 col-md-3">
             <h4>{{title}}</h4>
         </div>
-    </div>
+        <div class="col-md-offset-3 col-md-4">
+            <a ng-click="SignIn()" ng-show="showSignIn" class="list-group-item signInDiv">
+              <span class="glyphicon glyphicon-log-in signInBtn"></span>
+              <span>Sign in here to view photos</span>
+            </a>
+        </div>
+    </div>    
     <div class="row text-center">
         <div class="col-md-12">
             <span ng-repeat="photo in list.feed.entry">

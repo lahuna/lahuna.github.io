@@ -91,12 +91,12 @@ ctl.controller('DataVideoCtrl',
         }
 
         function Search() {
-            localStorage.setItem('video_search', $scope.search);
-            localStorage.setItem('video_order', $scope.order);
-            localStorage.setItem('video_privacy', $scope.privacy);
-            localStorage.setItem('video_def', $scope.def);
-            localStorage.setItem('video_embed', $scope.embed);
-            localStorage.setItem('video_issue', $scope.issue);
+            Auth.Store('video_search', $scope.search);
+            Auth.Store('video_order', $scope.order);
+            Auth.Store('video_privacy', $scope.privacy);
+            Auth.Store('video_def', $scope.def);
+            Auth.Store('video_embed', $scope.embed);
+            Auth.Store('video_issue', $scope.issue);
 
             var query = GetQuery();
             VideoDbResource.Get({

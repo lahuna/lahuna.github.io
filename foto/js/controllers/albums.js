@@ -16,7 +16,6 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
             $rootScope.profile = result;
             $rootScope.showSignIn = !result;
             Initialize();
-            Initialize();
           });
 
           $rootScope.SignIn = function () {
@@ -73,8 +72,8 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
         }
 
         function Search() {
-            localStorage.setItem("album_search", $scope.search);
-            localStorage.setItem("album_order", $scope.order);
+            Auth.Store("album_search", $scope.search);
+            Auth.Store("album_order", $scope.order);
 
             var query = $scope.search;
             AlbumDbResource.Get({
@@ -132,7 +131,7 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
         // Import
         //*********************************************
 
-        $scope.Import = function () {
+        /*$scope.Import = function () {
             SetAlert('warning', 'Importing albums...');
 
             ImportAlbumResource.Get({
@@ -154,7 +153,7 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
 
         function SetAlert(type, msg) {
             $scope.alerts = [{ type: type, msg: msg }];
-        }
+        }*/
 
         //*********************************************
         // Search Suggestions

@@ -12,7 +12,8 @@ fac.factory('Auth', function (AuthenticateResource) {
 
   return { 'Authenticate': Authenticate,
            'SignIn': SignIn,
-           'SignOut': SignOut };
+           'SignOut': SignOut,
+           'Store': Store };
 
   function Authenticate(app, callback) {
     var accessToken = GetAccessToken(app);
@@ -41,15 +42,15 @@ fac.factory('Auth', function (AuthenticateResource) {
   function StoreValues(data, app) {
     switch (app) {
       case "foto":
-        localStorage.setItem('google_access_token', data.access_token);
-        localStorage.setItem('google_user_id', data.user_id);
-        localStorage.setItem('google_expires_in', data.expires_in);
+        Store('google_access_token', data.access_token);
+        Store('google_user_id', data.user_id);
+        Store('google_expires_in', data.expires_in);
         break;
 
       case "vida":
-        localStorage.setItem('youtube_access_token', data.access_token);
-        localStorage.setItem('youtube_user_id', data.user_id);
-        localStorage.setItem('youtube_expires_in', data.expires_in);
+        Store('youtube_access_token', data.access_token);
+        Store('youtube_user_id', data.user_id);
+        Store('youtube_expires_in', data.expires_in);
         break;
     }
   }
@@ -98,6 +99,14 @@ fac.factory('Auth', function (AuthenticateResource) {
         localStorage.removeItem('youtube_user_id');
         localStorage.removeItem('youtube_expires_in');
         break;
+    }
+  }
+
+  function Store(key, value) {
+    if (!value) {
+      localStorage.removeItem('key');
+    } else {
+      localStorage.setItem(key, value);
     }
   }
 

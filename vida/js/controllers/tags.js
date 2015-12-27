@@ -53,12 +53,12 @@ ctl.controller('TagsCtrl',
         }
 
         $scope.StoreFilter = function () {
-            localStorage.setItem('tag_search', $scope.search);
+            Auth.Store('tag_search', $scope.search);
         }
 
         $scope.ClearFilter = function () {
             $scope.search = '';
-            localStorage.setItem('tag_search', '');
+            Auth.Store('tag_search', '');
         }
 
         $scope.Delete = function (item) {

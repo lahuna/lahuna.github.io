@@ -80,7 +80,7 @@ ctl.controller('PhotosCtrl',
   }
 
   function Search() {
-    localStorage.setItem("photo_search", $scope.search);
+    Auth.Store("photo_search", $scope.search);
 
     var query = $scope.search;
     PicasaResource.Get({
@@ -111,7 +111,7 @@ ctl.controller('PhotosCtrl',
   }
 
   $scope.StoreId = function (photoId) {
-    localStorage.setItem('fotoId', photoId);
+    Auth.Store('fotoId', photoId);
   }
 
   //*********************************************

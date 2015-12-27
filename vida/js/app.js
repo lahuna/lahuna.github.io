@@ -61,11 +61,11 @@ app.config(['$routeProvider',
                 controller: 'SearchCtrl'
             }).
             when('/my-videos', {
-                templateUrl: 'views/search-video.html',
+                templateUrl: 'views/my-videos.html',
                 controller: 'VideosCtrl'
             }).
             when('/my-videos/:query', {
-                templateUrl: 'views/search-video.html',
+                templateUrl: 'views/my-videos.html',
                 controller: 'VideosCtrl'
             }).
             //when('/my-videos-all', {

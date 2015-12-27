@@ -8,10 +8,16 @@
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
             <h4>{{heading}}</h4>
-            <button class="btn btn-default" ng-show="btnVisible" ng-click="Subscribe()"><span class="{{btnIcon}}"></span> {{btnText}}</button>
+            <button class="btn btn-default" ng-show="btnVisible && !showSignIn && btnText.length > 0" ng-click="Subscribe()"><span class="{{btnIcon}}"></span> {{btnText}}</button>
+        </div>
+        <div class="col-md-offset-3 col-md-5">
+            <a ng-click="SignIn()" ng-show="showSignIn" class="list-group-item signInDiv">
+              <span class="glyphicon glyphicon-log-in signInBtn"></span>
+              <span>Sign in here to subscribe or add to playlist</span>
+            </a>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-show="!showSignIn">
         <div class="col-md-offset-4 col-md-3">
             <div class="input-group">
                 <span class="input-group-addon" id="playlist_addon">Add To:</span>

@@ -13,6 +13,33 @@ input[type=range] {
     width: 200px;
 }
 
+.navbar {
+  margin-bottom: 10px !important;
+}
+
+.signInDiv {
+  padding: 5px;
+  /*padding-left: 15px;*/
+  /**/
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #8a6d3b !important;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  text-align: center;
+  cursor: pointer;
+}
+
+.infoDiv {
+  padding: 5px !important;
+  text-align: center !important;
+  margin-bottom: 5px !important;
+}
+
+.signInBtn {
+  padding-right: 5px;
+}
+
 .MainHeading {
     text-align: center;
 }

@@ -6,12 +6,12 @@
 
 'use strict';
 
-var ctl = angular.module('Controllers', ['ResourceFactory']);
+var ctl = angular.module('Controllers', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('MainCtrl', function ($scope, $routeParams,
   GoogleProfileResource, GoogleRefreshTokenResource,
   BloggerGetResource, BloggerPostResource, BloggerGetPostsResource,
-  FacebookProfileResource, FacebookPostResource,
+  FacebookProfileResource, FacebookPostResource, Auth,
    LinkedInProfileResource, LinkedInPostResource,
   ImgurProfileResource, ImgurPostResource, ImgurRefreshTokenResource,
   RedditProfileResource, RedditPostResource, RedditRefreshTokenResource,
@@ -39,13 +39,17 @@ ctl.controller('MainCtrl', function ($scope, $routeParams,
       //GetBloggerPosts();
   };
 
+  $scope.LoginToGoogle = function () {
+    Auth.SignIn('blitz');
+  }
+
   $scope.LoginToTwitter = function () {
       TwitterRequestTokenResource.Post({
         redirectUri: location.origin + "/blitz/twitter"
       })
       .$promise.then(function (data) {
-          localStorage.setItem("twitter_oauth_token", data.oauth_token);
-          localStorage.setItem("twitter_oauth_token_secret", data.oauth_token_secret);
+          Auth.Store("twitter_oauth_token", data.oauth_token);
+          Auth.Store("twitter_oauth_token_secret", data.oauth_token_secret);
           location.href = "https://api.twitter.com/oauth/authenticate?oauth_token=" + data.oauth_token;
       });
   };
@@ -55,8 +59,8 @@ ctl.controller('MainCtrl', function ($scope, $routeParams,
         redirectUri: location.origin + "/blitz/tumblr"
       })
       .$promise.then(function (data) {
-          localStorage.setItem("tumblr_oauth_token", data.oauth_token);
-          localStorage.setItem("tumblr_oauth_token_secret", data.oauth_token_secret);
+          Auth.Store("tumblr_oauth_token", data.oauth_token);
+          Auth.Store("tumblr_oauth_token_secret", data.oauth_token_secret);
           location.href = "https://www.tumblr.com/oauth/authorize?oauth_token=" + data.oauth_token;
       });
   };
@@ -77,8 +81,8 @@ ctl.controller('MainCtrl', function ($scope, $routeParams,
           refresh_token: localStorage.getItem("blogger_refresh_token")
       })
       .$promise.then(function (data) {
-          localStorage.setItem("blogger_access_token", data.access_token);
-          localStorage.setItem("blogger_expires_in", data.expires_in);
+          Auth.Store("blogger_access_token", data.access_token);
+          Auth.Store("blogger_expires_in", data.expires_in);
           $scope.google_profile = GoogleProfileResource(data.access_token).Get();
           GetBlogger();
       });
@@ -164,11 +168,11 @@ ctl.controller('MainCtrl', function ($scope, $routeParams,
           refresh_token: localStorage.getItem("imgur_refresh_token")
       })
       .$promise.then(function (data) {
-          localStorage.setItem("imgur_access_token", data.access_token);
-          localStorage.setItem("imgur_expires_in", data.expires_in);
-          localStorage.setItem("imgur_refresh_token", data.refresh_token);
-          localStorage.setItem("imgur_account_username", data.account_username);
-          localStorage.setItem("imgur_account_id", data.account_id);
+          Auth.Store("imgur_access_token", data.access_token);
+          Auth.Store("imgur_expires_in", data.expires_in);
+          Auth.Store("imgur_refresh_token", data.refresh_token);
+          Auth.Store("imgur_account_username", data.account_username);
+          Auth.Store("imgur_account_id", data.account_id);
           $scope.imgur_username = data.account_username;
       });
   }
@@ -202,8 +206,8 @@ ctl.controller('MainCtrl', function ($scope, $routeParams,
       })
       .$promise.then(function (data) {
           var accessToken = data.access_token;
-          localStorage.setItem("reddit_access_token", accessToken);
-          localStorage.setItem("reddit_expires_in", data.expires_in);
+          Auth.Store("reddit_access_token", accessToken);
+          Auth.Store("reddit_expires_in", data.expires_in);
           $scope.reddit_profile = RedditProfileResource.Get({
             accessToken: accessToken
           });
@@ -262,10 +266,10 @@ ctl.controller('MainCtrl', function ($scope, $routeParams,
   }
 });
 
-ctl.controller('FacebookCtrl', function ($scope, $routeParams, $location) {
+ctl.controller('FacebookCtrl', function ($scope, $routeParams, $location, Auth) {
 
-  localStorage.setItem("facebook_access_token", $routeParams.access_token);
-  localStorage.setItem("facebook_expires_in", $routeParams.expires_in);
+  Auth.Store("facebook_access_token", $routeParams.access_token);
+  Auth.Store("facebook_expires_in", $routeParams.expires_in);
   if ($routeParams.state == "media")
       $location.path('/facebook');
   else
@@ -275,7 +279,7 @@ ctl.controller('FacebookCtrl', function ($scope, $routeParams, $location) {
 ctl.controller('FacebookMediaCtrl', function ($scope, $routeParams, $location,
   FacebookProfileResource, FacebookPostsResource,
   FacebookAlbumsResource, FacebookPhotosResource, FacebookVideosResource,
-  FacebookAccountsResource) {
+  FacebookAccountsResource, Auth) {
 
   $scope.facebook_profile = FacebookProfileResource.Get({
       access_token: localStorage.getItem("facebook_access_token")
@@ -313,27 +317,27 @@ ctl.controller('FacebookMediaCtrl', function ($scope, $routeParams, $location,
 
 });
 
-ctl.controller('ImgurCtrl', function ($scope, $routeParams, $location) {
+ctl.controller('ImgurCtrl', function ($scope, $routeParams, $location, Auth) {
 
-  localStorage.setItem("imgur_access_token", $routeParams.access_token);
-  localStorage.setItem("imgur_expires_in", $routeParams.expires_in);
-  localStorage.setItem("imgur_refresh_token", $routeParams.refresh_token);
-  localStorage.setItem("imgur_account_username", $routeParams.account_username);
-  localStorage.setItem("imgur_account_id", $routeParams.account_id);
+  Auth.Store("imgur_access_token", $routeParams.access_token);
+  Auth.Store("imgur_expires_in", $routeParams.expires_in);
+  Auth.Store("imgur_refresh_token", $routeParams.refresh_token);
+  Auth.Store("imgur_account_username", $routeParams.account_username);
+  Auth.Store("imgur_account_id", $routeParams.account_id);
   $location.path('/');
 
 });
 
 ctl.controller('RedditCtrl', function ($scope, $routeParams, $location,
-  RedditAccessTokenResource) {
+  RedditAccessTokenResource, Auth) {
 
   if ($routeParams.state == "reddit") {
-      localStorage.setItem("reddit_code", $routeParams.code);
+      Auth.Store("reddit_code", $routeParams.code);
       RedditAccessTokenResource.Post({ code: $routeParams.code, redirectUri: location.origin + "/blitz/reddit" })
       .$promise.then(function (data) {
-          localStorage.setItem("reddit_access_token", data.access_token);
-          localStorage.setItem("reddit_expires_in", data.expires_in);
-          localStorage.setItem("reddit_refresh_token", data.refresh_token);
+          Auth.Store("reddit_access_token", data.access_token);
+          Auth.Store("reddit_expires_in", data.expires_in);
+          Auth.Store("reddit_refresh_token", data.refresh_token);
           $location.path('/');
       });
   }
@@ -342,14 +346,14 @@ ctl.controller('RedditCtrl', function ($scope, $routeParams, $location,
 });
 
 ctl.controller('LinkedInCtrl', function ($scope, $routeParams, $location,
-  LinkedInAccessTokenResource) {
+  LinkedInAccessTokenResource, Auth) {
 
   if ($routeParams.state == "linkedin") {
-      localStorage.setItem("linkedin_code", $routeParams.code);
+      Auth.Store("linkedin_code", $routeParams.code);
       LinkedInAccessTokenResource.Post({ code: $routeParams.code, redirectUri: location.origin + "/blitz/linkedin" })
       .$promise.then(function (data) {
-          localStorage.setItem("linkedin_access_token", data.access_token);
-          localStorage.setItem("linkedin_expires_in", data.expires_in);
+          Auth.Store("linkedin_access_token", data.access_token);
+          Auth.Store("linkedin_expires_in", data.expires_in);
           $location.path('/');
       });
   }
@@ -359,9 +363,9 @@ ctl.controller('LinkedInCtrl', function ($scope, $routeParams, $location,
 });
 
 ctl.controller('TwitterCtrl', function ($scope, $routeParams, $location,
-  TwitterAccessTokenResource) {
+  TwitterAccessTokenResource, Auth) {
 
-  localStorage.setItem("twitter_oauth_verifier", $routeParams.oauth_verifier);
+  Auth.Store("twitter_oauth_verifier", $routeParams.oauth_verifier);
   if ($routeParams.oauth_token == localStorage.getItem("twitter_oauth_token")) {
     TwitterAccessTokenResource.Post({
       oauth_token: $routeParams.oauth_token,
@@ -369,10 +373,10 @@ ctl.controller('TwitterCtrl', function ($scope, $routeParams, $location,
       oauth_verifier: $routeParams.oauth_verifier
     })
     .$promise.then(function (data) {
-      localStorage.setItem("twitter_access_token", data.oauth_token);
-      localStorage.setItem("twitter_access_token_secret", data.oauth_token_secret);
-      localStorage.setItem("twitter_user_id", data.user_id);
-      localStorage.setItem("twitter_screen_name", data.screen_name);
+      Auth.Store("twitter_access_token", data.oauth_token);
+      Auth.Store("twitter_access_token_secret", data.oauth_token_secret);
+      Auth.Store("twitter_user_id", data.user_id);
+      Auth.Store("twitter_screen_name", data.screen_name);
       $location.path('/');
     });
   }
@@ -382,9 +386,9 @@ ctl.controller('TwitterCtrl', function ($scope, $routeParams, $location,
 });
 
 ctl.controller('TumblrCtrl', function ($scope, $routeParams, $location,
-  TumblrAccessTokenResource) {
+  TumblrAccessTokenResource, Auth) {
 
-  localStorage.setItem("tumblr_oauth_verifier", $routeParams.oauth_verifier);
+  Auth.Store("tumblr_oauth_verifier", $routeParams.oauth_verifier);
   if ($routeParams.oauth_token == localStorage.getItem("tumblr_oauth_token")) {
     TumblrAccessTokenResource.Post({
       oauth_token: $routeParams.oauth_token,
@@ -392,8 +396,8 @@ ctl.controller('TumblrCtrl', function ($scope, $routeParams, $location,
       oauth_verifier: $routeParams.oauth_verifier
     })
     .$promise.then(function (data) {
-      localStorage.setItem("tumblr_access_token", data.oauth_token);
-      localStorage.setItem("tumblr_access_token_secret", data.oauth_token_secret);
+      Auth.Store("tumblr_access_token", data.oauth_token);
+      Auth.Store("tumblr_access_token_secret", data.oauth_token_secret);
       $location.path('/');
     });
   }

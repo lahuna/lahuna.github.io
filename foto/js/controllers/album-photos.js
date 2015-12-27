@@ -51,6 +51,6 @@ ctl.controller('AlbumPhotosCtrl', function ($scope, $routeParams,
     }
 
     $scope.StoreId = function (photoId) {
-        localStorage.setItem('fotoId', photoId);
+        Auth.Store('fotoId', photoId);
     }
 });

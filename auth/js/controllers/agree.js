@@ -6,7 +6,7 @@
 
 'use strict';
 
-var ctl = angular.module('AgreeController', ['AuthResourceFactory', 'OboeFactory']);
+var ctl = angular.module('AgreeController', ['ResourceFactory', 'OboeFactory']);
 
 ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
         UserResource, Oboe) {

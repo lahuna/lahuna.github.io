@@ -70,7 +70,7 @@ ctl.controller('ActivityCtrl', function ($scope, $rootScope, $routeParams, Playl
           mine: 'true',
           accessToken: GetAccessToken()
       }).$promise.then(function (data) {
-          if (data.items.length > 0) {
+          if (data.items && data.items.length > 0) {
               SetMode(data.items[0].id);
           } else
               SetMode('-1');

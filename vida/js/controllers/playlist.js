@@ -8,8 +8,9 @@
 
 var ctl = angular.module('PlaylistController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('PlaylistCtrl', function ($scope, $rootScope, $routeParams, $window, Auth,
-  PlaylistResource, PlaylistItemResource, PlaylistDbResource, Playlist, $route) {
+ctl.controller('PlaylistCtrl', function ($scope, $rootScope, $routeParams, $window,
+  PlaylistResource, PlaylistItemResource, PlaylistDbResource, PlaylistItemDbResource,
+  Playlist, $route, Auth) {
 
   // Authenticate
   Auth.Authenticate('vida', function (result) {

@@ -58,12 +58,12 @@ ctl.controller('TagsCtrl',
         }
 
         $scope.StoreFilter = function () {
-            localStorage.setItem("tag_search_picasa", $scope.search);
+            Auth.Store("tag_search_picasa", $scope.search);
         }
 
         $scope.ClearFilter = function () {
             $scope.search = "";
-            localStorage.setItem("tag_search_picasa", "");
+            Auth.Store("tag_search_picasa", "");
         }
 
         $scope.Delete = function (item) {

@@ -199,8 +199,9 @@ ctl.controller('ViewerCtrl',
         function SetData(data) {
             $scope.item = data.items[0];
 
-            if (data.items[0].snippet.channelId == localStorage.getItem("youtube_channel_id"))
-                $scope.editVisible = true;
+            if (data.items[0].snippet.channelId == localStorage.getItem("youtube_channel_id")) {
+              $scope.editVisible = true;
+            }
         }
 
         //$scope.$watch('item.status.embeddable', function (value) {

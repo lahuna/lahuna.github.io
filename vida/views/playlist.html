@@ -9,6 +9,12 @@
         <div class="col-md-offset-4 col-md-3">
             <h4>{{playlist.items[0].snippet.title}}</h4>
         </div>
+        <div class="col-md-offset-3 col-md-4">
+            <a ng-click="SignIn()" ng-show="owner == 'me' && showSignIn" class="list-group-item signInDiv">
+              <span class="glyphicon glyphicon-log-in signInBtn"></span>
+              <span>Sign in here to edit playlist</span>
+            </a>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
@@ -38,7 +44,7 @@
             <table class="table">
                 <tbody>
                     <tr ng-repeat="item in list.items" ng-click="select(item)" ng-class="{info: item.Selected == 1}">
-                        <td ng-show="owner == 'me'">
+                        <td ng-show="owner == 'me' && !showSignIn">
                             <button ng-show="$index > 0" class="btn btn-default btn-lg btnNoBorder btnTop" ng-click="MoveUp($index)" title="Move Up">
                                 <span class="glyphicon glyphicon-arrow-up"></span>
                             </button>
@@ -52,7 +58,7 @@
                             </a>
                             <div>{{item.snippet.title}}</div>
                         </td>
-                        <td ng-show="owner == 'me'">
+                        <td ng-show="owner == 'me' && !showSignIn">
                             <button class="btn btn-default btn-lg btnNoBorder" ng-click="Remove($index)" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>
                         </td>
                     </tr>
