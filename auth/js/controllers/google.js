@@ -6,7 +6,7 @@
 
 'use strict';
 
-var ctl = angular.module('GoogleController', ['AuthenticateFactory', 'ResourceFactory']);
+var ctl = angular.module('GoogleController', ['AuthenticateFactory', 'AuthResourceFactory']);
 
 ctl.controller('GoogleCtrl', function ($scope, $routeParams,
   GoogleAccessTokenResource, UserResource, Auth) {
