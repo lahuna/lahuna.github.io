@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// Copyright � 2014 - 2016 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -10,7 +10,7 @@ var fac = angular.module('ResourceFactory', ['ngResource']);
 
 // Authenticate
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource(location.origin + ':8000/google/authenticate', {}, {
+  return $resource('https://' + location.hostname + ':3001/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -32,7 +32,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 // Youtube Search
 fac.factory('YoutubeSearchResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/search';
-  return $resource(location.origin + ':8000/other', {}, {
+  return $resource('https://' + location.hostname + ':3001/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -53,7 +53,7 @@ fac.factory('YoutubeSearchResource', function ($resource) {
 // Subscriptions
 fac.factory('SubscriptionResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/subscriptions';
-  return $resource(location.origin + ':8000/other', {}, {
+  return $resource('https://' + location.hostname + ':3001/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -91,7 +91,7 @@ fac.factory('SubscriptionResource', function ($resource) {
 // Channel
 fac.factory('ChannelResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/channels';
-  return $resource(location.origin + ':8000/other', {}, {
+  return $resource('https://' + location.hostname + ':3001/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -112,7 +112,7 @@ fac.factory('ChannelResource', function ($resource) {
 // Video
 fac.factory('VideoResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/videos';
-  return $resource(location.origin + ':8000/other', {}, {
+  return $resource('https://' + location.hostname + ':3001/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -150,7 +150,7 @@ fac.factory('VideoResource', function ($resource) {
 // Playlist
 fac.factory('PlaylistResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/playlists';
-  return $resource(location.origin + ':8000/other', {}, {
+  return $resource('https://' + location.hostname + ':3001/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -197,7 +197,7 @@ fac.factory('PlaylistResource', function ($resource) {
 // Playlist Items
 fac.factory('PlaylistItemResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/playlistItems';
-  return $resource(location.origin + ':8000/other', {}, {
+  return $resource('https://' + location.hostname + ':3001/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -244,7 +244,7 @@ fac.factory('PlaylistItemResource', function ($resource) {
 
 // Add to Playlist
 fac.factory('AddToPlaylistResource', function ($resource) {
-  return $resource(location.origin + ':8000/playlist/addto', {}, {
+  return $resource('https://' + location.hostname + ':3001/playlist/addto', {}, {
     Post: {
       method: 'POST'
     }
@@ -253,7 +253,7 @@ fac.factory('AddToPlaylistResource', function ($resource) {
 
 // Update Playlist
 fac.factory('UpdatePlaylistResource', function ($resource) {
-  return $resource(location.origin + ':8000/playlist/update', {}, {
+  return $resource('https://' + location.hostname + ':3001/playlist/update', {}, {
     Put: {
       method: 'PUT'
     }
@@ -262,7 +262,7 @@ fac.factory('UpdatePlaylistResource', function ($resource) {
 
 // Update Video
 fac.factory('UpdateVideoResource', function ($resource) {
-  return $resource(location.origin + ':8000/video/update', {}, {
+  return $resource('https://' + location.hostname + ':3001/video/update', {}, {
     Put: {
       method: 'PUT'
     }
@@ -273,7 +273,7 @@ fac.factory('UpdateVideoResource', function ($resource) {
 
 // Playlists Db
 fac.factory('PlaylistDbResource', function ($resource) {
-  return $resource(location.origin + ':8000/playlist', {}, {
+  return $resource('https://' + location.hostname + ':3001/playlist', {}, {
     Get: {
       method: 'GET'
     },
@@ -291,7 +291,7 @@ fac.factory('PlaylistDbResource', function ($resource) {
 
 // Playlist Items Db
 fac.factory('PlaylistItemDbResource', function ($resource) {
-  return $resource(location.origin + ':8000/playlist_item', {}, {
+  return $resource('https://' + location.hostname + ':3001/playlist_item', {}, {
     Get: {
       method: 'GET'
     },
@@ -309,7 +309,7 @@ fac.factory('PlaylistItemDbResource', function ($resource) {
 
 // Videos Db
 fac.factory('VideoDbResource', function ($resource) {
-  return $resource(location.origin + ':8000/video', {}, {
+  return $resource('https://' + location.hostname + ':3001/video', {}, {
     Get: {
       method: 'GET'
     },
@@ -327,7 +327,7 @@ fac.factory('VideoDbResource', function ($resource) {
 
 /*// Import Playlists, Playlist Items, and Videos
 fac.factory('ImportResource', function ($resource) {
-  return $resource(location.origin + ':8080/youtube/import', {}, {
+  return $resource('https://' + location.hostname + ':3002/youtube/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -336,7 +336,7 @@ fac.factory('ImportResource', function ($resource) {
 
 // Import Playlists
 fac.factory('ImportPlaylistResource', function ($resource) {
-  return $resource(location.origin + ':8080/playlist/import', {}, {
+  return $resource('https://' + location.hostname + ':3002/playlist/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -345,7 +345,7 @@ fac.factory('ImportPlaylistResource', function ($resource) {
 
 // Import Playlist Items
 fac.factory('ImportPlaylistItemResource', function ($resource) {
-  return $resource(location.origin + ':8080/playlist_item/import', {}, {
+  return $resource('https://' + location.hostname + ':3002/playlist_item/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -354,7 +354,7 @@ fac.factory('ImportPlaylistItemResource', function ($resource) {
 
 // Import Videos
 fac.factory('ImportVideoResource', function ($resource) {
-  return $resource(location.origin + ':8080/video/import', {}, {
+  return $resource('https://' + location.hostname + ':3002/video/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -363,7 +363,7 @@ fac.factory('ImportVideoResource', function ($resource) {
 
 // Search
 fac.factory('SearchResource', function ($resource) {
-  return $resource(location.origin + ':8000/search', {}, {
+  return $resource('https://' + location.hostname + ':3001/search', {}, {
     Get: {
       method: 'GET'
     },

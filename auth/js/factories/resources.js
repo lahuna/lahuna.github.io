@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// Copyright � 2014 - 2016 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -10,7 +10,7 @@ var fac = angular.module('AuthResourceFactory', ['ngResource']);
 
 // Authenticate
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource(location.origin + ':8000/google/authenticate', {}, {
+  return $resource('https://' + location.hostname + ':3001/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -19,7 +19,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 
 // Google Access Token
 fac.factory('GoogleAccessTokenResource', function ($resource) {
-  return $resource(location.origin + ':8000/google/access_token', {}, {
+  return $resource('https://' + location.hostname + ':3001/google/access_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -40,7 +40,7 @@ fac.factory('GoogleAccessTokenResource', function ($resource) {
 
 // Lahuna User
 fac.factory('UserResource', function ($resource) {
-  return $resource(location.origin + ':8000/user', {}, {
+  return $resource('https://' + location.hostname + ':3001/user', {}, {
     Get: {
       method: 'GET'
     },

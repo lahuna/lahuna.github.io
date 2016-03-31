@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// Copyright � 2014 - 2016 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -57,6 +57,7 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams,
             //$scope.access_token = token.access_token;
             //$scope.refresh_token = token.refresh_token;
             switch ($routeParams.state) {
+                case "order":
                 case "foto":
                     Auth.Store("google_access_token", token.access_token);
                     Auth.Store("google_expires_in", token.expires_in);

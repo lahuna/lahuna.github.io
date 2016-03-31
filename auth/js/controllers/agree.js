@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// Copyright � 2014 - 2016 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -17,6 +17,7 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
 
         function GetAccessToken() {
             switch ($routeParams.state) {
+                case "order":
                 case "foto":
                     $scope.access_token = localStorage.getItem("google_access_token");
                     //$scope.refresh_token = localStorage.getItem("google_refresh_token");
@@ -97,7 +98,7 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
         }*/
 
         function Import() {
-          Oboe.get({url: location.origin + ':8080/' + $routeParams.state + '/import?accessToken=' + $scope.access_token}
+          Oboe.get({url: 'https://' + location.hostname + ':3002/' + $routeParams.state + '/import?accessToken=' + $scope.access_token}
           ).then(function() {
               // finished loading
           }, function(error) {

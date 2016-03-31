@@ -1,12 +1,12 @@
 //*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// Copyright � 2014 - 2016 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
 
 'use strict';
 
-var fac = angular.module('AuthenticateFactory', ['ResourceFactory']);
+var fac = angular.module('AuthenticateFactory', ['AuthResourceFactory']);
 
 fac.factory('Auth', function (AuthenticateResource) {
 
@@ -41,6 +41,7 @@ fac.factory('Auth', function (AuthenticateResource) {
 
   function StoreValues(data, app) {
     switch (app) {
+      case "order":
       case "foto":
         Store('google_access_token', data.access_token);
         Store('google_user_id', data.user_id);
@@ -52,12 +53,19 @@ fac.factory('Auth', function (AuthenticateResource) {
         Store('youtube_user_id', data.user_id);
         Store('youtube_expires_in', data.expires_in);
         break;
+
+      case "blitz":
+        Store('blogger_access_token', data.access_token);
+        Store('blogger_use_id', data.user_id);
+        Store('blogger_expires_in', data.expires_in);
+        break;
     }
   }
 
   function SignIn(app) {
     var scope;
     switch (app) {
+      case "order":
       case "foto":
         scope = "https://picasaweb.google.com/data";
         break;
@@ -86,6 +94,7 @@ fac.factory('Auth', function (AuthenticateResource) {
 
   function SignOut(app) {
     switch (app) {
+      case "order":
       case "foto":
         localStorage.removeItem('google_access_token');
         localStorage.removeItem('google_refresh_token');
@@ -98,6 +107,13 @@ fac.factory('Auth', function (AuthenticateResource) {
         localStorage.removeItem('youtube_refresh_token');
         localStorage.removeItem('youtube_user_id');
         localStorage.removeItem('youtube_expires_in');
+        break;
+
+      case "blitz":
+        localStorage.removeItem('blogger_access_token');
+        localStorage.removeItem('blogger_refresh_token');
+        localStorage.removeItem('blogger_user_id');
+        localStorage.removeItem('blogger_expires_in');
         break;
     }
   }
@@ -112,6 +128,7 @@ fac.factory('Auth', function (AuthenticateResource) {
 
   function GetAccessToken(app) {
     switch (app) {
+      case "order":
       case "foto":
         return localStorage.getItem('google_access_token');
         break;
@@ -119,17 +136,26 @@ fac.factory('Auth', function (AuthenticateResource) {
       case "vida":
         return localStorage.getItem('youtube_access_token');
         break;
+
+      case "blitz":
+        return localStorage.getItem('blogger_access_token');
+        break;
     }
   }
 
   function GetRefreshToken(app) {
     switch (app) {
+      case "order":
       case "foto":
         return localStorage.getItem('google_refresh_token');
         break;
 
       case "vida":
         return localStorage.getItem('youtube_refresh_token');
+        break;
+
+      case "blitz":
+        return localStorage.getItem('blogger_refresh_token');
         break;
     }
   }

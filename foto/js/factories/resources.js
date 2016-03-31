@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// Copyright � 2014 - 2016 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -10,7 +10,7 @@ var fac = angular.module('ResourceFactory', ['ngResource']);
 
 // Authenticate
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource(location.origin + ':8000/google/authenticate', {}, {
+  return $resource('https://' + location.hostname + ':3001/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -31,7 +31,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 
 // Albums Db
 fac.factory('AlbumDbResource', function ($resource) {
-  return $resource(location.origin + ':8000/album', {}, {
+  return $resource('https://' + location.hostname + ':3001/album', {}, {
     Get: {
       method: 'GET'
     },
@@ -49,7 +49,7 @@ fac.factory('AlbumDbResource', function ($resource) {
 
 // Photos Db
 fac.factory('PhotoDbResource', function ($resource) {
-  return $resource(location.origin + ':8000/photo', {}, {
+  return $resource('https://' + location.hostname + ':3001/photo', {}, {
     Get: {
       method: 'GET'
     },
@@ -67,7 +67,7 @@ fac.factory('PhotoDbResource', function ($resource) {
 
 /*// Import Photos
 fac.factory('ImportPhotoResource', function ($resource) {
-  return $resource(location.origin + ':8080/photo/import', {}, {
+  return $resource('https://' + location.hostname + ':3002/photo/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -76,7 +76,7 @@ fac.factory('ImportPhotoResource', function ($resource) {
 
 // Import Albums
 fac.factory('ImportAlbumResource', function ($resource) {
-  return $resource(location.origin + ':8080/album/import', {}, {
+  return $resource('https://' + location.hostname + ':3002/album/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -85,7 +85,7 @@ fac.factory('ImportAlbumResource', function ($resource) {
 
 // Import All
 fac.factory('ImportResource', function ($resource) {
-  return $resource(location.origin + ':8080/picasa/import', {}, {
+  return $resource('https://' + location.hostname + ':3002/picasa/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -95,7 +95,7 @@ fac.factory('ImportResource', function ($resource) {
 // Picasa
 fac.factory('PicasaResource', function ($resource) {
   var resource = 'https://picasaweb.google.com/data/feed/api/user/default';
-  return $resource(location.origin + ':8000/other', {}, {
+  return $resource('https://' + location.hostname + ':3001/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource, 'alt': 'json' }
@@ -111,7 +111,7 @@ fac.factory('PicasaResource', function ($resource) {
 fac.factory('PicasaPhotoResource', function ($resource) {
   return function (photoId) {
     var resource = 'https://picasaweb.google.com/data/entry/api/user/default/photoid/' + photoId;
-    return $resource(location.origin + ':8000/other', {}, {
+    return $resource('https://' + location.hostname + ':3001/other', {}, {
       Get: {
         method: 'GET',
         params: { 'resource': resource, 'alt': 'json' }
@@ -132,7 +132,7 @@ fac.factory('PicasaPhotoResource', function ($resource) {
 fac.factory('PicasaAlbumResource', function ($resource) {
   return function (albumId) {
     var resource = 'https://picasaweb.google.com/data/entry/api/user/default/albumid/' + albumId;
-    return $resource(location.origin + ':8000/other', {}, {
+    return $resource('https://' + location.hostname + ':3001/other', {}, {
       Get: {
         method: 'GET',
         params: { 'resource': resource, 'alt': 'json' }
@@ -153,7 +153,7 @@ fac.factory('PicasaAlbumResource', function ($resource) {
 fac.factory('PicasaAlbumFeedResource', function ($resource) {
   return function (albumId) {
     var resource = 'https://picasaweb.google.com/data/feed/api/user/default/albumid/' + albumId;
-    return $resource(location.origin + ':8000/other', {}, {
+    return $resource('https://' + location.hostname + ':3001/other', {}, {
       Get: {
         method: 'GET',
         params: { 'resource': resource, 'alt': 'json' }
@@ -164,7 +164,7 @@ fac.factory('PicasaAlbumFeedResource', function ($resource) {
 
 // Search
 fac.factory('SearchResource', function ($resource) {
-    return $resource(location.origin + ':8000/search', {}, {
+    return $resource('https://' + location.hostname + ':3001/search', {}, {
       Get: {
         method: 'GET'
       },

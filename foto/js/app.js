@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// Copyright � 2014 - 2016 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -65,6 +65,10 @@ app.config(
             controller: 'ViewerCtrl'
         }).
         when('/photos/viewer/:tag/:startIndex/:maxResults', {
+            templateUrl: 'views/viewer-photos.html',
+            controller: 'ViewerCtrl'
+        }).
+        when('/photos/viewer/:startIndex/:maxResults', {
             templateUrl: 'views/viewer-photos.html',
             controller: 'ViewerCtrl'
         }).

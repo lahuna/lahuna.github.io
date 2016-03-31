@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright � 2014 - 2015 Lahuna. All rights reserved.
+// Copyright � 2014 - 2016 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -78,7 +78,8 @@ fac.factory('Photo', function (PicasaAlbumFeedResource,
           result.list = list;
           return callback(result);
         });
-      } else if (input.tag) {
+      } //else if (input.tag) {
+        else if (input.startIndex) {
         GetSearchPhotos(input, function (list) {
           result.list = list;
           return callback(result);
