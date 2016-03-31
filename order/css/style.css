@@ -1,0 +1,26 @@
+body {
+  background-color: #ffce99;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: #ffe6cc;
+}
+
+.main {
+  text-align:center;
+  font-weight: bold;
+  background-color: #ffe6cc;
+}
+
+.footer {
+  background-color: #ffe6cc;
+}
+
+.icon {
+  margin-right: 15px;
+}
+
+input, textarea, .btn-default {
+  background-color: #fff3e6 !important;
+}

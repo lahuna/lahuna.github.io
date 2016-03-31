@@ -1,0 +1,76 @@
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2016 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h3>Store Edit</h3>
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+    </div>
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="name">Name:</label>
+            <div class="col-md-4">
+                <input ng-model="item.name" class="form-control textbox" id="name" type="text" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="desc">Description:</label>
+            <div class="col-md-4">
+                <textarea ng-model="item.desc" class="form-control textbox" id="desc" rows="7" maxlength="1000"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="phone">Phone:</label>
+            <div class="col-md-4">
+                <input ng-model="item.phone" class="form-control textbox-md" id="phone" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="email">Email:</label>
+            <div class="col-md-4">
+                <input ng-model="item.email" class="form-control" id="email" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="address1">Address1:</label>
+            <div class="col-md-4">
+                <input ng-model="item.address1" class="form-control" id="address1" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="address2">Address2:</label>
+            <div class="col-md-4">
+                <input ng-model="item.address2" class="form-control" id="address2" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="city">City:</label>
+            <div class="col-md-4">
+                <input ng-model="item.city" class="form-control" id="city" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="state">State / Province:</label>
+            <div class="col-md-4">
+                <input ng-model="item.state" class="form-control textbox-sm" id="state" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-md-offset-2" for="zip">Zip / Postal Code:</label>
+            <div class="col-md-4">
+                <input ng-model="item.zip" class="form-control textbox-md" id="zip" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-4">
+                <button class="btn btn-primary" type="button" ng-click="Save()">Save</button>
+                <button class="btn btn-default" type="button" ng-click="Cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
