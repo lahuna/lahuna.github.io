@@ -8,8 +8,8 @@
 
 var ctl = angular.module('StoreEditController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('StoreEditCtrl', function ($scope, $route, Auth, $rootScope, $routeParams,
-  StoreResource) {
+ctl.controller('StoreEditCtrl', function ($scope, $route, Auth, $rootScope,
+  $routeParams, $modal, StoreResource) {
 
   function GetAccessToken() {
     return localStorage.getItem('google_access_token');
@@ -39,16 +39,16 @@ ctl.controller('StoreEditCtrl', function ($scope, $route, Auth, $rootScope, $rou
     }
     $scope.item = StoreResource.Get({
       accessToken: GetAccessToken(),
-      maxdocs: 50,
       _id: $routeParams.id
     });
   }
 
   $scope.Save = function () {
+    var now = new Date();
     if (!$scope.item._id) {
       StoreResource.Post({
         accessToken: GetAccessToken(),
-        name: $scope.item.name,
+        title: $scope.item.title,
         desc: $scope.item.desc,
         phone: $scope.item.phone,
         email: $scope.item.email,
@@ -56,7 +56,8 @@ ctl.controller('StoreEditCtrl', function ($scope, $route, Auth, $rootScope, $rou
         address2: $scope.item.address2,
         city: $scope.item.city,
         state: $scope.item.state,
-        zip: $scope.item.zip
+        zip: $scope.item.zip,
+        published: now.toISOString()
       }).$promise.then(function (data) {
           $scope.item._id = data.insertedId;
           SetAlert('success', 'Store added.');
@@ -65,7 +66,7 @@ ctl.controller('StoreEditCtrl', function ($scope, $route, Auth, $rootScope, $rou
       StoreResource.Put({
         accessToken: GetAccessToken(),
         _id: $scope.item._id,
-        name: $scope.item.name,
+        title: $scope.item.title,
         desc: $scope.item.desc,
         phone: $scope.item.phone,
         email: $scope.item.email,
@@ -73,14 +74,44 @@ ctl.controller('StoreEditCtrl', function ($scope, $route, Auth, $rootScope, $rou
         address2: $scope.item.address2,
         city: $scope.item.city,
         state: $scope.item.state,
-        zip: $scope.item.zip
+        zip: $scope.item.zip,
+        published: now.toISOString()
       }).$promise.then(function (data) {
           SetAlert('success', 'Store updated.');
       });
     }
   }
 
+  $scope.Delete = function () {
+    var modalInstance = $modal.open({
+        templateUrl: '/views/modal.html',
+        controller: 'ModalInstanceCtrl',
+        animation: true,
+        backdrop: true,
+        size: 'sm'
+    });
+
+    modalInstance.result.then(function (result) {
+        if (result == 'ok')
+            Delete();
+    });
+  }
+
+  function Delete() {
+    StoreResource.Delete({
+      accessToken: GetAccessToken(),
+      _id: $scope.item._id
+    }).$promise.then(function (data) {
+        $scope.item = undefined;
+        SetAlert('success', 'Store deleted.');
+    });
+  }
+
   function SetAlert(type, msg) {
       $scope.alerts = [{ type: type, msg: msg }];
   }
+
+  $scope.closeAlert = function (index) {
+      $scope.alerts.splice(index, 1);
+  };  
 });

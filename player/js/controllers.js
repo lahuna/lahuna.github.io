@@ -514,7 +514,7 @@ ctl.controller('ViewerCtrl',
 
         $scope.open = function () {
             var modalInstance = $modal.open({
-                templateUrl: 'views/modal.html',
+                templateUrl: '/views/modal.html',
                 controller: 'ModalInstanceCtrl',
                 animation: true,
                 backdrop: true,
@@ -606,7 +606,7 @@ ctl.controller('ViewerCtrl',
 
  });
 
-ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+/*ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         $modalInstance.close('ok');
@@ -615,7 +615,7 @@ ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-});
+});*/
 
 //Controllers.controller('MainCtrl',
 //    function ($scope, $routeParams, GoogleProfileResource, GoogleRefreshTokenResource, ChannelResource) {

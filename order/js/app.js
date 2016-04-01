@@ -8,7 +8,9 @@
 
 var app = angular.module('order', [
   'ngRoute',
+  'ui.bootstrap',
   'Filters',
+  'ModalInstanceController',
   'MainController',
   'ProfileController',
   'ShopController',

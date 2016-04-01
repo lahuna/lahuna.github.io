@@ -120,7 +120,7 @@ fac.factory('Auth', function (AuthenticateResource) {
 
   function Store(key, value) {
     if (!value) {
-      localStorage.removeItem('key');
+      localStorage.removeItem(key);
     } else {
       localStorage.setItem(key, value);
     }

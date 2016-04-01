@@ -66,3 +66,17 @@ fac.factory('ProductResource', function ($resource) {
     },
   });
 });
+
+fac.factory('SearchResource', function ($resource) {
+  return $resource('https://' + location.hostname + ':3001/search', {}, {
+    Get: {
+      method: 'GET'
+    },
+    Post: {
+      method: 'POST'
+    },
+    Delete: {
+      method: 'DELETE'
+    }
+  });
+});
