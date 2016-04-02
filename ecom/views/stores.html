@@ -1,0 +1,61 @@
+<!--*****************************************************************************************************************
+     Copyright � 2014 - 2016 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+          <h3>Stores</h3>
+          <a ng-show="!showSignIn" class="btn btn-default pull-right" href="#/sell/store"><span class="glyphicon glyphicon-plus"></span> Add</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <a ng-click="SignIn()" ng-show="showSignIn" class="list-group-item signInDiv">
+              <span class="glyphicon glyphicon-log-in signInBtn"></span>
+              <span class="bold">Sign in </span><span>here to see your stores or add a new store</span>
+            </a>
+        </div>
+    </div>
+    <div class="row" ng-show="!showSignIn">
+        <div class="col-md-offset-4 col-md-4">
+            <div class="input-group">
+                <input ng-model="search" ng-keydown="GoSearch($event)"
+                       typeahead="item.query for item in GetSearchList($viewValue)"
+                       type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="ClickSearch()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="!showSignIn">
+        <div class="col-md-offset-4 col-md-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="order_addon">Order By:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddOrder" data-toggle="dropdown" aria-expanded="true">
+                        {{orderText}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="ddOrder">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('date')">Date</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="SelectOrder('title')">Name</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <div class="list-group">
+                <a ng-repeat="item in items.list" class="list-group-item" href="#/sell/store/{{item._id}}">
+                    <div><img ng-src="{{item.thumbnail}}" class="img-responsive" /></div>
+                    <div>{{item.title}}</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
