@@ -17,7 +17,7 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
 
         function GetAccessToken() {
             switch ($routeParams.state) {
-                case "order":
+                case "ecom":
                 case "foto":
                     $scope.access_token = localStorage.getItem("google_access_token");
                     //$scope.refresh_token = localStorage.getItem("google_refresh_token");

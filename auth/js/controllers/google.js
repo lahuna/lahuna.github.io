@@ -57,7 +57,7 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams,
             //$scope.access_token = token.access_token;
             //$scope.refresh_token = token.refresh_token;
             switch ($routeParams.state) {
-                case "order":
+                case "ecom":
                 case "foto":
                     Auth.Store("google_access_token", token.access_token);
                     Auth.Store("google_expires_in", token.expires_in);
