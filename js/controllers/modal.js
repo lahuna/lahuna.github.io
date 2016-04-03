@@ -8,7 +8,11 @@
 
 var ctl = angular.module('ModalInstanceController', []);
 
-ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance, title, btn, msg) {
+
+  $scope.title = title;
+  $scope.btn = btn;
+  $scope.msg = msg;
 
     $scope.ok = function () {
         $modalInstance.close('ok');

@@ -65,8 +65,10 @@ ctl.controller('ProfileCtrl', function ($scope, $routeParams, $rootScope,
       return 'vida';
     } else if (location.href.indexOf('blitz') > -1) {
       return 'blitz';
-    } else if (location.href.indexOf('ecom') > -1) {
-      return 'ecom';
+    } else if (location.href.indexOf('buy') > -1) {
+      return 'buy';
+    } else if (location.href.indexOf('sell') > -1) {
+      return 'sell';
     }
   }
 
