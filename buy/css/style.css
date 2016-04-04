@@ -6,7 +6,16 @@ body {
   text-align: center;
 }
 
+.form-label {
+  text-align: right;
+  font-weight: bold;
+}
+
 .jumbotron {
+  background-color: #d7eff4;
+}
+
+.box {
   background-color: #d7eff4;
 }
 

@@ -7,28 +7,27 @@
 <div class="container">
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
-          <h3>Products</h3>
-          <span class="pull-right" ng-show="!showSignIn">
-            <a class="btn btn-default" href="#/store/{{store_id}}/category/{{category_id}}"><span class="glyphicon glyphicon-chevron-left"></span> Category</a>
-            <a class="btn btn-default" href="#/store/{{store_id}}/category/{{category_id}}/product"><span class="glyphicon glyphicon-plus"></span> Add</a>
+          <span class="pull-right">
+            <a class="btn btn-default" href="#/store/{{store_id}}/categories"><span class="glyphicon glyphicon-chevron-left"></span> Categories</a>
           </span>
-        </div>
-    </div>
-    <div class="row" ng-show="!showSignIn">
-        <div class="col-md-offset-4 col-md-4">
-            <p>Store: {{store.title}}</p>
-            <p>Category: {{category.title}}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
-            <a ng-click="SignIn()" ng-show="showSignIn" class="list-group-item signInDiv">
-              <span class="glyphicon glyphicon-log-in signInBtn"></span>
-              <span class-"bold">Sign in </span><span>here to see your products</span>
-            </a>
+            <h3>{{store.title}}</h3>
         </div>
     </div>
-    <div class="row" ng-show="!showSignIn">
+    <div class="row" ng-show="category.title">
+        <div class="col-md-offset-4 col-md-4">
+          <h3>{{category.title}}</h3>
+        </div>
+    </div>
+    <div class="row" ng-show="!category.title && store.title">
+        <div class="col-md-offset-4 col-md-4">
+          <h3>Items</h3>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-offset-4 col-md-4">
             <div class="input-group">
                 <input ng-model="search" ng-keydown="GoSearch($event)"
@@ -40,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="row" ng-show="!showSignIn">
+    <div class="row">
         <div class="col-md-offset-4 col-md-4">
             <div class="input-group">
                 <span class="input-group-addon" id="order_addon">Order By:</span>
@@ -60,7 +59,7 @@
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
             <div class="list-group">
-                <a ng-repeat="item in items.list" class="list-group-item" href="#/store/{{store_id}}/category/{{category_id}}/product/{{item._id}}">
+                <a ng-repeat="item in items.list" class="list-group-item" href="#/store/{{store_id}}/category/{{item.parent_id}}/product/{{item._id}}">
                     <div><img ng-src="{{item.thumbnail}}" class="img-responsive" /></div>
                     <div>{{item.title}}</div>
                 </a>
