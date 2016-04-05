@@ -37,7 +37,9 @@ ctl.controller('ProductsCtrl',
 
         function Initialize() {
           $scope.store_id = $routeParams.store_id;
-          $scope.category_id = $routeParams.category_id;
+          if ($routeParams.category_id != 'all') {
+            $scope.category_id = $routeParams.category_id;
+          }
 
           GetStore();
           GetCategory();
@@ -70,7 +72,7 @@ ctl.controller('ProductsCtrl',
         function GetCategory() {
           $scope.category = CategoryResource.Get({
             accessToken: GetAccessToken(),
-            _id: $routeParams.category_id
+            _id: $scope.category_id
           });
         }
 
@@ -97,7 +99,7 @@ ctl.controller('ProductsCtrl',
                 query: query,
                 order: GetOrder(),
                 maxdocs: 50,
-                parent_id: $routeParams.category_id,
+                parent_id: $scope.category_id,
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 if (data.error) {

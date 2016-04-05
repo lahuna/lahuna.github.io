@@ -66,7 +66,7 @@ fac.factory('Auth', function (AuthenticateResource) {
   function SignIn(app) {
     var scope;
     switch (app) {
-      case "buy":
+      //case "buy":
       case "sell":
       case "foto":
         scope = "https://picasaweb.google.com/data";

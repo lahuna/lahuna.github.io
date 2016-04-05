@@ -2,6 +2,10 @@ body {
   background-color: #b0dfe8;
 }
 
+.label-static {
+  padding-top: 0px !important;
+}
+
 .center {
   text-align: center;
 }
@@ -13,6 +17,10 @@ body {
 
 .jumbotron {
   background-color: #d7eff4;
+}
+
+.inline {
+  display: inline;
 }
 
 .box {
@@ -31,6 +39,12 @@ body {
 
 .icon {
   margin-right: 15px;
+}
+
+.price {
+  margin-bottom: 20px;
+  /*font-weight: bold;
+  text-align: left;*/
 }
 
 input, textarea, .btn-default, .list-group-item {
@@ -60,4 +74,8 @@ h3, h2 {
 
 .bold {
   font-weight: bold;
+}
+
+.stack-gap {
+  margin-bottom: 5px !important;
 }

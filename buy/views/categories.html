@@ -7,9 +7,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
-          <span class="pull-right">
-            <a class="btn btn-default" href="#/store/{{store_id}}"><span class="glyphicon glyphicon-chevron-left"></span> Store</a>
-            <a class="btn btn-default" href="#/store/{{store_id}}/products">Items <span class="glyphicon glyphicon-chevron-right"></span></a>
+          <span>
+            <a class="btn btn-default stack-gap" href="#/store/{{store_id}}"><span class="glyphicon glyphicon-chevron-left"></span> Store</a>
+            <a class="btn btn-default stack-gap" href="#/store/{{store_id}}/category/all/products">Items <span class="glyphicon glyphicon-chevron-right"></span></a>
           </span>
         </div>
     </div>
@@ -55,7 +55,8 @@
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
             <div class="list-group">
-                <a ng-repeat="item in items.list" class="list-group-item" href="#/store/{{store_id}}/category/{{item._id}}/products">
+                <a ng-repeat="item in items.list" class="list-group-item" ng-show="item.parent_id"
+                  href="#/store/{{store_id}}/category/{{item._id}}/products">
                     <div><img ng-src="{{item.thumbnail}}" class="img-responsive" /></div>
                     <div>{{item.title}}</div>
                 </a>

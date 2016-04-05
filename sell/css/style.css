@@ -24,6 +24,12 @@ body {
   margin-right: 15px;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 input, textarea, .btn-default, .list-group-item {
   background-color: #fff3e6 !important;
 }

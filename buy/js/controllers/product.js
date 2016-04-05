@@ -9,7 +9,8 @@
 var ctl = angular.module('ProductController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
-  $routeParams, $modal, StoreResource, CategoryResource, ProductResource) {
+  $routeParams, $modal, StoreResource, CategoryResource, ProductResource,
+  OrderResource, OrderItemResource) {
 
   function GetAccessToken() {
     return localStorage.getItem('google_access_token');
@@ -34,19 +35,32 @@ ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
   }
 
   function Initialize() {
+    $scope.quantity = 1;
     $scope.store_id = $routeParams.store_id;
     $scope.category_id = $routeParams.category_id;
 
     GetStore();
-    GetCategory();
 
     if (!$routeParams.product_id) {
       return;
     }
-    $scope.item = ProductResource.Get({
+    ProductResource.Get({
       accessToken: GetAccessToken(),
       _id: $routeParams.product_id
+    }).$promise.then(function (data) {
+      $scope.item = data;
+      $scope.cat_id = data.parent_id;
+      GetCategory();
+      CheckCart();
     });
+  }
+
+  function CheckCart() {
+    var quantity = localStorage.getItem('quantity');
+    if (localStorage.getItem('add-to-cart') == $scope.item._id && quantity) {
+      $scope.quantity = quantity;
+      AddToCart();
+    }
   }
 
   function GetStore() {
@@ -59,65 +73,58 @@ ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
   function GetCategory() {
     $scope.category = CategoryResource.Get({
       accessToken: GetAccessToken(),
-      _id: $routeParams.category_id
+      _id: $scope.cat_id
     });
   }
 
-  $scope.Save = function () {
-    var now = new Date();
-    $scope.item.published = now.toISOString();
-    $scope.item.accessToken = GetAccessToken();
-    $scope.item.parent_id = $routeParams.category_id;
-
-    if (!$scope.item._id) {
-      ProductResource.Post(
-        $scope.item
-      ).$promise.then(function (data) {
-          $scope.item._id = data.insertedId;
-          SetAlert('success', 'Product added.');
-      });
+  $scope.$watch('quantity', function (value) {
+    if (!value) {
+      $scope.quantity = 1;
     } else {
-      ProductResource.Put(
-        $scope.item
-      ).$promise.then(function (data) {
-          SetAlert('success', 'Product updated.');
-      });
+      $scope.quantity = parseInt(value);
+    }
+  });
+
+  $scope.AddToCart = function () {
+    if ($rootScope.showSignIn) {
+      localStorage.setItem('add-to-cart', item._id);
+      localStorage.setItem('quantity', $scope.quantity);
+      Auth.SignIn('buy');
+    } else {
+      AddToCart();
     }
   }
 
-  $scope.Delete = function () {
-    var modalInstance = $modal.open({
-        templateUrl: '/views/modal.html',
-        controller: 'ModalInstanceCtrl',
-        animation: true,
-        backdrop: true,
-        size: 'sm',
-        resolve: {
-          title: function () {
-            return "Delete";
-          },
-          btn: function () {
-            return "Delete";
-          },
-          msg: function () {
-            return "Are you sure you want to delete this product?";
-          }
-        }
-      });
+  function AddToCart() {
+    var cartId = localStorage.getItem('cart_id');
+    var now = new Date();
 
-    modalInstance.result.then(function (result) {
-        if (result == 'ok')
-            Delete();
-    });
+    if (!cartId || cartId == 'undefined') {
+      OrderResource.Post({
+        published: now.toISOString(),
+        accessToken: GetAccessToken(),
+        storeId: $scope.store_id,
+        status: 'cart'
+      }).$promise.then(function (data) {
+          cartId = data.insertedId;
+          localStorage.setItem('cart_id', cartId);
+          AddCartItem(cartId);
+      });
+    }
+    AddCartItem(cartId);
   }
 
-  function Delete() {
-    ProductResource.Delete({
-      accessToken: GetAccessToken(),
-      _id: $scope.item._id
+  function AddCartItem(cartId) {
+    OrderItemResource.Post({
+      parent_id: cartId,
+      product_id: $scope.item._id,
+      price: $scope.item.price,
+      quantity: $scope.quantity,
+      accessToken: GetAccessToken()
     }).$promise.then(function (data) {
-        $scope.item = undefined;
-        SetAlert('success', 'Product deleted.');
+        localStorage.removeItem('add-to-cart');
+        localStorage.removeItem('quantity');
+        SetAlert('success', 'Added to cart.');
     });
   }
 

@@ -52,10 +52,6 @@ app.config(['$routeProvider',
                 templateUrl: 'views/categories.html',
                 controller: 'CategoriesCtrl'
             }).
-            when('/store/:store_id/products', {
-                templateUrl: 'views/products.html',
-                controller: 'ProductsCtrl'
-            }).
             when('/store/:store_id/category/:category_id/products', {
                 templateUrl: 'views/products.html',
                 controller: 'ProductsCtrl'

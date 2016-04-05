@@ -25,12 +25,6 @@ input[type=range] {
   width: 200px;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .navbar {
   margin-bottom: 10px !important;
 }

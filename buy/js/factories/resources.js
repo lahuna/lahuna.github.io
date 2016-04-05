@@ -67,6 +67,40 @@ fac.factory('ProductResource', function ($resource) {
   });
 });
 
+fac.factory('OrderResource', function ($resource) {
+  return $resource('https://' + location.hostname + ':3001/order', {}, {
+    Get: {
+      method: 'GET'
+    },
+    Post: {
+      method: 'POST'
+    },
+    Put: {
+      method: 'PUT'
+    },
+    Delete: {
+      method: 'DELETE'
+    },
+  });
+});
+
+fac.factory('OrderItemResource', function ($resource) {
+  return $resource('https://' + location.hostname + ':3001/order_item', {}, {
+    Get: {
+      method: 'GET'
+    },
+    Post: {
+      method: 'POST'
+    },
+    Put: {
+      method: 'PUT'
+    },
+    Delete: {
+      method: 'DELETE'
+    },
+  });
+});
+
 fac.factory('SearchResource', function ($resource) {
   return $resource('https://' + location.hostname + ':3001/search', {}, {
     Get: {
