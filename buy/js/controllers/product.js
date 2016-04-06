@@ -10,7 +10,7 @@ var ctl = angular.module('ProductController', ['ResourceFactory', 'AuthenticateF
 
 ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
   $routeParams, $modal, StoreResource, CategoryResource, ProductResource,
-  OrderResource, OrderItemResource) {
+  CartResource, CartItemResource) {
 
   function GetAccessToken() {
     return localStorage.getItem('google_access_token');
@@ -86,25 +86,13 @@ ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
   });
 
   $scope.AddToCart = function () {
-    if ($rootScope.showSignIn) {
-      localStorage.setItem('add-to-cart', item._id);
-      localStorage.setItem('quantity', $scope.quantity);
-      Auth.SignIn('buy');
-    } else {
-      AddToCart();
-    }
-  }
-
-  function AddToCart() {
     var cartId = localStorage.getItem('cart_id');
     var now = new Date();
 
     if (!cartId || cartId == 'undefined') {
-      OrderResource.Post({
+      CartResource.Post({
         published: now.toISOString(),
-        accessToken: GetAccessToken(),
-        storeId: $scope.store_id,
-        status: 'cart'
+        store_id: $scope.store_id
       }).$promise.then(function (data) {
           cartId = data.insertedId;
           localStorage.setItem('cart_id', cartId);
@@ -115,15 +103,11 @@ ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
   }
 
   function AddCartItem(cartId) {
-    OrderItemResource.Post({
+    CartItemResource.Post({
       parent_id: cartId,
       product_id: $scope.item._id,
-      price: $scope.item.price,
-      quantity: $scope.quantity,
-      accessToken: GetAccessToken()
+      quantity: $scope.quantity
     }).$promise.then(function (data) {
-        localStorage.removeItem('add-to-cart');
-        localStorage.removeItem('quantity');
         SetAlert('success', 'Added to cart.');
     });
   }

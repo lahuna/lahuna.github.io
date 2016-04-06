@@ -18,7 +18,8 @@ var app = angular.module('buy', [
   'CategoryController',
   'CategoriesController',
   'ProductController',
-  'ProductsController'
+  'ProductsController',
+  'CartController'
 ]);
 
 app.config(['$routeProvider',
@@ -60,9 +61,17 @@ app.config(['$routeProvider',
                 templateUrl: 'views/product.html',
                 controller: 'ProductCtrl'
             }).
+            when('/store/:store_id/product/:product_id', {
+                templateUrl: 'views/product.html',
+                controller: 'ProductCtrl'
+            }).
             when('/store/:store_id/category/:category_id/product/:product_id', {
                 templateUrl: 'views/product.html',
                 controller: 'ProductCtrl'
+            }).
+            when('/cart', {
+                templateUrl: 'views/cart.html',
+                controller: 'CartCtrl'
             }).
             otherwise({
                 redirectTo: '/'

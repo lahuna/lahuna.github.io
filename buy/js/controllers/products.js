@@ -15,9 +15,7 @@ ctl.controller('ProductsCtrl',
         Auth.Authenticate('buy', function (result) {
           $rootScope.profile = result;
           $rootScope.showSignIn = !result;
-          if (result) {
-            Initialize();
-          }
+          Initialize();
         });
 
         $rootScope.SignIn = function () {

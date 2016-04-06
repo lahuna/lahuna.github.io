@@ -15,9 +15,7 @@ ctl.controller('StoresCtrl',
         Auth.Authenticate('buy', function (result) {
           $rootScope.profile = result;
           $rootScope.showSignIn = !result;
-          if (result) {
-            Initialize();
-          }
+          Initialize();
         });
 
         $rootScope.SignIn = function () {
@@ -77,8 +75,7 @@ ctl.controller('StoresCtrl',
             StoreResource.Get({
                 query: query,
                 order: GetOrder(),
-                maxdocs: 50,
-                accessToken: GetAccessToken()
+                maxdocs: 50
             }).$promise.then(function (data) {
                 if (data.error) {
                   if (data.error == 'invalid_token') {

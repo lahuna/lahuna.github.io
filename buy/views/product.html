@@ -8,8 +8,10 @@
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
         <span>
-          <a class="btn btn-default" href="#/store/{{store_id}}/category/{{category_id}}/products">
+          <a ng-show="category_id" class="btn btn-default" href="#/store/{{store_id}}/category/{{category_id}}/products">
             <span class="glyphicon glyphicon-chevron-left"></span> Items</a>
+          <a ng-show="!category_id" class="btn btn-default" href="#/cart">
+            <span class="glyphicon glyphicon-chevron-left"></span> Cart</a>
         </span>
     </div>
   </div>
