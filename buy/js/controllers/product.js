@@ -78,28 +78,38 @@ ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
   }
 
   $scope.$watch('quantity', function (value) {
-    if (!value) {
-      $scope.quantity = 1;
-    } else {
+    if (value) {
       $scope.quantity = parseInt(value);
     }
   });
 
   $scope.AddToCart = function () {
     var cartId = localStorage.getItem('cart_id');
-    var now = new Date();
-
     if (!cartId || cartId == 'undefined') {
-      CartResource.Post({
-        published: now.toISOString(),
-        store_id: $scope.store_id
+      CreateCart();
+    } else {
+      CartResource.get({
+        _id: cartId
       }).$promise.then(function (data) {
-          cartId = data.insertedId;
-          localStorage.setItem('cart_id', cartId);
-          AddCartItem(cartId);
+          if (data.message == 'found') {
+            AddCartItem(cartId);
+          } else {
+            CreateCart();
+          }
       });
     }
-    AddCartItem(cartId);
+  }
+
+  function CreateCart() {
+    var now = new Date();
+    CartResource.Post({
+      published: now.toISOString(),
+      store_id: $scope.store_id
+    }).$promise.then(function (data) {
+        var cartId = data.insertedId;
+        localStorage.setItem('cart_id', cartId);
+        AddCartItem(cartId);
+    });
   }
 
   function AddCartItem(cartId) {

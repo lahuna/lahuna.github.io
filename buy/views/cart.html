@@ -6,31 +6,64 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-offset-4 col-md-4">
+        <div class="col-md-offset-3 col-md-4">
           <span>
-            <a class="btn btn-default stack-gap" href="#/store/{{store._id}}"><span class="glyphicon glyphicon-chevron-left"></span> Store</a>
+            <a class="btn btn-default stack-gap" href="#/store/{{store._id}}" ng-show="store._id"><span class="glyphicon glyphicon-chevron-left"></span> Store</a>
+            <a class="btn btn-default stack-gap" href="#/stores" ng-show="!store._id"><span class="glyphicon glyphicon-chevron-left"></span> Stores</a>
           </span>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-offset-4 col-md-4">
+        <div class="col-md-offset-3 col-md-4">
             <h3>{{store.title}}</h3>
         </div>
     </div>
     <div class="row" ng-show="store.title">
-        <div class="col-md-offset-4 col-md-4">
+        <div class="col-md-offset-3 col-md-4">
           <h3>Shopping Cart</h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-offset-4 col-md-4">
-            <div class="list-group">
-                <a ng-repeat="item in cart_items.list" class="list-group-item"
-                  href="#/store/{{cart.store_id}}/product/{{item.product_id}}">
+      <div class="col-md-offset-4 col-md-4">
+          <alert class="alert-height" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <table class="table" ng-show="cart_items.list.length > 0">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr ng-repeat="item in cart_items.list">
+              <td>
+                <a href="#/store/{{cart.store_id}}/product/{{item.product_id}}">
                     <div><img ng-src="{{item.thumbnail}}" class="img-responsive" /></div>
                     <div>{{item.product.title}}</div>
                 </a>
-            </div>
-        </div>
+              </td>
+              <td>
+                <input ng-model="item.quantity" ng-change="QuantityChanged(item, $index)" class="form-control qty" type="number" step="1">
+              </td>
+              <td>
+                <p>{{item.product.price | currency}}</p>
+              </td>
+              <td>
+                <p>{{(item.quantity * item.product.price) | currency}}</p>
+              </td>
+              <td>
+                <button class="btn btn-default btnNoBorder" ng-click="Delete(item, $index)" title="Remove from Cart">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 </div>

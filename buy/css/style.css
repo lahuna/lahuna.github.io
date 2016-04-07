@@ -79,3 +79,13 @@ h3, h2 {
 .stack-gap {
   margin-bottom: 5px !important;
 }
+
+a:link, a:visited, a:active, a:hover {
+  text-decoration: none;
+  color: black;
+
+}
+
+.qty {
+  max-width: 75px;
+}
