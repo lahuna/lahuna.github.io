@@ -91,7 +91,7 @@ ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
       CartResource.get({
         _id: cartId
       }).$promise.then(function (data) {
-          if (data.message == 'found') {
+          if (data.message == 'Found') {
             AddCartItem(cartId);
           } else {
             CreateCart();

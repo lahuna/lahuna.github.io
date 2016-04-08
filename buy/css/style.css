@@ -89,3 +89,9 @@ a:link, a:visited, a:active, a:hover {
 .qty {
   max-width: 75px;
 }
+
+.total {
+  padding: 7px 10px !important;
+  background-color: #d7eff4 !important;
+  text-align: center;;
+}

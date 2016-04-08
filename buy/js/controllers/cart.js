@@ -54,36 +54,40 @@ ctl.controller('CartCtrl', function ($scope, $route, Auth, $rootScope,
       });
     });
 
-    $scope.cart_items = CartItemResource.Get({
+    CartItemResource.Get({
       parent_id: $scope.cart_id,
       maxdocs: 50
+    }).$promise.then(function (cart_items) {
+      $scope.cart_items = cart_items;
+      TotalCart();
     });
   }
 
-  $scope.Save = function () {
-    var now = new Date();
-    $scope.item.published = now.toISOString();
-    $scope.item.accessToken = GetAccessToken();
-    $scope.item.parent_id = $routeParams.store_id;
+  function TotalCart() {
+    var total = 0;
+    for (var i = 0; i < $scope.cart_items.list.length; i++) {
+      var item = $scope.cart_items.list[i];
+        total += (item.quantity * item.product.price);
+    }
+    $scope.total = total;
+  }
 
-    if (!$scope.item._id) {
-      CartResource.Post(
-        $scope.item
-      ).$promise.then(function (data) {
-          $scope.item._id = data.insertedId;
-          SetAlert('success', 'Cart added.');
-      });
-    } else {
-      CartResource.Put(
-        $scope.item
-      ).$promise.then(function (data) {
-          SetAlert('success', 'Cart updated.');
+  $scope.Save = function () {
+    for (var i = 0; i < $scope.cart_items.list.length; i++) {
+      var item = $scope.cart_items.list[i];
+      CartItemResource.Put({
+        _id: item._id,
+        parent_id: item.parent_id,
+        product_id: item.product_id,
+        quantity: item.quantity
       });
     }
+
+    SetAlert('success', 'Cart updated.');
   }
 
   $scope.QuantityChanged = function (item, index) {
-    SetAlert('warning', 'Click Save to accept your changes.');
+    //SetAlert('warning', 'Click Save to accept your changes.');
     if (item.quantity) {
       var quantity = parseInt(item.quantity);
       if (quantity > 100) {
@@ -93,6 +97,7 @@ ctl.controller('CartCtrl', function ($scope, $route, Auth, $rootScope,
       }
       $scope.cart_items.list[index].quantity = quantity;
     }
+    TotalCart();
   }
 
   $scope.Delete = function (item, index) {
