@@ -17,11 +17,11 @@ ctl.controller('MainCtrl', function ($scope, $route, Auth, $rootScope) {
   });
 
   $rootScope.SignIn = function () {
-    Auth.SignIn();
+    Auth.SignIn('sell');
   }
 
   $rootScope.SignOut = function () {
-    Auth.SignOut();
+    Auth.SignOut('sell');
     $rootScope.profile = null;
     $rootScope.showSignIn = true;
     $route.reload();

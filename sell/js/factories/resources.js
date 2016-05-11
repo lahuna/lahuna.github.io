@@ -80,3 +80,19 @@ fac.factory('SearchResource', function ($resource) {
     }
   });
 });
+
+fac.factory('StripeAccessTokenResource', function ($resource) {
+  return $resource('https://' + location.hostname + ':3001/stripe/access_token', {}, {
+    Post: {
+      method: 'POST'
+    }
+  });
+});
+
+fac.factory('StripeMerchantResource', function ($resource) {
+  return $resource('https://' + location.hostname + ':3001/stripe/merchant', {}, {
+    Get: {
+      method: 'GET'
+    }
+  });
+});

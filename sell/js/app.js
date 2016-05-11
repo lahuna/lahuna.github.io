@@ -18,7 +18,8 @@ var app = angular.module('sell', [
   'CategoryController',
   'CategoriesController',
   'ProductController',
-  'ProductsController'
+  'ProductsController',
+  'StripeController'
 ]);
 
 app.config(['$routeProvider',
@@ -71,6 +72,10 @@ app.config(['$routeProvider',
             when('/store/:store_id/category/:category_id/product/:product_id', {
                 templateUrl: 'views/product.html',
                 controller: 'ProductCtrl'
+            }).
+            when('/stripe', {
+                templateUrl: 'views/stripe.html',
+                controller: 'StripeCtrl'
             }).
             otherwise({
                 redirectTo: '/'

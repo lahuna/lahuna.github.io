@@ -1,4 +1,10 @@
-﻿<!doctype html>
+<!--*****************************************************************************************************************
+     Copyright © 2014 - 2016 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<!doctype html>
 <html lang="en" ng-app="sell">
 <head>
     <title>Sell Online | Save Time and Money</title>
@@ -27,6 +33,7 @@
     <script src="js/controllers/categories.js"></script>
     <script src="js/controllers/product.js"></script>
     <script src="js/controllers/products.js"></script>
+    <script src="js/controllers/stripe.js"></script>
     <script src="/js/controllers/modal.js"></script>
 
     <script src="/auth/js/factories/resources.js"></script>
@@ -123,11 +130,7 @@
         <div ng-view class="view-frame"></div>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p class="text-muted">Copyright © 2014-2016 Lahuna. All rights reserved.</p>
-        </div>
-    </footer>
+    <div ng-include="'/views/footer.html'"></div>
 
 </body>
 </html>

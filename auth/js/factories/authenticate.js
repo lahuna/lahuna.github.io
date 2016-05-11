@@ -64,7 +64,7 @@ fac.factory('Auth', function (AuthenticateResource) {
   }
 
   function SignIn(app) {
-    var scope;
+    var scope = '';
     switch (app) {
       //case "buy":
       case "sell":
