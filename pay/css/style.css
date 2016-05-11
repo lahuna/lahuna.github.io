@@ -1,0 +1,97 @@
+body {
+  background-color: #b0dfe8;
+}
+
+.label-static {
+  padding-top: 0px !important;
+}
+
+.center {
+  text-align: center;
+}
+
+.form-label {
+  text-align: right;
+  font-weight: bold;
+}
+
+.jumbotron {
+  background-color: #d7eff4;
+}
+
+.inline {
+  display: inline;
+}
+
+.box {
+  background-color: #d7eff4;
+}
+
+.main {
+  text-align:center;
+  font-weight: bold;
+  background-color: #d7eff4;
+}
+
+.footer {
+  background-color: #d7eff4;
+}
+
+.icon {
+  margin-right: 15px;
+}
+
+.price {
+  margin-bottom: 20px;
+  /*font-weight: bold;
+  text-align: left;*/
+}
+
+input, textarea, .btn-default, .list-group-item {
+  background-color: #ebf7f9 !important;
+}
+
+.alert-height {
+  height: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 0px;
+}
+
+h3, h2 {
+  margin-top: 10px;
+  margin-bottom: 3px;
+  display: inline;
+}
+
+.btn-margin-right {
+  margin-right: 20px;
+}
+
+.btn-margin-top {
+  margin-top: 20px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.stack-gap {
+  margin-bottom: 5px !important;
+}
+
+a:link, a:visited, a:active, a:hover {
+  text-decoration: none;
+  color: black;
+
+}
+
+.qty {
+  max-width: 75px;
+}
+
+.total {
+  padding: 7px 10px !important;
+  background-color: #d7eff4 !important;
+  text-align: center;;
+}

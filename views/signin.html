@@ -1,0 +1,5 @@
+<ul class="nav navbar-nav navbar-right">
+  <li><a href="#/profile"><span ng-show="profile"><img class="profile img-circle" src="{{profile.image.url | profile}}"></span>{{profile.displayName}}</a></li>
+  <li ng-show="showSignIn"><a ng-click="SignIn()">Sign In</a></li>
+  <li ng-show="profile"><a ng-click="SignOut()">Sign Out</a></li>
+</ul>

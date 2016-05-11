@@ -1,0 +1,32 @@
+<!--*****************************************************************************************************************
+     Copyright � 2014 - 2016 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6 jumbotron">
+          <h3>Payment</h3>
+          <span class="pull-right">
+            <a class="btn btn-default btn-margin-right" href="#/stores">Stores <span class="glyphicon glyphicon-chevron-right"></span></a>
+            <a class="btn btn-default" href="#/orders">Orders <span class="glyphicon glyphicon-chevron-right"></span></a>
+          </span>
+        </div>
+    </div>
+    <div class="row" ng-show="signup">
+        <div class="col-sm-offset-3 col-sm-6 jumbotron">
+          <h4>Accept payment from your customers using Stripe credit card processing.</h4>
+          <h4>Just 2.9% + $0.30 fee per transaction.</h4>
+          <h4>It's easy to sign up online.</h4>
+          <a class="btn btn-default btn-margin-top"
+             href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_8NhgQByCmIZKdORssQCo6dDmHtvSuKUD&scope=read_write">
+             Sign Up Now <span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+    </div>
+    <div class="row" ng-show="info.stripe_user_id">
+        <div class="col-sm-offset-3 col-sm-6 jumbotron">
+          <h4><span class="icon glyphicon glyphicon-ok"></span>You are signed up for Stripe credit card processing.</h4>
+        </div>
+    </div>
+</div>
