@@ -9,6 +9,21 @@ make available to the public any content or code on this website without prior w
     height: 700px;
 }*/
 
+/*.dropdown-header {
+  font-weight: bold;
+  font-size: 14px;
+}*/
+
+.nav-photo {
+  margin-top: 0px !important;
+}
+
+.nav-drp {
+  font-weight: bold;
+  font-size: 18px;
+  font-style: italic;
+}
+
 .textbox {
   max-width: 360px;
 }
@@ -27,7 +42,34 @@ input[type=range] {
 
 .navbar {
   margin-bottom: 10px !important;
+  /*background-color: #328ea3 !important;*/
 }
+
+.btn-font {
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.app-nav {
+  height: 50px;
+  background-color: black;
+  margin-bottom: 20px;
+}
+
+.app-logo {
+  color: white;
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+/*.navbar-header {
+  height: 50px;
+}*/
 
 .signInDiv {
   padding: 5px;
@@ -54,6 +96,10 @@ input[type=range] {
 
 .MainHeading {
     text-align: center;
+}
+
+.slider-width {
+  width: 250px;
 }
 
 .photo-icon {
@@ -313,7 +359,7 @@ input[type=range] {
 
 .profile {
     margin-right: 10px;
-    margin-top: -8px;
+    margin-top: -9px;
     margin-bottom: -8px;
 }
 

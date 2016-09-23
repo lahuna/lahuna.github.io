@@ -36,7 +36,8 @@ ctl.controller('StripeCtrl', function ($scope, $route, Auth, $rootScope, StripeC
     StripeCheckoutResource.Post({
       'amount': $scope.amount,
       'currency': $scope.currency,
-      'card': token.id
+      'card': token.id,
+      'user_id': '117818489187125665682' //TODO: put merchant user id here
     });
   }
 

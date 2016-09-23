@@ -74,13 +74,15 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/#/"><div class="aLogo img-rounded">Lahuna</div></a>
-                <a class="navbar-brand aTitle" href="/foto">Foto</a>
+                <!--<a class="navbar-brand aTitle" href="/foto">Foto</a>-->
             </div>
             <div class="collapse navbar-collapse" id="lNavbar">
                 <ul class="nav navbar-nav">
                   <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown">Search <span class="caret"></span></a>
+                      <a class="dropdown-toggle" data-toggle="dropdown"><span class="nav-drp">Foto </span><span class="caret"></span></a>
                       <ul class="dropdown-menu">
+                          <li><a href="/foto">Main Menu</a></li>
+                          <li role="separator" class="divider"></li>
                           <li><a href="/foto/#/photos">Photos</a></li>
                           <li><a href="/foto/#/albums">Albums</a></li>
                           <li><a href="/foto/#/tags/photo">Photo Tags</a></li>
@@ -92,6 +94,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown">Apps <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/#/apps">Info</a></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="/foto">Foto</a></li>
                             <li><a href="/vida">Vida</a></li>
                             <!--<li><a href="/upload">Upload</a></li>-->
@@ -102,6 +105,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/#/about">About</a></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="/#/tech">Tech</a></li>
                             <li><a href="/#/consult">Consult</a></li>
                         </ul>
@@ -110,6 +114,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown">Contact <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/#/contact">Contact</a></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="https://plus.google.com/+LahunaWeb">Google+</a></li>
                             <li><a href="https://www.facebook.com/lahunaweb">Facebook</a></li>
                             <li><a href="https://twitter.com/LahunaWeb">Twitter</a></li>
@@ -122,14 +127,23 @@
                             <li><a href="https://lahunaweb.blogspot.com">Blogger</a></li>
                         </ul>
                     </li>
-                    <li><a href="/#/privacy">Privacy</a></li>
-                    <li><a href="/#/terms">Terms</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Legal <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="/#/privacy">Privacy</a></li>
+                          <li><a href="/#/terms">Terms</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/foto/#/profile"><span ng-show="profile"><img class="profile img-circle" src="{{profile.image.url | profile}}"></span>{{profile.displayName}}</a></li>
-                  <!--<li><a href="/foto/#/profile"><span ng-show="displayName" class="glyphicon glyphicon-user"></span> {{displayName}}</a></li>-->
+                  <li class="dropdown" ng-show="profile">
+                      <a class="dropdown-toggle" data-toggle="dropdown"><span><img class="profile img-circle" src="{{profile.image.url | profile}}"></span>{{profile.displayName}} <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="/foto/#/profile">Profile</a></li>
+                          <li><a ng-click="SignOut()">Sign Out</a></li>
+                      </ul>
+                  </li>
                   <li ng-show="showSignIn"><a ng-click="SignIn()">Sign In</a></li>
-                  <li ng-show="profile"><a ng-click="SignOut()">Sign Out</a></li>
                 </ul>
             </div>
         </div>

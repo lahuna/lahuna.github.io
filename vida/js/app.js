@@ -36,6 +36,10 @@ app.config(['$routeProvider',
                 //templateUrl: 'views/main.html',
                 //controller: 'MainCtrl'
             //}).
+            when('/upload', {
+                templateUrl: 'views/upload.html',
+                controller: 'MainCtrl'
+            }).
             when('/profile', {
                 templateUrl: '/auth/views/profile.html',
                 controller: 'ProfileCtrl'

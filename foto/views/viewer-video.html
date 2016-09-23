@@ -18,14 +18,16 @@
             </div>
         </div>
     </div>
-    <div class="row text-center">
-        <div class="col-md-12">
-            <nav class="navbar navbar-default navbar-static-bottom">
-                <span ng-click="Delete()" class="glyphicon glyphicon-trash viewer-icon" title="Delete"></span>
-                <span ng-click="Rotate(photo, -90)" class="glyphicon glyphicon-share-alt viewer-icon gly-flip-horizontal" title="Rotate Left"></span>
-                <span ng-click="Rotate(photo, 90)" class="glyphicon glyphicon-share-alt viewer-icon" title="Rotate Right"></span>
-                <span ng-click="open('sm', photo.gphoto$id.$t)" class="glyphicon glyphicon-tasks viewer-icon" title="More"></span>
-            </nav>
-        </div>
-    </div>
 </div>
+<footer class="footer-photo">
+    <div class="container">
+      <div class="text-center">
+          <div class="col-md-12">
+            <span ng-click="Delete()" class="glyphicon glyphicon-trash viewer-icon" title="Delete"></span>
+            <span ng-click="Rotate(photo, -90)" class="glyphicon glyphicon-share-alt viewer-icon gly-flip-horizontal" title="Rotate Left"></span>
+            <span ng-click="Rotate(photo, 90)" class="glyphicon glyphicon-share-alt viewer-icon" title="Rotate Right"></span>
+            <span ng-click="open('sm', photo.gphoto$id.$t)" class="glyphicon glyphicon-tasks viewer-icon" title="More"></span>
+          </div>
+      </div>
+    </div>
+</footer>

@@ -6,14 +6,19 @@
 
 'use strict';
 
-var ctl = angular.module('CartController', ['ResourceFactory', 'AuthenticateFactory']);
+var ctl = angular.module('CartController', ['ResourceFactory',
+  'AuthenticateFactory', 'stripe.checkout']);
 
 ctl.controller('CartCtrl', function ($scope, $route, Auth, $rootScope,
-  $routeParams, $modal, CartResource, CartItemResource, StoreResource, ProductResource) {
+  $routeParams, $modal, CartResource, CartItemResource, StoreResource,
+  ProductResource, StripeCheckoutResource, OrderResource) {
 
   function GetAccessToken() {
     return localStorage.getItem('google_access_token');
   }
+
+  $scope.description = 'Shopping Cart';
+  $scope.currency = 'usd';
 
   $scope.origin = location.origin;
   Auth.Authenticate('buy', function (result) {
@@ -56,7 +61,7 @@ ctl.controller('CartCtrl', function ($scope, $route, Auth, $rootScope,
 
     CartItemResource.Get({
       parent_id: $scope.cart_id,
-      maxdocs: 50
+      maxdocs: 100
     }).$promise.then(function (cart_items) {
       $scope.cart_items = cart_items;
       TotalCart();
@@ -64,12 +69,15 @@ ctl.controller('CartCtrl', function ($scope, $route, Auth, $rootScope,
   }
 
   function TotalCart() {
-    var total = 0;
+    var subtotal = 0;
     for (var i = 0; i < $scope.cart_items.list.length; i++) {
       var item = $scope.cart_items.list[i];
-        total += (item.quantity * item.product.price);
+        subtotal += (item.quantity * item.product.price);
     }
-    $scope.total = total;
+    $scope.subtotal = subtotal;
+    $scope.tax = subtotal * 0.085; // TODO: add tax value to store
+    $scope.total = subtotal + $scope.tax;
+    $scope.amount = Math.round($scope.total * 100);
   }
 
   $scope.Save = function () {
@@ -116,6 +124,46 @@ ctl.controller('CartCtrl', function ($scope, $route, Auth, $rootScope,
         SetAlert('success', 'Item deleted.');
       }
     });
+  }
+
+  $scope.doCheckout = function(token) {
+    StripeCheckoutResource.Post({
+      'amount': $scope.amount,
+      'currency': $scope.currency,
+      'card': token.id,
+      'user_id': $scope.store.userId
+    }).$promise.then(function (result) {
+      if (result.error) {
+        // TODO: handle error
+      } else {
+        Order(result.id);
+      }
+    });
+  }
+
+  function Order(chargeId) {
+    OrderResource.Post({
+      'charge_id': chargeId,
+      'store': $scope.store,
+      'cart': $scope.cart,
+      'cart_items': $scope.cart_items,
+      'subtotal': $scope.subtotal,
+      'tax': $scope.tax,
+      'total': $scope.total,
+      'accessToken': GetAccessToken()
+    }).$promise.then(function (result) {
+      if (result.error) {
+        // TODO: handle error
+      } else {
+        Cleanup(result.insertedId);
+      }
+    });
+  }
+
+  function Cleanup(orderId) {
+    // TODO: delete cart and cart items
+    //localStorage.removeItem('cart_id');
+    //location.href = "/buy/#/success/" + orderId;
   }
 
   function SetAlert(type, msg) {

@@ -61,7 +61,7 @@ ctl.controller('ToolsCtrl',
         function RunImport(path) {
           SetAlert('warning', 'Importing...');
           ResetForm();
-          Oboe.get({url: 'https://' + location.hostname + ':3002/' + path + '?accessToken=' + GetAccessToken()}
+          Oboe.get({url: 'https://' + location.hostname + ':8080/' + path + '?accessToken=' + GetAccessToken()}
           ).then(function() {
               // finished loading
           }, function(error) {

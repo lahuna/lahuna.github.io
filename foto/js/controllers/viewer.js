@@ -9,7 +9,7 @@
 var ctl = angular.module('ViewerController', ['ResourceFactory', 'PhotoFactory', 'AuthenticateFactory']);
 
 ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
-    PicasaAlbumFeedResource, PicasaPhotoResource, Photo, Auth, $route, $rootScope) {
+    Photo, PicasaPhotoResource, StorageService, Auth, $route, $rootScope) {
 
       // Authenticate
       Auth.Authenticate('foto', function (result) {
@@ -38,162 +38,85 @@ ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
       //****************************************
 
       function Initialize() {
-          $scope.myInterval = -1;
-          var photoId;
-          if ($routeParams.photoId) {
-            photoId = $routeParams.photoId;
+
+          $scope.index = $routeParams.photoId;
+          var data = StorageService.get();
+          if (data) {
+            $scope.photos = data;
+            SetVideoUrl();
           } else {
-            photoId = localStorage.getItem('fotoId');
+            console.log('No data found');
           }
-
-          Photo.GetPhoto({
-            'photoId': photoId,
-            'albumId': $routeParams.albumId, // only for album photos
-            'tag': $routeParams.tag, // only for search photos
-            'startIndex': $routeParams.startIndex,
-            'maxResults': $routeParams.maxResults,
-          }, function (result) {
-            if (result.error) {
-              return;
-            }
-            $scope.photo = result.photo;
-
-            if (result.list) {
-              $scope.list = result.list;
-              SetActive();
-            } else {
-              $scope.size = '800';
-              SetVideoUrl(result.photo);
-            }
-          });
       }
 
-      function SetVideoUrl(data) {
-        var resource = data.media$group.media$content[1];
-        if (resource)
-            $scope.videoUrl = $sce.trustAsResourceUrl(resource.url);
-      }
-
-      $scope.$watch('size', function (value) {
-          if ($scope.photo) {
-              $scope.photoUrl = $scope.photo.media$group.media$thumbnail[0].url.replace('72', value);
-          }
-      });
-
-      function SetActive() {
-        //var index = $scope.list.feed.entry.indexOf($scope.photo);
-        var index = GetIndex();
-        if (index > -1) {
-          $scope.list.feed.entry[index].active = true;
+      function SetVideoUrl() {
+        var url = $scope.photos[$scope.index].url;
+        if (url) {
+          $scope.videoUrl = $sce.trustAsResourceUrl(url);
+        } else {
+          $scope.videoUrl = undefined;
         }
       }
 
-      function GetIndex() {
-        if (!$scope.list.feed.entry) {
-          return -1;
+      $scope.Next = function () {
+        $scope.index++;
+        SetVideoUrl();
+      };
+
+      $scope.Previous = function () {
+        $scope.index--;
+        SetVideoUrl();
+      };
+
+      $scope.Delete = function () {
+        if (!$scope.photos) {
+          return;
         }
 
-        for (var i = 0; i < $scope.list.feed.entry.length; i++) {
-          if ($scope.list.feed.entry[i].gphoto$id.$t == localStorage.getItem('fotoId'))
-            return i;
-        }
-
-        // not found in list, so add to list
-        $scope.list.feed.entry.splice(0, 1, $scope.photo);
-        return 0;
-      }
-
-      //$scope.ShowVideo = function (photo) {
-      //    var resource = photo.media$group.media$content[1];
-      //    if (resource != undefined)
-      //        $scope.url = $sce.trustAsResourceUrl(photo.media$group.media$content[1].url);
-
-      //    $scope.showVid = true;
-      //}
-
-      $scope.StoreId = function (photoId) {
-          Auth.Store('fotoId', photoId);
-      }
-
-      //$scope.Go = function (photo) {
-      //    if (photo.gphoto$originalvideo != undefined) {
-      //        Auth.Store('fotoId', photo.gphoto$id.$t);
-      //        location.href = "/foto/#/video/viewer/" + photo.gphoto$id.$t;
-      //    } else {
-      //        Auth.Store('fotoId', photo.gphoto$id.$t);
-      //        location.href = photo.media$group.media$thumbnail[0].url.replace('72', '1200');
-      //    }
-
-      //}
-
-      $scope.Delete = function (photoItem) {
-        if ($scope.list) {
-          var index = $scope.list.feed.entry.indexOf(photoItem);
-          $scope.list.feed.entry.splice(index, 1);
-          if ($scope.list.feed.entry.length > 0)
-              $scope.list.feed.entry[0].active = true;
-        }
-
-        PicasaPhotoResource(photoItem.gphoto$id.$t).Delete({
+        $scope.photos.splice($scope.index, 1);
+        PicasaPhotoResource($scope.photos[$scope.index].photoId).Delete({
           accessToken: GetAccessToken()
         });
+        // TODO: delete photo from db
+
       };
 
-      $scope.Rotate = function (photoItem, value) {
-        Photo.Rotate(photoItem, value, function (position) {
-          if ($scope.list) {
-            var index = $scope.list.feed.entry.indexOf(photoItem);
-            $scope.list.feed.entry[index].position = position;
-          } else {
-            $scope.photo.position = position;
-          }
+      $scope.Rotate = function (value) {
+        if (!$scope.photos) {
+          return;
+        }
+
+        Photo.Rotate($scope.photos[$scope.index], value, function (position) {
+          $scope.photos[$scope.index].position = position;
         });
-      };
-
-      $scope.Tag = function (photoId) {
-
-      };
-
-      $scope.Share = function (photoId) {
-
-      };
-
-      $scope.Slideshow = function (photoItem) {
-          if ($scope.myInterval == -1) {
-              $scope.myInterval = 5000;
-              var index = $scope.list.feed.entry.indexOf(photoItem);
-              if (index == $scope.list.feed.entry.length - 1)
-                  $scope.list.feed.entry[0].active = true;
-              else
-                  $scope.list.feed.entry[index + 1].active = true;
-          }
-          else
-              $scope.myInterval = -1;
       };
 
       $scope.items = ['item1', 'item2', 'item3'];
 
-      $scope.open = function (size, photoId) {
+      $scope.open = function (size) {
+        if (!$scope.photos) {
+          return;
+        }
 
-          var modalInstance = $modal.open({
-              templateUrl: 'views/modal.html',
-              controller: 'ModalInstanceCtrl',
-              size: size,
-              resolve: {
-                  items: function () {
-                      return $scope.items;
-                  },
-                  photoId: function () {
-                      return photoId;
-                  }
-              }
-          });
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modal.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                },
+                photoId: function () {
+                    return $scope.photos[$scope.index].photoId;
+                }
+            }
+        });
 
-          modalInstance.result.then(function (selectedItem) {
-              $scope.selected = selectedItem;
-          }, function () {
-              $log.info('Modal dismissed at: ' + new Date());
-          });
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
       };
 
   });

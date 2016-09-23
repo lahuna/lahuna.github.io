@@ -9,7 +9,7 @@
 var fac = angular.module('PhotoFactory', ['ResourceFactory', 'AuthenticateFactory']);
 
 fac.factory('Photo', function (PicasaAlbumFeedResource,
-  PicasaResource, PicasaPhotoResource, Auth) {
+  PicasaResource, PicasaPhotoResource, PhotoDbResource, Auth) {
 
   return { 'Rotate': Rotate,
            'GetPhoto': GetPhoto };
@@ -58,9 +58,16 @@ fac.factory('Photo', function (PicasaAlbumFeedResource,
         "term=\'http://schemas.google.com/photos/2007#album\'></category>" +
       "</entry>";
 
-    PicasaPhotoResource(photoItem.gphoto$id.$t).Patch({
+    if (photoItem.gphoto$id)
+      photoItem.photoId = photoItem.gphoto$id.$t;
+
+    PicasaPhotoResource(photoItem.photoId).Patch({
       xml: xml,
       accessToken: GetAccessToken()
+    }).$promise.then(function (data) {
+      photoItem.accessToken = GetAccessToken();
+      photoItem.thumbnail = data.entry.media$group.media$thumbnail[0].url;
+      PhotoDbResource.Put(photoItem);
     });
   };
 

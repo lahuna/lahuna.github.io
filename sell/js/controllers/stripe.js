@@ -48,7 +48,7 @@ ctl.controller('StripeCtrl', function ($scope, $route, Auth, $rootScope, $routeP
     StripeMerchantResource.Get({
       'user_id': userId
     }).$promise.then(function (data) {
-      if (data.stripe_user_id) {
+      if (data.id) {
         $scope.info = data;
       } else {
         $scope.signup = true;

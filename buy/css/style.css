@@ -93,5 +93,28 @@ a:link, a:visited, a:active, a:hover {
 .total {
   padding: 7px 10px !important;
   background-color: #d7eff4 !important;
-  text-align: center;;
+  width: 205px;
+  /*text-align: right;*/
+}
+
+.cart {
+  padding: 7px 10px !important;
+  background-color: #d7eff4 !important;
+}
+
+.grandtotal {
+  font-weight: bold;
+}
+
+.rt {
+  text-align: right;
+}
+
+.totaltable {
+  margin: 10px;
+}
+
+.btn-save {
+  margin-left: 7px;
+  margin-bottom: 10px;
 }

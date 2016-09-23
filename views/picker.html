@@ -13,7 +13,7 @@
       var clientId = "206181221643-0vs27daoo6pnl5bbc8i9djnaiv9umqmb.apps.googleusercontent.com"
 
       // Scope to use to access user's photos.
-      var scope = ['https://www.googleapis.com/auth/photos', 'https://www.googleapis.com/auth/photos.upload'];
+      var scope = ['https://www.googleapis.com/auth/photos.upload'];
 
       var pickerApiLoaded = false;
       var oauthToken;
@@ -29,7 +29,7 @@
             {
               'client_id': clientId,
               'scope': scope,
-              'immediate': false
+              'immediate': true
             },
             handleAuthResult);
       }
@@ -42,6 +42,7 @@
       function handleAuthResult(authResult) {
         if (authResult && !authResult.error) {
           oauthToken = authResult.access_token;
+          //oauthToken = localStorage.getItem('google_access_token');
           createPicker();
         }
       }
@@ -50,11 +51,16 @@
       function createPicker() {
         if (pickerApiLoaded && oauthToken) {
           var picker = new google.picker.PickerBuilder().
-              addView(google.picker.ViewId.PHOTOS).
-              addView(new google.picker.DocsUploadView()).
+              //addView(google.picker.ViewId.YOUTUBE).
+              addView(google.picker.ViewId.PHOTO_UPLOAD).
+              setSelectableMimeTypes('image/jpeg').
+              //addView(new google.picker.DocsUploadView()).
               setOAuthToken(oauthToken).
               setDeveloperKey(developerKey).
               setCallback(pickerCallback).
+              hideTitleBar().
+              enableFeature(google.picker.Feature.NAV_HIDDEN).
+              enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
               build();
           picker.setVisible(true);
         }

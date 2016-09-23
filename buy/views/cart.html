@@ -28,9 +28,9 @@
           <alert class="alert-height" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6">
-        <table class="table" ng-show="cart_items.list.length > 0">
+    <div class="row" ng-show="cart_items.list.length > 0">
+      <div class="col-md-offset-3 col-md-6 cart">
+        <table class="table">
           <thead>
             <tr>
               <th>Item</th>
@@ -64,18 +64,64 @@
             </tr>
           </tbody>
         </table>
+        <button class="btn btn-default btn-save" type="button" ng-click="Save()">Save</button>
       </div>
     </div>
     <div class="row" ng-show="cart_items.list.length > 0">
-        <div class="col-md-offset-3 col-md-1 inline">
-          <button class="btn btn-primary" type="button" ng-click="Save()">Save</button>
-        </div>
-        <div class="col-md-2 inline">
-          <!--<button class="btn btn-default" type="button" ng-click="Checkout()">Checkout</button>-->
-          <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Check out with PayPal" />
-        </div>
-        <div class="col-md-2 inline total list-group-item">
-          <span>Cart Total: {{total | currency}}</span>
+        <div class="col-md-offset-3 col-sm-3 col-md-3 col-lg-3 total">
+          <table class="totaltable">
+            <tbody>
+              <tr>
+                <td>
+                  Subtotal:
+                </td>
+                <td class="rt">
+                  {{subtotal | currency}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Tax:
+                </td>
+                <td class="rt">
+                  {{tax | currency}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  ----------------
+                </td>
+                <td>
+                  ----------------
+                </td>
+              </tr>
+              <tr class="grandtotal">
+                <td>
+                  Total:
+                </td>
+                <td class="rt">
+                  {{total | currency}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button class="btn btn-primary btn-margin-top"
+                          stripe-checkout="doCheckout"
+                          data-key="pk_test_eN8vY0P228fXRicRwVXaEE3L"
+                          data-amount="{{amount}}"
+                          data-name="Lahuna"
+                          data-description="{{description}}"
+                          data-image="/images/lahuna_logo_256x256x32.png"
+                          data-currency="{{currency}}"
+                          data-locale="auto"
+                          data-zip-code="true">
+                    Checkout
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
         </div>
     </div>
 </div>

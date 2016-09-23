@@ -10,7 +10,7 @@ var res = angular.module('Resources', ['ngResource']);
 
 // Send Email
 res.factory('EmailResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':3001/email', {}, {
+  return $resource('https://' + location.hostname + ':8000/email', {}, {
     Send: {
         method: 'GET'
     }
@@ -20,7 +20,7 @@ res.factory('EmailResource', function ($resource) {
 // Log
 res.factory('LogResource', function ($resource) {
   return function (path) {
-    return $resource('https://' + location.hostname + ':3001/log' + path, {}, {
+    return $resource('https://' + location.hostname + ':8000/log' + path, {}, {
       Post: {
         method: 'POST'
       }

@@ -43,6 +43,7 @@ fac.factory('Auth', function (AuthenticateResource) {
     switch (app) {
       case "buy":
       case "sell":
+      case "pay":
       case "foto":
         Store('google_access_token', data.access_token);
         Store('google_user_id', data.user_id);
@@ -68,6 +69,7 @@ fac.factory('Auth', function (AuthenticateResource) {
     switch (app) {
       //case "buy":
       case "sell":
+      case "pay":
       case "foto":
         scope = "https://picasaweb.google.com/data";
         break;
@@ -98,6 +100,7 @@ fac.factory('Auth', function (AuthenticateResource) {
     switch (app) {
       case "buy":
       case "sell":
+      case "pay":
       case "foto":
         localStorage.removeItem('google_access_token');
         localStorage.removeItem('google_refresh_token');
@@ -133,6 +136,7 @@ fac.factory('Auth', function (AuthenticateResource) {
     switch (app) {
       case "buy":
       case "sell":
+      case "pay":
       case "foto":
         return localStorage.getItem('google_access_token');
         break;
@@ -151,6 +155,7 @@ fac.factory('Auth', function (AuthenticateResource) {
     switch (app) {
       case "buy":
       case "sell":
+      case "pay":
       case "foto":
         return localStorage.getItem('google_refresh_token');
         break;

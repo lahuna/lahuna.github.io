@@ -59,6 +59,7 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams,
             switch ($routeParams.state) {
                 case "buy":
                 case "sell":
+                case "pay":
                 case "foto":
                     Auth.Store("google_access_token", token.access_token);
                     Auth.Store("google_expires_in", token.expires_in);

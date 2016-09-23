@@ -69,6 +69,8 @@ ctl.controller('ProfileCtrl', function ($scope, $routeParams, $rootScope,
       return 'buy';
     } else if (location.href.indexOf('sell') > -1) {
       return 'sell';
+    } else if (location.href.indexOf('pay') > -1) {
+      return 'pay';
     }
   }
 

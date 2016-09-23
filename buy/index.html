@@ -22,6 +22,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-touch.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="/js/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <script src="/js/angular-stripe-checkout.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
     <script src="js/app.js"></script>
     <script src="js/filters.js"></script>
@@ -34,6 +36,8 @@
     <script src="js/controllers/product.js"></script>
     <script src="js/controllers/products.js"></script>
     <script src="js/controllers/cart.js"></script>
+    <script src="js/controllers/success.js"></script>
+    <script src="js/controllers/order.js"></script>
     <script src="/js/controllers/modal.js"></script>
 
     <script src="/auth/js/factories/resources.js"></script>
@@ -70,23 +74,25 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/#/"><div class="aLogo img-rounded">Lahuna</div></a>
-                <a class="navbar-brand aTitle" href="/buy">Buy</a>
             </div>
             <div class="collapse navbar-collapse" id="lNavbar">
                 <ul class="nav navbar-nav">
                   <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown">Go To <span class="caret"></span></a>
+                      <a class="dropdown-toggle" data-toggle="dropdown"><span class="nav-drp">Buy </span><span class="caret"></span></a>
                       <ul class="dropdown-menu">
-                        <li><a href="#/get-started">Get Started</a></li>
-                        <li><a href="#/stores">Stores</a></li>
-                        <li><a href="#/cart">Cart</a></li>
-                        <li><a href="#/orders">Orders</a></li>
+                          <li><a href="/buy">Main Menu</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#/get-started">Get Started</a></li>
+                          <li><a href="#/stores">Stores</a></li>
+                          <li><a href="#/cart">Cart</a></li>
+                          <li><a href="#/orders">Orders</a></li>
                       </ul>
                   </li>
                   <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown">Apps <span class="caret"></span></a>
                       <ul class="dropdown-menu">
                           <li><a href="/#/apps">Info</a></li>
+                          <li role="separator" class="divider"></li>
                           <li><a href="/foto">Foto</a></li>
                           <li><a href="/vida">Vida</a></li>
                           <li><a href="/blitz">Blitz</a></li>
@@ -96,6 +102,7 @@
                       <a class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
                       <ul class="dropdown-menu">
                           <li><a href="/#/about">About</a></li>
+                          <li role="separator" class="divider"></li>
                           <li><a href="/#/tech">Tech</a></li>
                           <li><a href="/#/consult">Consult</a></li>
                       </ul>
@@ -104,6 +111,7 @@
                       <a class="dropdown-toggle" data-toggle="dropdown">Contact <span class="caret"></span></a>
                       <ul class="dropdown-menu">
                           <li><a href="/#/contact">Contact</a></li>
+                          <li role="separator" class="divider"></li>
                           <li><a href="https://plus.google.com/+LahunaWeb">Google+</a></li>
                           <li><a href="https://www.facebook.com/lahunaweb">Facebook</a></li>
                           <li><a href="https://twitter.com/LahunaWeb">Twitter</a></li>
@@ -116,14 +124,24 @@
                           <li><a href="https://lahunaweb.blogspot.com">Blogger</a></li>
                       </ul>
                   </li>
-                  <li><a href="/#/privacy">Privacy</a></li>
-                  <li><a href="/#/terms">Terms</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#/profile"><span ng-show="profile"><img class="profile img-circle" src="{{profile.image.url | profile}}"></span>{{profile.displayName}}</a></li>
-                  <li ng-show="showSignIn"><a ng-click="SignIn()">Sign In</a></li>
-                  <li ng-show="profile"><a ng-click="SignOut()">Sign Out</a></li>
-                </ul>
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown">Legal <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/#/privacy">Privacy</a></li>
+                        <li><a href="/#/terms">Terms</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" ng-show="profile">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span><img class="profile img-circle" src="{{profile.image.url | profile}}"></span>{{profile.displayName}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/foto/#/profile">Profile</a></li>
+                        <li><a ng-click="SignOut()">Sign Out</a></li>
+                    </ul>
+                </li>
+                <li ng-show="showSignIn"><a ng-click="SignIn()">Sign In</a></li>
+              </ul>
             </div>
         </div>
     </nav>

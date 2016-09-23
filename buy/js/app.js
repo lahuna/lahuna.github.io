@@ -19,7 +19,9 @@ var app = angular.module('buy', [
   'CategoriesController',
   'ProductController',
   'ProductsController',
-  'CartController'
+  'CartController',
+  'SuccessController',
+  'OrderController'
 ]);
 
 app.config(['$routeProvider',
@@ -72,6 +74,14 @@ app.config(['$routeProvider',
             when('/cart', {
                 templateUrl: 'views/cart.html',
                 controller: 'CartCtrl'
+            }).
+            when('/success/:orderId', {
+                templateUrl: 'views/success.html',
+                controller: 'SuccessCtrl'
+            }).
+            when('/order/:orderId', {
+                templateUrl: 'views/order.html',
+                controller: 'OrderCtrl'
             }).
             otherwise({
                 redirectTo: '/'

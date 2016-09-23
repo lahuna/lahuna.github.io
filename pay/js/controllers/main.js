@@ -11,6 +11,7 @@ var ctl = angular.module('MainController', ['ResourceFactory', 'AuthenticateFact
 ctl.controller('MainCtrl', function ($scope, $route, Auth, $rootScope, PaymentResource) {
 
   $rootScope.AppName = 'Pay';
+  $scope.NavPath = 'views/app.html';
 
   $scope.origin = location.origin;
   Auth.Authenticate('pay', function (result) {

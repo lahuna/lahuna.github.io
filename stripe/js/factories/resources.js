@@ -9,7 +9,7 @@
 var fac = angular.module('ResourceFactory', ['ngResource']);
 
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':3001/google/authenticate', {}, {
+  return $resource('https://' + location.hostname + ':8000/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -17,7 +17,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 });
 
 fac.factory('StripeCheckoutResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':3001/stripe/checkout', {}, {
+  return $resource('https://' + location.hostname + ':8000/stripe/checkout', {}, {
     Post: {
       method: 'POST'
     }
