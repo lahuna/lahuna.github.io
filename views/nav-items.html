@@ -1,0 +1,47 @@
+<div id="navbar" class="navbar-collapse collapse">
+  <ul class="nav navbar-nav">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Apps <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="/#/apps">Apps</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/foto">Foto</a></li>
+            <li><a href="/vida">Vida</a></li>
+            <!--<li><a href="/upload">Upload</a></li>-->
+            <li><a href="/blitz">Blitz</a></li>
+        </ul>
+    </li>
+    <!--<li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="/#/about">About</a></li>
+            <li><a href="/#/tech">Tech</a></li>
+            <li><a href="/#/consult">Consult</a></li>
+        </ul>
+    </li>-->
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Contact <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="/#/contact">Contact</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="https://plus.google.com/+LahunaWeb">Google+</a></li>
+            <li><a href="https://www.facebook.com/lahunaweb">Facebook</a></li>
+            <li><a href="https://twitter.com/LahunaWeb">Twitter</a></li>
+            <li><a href="https://www.youtube.com/LahunaWeb">Youtube</a></li>
+            <li><a href="https://www.linkedin.com/in/lahunaweb">LinkedIn</a></li>
+            <li><a href="https://www.pinterest.com/LahunaWeb">Pinterest</a></li>
+            <li><a href="https://www.reddit.com/user/lahunaweb">Reddit</a></li>
+            <li><a href="https://lahunaweb.imgur.com">Imgur</a></li>
+            <li><a href="http://lahunaweb.tumblr.com">Tumblr</a></li>
+            <li><a href="https://lahunaweb.blogspot.com">Blogger</a></li>
+        </ul>
+    </li>
+    <li><a href="/#/privacy">Privacy</a></li>
+    <li><a href="/#/terms">Terms</a></li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li><a href="/pay/#/profile"><span ng-show="profile"><img class="profile img-circle" src="{{profile.image.url | profile}}"></span></a></li>
+    <li ng-show="showSignIn"><a ng-click="SignIn()">Sign In</a></li>
+    <li ng-show="profile"><a ng-click="SignOut()">Sign Out</a></li>
+  </ul>
+</div><!--/.nav-collapse -->
