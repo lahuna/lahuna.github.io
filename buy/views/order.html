@@ -1,0 +1,105 @@
+<!--*****************************************************************************************************************
+     Copyright � 2014 - 2016 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-4">
+          <span>
+            <a class="btn btn-default stack-gap" href="#/store/{{store._id}}" ng-show="store._id"><span class="glyphicon glyphicon-chevron-left"></span> Store</a>
+            <a class="btn btn-default stack-gap" href="#/stores" ng-show="!store._id"><span class="glyphicon glyphicon-chevron-left"></span> Stores</a>
+          </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-3 col-md-4">
+            <h3>{{order.store.title}}</h3>
+        </div>
+    </div>
+    <div class="row" ng-show="order.store.title">
+        <div class="col-md-offset-3 col-md-4">
+          <h3>Order Detail</h3>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-4">
+          <alert class="alert-height" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+      </div>
+    </div>
+    <div class="row" ng-show="order.cart_items.list.length > 0">
+      <div class="col-md-offset-3 col-md-6 cart">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr ng-repeat="item in order.cart_items.list">
+              <td>
+                <a href="#/store/{{order.cart.store_id}}/product/{{item.product_id}}">
+                    <div><img ng-src="{{item.thumbnail}}" class="img-responsive" /></div>
+                    <div>{{item.product.title}}</div>
+                </a>
+              </td>
+              <td>
+                {{item.quantity}}
+              </td>
+              <td>
+                {{item.product.price | currency}}
+              </td>
+              <td>
+                {{(item.quantity * item.product.price) | currency}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row" ng-show="order.cart_items.list.length > 0">
+        <div class="col-md-offset-3 col-sm-3 col-md-3 col-lg-3 total">
+          <table class="totaltable">
+            <tbody>
+              <tr>
+                <td>
+                  Subtotal:
+                </td>
+                <td class="rt">
+                  {{order.subtotal | currency}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Tax:
+                </td>
+                <td class="rt">
+                  {{order.tax | currency}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  ----------------
+                </td>
+                <td>
+                  ----------------
+                </td>
+              </tr>
+              <tr class="grandtotal">
+                <td>
+                  Total:
+                </td>
+                <td class="rt">
+                  {{order.total | currency}}
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+    </div>
+</div>
