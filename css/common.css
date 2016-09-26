@@ -14,6 +14,43 @@ make available to the public any content or code on this website without prior w
   font-size: 14px;
 }*/
 
+.stack-gap {
+  margin-bottom: 5px !important;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.img-center {
+  display: inline-block;
+}
+
+a.album-span {
+    color: #555;
+    text-decoration: none;
+}
+
+a:hover.album-span {
+    background-color: #f5f5f5;
+}
+
+.album-span {
+  border: 1px solid #ddd;
+  width: 180px;
+  height: 250px;
+  display: inline-block;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  vertical-align: top
+}
+
+.thumb-caption {
+  word-break: break-all;
+}
+
 .nav-photo {
   margin-top: 0px !important;
 }
@@ -383,5 +420,5 @@ input[type=range] {
 }
 
 .btnWidth {
-    width: 222px !important;
+    min-width: 100px !important;
 }

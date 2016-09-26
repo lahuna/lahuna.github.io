@@ -79,7 +79,7 @@ ctl.controller('AlbumsCtrl', function ($scope, $routeParams,
             AlbumDbResource.Get({
                 query: GetQuery(),
                 order: GetOrder(),
-                maxdocs: 10,
+                maxdocs: 20,
                 accessToken: GetAccessToken()
             }).$promise.then(function (data) {
                 $scope.items = data.list;

@@ -29,12 +29,12 @@
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-3">
-            <div ng-repeat="item in items.list | orderBy:'query' | filter: { query:search }">
-                <div class="btn-group btnGroup">
-                    <a href="#/{{path}}/{{item.query}}" ng-click="StoreFilter()" class="btn btn-default btnWidth">{{item.query}}</a>
-                    <button class="btn btn-default" type="button" ng-click="Delete(item)"><span class="glyphicon glyphicon-trash" title="Delete"></span></button>
-                </div>
+          <div class="list-group">
+            <div ng-repeat="item in items.list | orderBy:'query' | filter: { query:search }" class="list-group-item">
+              <a href="#/{{path}}/{{item.query}}" class="btn btn-default" ng-click="StoreFilter()">{{item.query}}</a>
+              <button class="btn btn-default pull-right" type="button" ng-click="Delete(item)"><span class="glyphicon glyphicon-trash" title="Delete"></span></button>
             </div>
+          </div>
 
             <!--<table class="table">
                 <tbody>

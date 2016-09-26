@@ -4,19 +4,16 @@
      make available to the public any content or code on this website without prior written permission from Lahuna.
     *****************************************************************************************************************-->
 
-<div class="modal-header">
-    <h3 class="modal-title">Tasks</h3>
-</div>
 <div class="modal-body">
-    <ul>
-        <li ng-repeat="item in items">
-            <a ng-click="selected.item = item">{{ item }}</a>
-        </li>
-    </ul>
-    Selected: <b>{{ selected.item }}</b>
-    Photo Id: <b>{{ photoId }}</b>
+    <div class="text-center">
+      <div>
+        <a href="#/{{type}}/detail/{{photoId}}" ng-click="cancel()" class="btn btn-default btnTop"><span class="glyphicon glyphicon-th-list"></span> Detail</a>
+      </div>
+      <div>
+        <a href="#/photo/edit/{{photoId}}" ng-click="cancel()" class="btn btn-default btnTop"><span class="glyphicon glyphicon glyphicon-pencil"></span> Edit</a>
+      </div>
+    </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>

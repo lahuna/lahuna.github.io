@@ -5,8 +5,13 @@
     *****************************************************************************************************************-->
 <div class="container">
   <div class="row">
-      <div class="col-md-offset-2 col-md-4">
-          <h4>Album Edit</h4>
+      <div class="col-md-offset-2 col-md-6">
+        <h4 class="inline-block">Album Edit</h4>
+        <span class="pull-right" ng-show="albumId">
+          <a href="#/album/detail/{{albumId}}" class="btn btn-default pull-right btnTop">
+            <span class="glyphicon glyphicon-th-list"></span> Detail
+          </a>
+        </span>
       </div>
       <div class="col-md-offset-3 col-md-4">
           <a ng-click="SignIn()" ng-show="showSignIn" class="list-group-item signInDiv">
@@ -20,86 +25,84 @@
           <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
       </div>
   </div>
-    <div class="row">
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="textboxTitle">Title:</label>
-                <div class="col-sm-6">
-                    <input ng-model="item.title.$t" class="form-control" id="textboxTitle" type="text">
-                </div>
-                <div id="labelTitle"></div>
-            </div>
-            <!--<div class="form-group">
-                <label class="control-label col-sm-2" for="textboxTitle">Description:</label>
-                <div class="col-sm-6">
-                    <textarea ng-model="item.summary.$t" class="form-control" id="textboxSummary" rows="5" cols="22" maxlength="1000"></textarea>
-                </div>
-            </div>-->
-            <!--<div class="form-group">
-                <label class="control-label col-sm-2" for="textboxLocation">Location:</label>
-                <div class="col-sm-6">
-                    <input ng-model="item.gphoto$location.$t" class="form-control" id="textboxLocation" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="textboxCoordinates">Coordinates:</label>
-                <div class="col-sm-6">
-                    <input ng-model="item.georss$where.gml$Point.gml$pos.$t" class="form-control" id="textboxCoordinates" type="text">
-                </div>
-            </div>-->
-            <!--<div class="form-group" id="divKeywords">
-                <label class="control-label col-sm-2" for="textboxKeywords">Tags:</label>
-                <div class="col-sm-6">
-                    <input ng-model="item.media$group.media$keywords.$t" class="form-control" id="textboxKeywords" type="text">
-                </div>
-            </div>-->
-            <!--<div class="form-group" id="divKeywords">
-                <label class="control-label col-sm-2" for="textboxKeywords">Tags:</label>
-                <div class="col-sm-6">
-                    <input type="text" ng-model="tag" ng-keydown="GoAddTag($event)" typeahead="item.query for item in GetSearchList($viewValue)"
-                           class="form-control" placeholder="Enter a tag..." aria-describedby="addonTag" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" ng-click="AddTag()">Add</button>
-                    </span>
-                    <span ng-repeat="tag in item.media$group.media$keywords.$t">
-                        <button class="btn btn-default form-margin" ng-click="RemoveTag(tag)" title="Remove">{{tag}} <span class="glyphicon glyphicon-remove"></span></button>
-                    </span>
-                </div>
-            </div>-->
+  <form class="form-horizontal" role="form">
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="textboxTitle">Title:</label>
+          <div class="col-sm-6">
+              <input ng-model="item.title.$t" class="form-control" id="textboxTitle" type="text">
+          </div>
+          <div id="labelTitle"></div>
+      </div>
+      <!--<div class="form-group">
+          <label class="control-label col-sm-2" for="textboxTitle">Description:</label>
+          <div class="col-sm-6">
+              <textarea ng-model="item.summary.$t" class="form-control" id="textboxSummary" rows="5" cols="22" maxlength="1000"></textarea>
+          </div>
+      </div>-->
+      <!--<div class="form-group">
+          <label class="control-label col-sm-2" for="textboxLocation">Location:</label>
+          <div class="col-sm-6">
+              <input ng-model="item.gphoto$location.$t" class="form-control" id="textboxLocation" type="text">
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="textboxCoordinates">Coordinates:</label>
+          <div class="col-sm-6">
+              <input ng-model="item.georss$where.gml$Point.gml$pos.$t" class="form-control" id="textboxCoordinates" type="text">
+          </div>
+      </div>-->
+      <!--<div class="form-group" id="divKeywords">
+          <label class="control-label col-sm-2" for="textboxKeywords">Tags:</label>
+          <div class="col-sm-6">
+              <input ng-model="item.media$group.media$keywords.$t" class="form-control" id="textboxKeywords" type="text">
+          </div>
+      </div>-->
+      <!--<div class="form-group" id="divKeywords">
+          <label class="control-label col-sm-2" for="textboxKeywords">Tags:</label>
+          <div class="col-sm-6">
+              <input type="text" ng-model="tag" ng-keydown="GoAddTag($event)" typeahead="item.query for item in GetSearchList($viewValue)"
+                     class="form-control" placeholder="Enter a tag..." aria-describedby="addonTag" />
+              <span class="input-group-btn">
+                  <button class="btn btn-default" ng-click="AddTag()">Add</button>
+              </span>
+              <span ng-repeat="tag in item.media$group.media$keywords.$t">
+                  <button class="btn btn-default form-margin" ng-click="RemoveTag(tag)" title="Remove">{{tag}} <span class="glyphicon glyphicon-remove"></span></button>
+              </span>
+          </div>
+      </div>-->
 
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="textboxKeywords">Tags:</label>
-                <div class=" col-sm-6">
-                    <div class="input-group">
-                        <input type="text" ng-model="tag" ng-keydown="GoAddTag($event)" typeahead="item.query for item in GetSearchList($viewValue)"
-                               class="form-control" placeholder="Enter a tag..." aria-describedby="addonTag" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" ng-click="AddTag()">Add</button>
-                        </span>
-                    </div>
-                    <span ng-repeat="tag in tags">
-                        <button class="btn btn-default form-margin" ng-click="RemoveTag(tag)" title="Remove">{{tag}} <span class="glyphicon glyphicon-remove"></span></button>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="selectAccess">Access:</label>
-                <div class="col-sm-2">
-                    <select ng-model="item.gphoto$access.$t" class="form-control" id="selectAccess">
-                        <option value="private">Private</option>
-                        <option value="only_you">Only You</option>
-                        <option value="protected">Protected</option>
-                        <option value="public">Public</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-3">
-                    <!--<p>{{item}}</p>-->
-                    <button class="btn btn-primary" type="button" ng-click="save()">Save</button>
-                    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
-                </div>
-            </div>
-        </form>
-    </div>
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="textboxKeywords">Tags:</label>
+          <div class=" col-sm-6">
+              <div class="input-group">
+                  <input type="text" ng-model="tag" ng-keydown="GoAddTag($event)" typeahead="item.query for item in GetSearchList($viewValue)"
+                         class="form-control" placeholder="Enter a tag..." aria-describedby="addonTag" />
+                  <span class="input-group-btn">
+                      <button class="btn btn-default" ng-click="AddTag()">Add</button>
+                  </span>
+              </div>
+              <span ng-repeat="tag in tags">
+                  <button class="btn btn-default form-margin" ng-click="RemoveTag(tag)" title="Remove">{{tag}} <span class="glyphicon glyphicon-remove"></span></button>
+              </span>
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="selectAccess">Access:</label>
+          <div class="col-sm-2">
+              <select ng-model="item.gphoto$access.$t" class="form-control" id="selectAccess">
+                  <option value="private">Private</option>
+                  <option value="only_you">Only You</option>
+                  <option value="protected">Protected</option>
+                  <option value="public">Public</option>
+              </select>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-3">
+              <!--<p>{{item}}</p>-->
+              <button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+              <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+          </div>
+      </div>
+  </form>
 </div>

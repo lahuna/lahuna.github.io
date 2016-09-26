@@ -8,18 +8,10 @@
 
 var ctl = angular.module('ModalInstanceController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, photoId) {
-
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
+ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance, photoId, type) {
 
     $scope.photoId = photoId;
-
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
+    $scope.type = type;
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

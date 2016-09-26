@@ -56,6 +56,14 @@ ctl.controller('EditPhotoCtrl',
       }
       GetAlbum(data.entry.gphoto$albumid.$t)
     });
+
+    PhotoDbResource.Get({
+        photoId: photoId,
+        maxdocs: '1',
+        accessToken: GetAccessToken()
+    }).$promise.then(function (photo) {
+      $scope.dbPhoto = photo.list[0];
+    });
   }
 
   function GetAlbum(albumId) {
@@ -111,12 +119,19 @@ ctl.controller('EditPhotoCtrl',
 
   function dbItem (item) {
     var dbItem = {
+      _id: $scope.dbPhoto._id,
       photoId: item.gphoto$id.$t,
+      albumId: item.gphoto$albumid.$t,
       title: item.title.$t,
+      description: item.summary.$t,
       thumbnail: item.media$group.media$thumbnail[0].url,
       published: item.published.$t,
       updated: item.updated.$t,
       access: item.gphoto$access.$t,
+      tags: $scope.tags.toString(),
+      type: $scope.dbPhoto.type,
+      url: $scope.dbPhoto.url,
+      timestamp: $scope.dbPhoto.timestamp,
       accessToken: GetAccessToken()
     };
     return dbItem;

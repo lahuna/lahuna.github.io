@@ -102,6 +102,15 @@ fil.filter('thumb', function () {
     };
 });
 
+fil.filter('thumbAlbum', function () {
+    return function (input) {
+        if (input.indexOf('s72') > -1)
+            return input.replace('s72', 's160-c');
+        else
+            return input;
+    };
+});
+
 fil.filter('day', function () {
     return function (input) {
         return input.substring(8);

@@ -6,7 +6,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-offset-3 col-md-4">
-            <h4>Photo Detail</h4>
+          <h4 class="inline-block">Photo Detail</h4>
+          <span class="pull-right" ng-show="photo">
+            <a href="#/photo/edit/{{photo.gphoto$id.$t}}" class="btn btn-default pull-right btnTop">
+              <span class="glyphicon glyphicon-pencil"></span> Edit
+            </a>
+          </span>
         </div>
         <div class="col-md-offset-3 col-md-4">
             <a ng-click="SignIn()" ng-show="showSignIn" class="list-group-item signInDiv">
@@ -21,7 +26,7 @@
                 <tbody>
                     <tr><td>Title:</td><td>{{photo.title.$t}}</td></tr>
                     <tr><td>File Name:</td><td>{{photo.media$group.media$title.$t}}</td></tr>
-                    <tr><td>Album:</td><td><a href="#/album/photos/{{photo.gphoto$albumid.$t}}">{{album.title.$t}}</a></td></tr>
+                    <tr><td>Album:</td><td><a href="#/photos/album/{{photo.gphoto$albumid.$t}}">{{album.title.$t}}</a></td></tr>
                     <!--<tr><td>Summary:</td><td>{{photo.summary.$t}}</td></tr>-->
                     <tr><td>Description:</td><td>{{photo.media$group.media$description.$t}}</td></tr>
                     <!--<tr><td>Location:</td><td>{{album.gphoto$location.$t}}</td></tr>
@@ -29,7 +34,7 @@
                     <tr><td>Tags:</td><td>{{photo.media$group.media$keywords.$t}}</td></tr>
                     <tr><td>Access:</td><td>{{photo.gphoto$access.$t}}</td></tr>
                     <tr><td>Taken:</td><td>{{photo.gphoto$timestamp.$t | timestamp}}</td></tr>
-                    <tr><td>Exif Time:</td><td>{{photo.exif$tags.exif$time.$t | timestamp}}</td></tr>
+                    <!--<tr><td>Exif Time:</td><td>{{photo.exif$tags.exif$time.$t | timestamp}}</td></tr>-->
                     <tr><td>Published:</td><td>{{photo.published.$t | cmdate}}</td></tr>
                     <tr><td>Updated:</td><td>{{photo.updated.$t | cmdate}}</td></tr>
                     <tr><td>Size:</td><td>{{photo.gphoto$size.$t | number}} bytes</td></tr>

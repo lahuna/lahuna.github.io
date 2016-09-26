@@ -9,7 +9,7 @@
 var ctl = angular.module('ViewerController', ['ResourceFactory', 'PhotoFactory', 'AuthenticateFactory']);
 
 ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
-    Photo, PicasaPhotoResource, StorageService, Auth, $route, $rootScope) {
+    Photo, PicasaPhotoResource, PhotoDbResource, StorageService, Auth, $route, $rootScope) {
 
       // Authenticate
       Auth.Authenticate('foto', function (result) {
@@ -39,7 +39,7 @@ ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
 
       function Initialize() {
 
-          $scope.index = $routeParams.photoId;
+          $scope.index = $routeParams.index;
           var data = StorageService.get();
           if (data) {
             $scope.photos = data;
@@ -59,63 +59,60 @@ ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
       }
 
       $scope.Next = function () {
-        $scope.index++;
+        if ($scope.index == ($scope.photos.length - 1)) {
+          $scope.index = 0;
+        } else {
+          $scope.index++;
+        }
+
         SetVideoUrl();
       };
 
       $scope.Previous = function () {
-        $scope.index--;
+        if ($scope.index == 0) {
+          $scope.index = $scope.photos.length - 1;
+        } else {
+          $scope.index--;
+        }
+
         SetVideoUrl();
       };
 
       $scope.Delete = function () {
-        if (!$scope.photos) {
-          return;
-        }
-
+        var photoId = $scope.photos[$scope.index].photoId;
+        var _id = $scope.photos[$scope.index]._id;
         $scope.photos.splice($scope.index, 1);
-        PicasaPhotoResource($scope.photos[$scope.index].photoId).Delete({
+
+        PicasaPhotoResource(photoId).Delete({
           accessToken: GetAccessToken()
         });
-        // TODO: delete photo from db
+
+        PhotoDbResource.Delete({
+          _id: _id,
+          accessToken: GetAccessToken()
+        });
 
       };
 
       $scope.Rotate = function (value) {
-        if (!$scope.photos) {
-          return;
-        }
-
-        Photo.Rotate($scope.photos[$scope.index], value, function (position) {
-          $scope.photos[$scope.index].position = position;
+        Photo.Rotate($scope.photos[$scope.index], value, function (result) {
+          $scope.photos[$scope.index] = result;
         });
       };
 
-      $scope.items = ['item1', 'item2', 'item3'];
-
       $scope.open = function (size) {
-        if (!$scope.photos) {
-          return;
-        }
-
         var modalInstance = $modal.open({
             templateUrl: 'views/modal.html',
             controller: 'ModalInstanceCtrl',
             size: size,
             resolve: {
-                items: function () {
-                    return $scope.items;
-                },
                 photoId: function () {
                     return $scope.photos[$scope.index].photoId;
+                },
+                type: function () {
+                    return $scope.photos[$scope.index].type;
                 }
             }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
         });
       };
 

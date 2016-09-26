@@ -6,24 +6,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-offset-4 col-md-3">
-            <h4>Photo Search</h4>
+        <div class="col-md-2">
+            <h4>Photos</h4>
             <!--<button class="btn btn-default" ng-click="Import()" title="Import photos from Google+"><span class="glyphicon glyphicon-refresh"></span> Import</button>-->
             <!--<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>-->
         </div>
-        <div class="col-md-offset-3 col-md-4">
-            <a ng-click="SignIn()" ng-show="showSignIn" class="list-group-item signInDiv">
-              <span class="glyphicon glyphicon-log-in signInBtn"></span>
-              <span>Sign in here to enable photo search</span>
-            </a>
-        </div>
-        <!--<div class="col-md-offset-4 col-md-3" ng-show="needSignIn">
-            <h4>Please go to the main page and sign in.</h4>
-            <a href="/vida" class="btn btn-default">Go</a>
-        </div>-->
-    </div>
-    <div class="row">
-        <div class="col-md-offset-4 col-md-3">
+        <div class="col-md-4 stack-gap">
             <div class="input-group">
                 <input ng-model="search" ng-keydown="GoSearch($event)"
                        typeahead="item.query for item in GetSearchList($viewValue)"
@@ -33,9 +21,7 @@
                 </span>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-4 col-md-3">
+        <div class="col-sm-3 stack-gap">
             <div class="input-group">
                 <span class="input-group-addon" id="order_addon">Order By:</span>
                 <div class="dropdown">
@@ -50,17 +36,37 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-md-12">
-            <span ng-repeat="item in items">
-                <a href="#/photo/viewer/{{$index}}">
-                    <img class="photoGrid" ng-src="{{item.thumbnail | thumb}}" />
-                </a>
-                <!--<a href="#/photos/viewer/{{path}}/{{photo.gphoto$id.$t}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
-                <!--<a href="#/{{photo.gphoto$originalvideo | type}}/viewer/{{path}}/{{photo.gphoto$id.$t}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
-                <!--<a href="#/photos/viewer/{{path}}/{{$index}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
-            </span>
+        <div class="col-sm-3 stack-gap" ng-show="albumId">
+          <span class="inline-block">
+            <a href="#/album/detail/{{albumId}}" class="btn btn-default pull-right btnTop">
+              <span class="glyphicon glyphicon-th-list"></span> Detail
+            </a>
+          </span>
+          <span class="inline-block">
+            <a href="#/album/edit/{{albumId}}" class="btn btn-default pull-right btnTop">
+              <span class="glyphicon glyphicon-pencil"></span> Edit
+            </a>
+          </span>
+        </div>
+        <div class="col-md-offset-3 col-md-4">
+            <a ng-click="SignIn()" ng-show="showSignIn" class="list-group-item signInDiv">
+              <span class="glyphicon glyphicon-log-in signInBtn"></span>
+              <span>Sign in here to enable photo search</span>
+            </a>
         </div>
     </div>
+</div>
+<div class="container-fluid">
+  <div class="row text-center">
+      <div class="col-md-12">
+          <span ng-repeat="item in items">
+              <a href="#/viewer/{{$index}}">
+                  <img class="photoGrid" ng-src="{{item.thumbnail | thumb}}" />
+              </a>
+              <!--<a href="#/photos/viewer/{{path}}/{{photo.gphoto$id.$t}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
+              <!--<a href="#/{{photo.gphoto$originalvideo | type}}/viewer/{{path}}/{{photo.gphoto$id.$t}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
+              <!--<a href="#/photos/viewer/{{path}}/{{$index}}"><img class="photoGrid" ng-src="{{photo.media$group.media$thumbnail[0].url | thumb}}" /></a>-->
+          </span>
+      </div>
+  </div>
 </div>

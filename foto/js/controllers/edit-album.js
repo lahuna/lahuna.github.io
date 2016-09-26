@@ -42,7 +42,8 @@ ctl.controller('EditAlbumCtrl',
   function Initialize() {
     $scope.tags = [];
     if ($routeParams.albumId) {
-      GetAlbum($routeParams.albumId);
+      $scope.albumId = $routeParams.albumId;
+      GetAlbum($scope.albumId);
     } else {
       $scope.item =  {
         'title': {'$t': ''},
@@ -61,6 +62,14 @@ ctl.controller('EditAlbumCtrl',
       if (keywords.$t) {
         $scope.tags = keywords.$t.split(',');
       }
+    });
+
+    AlbumDbResource.Get({
+        albumId: albumId,
+        maxdocs: '1',
+        accessToken: GetAccessToken()
+    }).$promise.then(function (album) {
+      $scope.dbAlbum = album.list[0];
     });
   }
 
@@ -100,8 +109,8 @@ ctl.controller('EditAlbumCtrl',
         "term=\'http://schemas.google.com/photos/2007#album\'></category>" +
       "</entry>";
 
-    if ($routeParams.albumId) {
-      PicasaAlbumResource($routeParams.albumId).Patch({
+    if ($scope.albumId) {
+      PicasaAlbumResource($scope.albumId).Patch({
         xml: xml,
         accessToken: GetAccessToken()
       }).$promise.then(function (data) {
@@ -120,7 +129,7 @@ ctl.controller('EditAlbumCtrl',
           SetAlert('danger', data.error);
         } else {
           var item = data.entry;
-          $routeParams.albumId = item.gphoto$id.$t;
+          $scope.albumId = item.gphoto$id.$t;
           AlbumDbResource.Post(dbItem(item))
           .$promise.then(function (data) {
             SetAlert('success', "Album created.");
@@ -132,6 +141,7 @@ ctl.controller('EditAlbumCtrl',
 
   function dbItem (item) {
     var dbItem = {
+      _id: ($scope.dbAlbum ? $scope.dbAlbum._id : undefined),
       albumId: item.gphoto$id.$t,
       title: item.title.$t,
       numPhotos: item.gphoto$numphotos.$t,
@@ -139,6 +149,7 @@ ctl.controller('EditAlbumCtrl',
       published: item.published.$t,
       updated: item.updated.$t,
       access: item.gphoto$access.$t,
+      tags: $scope.tags.toString(),
       accessToken: GetAccessToken()
     };
     return dbItem;

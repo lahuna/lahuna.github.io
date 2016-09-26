@@ -56,11 +56,11 @@ app.config(
             templateUrl: 'views/albums.html',
             controller: 'AlbumsCtrl'
         }).
-        when('/album/photos/:albumId', {
-            templateUrl: 'views/album-photos.html',
-            controller: 'AlbumPhotosCtrl'
+        when('/photos/album/:albumId', {
+            templateUrl: 'views/photos.html',
+            controller: 'PhotosCtrl'
         }).
-        when('/album/photos/viewer/:albumId/:startIndex/:maxResults', {
+        /*when('/album/photos/viewer/:albumId/:startIndex/:maxResults', {
             templateUrl: 'views/viewer-photos.html',
             controller: 'ViewerCtrl'
         }).
@@ -71,15 +71,15 @@ app.config(
         when('/photos/viewer/:startIndex/:maxResults', {
             templateUrl: 'views/viewer-photos.html',
             controller: 'ViewerCtrl'
-        }).
-        when('/photo/viewer/:photoId', {
-            templateUrl: 'views/viewer-photo.html',
+        }).*/
+        when('/viewer/:index', {
+            templateUrl: 'views/viewer.html',
             controller: 'ViewerCtrl'
         }).
-        when('/video/viewer/:photoId', {
+        /*when('/video/viewer/:photoId', {
             templateUrl: 'views/viewer-video.html',
             controller: 'ViewerCtrl'
-        }).
+        }).*/
         when('/album/edit/', {
             templateUrl: 'views/edit-album.html',
             controller: 'EditAlbumCtrl'

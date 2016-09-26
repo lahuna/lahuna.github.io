@@ -76,10 +76,6 @@ h3, h2 {
   font-weight: bold;
 }
 
-.stack-gap {
-  margin-bottom: 5px !important;
-}
-
 a:link, a:visited, a:active, a:hover {
   text-decoration: none;
   color: black;

@@ -39,6 +39,7 @@ ctl.controller('PhotosCtrl', function ($scope, $routeParams, StorageService,
 
         function Initialize() {
 
+            $scope.albumId = $routeParams.albumId;
             var query = $routeParams.query;
             if (query && query.length > 0)
                 $scope.search = query;
@@ -77,6 +78,7 @@ ctl.controller('PhotosCtrl', function ($scope, $routeParams, StorageService,
 
             var query = $scope.search;
             PhotoDbResource.Get({
+                albumId: $scope.albumId,
                 query: GetQuery(),
                 order: GetOrder(),
                 maxdocs: 100,

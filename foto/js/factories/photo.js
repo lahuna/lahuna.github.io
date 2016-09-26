@@ -19,33 +19,6 @@ fac.factory('Photo', function (PicasaAlbumFeedResource,
   }
 
   function Rotate(photoItem, value, callback) {
-    var position = "";
-
-    if (!photoItem.position || photoItem.position.length == 0)
-      if (value == 90)
-        position = "rotate-right-90";
-      else
-        position = "rotate-left-90";
-
-    else if (photoItem.position == "rotate-right-90")
-      if (value == 90)
-        position = "rotate-right-180";
-      else
-        position = "";
-
-    else if (photoItem.position == "rotate-left-90")
-      if (value == 90)
-        position = "";
-      else
-        position = "rotate-left-180";
-
-    else if (photoItem.position.indexOf("180") > 0)
-      if (value == 90)
-        position = "rotate-right-270";
-      else
-        position = "rotate-left-270";
-
-    callback(position);
 
     var xml =
       "<entry xmlns=\'http://www.w3.org/2005/Atom\' " +
@@ -65,15 +38,15 @@ fac.factory('Photo', function (PicasaAlbumFeedResource,
       xml: xml,
       accessToken: GetAccessToken()
     }).$promise.then(function (data) {
-      photoItem.accessToken = GetAccessToken();
-      photoItem.thumbnail = data.entry.media$group.media$thumbnail[0].url;
-      PhotoDbResource.Put(photoItem);
+        photoItem.thumbnail = data.entry.media$group.media$thumbnail[0].url;
+        callback(photoItem);
+        photoItem.accessToken = GetAccessToken();        
+        PhotoDbResource.Put(photoItem);
     });
-  };
+  }
 
   function GetPhoto(input, callback) {
     PicasaPhotoResource(input.photoId).Get({
-      //'alt': 'json',
       'accessToken': GetAccessToken()
     }).$promise.then(function (data) {
       var result = {
