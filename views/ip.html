@@ -1,0 +1,47 @@
+<!--*****************************************************************************************************************
+     Copyright © 2016 Feed. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Feed.
+    *****************************************************************************************************************-->
+
+<title>Feed | Ip</title>
+<meta name="description" content="Ip" />
+
+<div class="container">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="div div-margin">
+      <h3 class="martop inline-block">
+        Ip {{ip}}
+      </h3>
+      <a href="#/log/{{ip}}"><span class="btn btn-default btn-margin">Log</span></a>
+      <a href="#/ip" ng-show=ip><span class="btn btn-default btn-margin">Show All</span></a>
+      <span class="btn btn-default pull-right btn-margin" ng-click="deleteAll()">Clear Ip</span>
+    </div>
+  </div>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="div div-margin">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>IP</th>
+            <th>City</th>
+            <th>State Prov</th>
+            <th>Country</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in log.list">
+            <td>{{item.date | date}}</td>
+            <td>{{item.ipAddress}}</td>
+            <td>{{item.city}}</td>
+            <td>{{item.stateProv}}</td>
+            <td>{{item.countryName}}</td>
+            <td><span class="btn glyphicon glyphicon-trash" ng-click="delete($index, item._id)"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

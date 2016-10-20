@@ -1,0 +1,43 @@
+<!--*****************************************************************************************************************
+     Copyright © 2016 Feed. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Feed.
+    *****************************************************************************************************************-->
+
+<title>Feed | Log</title>
+<meta name="description" content="Log" />
+
+<div class="container">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="div div-margin">
+      <h3 class="martop inline-block">
+        Log {{ip}}
+      </h3>
+      <a href="#/ip/{{ip}}" ng-show=ip><span class="btn btn-default btn-margin">Location</span></a>
+      <a href="#/log" ng-show=ip><span class="btn btn-default btn-margin">Show All</span></a>
+      <span class="btn btn-default pull-right btn-margin" ng-click="deleteAll()">Clear Log</span>
+    </div>
+  </div>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="div div-margin">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Path</th>
+            <th>IP</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in log.list">
+            <td>{{item.date | date}}</td>
+            <td>{{item.path}}</td>
+            <td><a href="#/log/{{item.ip}}">{{item.ip}}</a></td>
+            <td><span class="btn glyphicon glyphicon-trash" ng-click="delete($index, item._id)"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
