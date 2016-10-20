@@ -10,6 +10,8 @@ var app = angular.module('lahuna', [
   'ngRoute',
   'MainController',
   'ContactController',
+  'LogController',
+  'IpController',
   'Filters'
 ]);
 
@@ -62,6 +64,26 @@ app.config(
             }).
             when('/notfound', {
                 templateUrl: 'views/notfound.html',
+                controller: 'MainCtrl'
+            }).
+            when('/log', {
+                templateUrl: 'views/log.html',
+                controller: 'LogCtrl'
+            }).
+            when('/log/:ip', {
+                templateUrl: 'views/log.html',
+                controller: 'LogCtrl'
+            }).
+            when('/ip', {
+                templateUrl: 'views/ip.html',
+                controller: 'IpCtrl'
+            }).
+            when('/ip/:ip', {
+                templateUrl: 'views/ip.html',
+                controller: 'IpCtrl'
+            }).
+            when('/social', {
+                templateUrl: 'views/social.html',
                 controller: 'MainCtrl'
             }).
             otherwise({

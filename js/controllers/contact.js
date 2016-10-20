@@ -8,7 +8,11 @@
 
 var ctl = angular.module('ContactController', ['Resources']);
 
-ctl.controller('ContactCtrl', function ($scope, EmailResource) {
+ctl.controller('ContactCtrl', function ($scope, $location, EmailResource, LogResource) {
+
+  LogResource.Post({
+    'path': $location.$$path
+  });
 
   ClearForm(true);
 

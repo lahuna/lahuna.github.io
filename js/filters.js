@@ -13,3 +13,9 @@ fil.filter('stringify', function () {
         return JSON.stringify(input);
     };
 });
+
+fil.filter('date', function () {
+    return function (input) {
+        return new Date(input).toLocaleString();
+    };
+});

@@ -19,13 +19,20 @@ res.factory('EmailResource', function ($resource) {
 
 // Log
 res.factory('LogResource', function ($resource) {
-  return function (path) {
-    return $resource('https://' + location.hostname + ':8000/log' + path, {}, {
-      Post: {
-        method: 'POST'
-      }
-    });
-  }
+  return $resource('https://' + location.hostname + ':8000/log', {}, {
+    Get: {
+      method: 'GET',
+      params: { 'site': location.hostname }
+    },
+    Post: {
+      method: 'POST',
+      params: { 'site': location.hostname }
+    },
+    Delete: {
+      method: 'DELETE',
+      params: { 'site': location.hostname }
+    }
+  });
 });
 
 // Get Api

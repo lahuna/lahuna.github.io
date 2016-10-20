@@ -4,15 +4,91 @@ You may not copy, reproduce, republish, disassemble, decompile, reverse engineer
 make available to the public any content or code on this website without prior written permission from Lahuna.
 ******************************************************************************************************************/
 
-/*.carousel-inner {
-    overflow: visible;
-    height: 700px;
-}*/
+body {
+  background-color: #b0dfe8;
+}
 
-/*.dropdown-header {
+.mainnav {
+  max-width: 250px;
+  border-width: 4px;
+  border-color: #b0dfe8;
+}
+
+.bold {
+  font-weight: bold !important;
+}
+
+.big-gap {
+  margin-top: 50px;
+}
+
+.div-pad {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.psize p {
+  font-size: 16px;
+}
+
+.jumbotron {
+  background-color: #d7eff4;
+  padding-top: 10px !important;
+  padding-bottom: 30px !important;
+  margin-bottom: 10px !important;
+  text-align: center;
+}
+
+.div {
+  background-color: #d7eff4;
+  border-radius: 5px;
+  padding: 20px;
+  padding-bottom: 10px !important;
+  margin:5px;
+}
+
+.btn-margin {
+  margin-bottom: 5px;
+
+}
+
+.div-margin {
+  margin-bottom: 20px;
+}
+
+.div-margin-right {
+  margin-right: 20px;
+}
+
+.div-width {
+  max-width: 225px;
+}
+
+.img-thumbnail {
+  background-color: #d7eff4;
+}
+
+.box {
+  background-color: #d7eff4;
+}
+
+.main {
+  text-align:center;
   font-weight: bold;
-  font-size: 14px;
-}*/
+  background-color: #d7eff4;
+}
+
+.footer {
+  background-color: #d7eff4 !important;
+}
+
+input, textarea, .btn-default, .list-group-item {
+  background-color: #ebf7f9 !important;
+}
+
+.martop {
+  margin-top: 0px !important;
+}
 
 .stack-gap {
   margin-bottom: 5px !important;
@@ -352,10 +428,6 @@ input[type=range] {
 
 .table>tbody>tr>td {
     vertical-align: middle;
-}
-
-.banner {
-    background-color: lightgrey;
 }
 
 /*.navbar {
