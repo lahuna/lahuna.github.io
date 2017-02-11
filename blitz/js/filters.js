@@ -31,3 +31,13 @@ fil.filter('window', function () {
             return "_blank";
     };
 });
+
+fil.filter('date', function () {
+    return function (input) {
+      if (input) {
+        return new Date(input).toLocaleString();
+      } else {
+        return input;
+      }
+    };
+});

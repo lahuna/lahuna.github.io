@@ -28,8 +28,12 @@ app.config(['$routeProvider',
         //    controller: 'GoogleCtrl'
         //}).
         when('/facebook', {
-            templateUrl: 'views/facebook.html',
-            controller: 'FacebookMediaCtrl'
+            templateUrl: 'views/facebook/main.html',
+            controller: 'FacebookMainCtrl'
+        }).
+        when('/facebook/posts', {
+            templateUrl: 'views/facebook/posts.html',
+            controller: 'FacebookPostsCtrl'
         }).
         when('/facebook/state=:state&access_token=:access_token&expires_in=:expires_in', {
             templateUrl: 'views/main.html',

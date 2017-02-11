@@ -276,45 +276,52 @@ ctl.controller('FacebookCtrl', function ($scope, $routeParams, $location, Auth) 
       $location.path('/');
 });
 
-ctl.controller('FacebookMediaCtrl', function ($scope, $routeParams, $location,
-  FacebookProfileResource, FacebookPostsResource,
-  FacebookAlbumsResource, FacebookPhotosResource, FacebookVideosResource,
-  FacebookAccountsResource, Auth) {
+ctl.controller('FacebookMainCtrl', function ($scope, $routeParams, $location,
+  FacebookProfileResource) {
+  $scope.origin = location.origin;
+  $scope.facebook_profile = FacebookProfileResource.Get({
+      access_token: localStorage.getItem("facebook_access_token")
+  });
+});
+
+ctl.controller('FacebookPostsCtrl', function ($scope, $routeParams, $location,
+  FacebookProfileResource, FacebookPostsResource) {
+  $scope.origin = location.origin;
+  $scope.facebook_profile = FacebookProfileResource.Get({
+    access_token: localStorage.getItem("facebook_access_token")
+  });
+  $scope.items = FacebookPostsResource.Get({
+    access_token: localStorage.getItem("facebook_access_token")
+  });
 
   $scope.facebook_profile = FacebookProfileResource.Get({
       access_token: localStorage.getItem("facebook_access_token")
   });
 
-  $scope.GetPosts = function () {
-      $scope.items = FacebookPostsResource.Get({
-          access_token: localStorage.getItem("facebook_access_token")
-      });
-  };
 
   $scope.GetAlbums = function () {
-      $scope.items = FacebookAlbumsResource.Get({
-          access_token: localStorage.getItem("facebook_access_token")
-      });
+    $scope.items = FacebookAlbumsResource.Get({
+      access_token: localStorage.getItem("facebook_access_token")
+    });
   };
 
   $scope.GetPhotos = function () {
-      $scope.items = FacebookPhotosResource.Get({
-          access_token: localStorage.getItem("facebook_access_token")
-      });
+    $scope.items = FacebookPhotosResource.Get({
+      access_token: localStorage.getItem("facebook_access_token")
+    });
   };
 
   $scope.GetVideos = function () {
-      $scope.items = FacebookVideosResource.Get({
-          access_token: localStorage.getItem("facebook_access_token")
-      });
+    $scope.items = FacebookVideosResource.Get({
+      access_token: localStorage.getItem("facebook_access_token")
+    });
   };
 
   $scope.GetAccounts = function () {
-      $scope.items = FacebookAccountsResource.Get({
-          access_token: localStorage.getItem("facebook_access_token")
-      });
+    $scope.items = FacebookAccountsResource.Get({
+      access_token: localStorage.getItem("facebook_access_token")
+    });
   };
-
 });
 
 ctl.controller('ImgurCtrl', function ($scope, $routeParams, $location, Auth) {

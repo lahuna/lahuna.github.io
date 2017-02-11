@@ -8,6 +8,17 @@ body {
   background-color: #b0dfe8;
 }
 
+.width {
+  max-width: 272px;
+  margin: 10px;
+  vertical-align: top;
+  margin-bottom: 0px !important;
+}
+
+.table-condensed {
+  margin-bottom: 0px;
+}
+
 .mainnav {
   max-width: 250px;
   border-width: 4px;
@@ -61,6 +72,11 @@ body {
 .div-margin-right {
   margin-right: 20px;
 }
+
+.div-margin-bottom {
+  margin-bottom: 5px !important;
+}
+
 
 .div-width {
   max-width: 225px;
