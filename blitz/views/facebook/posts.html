@@ -1,0 +1,45 @@
+<!--*****************************************************************************************************************
+     Copyright � 2014 - 2016 Lahuna. All rights reserved.
+     You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
+     make available to the public any content or code on this website without prior written permission from Lahuna.
+    *****************************************************************************************************************-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="inline-block martop">Facebook Posts</h3>
+      <a class="pull-right" href="https://www.facebook.com/dialog/oauth?client_id=1417261691879442&redirect_uri={{origin}}/blitz/facebook&response_type=token&scope=publish_actions,user_status,user_photos,user_videos,user_posts,manage_pages&state=media">
+        <span class="btn btn-default success">Login ({{facebook_profile.name}})</span>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <span ng-repeat="item in items.data">
+        <div class="div div-margin width inline-block">
+          <a href="{{item.link}}">
+            <img src="{{item.picture}}" class="img img-responsive" />
+          </a>
+          <table class="table table-responisve table-condensed">
+            <tbody>
+              <tr><td>{{item.name}}</td></tr>
+              <tr ng-show="item.message"><td>{{item.message}}</td></tr>
+              <tr ng-show="item.story"><td>{{item.story}}</td></tr>
+              <tr><td>{{item.created_time | date}}</td></tr>
+              <tr ng-show="item.privacy.description"><td>Privacy: {{item.privacy.description}}</td></tr>
+              <tr ng-show="item.actions[0].link"><td><a href="{{item.actions[0].link}}">View on Facebook</a></td></tr>
+            </tbody>
+          </table>
+          <!--<div>{{item.from.name}}</div>-->
+          <!--<a class="btn btn-default" ng-show="item.picture" href="{{item.picture}}">
+            <span class="glyphicon glyphicon-picture"></span></a>
+          <a class="btn btn-default" ng-show="item.link" href="{{item.link}}">
+            <span class="glyphicon glyphicon-link"></span></a>-->
+          <!--<a class="btn btn-default" ng-show="item.actions[0].link" href="{{item.actions[0].link}}">
+            <span class="glyphicon glyphicon-eye-open"></span></a>-->
+
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
