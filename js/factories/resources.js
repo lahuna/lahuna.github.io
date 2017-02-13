@@ -19,7 +19,7 @@ res.factory('EmailResource', function ($resource) {
 
 // Log
 res.factory('LogResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/log', {}, {
+  return $resource('https://40.78.104.169:8000/log', {}, {
     Get: {
       method: 'GET',
       params: { 'site': location.hostname }
