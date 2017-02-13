@@ -10,7 +10,7 @@ var res = angular.module('Resources', ['ngResource']);
 
 // Send Email
 res.factory('EmailResource', function ($resource) {
-  return $resource('https://lahuna.com:8000/email', {}, {
+  return $resource('https://40.78.104.169:8000/email', {}, {
     Send: {
         method: 'GET'
     }
