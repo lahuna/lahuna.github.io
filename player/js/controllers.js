@@ -5,7 +5,8 @@
 //*****************************************************************************************************************
 'use strict';
 
-var ctl = angular.module('Controllers', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
+var ctl = angular.module('Controllers', ['ResourceFactory', 'AuthenticateFactory', 
+'PlaylistFactory', 'ModalInstanceController']);
 
 ctl.controller('ViewerCtrl',
   function ($scope, $routeParams, $window, $location, $uibModal,

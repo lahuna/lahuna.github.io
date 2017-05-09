@@ -10,8 +10,7 @@ var app = angular.module('player', [
   'ngRoute',
   'ui.bootstrap',
   'Filters',
-  'Controllers',
-  'ModalInstanceCtrl'
+  'Controllers'
 ]);
 
 app.config(
