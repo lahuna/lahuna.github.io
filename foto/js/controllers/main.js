@@ -50,7 +50,7 @@ ctl.controller('MainCtrl', function ($scope, $route, Auth, $rootScope) {
   //}
 
   /*function Import() {
-    Oboe.get({url: 'https://' + location.hostname + ':8080/picasa/import?accessToken=' + GetAccessToken()}
+    Oboe.get({url: 'https://lahuna.net/picasa/import?accessToken=' + GetAccessToken()}
     ).then(function() {
         // finished loading
     }, function(error) {

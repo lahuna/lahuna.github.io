@@ -327,7 +327,7 @@ fac.factory('VideoDbResource', function ($resource) {
 
 /*// Import Playlists, Playlist Items, and Videos
 fac.factory('ImportResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8080/youtube/import', {}, {
+  return $resource('https://lahuna.net/youtube/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -336,7 +336,7 @@ fac.factory('ImportResource', function ($resource) {
 
 // Import Playlists
 fac.factory('ImportPlaylistResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8080/playlist/import', {}, {
+  return $resource('https://lahuna.net/playlist/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -345,7 +345,7 @@ fac.factory('ImportPlaylistResource', function ($resource) {
 
 // Import Playlist Items
 fac.factory('ImportPlaylistItemResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8080/playlist_item/import', {}, {
+  return $resource('https://lahuna.net/playlist_item/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -354,7 +354,7 @@ fac.factory('ImportPlaylistItemResource', function ($resource) {
 
 // Import Videos
 fac.factory('ImportVideoResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8080/video/import', {}, {
+  return $resource('https://lahuna.net/video/import', {}, {
     Get: {
       method: 'GET'
     }

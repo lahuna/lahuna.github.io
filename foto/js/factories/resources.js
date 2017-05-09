@@ -67,7 +67,7 @@ fac.factory('PhotoDbResource', function ($resource) {
 
 /*// Import Photos
 fac.factory('ImportPhotoResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8080/photo/import', {}, {
+  return $resource('https://lahuna.net/photo/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -76,7 +76,7 @@ fac.factory('ImportPhotoResource', function ($resource) {
 
 // Import Albums
 fac.factory('ImportAlbumResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8080/album/import', {}, {
+  return $resource('https://lahuna.net/album/import', {}, {
     Get: {
       method: 'GET'
     }
@@ -85,7 +85,7 @@ fac.factory('ImportAlbumResource', function ($resource) {
 
 // Import All
 fac.factory('ImportResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8080/picasa/import', {}, {
+  return $resource('https://lahuna.net/picasa/import', {}, {
     Get: {
       method: 'GET'
     }

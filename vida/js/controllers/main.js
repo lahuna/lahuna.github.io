@@ -49,7 +49,7 @@ ctl.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $route, A
   //}
 
   /*function Import() {
-    Oboe.get({url: 'https://' + location.hostname + ':8080/youtube/import?accessToken=' + GetAccessToken()}
+    Oboe.get({url: 'https://lahuna.net/youtube/import?accessToken=' + GetAccessToken()}
     ).then(function() {
         // finished loading
     }, function(error) {
