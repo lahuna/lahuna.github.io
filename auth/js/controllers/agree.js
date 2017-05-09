@@ -99,7 +99,7 @@ ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
         }*/
 
         function Import() {
-          Oboe.get({url: 'https://lahuna.net/' + $routeParams.state + '/import?accessToken=' + $scope.access_token}
+          Oboe.get({url: 'https://lahuna-job.herokuapp.com/' + $routeParams.state + '/import?accessToken=' + $scope.access_token}
           ).then(function() {
               // finished loading
           }, function(error) {
