@@ -519,8 +519,19 @@ ctl.controller('ViewerCtrl',
                 controller: 'ModalInstanceCtrl',
                 animation: true,
                 backdrop: true,
-                size: 'sm'
-            });
+                size: 'sm',
+                    resolve: {
+                    title: function () {
+                        return "Delete";
+                    },
+                    btn: function () {
+                        return "Delete";
+                    },
+                    msg: function () {
+                        return "Are you sure you want to delete this video?";
+                    }
+                  }
+                });
 
             modalInstance.result.then(function (result) {
                 if (result == 'ok')
