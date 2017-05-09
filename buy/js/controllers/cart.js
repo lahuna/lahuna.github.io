@@ -10,7 +10,7 @@ var ctl = angular.module('CartController', ['ResourceFactory',
   'AuthenticateFactory', 'stripe.checkout']);
 
 ctl.controller('CartCtrl', function ($scope, $route, Auth, $rootScope,
-  $routeParams, $modal, CartResource, CartItemResource, StoreResource,
+  $routeParams, $uibModal, CartResource, CartItemResource, StoreResource,
   ProductResource, StripeCheckoutResource, OrderResource) {
 
   function GetAccessToken() {

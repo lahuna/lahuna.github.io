@@ -9,7 +9,7 @@
 var ctl = angular.module('CategoryController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('CategoryCtrl', function ($scope, $route, Auth, $rootScope,
-  $routeParams, $modal, CategoryResource, StoreResource) {
+  $routeParams, $uibModal, CategoryResource, StoreResource) {
 
   function GetAccessToken() {
     return localStorage.getItem('google_access_token');

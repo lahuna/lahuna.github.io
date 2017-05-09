@@ -8,7 +8,7 @@
 
 var ctl = angular.module('ViewerController', ['ResourceFactory', 'PhotoFactory', 'AuthenticateFactory']);
 
-ctl.controller('ViewerCtrl', function ($scope, $routeParams, $modal, $log, $sce,
+ctl.controller('ViewerCtrl', function ($scope, $routeParams, $uibModal, $log, $sce,
     Photo, PicasaPhotoResource, PhotoDbResource, StorageService, Auth, $route, $rootScope) {
 
       // Authenticate

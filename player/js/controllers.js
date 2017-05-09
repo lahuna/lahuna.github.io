@@ -8,7 +8,7 @@
 var ctl = angular.module('Controllers', ['ResourceFactory', 'AuthenticateFactory', 'PlaylistFactory']);
 
 ctl.controller('ViewerCtrl',
-  function ($scope, $routeParams, $window, $location, $modal,
+  function ($scope, $routeParams, $window, $location, $uibModal,
     Auth, Playlist, ChannelResource, VideoResource,
     YoutubeSearchResource, SearchResource, $route,
     PlaylistResource, PlaylistDbResource, $rootScope,

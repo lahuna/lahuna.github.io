@@ -9,7 +9,7 @@
 var ctl = angular.module('ProductController', ['ResourceFactory', 'AuthenticateFactory']);
 
 ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
-  $routeParams, $modal, StoreResource, CategoryResource, ProductResource,
+  $routeParams, $uibModal, StoreResource, CategoryResource, ProductResource,
   CartResource, CartItemResource) {
 
   function GetAccessToken() {

@@ -8,7 +8,7 @@
 
 var ctl = angular.module('AgreeController', ['AuthResourceFactory', 'OboeFactory']);
 
-ctl.controller('AgreeCtrl', function ($scope, $routeParams, $modal, $location,
+ctl.controller('AgreeCtrl', function ($scope, $routeParams, $uibModal, $location,
         UserResource, Oboe) {
 
         $scope.Agree = function () {
