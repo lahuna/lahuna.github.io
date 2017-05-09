@@ -8,12 +8,12 @@
 
 var ctl = angular.module('ModalInstanceController', ['ResourceFactory', 'AuthenticateFactory']);
 
-ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance, photoId, type) {
+ctl.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, photoId, type) {
 
     $scope.photoId = photoId;
     $scope.type = type;
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 });

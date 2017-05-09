@@ -8,17 +8,17 @@
 
 var ctl = angular.module('ModalInstanceController', []);
 
-ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance, title, btn, msg) {
+ctl.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, title, btn, msg) {
 
   $scope.title = title;
   $scope.btn = btn;
   $scope.msg = msg;
 
     $scope.ok = function () {
-        $modalInstance.close('ok');
+        $uibModalInstance.close('ok');
     };
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 });

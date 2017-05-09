@@ -513,7 +513,7 @@ ctl.controller('ViewerCtrl',
         //$scope.embedInfo = "Allow embedding so you can watch your videos on Lahuna."
 
         $scope.open = function () {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: '/views/modal.html',
                 controller: 'ModalInstanceCtrl',
                 animation: true,
@@ -606,14 +606,14 @@ ctl.controller('ViewerCtrl',
 
  });
 
-/*ctl.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+/*ctl.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
 
     $scope.ok = function () {
-        $modalInstance.close('ok');
+        $uibModalInstance.close('ok');
     };
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 });*/
 

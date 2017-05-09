@@ -101,7 +101,7 @@ ctl.controller('ViewerCtrl', function ($scope, $routeParams, $uibModal, $log, $s
       };
 
       $scope.open = function (size) {
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             templateUrl: 'views/modal.html',
             controller: 'ModalInstanceCtrl',
             size: size,

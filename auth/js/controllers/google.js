@@ -104,7 +104,7 @@ ctl.controller('GoogleCtrl', function ($scope, $routeParams,
         //}
 
         //function AgreePrompt() {
-        //    var modalInstance = $modal.open({
+        //    var modalInstance = $uibModal.open({
         //        templateUrl: 'views/modal.html',
         //        controller: 'ModalInstanceCtrl',
         //        animation: true,

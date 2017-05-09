@@ -86,7 +86,7 @@ ctl.controller('ProductCtrl', function ($scope, $route, Auth, $rootScope,
   }
 
   $scope.Delete = function () {
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
         templateUrl: '/views/modal.html',
         controller: 'ModalInstanceCtrl',
         animation: true,
