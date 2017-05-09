@@ -10,7 +10,7 @@ var fac = angular.module('ResourceFactory', ['ngResource']);
 
 // Authenticate
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/google/authenticate', {}, {
+  return $resource('https://lahuna.net/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -60,7 +60,7 @@ fac.factory('BloggerPostResource', function ($resource) {
 
 // Google Refresh Token
 fac.factory('GoogleRefreshTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/google/refresh_token', {}, {
+  return $resource('https://lahuna.net/google/refresh_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -173,7 +173,7 @@ fac.factory('ImgurPostResource', function ($resource) {
 
 // Imgur Refresh Token
 fac.factory('ImgurRefreshTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/imgur/refresh_token', {}, {
+  return $resource('https://lahuna.net/imgur/refresh_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -182,7 +182,7 @@ fac.factory('ImgurRefreshTokenResource', function ($resource) {
 
 // Reddit Access Token
 fac.factory('RedditAccessTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/reddit/access_token', {}, {
+  return $resource('https://lahuna.net/reddit/access_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -191,7 +191,7 @@ fac.factory('RedditAccessTokenResource', function ($resource) {
 
 // Reddit Refresh Token
 fac.factory('RedditRefreshTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/reddit/refresh_token', {}, {
+  return $resource('https://lahuna.net/reddit/refresh_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -200,7 +200,7 @@ fac.factory('RedditRefreshTokenResource', function ($resource) {
 
 // Reddit Profile
 fac.factory('RedditProfileResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/reddit/profile', {}, {
+  return $resource('https://lahuna.net/reddit/profile', {}, {
     Get: {
       method: 'GET'
     }
@@ -210,7 +210,7 @@ fac.factory('RedditProfileResource', function ($resource) {
 // Reddit Post
 fac.factory('RedditPostResource', function ($resource) {
   return function (accessToken) {
-    return $resource('https://' + location.hostname + ':8000/reddit/post', {}, {
+    return $resource('https://lahuna.net/reddit/post', {}, {
       Post: {
         method: 'POST',
         params: {
@@ -227,7 +227,7 @@ fac.factory('RedditPostResource', function ($resource) {
 
 // LinkedIn Access Token
 fac.factory('LinkedInAccessTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/linkedin/access_token', {}, {
+  return $resource('https://lahuna.net/linkedin/access_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -236,7 +236,7 @@ fac.factory('LinkedInAccessTokenResource', function ($resource) {
 
 // LinkedIn Profile
 fac.factory('LinkedInProfileResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/linkedin/profile', {}, {
+  return $resource('https://lahuna.net/linkedin/profile', {}, {
     Get: {
       method: 'GET'
     }
@@ -245,7 +245,7 @@ fac.factory('LinkedInProfileResource', function ($resource) {
 
 // LinkedIn Post
 fac.factory('LinkedInPostResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/linkedin/post', {}, {
+  return $resource('https://lahuna.net/linkedin/post', {}, {
     Post: {
       method: 'POST'
     }
@@ -254,7 +254,7 @@ fac.factory('LinkedInPostResource', function ($resource) {
 
 // Twitter Request Token
 fac.factory('TwitterRequestTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/twitter/request_token', {}, {
+  return $resource('https://lahuna.net/twitter/request_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -263,7 +263,7 @@ fac.factory('TwitterRequestTokenResource', function ($resource) {
 
 // Twitter Access Token
 fac.factory('TwitterAccessTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/twitter/access_token', {}, {
+  return $resource('https://lahuna.net/twitter/access_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -272,7 +272,7 @@ fac.factory('TwitterAccessTokenResource', function ($resource) {
 
 // Twitter Profile
 fac.factory('TwitterProfileResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/twitter/profile', {}, {
+  return $resource('https://lahuna.net/twitter/profile', {}, {
     Get: {
       method: 'GET'
     }
@@ -281,7 +281,7 @@ fac.factory('TwitterProfileResource', function ($resource) {
 
 // Twitter Post
 fac.factory('TwitterPostResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/twitter/post', {}, {
+  return $resource('https://lahuna.net/twitter/post', {}, {
     Post: {
       method: 'POST'
     }
@@ -290,7 +290,7 @@ fac.factory('TwitterPostResource', function ($resource) {
 
 // Tumblr Request Token
 fac.factory('TumblrRequestTokenResource', function ($resource) {
-    return $resource('https://' + location.hostname + ':8000/tumblr/request_token', {}, {
+    return $resource('https://lahuna.net/tumblr/request_token', {}, {
       Post: {
         method: 'POST'
       }
@@ -299,7 +299,7 @@ fac.factory('TumblrRequestTokenResource', function ($resource) {
 
 // Tumblr Access Token
 fac.factory('TumblrAccessTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/tumblr/access_token', {}, {
+  return $resource('https://lahuna.net/tumblr/access_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -308,7 +308,7 @@ fac.factory('TumblrAccessTokenResource', function ($resource) {
 
 // Tumblr Profile
 fac.factory('TumblrProfileResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/tumblr/profile', {}, {
+  return $resource('https://lahuna.net/tumblr/profile', {}, {
     Get: {
       method: 'GET'
     }
@@ -317,7 +317,7 @@ fac.factory('TumblrProfileResource', function ($resource) {
 
 // Tumblr Post
 fac.factory('TumblrPostResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/tumblr/post', {}, {
+  return $resource('https://lahuna.net/tumblr/post', {}, {
     Post: {
       method: 'POST'
     }

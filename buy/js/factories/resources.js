@@ -9,7 +9,7 @@
 var fac = angular.module('ResourceFactory', ['ngResource']);
 
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/google/authenticate', {}, {
+  return $resource('https://lahuna.net/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -17,7 +17,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 });
 
 fac.factory('StoreResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/store', {}, {
+  return $resource('https://lahuna.net/store', {}, {
     Get: {
       method: 'GET'
     },
@@ -34,7 +34,7 @@ fac.factory('StoreResource', function ($resource) {
 });
 
 fac.factory('CategoryResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/category', {}, {
+  return $resource('https://lahuna.net/category', {}, {
     Get: {
       method: 'GET'
     },
@@ -51,7 +51,7 @@ fac.factory('CategoryResource', function ($resource) {
 });
 
 fac.factory('ProductResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/product', {}, {
+  return $resource('https://lahuna.net/product', {}, {
     Get: {
       method: 'GET'
     },
@@ -68,7 +68,7 @@ fac.factory('ProductResource', function ($resource) {
 });
 
 fac.factory('CartResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/cart', {}, {
+  return $resource('https://lahuna.net/cart', {}, {
     Get: {
       method: 'GET'
     },
@@ -85,7 +85,7 @@ fac.factory('CartResource', function ($resource) {
 });
 
 fac.factory('CartItemResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/cart_item', {}, {
+  return $resource('https://lahuna.net/cart_item', {}, {
     Get: {
       method: 'GET'
     },
@@ -102,7 +102,7 @@ fac.factory('CartItemResource', function ($resource) {
 });
 
 fac.factory('OrderResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/order', {}, {
+  return $resource('https://lahuna.net/order', {}, {
     Get: {
       method: 'GET'
     },
@@ -119,7 +119,7 @@ fac.factory('OrderResource', function ($resource) {
 });
 
 fac.factory('SearchResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/search', {}, {
+  return $resource('https://lahuna.net/search', {}, {
     Get: {
       method: 'GET'
     },
@@ -133,7 +133,7 @@ fac.factory('SearchResource', function ($resource) {
 });
 
 fac.factory('StripeCheckoutResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/stripe/checkout', {}, {
+  return $resource('https://lahuna.net/stripe/checkout', {}, {
     Post: {
       method: 'POST'
     }

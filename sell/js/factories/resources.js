@@ -9,7 +9,7 @@
 var fac = angular.module('ResourceFactory', ['ngResource']);
 
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/google/authenticate', {}, {
+  return $resource('https://lahuna.net/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -17,7 +17,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 });
 
 fac.factory('StoreResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/store', {}, {
+  return $resource('https://lahuna.net/store', {}, {
     Get: {
       method: 'GET'
     },
@@ -34,7 +34,7 @@ fac.factory('StoreResource', function ($resource) {
 });
 
 fac.factory('CategoryResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/category', {}, {
+  return $resource('https://lahuna.net/category', {}, {
     Get: {
       method: 'GET'
     },
@@ -51,7 +51,7 @@ fac.factory('CategoryResource', function ($resource) {
 });
 
 fac.factory('ProductResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/product', {}, {
+  return $resource('https://lahuna.net/product', {}, {
     Get: {
       method: 'GET'
     },
@@ -68,7 +68,7 @@ fac.factory('ProductResource', function ($resource) {
 });
 
 fac.factory('SearchResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/search', {}, {
+  return $resource('https://lahuna.net/search', {}, {
     Get: {
       method: 'GET'
     },
@@ -82,7 +82,7 @@ fac.factory('SearchResource', function ($resource) {
 });
 
 fac.factory('StripeAccessTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/stripe/access_token', {}, {
+  return $resource('https://lahuna.net/stripe/access_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -90,7 +90,7 @@ fac.factory('StripeAccessTokenResource', function ($resource) {
 });
 
 fac.factory('StripeMerchantResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/stripe/merchant', {}, {
+  return $resource('https://lahuna.net/stripe/merchant', {}, {
     Get: {
       method: 'GET'
     }

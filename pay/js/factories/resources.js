@@ -9,7 +9,7 @@
 var fac = angular.module('ResourceFactory', ['ngResource']);
 
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/google/authenticate', {}, {
+  return $resource('https://lahuna.net/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -17,7 +17,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 });
 
 fac.factory('BraintreeClientTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/braintree/client_token', {}, {
+  return $resource('https://lahuna.net/braintree/client_token', {}, {
     Get: {
       method: 'GET'
     }
@@ -25,7 +25,7 @@ fac.factory('BraintreeClientTokenResource', function ($resource) {
 });
 
 fac.factory('BraintreeCheckoutResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/braintree/checkout', {}, {
+  return $resource('https://lahuna.net/braintree/checkout', {}, {
     Post: {
       method: 'POST'
     }
@@ -33,7 +33,7 @@ fac.factory('BraintreeCheckoutResource', function ($resource) {
 });
 
 fac.factory('BraintreeOnboardResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/braintree/onboard', {}, {
+  return $resource('https://lahuna.net/braintree/onboard', {}, {
     Post: {
       method: 'POST'
     }

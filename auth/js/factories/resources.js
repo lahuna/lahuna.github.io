@@ -10,7 +10,7 @@ var fac = angular.module('AuthResourceFactory', ['ngResource']);
 
 // Authenticate
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/google/authenticate', {}, {
+  return $resource('https://lahuna.net/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -19,7 +19,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 
 // Google Access Token
 fac.factory('GoogleAccessTokenResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/google/access_token', {}, {
+  return $resource('https://lahuna.net/google/access_token', {}, {
     Post: {
       method: 'POST'
     }
@@ -40,7 +40,7 @@ fac.factory('GoogleAccessTokenResource', function ($resource) {
 
 // Lahuna User
 fac.factory('UserResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/user', {}, {
+  return $resource('https://lahuna.net/user', {}, {
     Get: {
       method: 'GET'
     },

@@ -10,7 +10,7 @@ var fac = angular.module('ResourceFactory', ['ngResource']);
 
 // Authenticate
 fac.factory('AuthenticateResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/google/authenticate', {}, {
+  return $resource('https://lahuna.net/google/authenticate', {}, {
     Get: {
       method: 'GET'
     }
@@ -32,7 +32,7 @@ fac.factory('AuthenticateResource', function ($resource) {
 // Youtube Search
 fac.factory('YoutubeSearchResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/search';
-  return $resource('https://' + location.hostname + ':8000/other', {}, {
+  return $resource('https://lahuna.net/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -53,7 +53,7 @@ fac.factory('YoutubeSearchResource', function ($resource) {
 // Subscriptions
 fac.factory('SubscriptionResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/subscriptions';
-  return $resource('https://' + location.hostname + ':8000/other', {}, {
+  return $resource('https://lahuna.net/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -91,7 +91,7 @@ fac.factory('SubscriptionResource', function ($resource) {
 // Channel
 fac.factory('ChannelResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/channels';
-  return $resource('https://' + location.hostname + ':8000/other', {}, {
+  return $resource('https://lahuna.net/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -112,7 +112,7 @@ fac.factory('ChannelResource', function ($resource) {
 // Video
 fac.factory('VideoResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/videos';
-  return $resource('https://' + location.hostname + ':8000/other', {}, {
+  return $resource('https://lahuna.net/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -150,7 +150,7 @@ fac.factory('VideoResource', function ($resource) {
 // Playlist
 fac.factory('PlaylistResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/playlists';
-  return $resource('https://' + location.hostname + ':8000/other', {}, {
+  return $resource('https://lahuna.net/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -197,7 +197,7 @@ fac.factory('PlaylistResource', function ($resource) {
 // Playlist Items
 fac.factory('PlaylistItemResource', function ($resource) {
   var resource = 'https://www.googleapis.com/youtube/v3/playlistItems';
-  return $resource('https://' + location.hostname + ':8000/other', {}, {
+  return $resource('https://lahuna.net/other', {}, {
     Get: {
       method: 'GET',
       params: { 'resource': resource }
@@ -244,7 +244,7 @@ fac.factory('PlaylistItemResource', function ($resource) {
 
 // Add to Playlist
 fac.factory('AddToPlaylistResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/playlist/addto', {}, {
+  return $resource('https://lahuna.net/playlist/addto', {}, {
     Post: {
       method: 'POST'
     }
@@ -253,7 +253,7 @@ fac.factory('AddToPlaylistResource', function ($resource) {
 
 // Update Playlist
 fac.factory('UpdatePlaylistResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/playlist/update', {}, {
+  return $resource('https://lahuna.net/playlist/update', {}, {
     Put: {
       method: 'PUT'
     }
@@ -262,7 +262,7 @@ fac.factory('UpdatePlaylistResource', function ($resource) {
 
 // Update Video
 fac.factory('UpdateVideoResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/video/update', {}, {
+  return $resource('https://lahuna.net/video/update', {}, {
     Put: {
       method: 'PUT'
     }
@@ -273,7 +273,7 @@ fac.factory('UpdateVideoResource', function ($resource) {
 
 // Playlists Db
 fac.factory('PlaylistDbResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/playlist', {}, {
+  return $resource('https://lahuna.net/playlist', {}, {
     Get: {
       method: 'GET'
     },
@@ -291,7 +291,7 @@ fac.factory('PlaylistDbResource', function ($resource) {
 
 // Playlist Items Db
 fac.factory('PlaylistItemDbResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/playlist_item', {}, {
+  return $resource('https://lahuna.net/playlist_item', {}, {
     Get: {
       method: 'GET'
     },
@@ -309,7 +309,7 @@ fac.factory('PlaylistItemDbResource', function ($resource) {
 
 // Videos Db
 fac.factory('VideoDbResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/video', {}, {
+  return $resource('https://lahuna.net/video', {}, {
     Get: {
       method: 'GET'
     },
@@ -363,7 +363,7 @@ fac.factory('ImportVideoResource', function ($resource) {
 
 // Search
 fac.factory('SearchResource', function ($resource) {
-  return $resource('https://' + location.hostname + ':8000/search', {}, {
+  return $resource('https://lahuna.net/search', {}, {
     Get: {
       method: 'GET'
     },
