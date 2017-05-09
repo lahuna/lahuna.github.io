@@ -16,10 +16,8 @@ var app = angular.module('lahuna', [
 ]);
 
 app.config(
-    function($locationProvider) {
-        $locationProvider.hashPrefix('#');
-    },
-    function ($routeProvider) {
+    function ($routeProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
         $routeProvider.
             when('/', {
                 templateUrl: 'views/home.html',
