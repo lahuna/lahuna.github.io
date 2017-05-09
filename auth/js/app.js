@@ -15,7 +15,8 @@ var app = angular.module('auth', [
 ]);
 
 app.config(
-    function ($routeProvider) {
+    function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(false).hashPrefix('');
         $routeProvider.
         when('/', {
             templateUrl: 'views/main.html',

@@ -15,10 +15,10 @@ var app = angular.module('blitz', [
   'Filters'
 ]);
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
-
-        $routeProvider.
+app.config(
+    function ($routeProvider, $locationProvider) {
+      $locationProvider.html5Mode(false).hashPrefix('');
+      $routeProvider.
         when('/', {
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
@@ -62,4 +62,4 @@ app.config(['$routeProvider',
         otherwise({
             redirectTo: '/'
         });
-  }]);
+  });

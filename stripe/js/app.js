@@ -14,8 +14,9 @@ var app = angular.module('stripe', [
   'StripeController'
 ]);
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
+app.config(
+    function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(false).hashPrefix('');
         $routeProvider.
             when('/', {
               templateUrl: 'views/stripe.html',
@@ -24,4 +25,4 @@ app.config(['$routeProvider',
             otherwise({
               redirectTo: '/'
             });
-  }]);
+  });

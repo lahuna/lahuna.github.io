@@ -25,8 +25,9 @@ var app = angular.module('vida', [
   'ProfileController'
 ]);
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
+app.config(
+    function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(false).hashPrefix('');
         $routeProvider.
             when('/', {
                 templateUrl: 'views/main.html',
@@ -135,4 +136,4 @@ app.config(['$routeProvider',
             otherwise({
                 redirectTo: '/'
             });
-  }]);
+  });

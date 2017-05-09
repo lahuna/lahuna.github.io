@@ -13,8 +13,9 @@ var app = angular.module('player', [
   'Controllers'
 ]);
 
-app.config(['$routeProvider',
-  function ($routeProvider) {
+app.config(
+    function ($routeProvider, $locationProvider) {
+      $locationProvider.html5Mode(false).hashPrefix('');
       $routeProvider.
         when('/:type/:id', {
             templateUrl: 'views/viewer.html',
@@ -27,4 +28,4 @@ app.config(['$routeProvider',
         otherwise({
             redirectTo: '/'
         });
-  }]);
+  });

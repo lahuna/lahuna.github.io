@@ -26,8 +26,9 @@ var app = angular.module('foto', [
 ]);
 
 app.config(
-  function ($routeProvider) {
-      $routeProvider.
+    function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(false).hashPrefix('');
+        $routeProvider.
         when('/', {
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
