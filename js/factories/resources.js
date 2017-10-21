@@ -35,6 +35,7 @@ res.factory('LogResource', function ($resource) {
   });
 });
 
+// Wiki
 res.factory('WikiResource', function ($resource) {
   return $resource('https://en.wikipedia.org/w/api.php', {}, {
     Get: {
