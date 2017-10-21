@@ -35,6 +35,17 @@ res.factory('LogResource', function ($resource) {
   });
 });
 
+res.factory('WikiResource', function ($resource) {
+  return $resource('https://en.wikipedia.org/w/api.php', {}, {
+    Get: {
+      method: 'JSONP',
+      isArray: false,
+      headers: { 'User-Agent': 'Lahuna (https://lahuna.com/#/contact)' },
+      params: { 'callback': 'JSON_CALLBACK' }
+    }
+  });
+});
+
 // Get Api
 //Services.factory('GetApiResource', ['$resource',
   //function ($resource) {

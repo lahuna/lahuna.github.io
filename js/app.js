@@ -87,6 +87,10 @@ app.config(
                 templateUrl: 'views/social.html',
                 controller: 'MainCtrl'
             }).
+            when('/wiki/extract/:title', {
+                templateUrl: 'views/wiki-extract.html',
+                controller: 'WikiExtractCtrl'
+            }).
             otherwise({
                 redirectTo: '/'
             });
