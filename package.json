@@ -10,20 +10,16 @@
     "url": "https://github.com/lahuna/lahuna.github.io.git"
   },
   "dependencies": {
-    "angular": "^1.6.4",
-    "angular-resource": "^1.6.4",
-    "angular-route": "^1.6.4",
+    "angular": "^1.6.6",
+    "angular-resource": "^1.6.6",
+    "angular-route": "^1.6.6",
     "angular-stripe-checkout": "^5.1.0",
-    "angular-touch": "^1.6.4",
-    "angular-ui-bootstrap": "^2.5.0",
+    "angular-touch": "^1.6.6",
+    "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
-    "oboe": "^2.1.3"
+    "oboe": "^2.1.4"
   },
-  "devDependencies": {
-    
-  },
-  "scripts": {
-    
-  }
+  "devDependencies": {},
+  "scripts": {}
 }
