@@ -12,6 +12,7 @@ var app = angular.module('lahuna', [
   'ContactController',
   'LogController',
   'IpController',
+  'WikiController',
   'Filters'
 ]);
 
