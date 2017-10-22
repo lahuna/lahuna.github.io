@@ -42,6 +42,13 @@ li {
   padding-right: 0px !important;
 }
 
+.div-small {
+  background-color: #d7eff4;
+  border-radius: 5px;
+  padding: 6px;
+  padding-top: 11px !important;
+}
+
 .psize p {
   font-size: 16px;
 }

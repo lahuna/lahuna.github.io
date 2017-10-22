@@ -28,6 +28,7 @@ ctl.controller('WikiExtractCtrl', function ($sce, $scope, $routeParams, $locatio
       $scope.msg = 'No extract found for: ' + $routeParams.title;
       return;
     }
+    $scope.msg = 'Wikipedia extract for: ' + $routeParams.title;
     $scope.info = $sce.trustAsHtml(extract);
   });
 
