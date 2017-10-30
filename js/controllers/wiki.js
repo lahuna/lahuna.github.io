@@ -10,7 +10,8 @@ var ctl = angular.module('WikiController', ['Resources']);
 
 ctl.controller('WikiExtractCtrl', function ($sce, $scope, $routeParams, $location,
   LogResource, WikiResource) {
-  LogResource.Post({
+  
+    LogResource.Post({
     'path': $location.$$path
   });
 

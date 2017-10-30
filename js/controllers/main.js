@@ -9,6 +9,7 @@
 var ctl = angular.module('MainController', ['Resources']);
 
 ctl.controller('MainCtrl', function ($scope, $routeParams, $location, LogResource) {
+  window.scrollTo(0, 0);  
   LogResource.Post({
     'path': $location.$$path
   });

@@ -25,29 +25,17 @@ p, li {
   padding-right: 0px !important;
 }
 
-.aLogo {
-  background-color: #328ea3;
+.logo-sm {
   width: 87px;
   height: 30px;
-  color: white;
-  font-family: Arial;
   font-size: 20px;
-  font-weight: bold;
-  font-style: italic;
-  padding-left: 8px;
-  padding-top: 5px;
+  padding: 5px;
   margin-top: -4px;
   border-radius: 5px;
 }
 
-.logo {
-  background-color: #328ea3;
-  color: white;
-  text-align: center;
-  font-family: Arial;
+.logo-lg {
   font-size: 50px;
-  font-weight: bold;
-  font-style: italic;
   width: 207px;
   padding: 10px;
   margin-top: 25px;
@@ -55,6 +43,15 @@ p, li {
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
+}
+
+.logo {
+  background-color: #328ea3;
+  color: white;
+  text-align: center;
+  font-family: Arial;
+  font-weight: bold;
+  font-style: italic;
 }
 
 .navbar {
@@ -69,16 +66,11 @@ p, li {
   background-color: #d7eff4 !important;
 }
 
-li {
-  list-style-type: none;
-}
-
-.link-list {
-  padding: 15px;
-  margin-bottom: 0px;
-}
-
 .big-gap {
   margin-top: 25px;
   margin-bottom: 25px;
+}
+
+ul {
+  padding-left: 30px;
 }

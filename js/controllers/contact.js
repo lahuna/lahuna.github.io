@@ -10,6 +10,8 @@ var ctl = angular.module('ContactController', ['Resources']);
 
 ctl.controller('ContactCtrl', function ($scope, $location, EmailResource, LogResource) {
 
+  window.scrollTo(0, 0);
+  
   LogResource.Post({
     'path': $location.$$path
   });
