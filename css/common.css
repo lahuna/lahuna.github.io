@@ -26,9 +26,9 @@ p, li {
 }
 
 .logo-sm {
-  width: 87px;
+  width: 125px; /*87*/
   height: 30px;
-  font-size: 20px;
+  font-size: 18px; /*20*/
   padding: 5px;
   margin-top: -4px;
   border-radius: 5px;
@@ -36,7 +36,7 @@ p, li {
 
 .logo-lg {
   font-size: 50px;
-  width: 207px;
+  width: 275px; /*207*/
   padding: 10px;
   margin-top: 25px;
   margin-bottom: 25px;
