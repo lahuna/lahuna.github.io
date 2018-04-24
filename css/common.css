@@ -29,14 +29,14 @@ p, li {
   width: 100px; /*87*/
   height: 40px;  /*30*/
   font-size: 20px; /*20*/
-  padding: 10px;  /*5*/
-  margin-top: -10px;  /*-4*/
+  padding-top: 10px;  /*5*/
+  margin-top: -9px;  /*-4*/
   border-radius: 5px;
 }
 
 .logo-lg {
   font-size: 50px;
-  width: 225px; /*207*/
+  width: 235px; /*207*/
   padding: 10px;
   margin-top: 25px;
   margin-bottom: 25px;
