@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright 2014-2018 Lahuna. All rights reserved.
+// Copyright 2014-2019 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -41,7 +41,7 @@ ctl.controller('MainCtrl', function ($scope, $route, Auth, $rootScope, PaymentRe
               "number": "5500005555555559",
               "type": "mastercard",
               "expire_month": 12,
-              "expire_year": 2018,
+              "expire_year": 2019,
               "cvv2": 111,
               "first_name": "Betsy",
               "last_name": "Buyer"

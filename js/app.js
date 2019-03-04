@@ -1,5 +1,5 @@
 //*****************************************************************************************************************
-// Copyright 2014-2018 Lahuna. All rights reserved.
+// Copyright 2014-2019 Lahuna. All rights reserved.
 // You may not copy, reproduce, republish, disassemble, decompile, reverse engineer, post, broadcast, transmit, or
 // make available to the public any content or code on this website without prior written permission from Lahuna.
 //*****************************************************************************************************************
@@ -23,7 +23,27 @@ app.config(
             when('/', {
                 templateUrl: 'views/home.html',
                 controller: 'MainCtrl'
-            }).
+						}).
+						when('/sydney', {
+							templateUrl: 'views/sydney/main.html',
+							controller: 'MainCtrl'
+						}).
+						when('/sydney/code-for-good', {
+							templateUrl: 'views/sydney/code-for-good.html',
+							controller: 'MainCtrl'
+						}).
+						when('/sydney/artistic-engineer', {
+							templateUrl: 'views/sydney/artistic-engineer.html',
+							controller: 'MainCtrl'
+						}).
+						when('/sydney/diverse-mediator', {
+							templateUrl: 'views/sydney/diverse-mediator.html',
+							controller: 'MainCtrl'
+						}).
+						when('/sydney/leadership-discovery', {
+							templateUrl: 'views/sydney/leadership-discovery.html',
+							controller: 'MainCtrl'
+						}).
             when('/apps', {
                 templateUrl: 'views/apps.html',
                 controller: 'MainCtrl'
