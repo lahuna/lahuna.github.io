@@ -32,6 +32,10 @@ app.config(
 							templateUrl: 'views/sydney/code-for-good.html',
 							controller: 'MainCtrl'
 						}).
+						when('/sydney/kimlean-project', {
+							templateUrl: 'views/sydney/kimlean-project.html',
+							controller: 'MainCtrl'
+						}).
 						when('/sydney/artistic-engineer', {
 							templateUrl: 'views/sydney/artistic-engineer.html',
 							controller: 'MainCtrl'
@@ -42,6 +46,10 @@ app.config(
 						}).
 						when('/sydney/riptide', {
 							templateUrl: 'views/sydney/riptide.html',
+							controller: 'MainCtrl'
+						}).
+						when('/sydney/clean-water-challenge', {
+							templateUrl: 'views/sydney/clean-water-challenge.html',
 							controller: 'MainCtrl'
 						}).
 						when('/sydney/leadership-discovery', {
