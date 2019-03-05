@@ -20,6 +20,28 @@ p, li {
   margin: 5px;
 }
 
+.pop {
+  background-color: #d7eff4;
+}
+
+.psize {
+	font-size: 18px;
+}
+
+.about-head-min {
+  min-height: 125px;
+}
+
+.div-anchor a:hover{
+	text-decoration: none;
+	color: #337ab7;
+
+}
+
+.div-anchor a {
+	color: black;
+}
+
 .div-pad {
   padding-left: 0px !important;
   padding-right: 0px !important;

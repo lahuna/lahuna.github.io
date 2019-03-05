@@ -40,6 +40,10 @@ app.config(
 							templateUrl: 'views/sydney/diverse-mediator.html',
 							controller: 'MainCtrl'
 						}).
+						when('/sydney/riptide', {
+							templateUrl: 'views/sydney/riptide.html',
+							controller: 'MainCtrl'
+						}).
 						when('/sydney/leadership-discovery', {
 							templateUrl: 'views/sydney/leadership-discovery.html',
 							controller: 'MainCtrl'
