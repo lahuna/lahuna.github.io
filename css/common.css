@@ -28,6 +28,10 @@ p, li {
 	font-size: 18px;
 }
 
+.minsize {
+	margin: 0px;
+}
+
 .about-head-min {
   min-height: 125px;
 }
