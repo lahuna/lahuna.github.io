@@ -52,10 +52,18 @@ app.config(
 							templateUrl: 'views/sydney/clean-water-challenge.html',
 							controller: 'MainCtrl'
 						}).
+						when('/sydney/ideal-college', {
+							templateUrl: 'views/sydney/ideal-college.html',
+							controller: 'MainCtrl'
+						}).
+						when('/sydney/volunteer-work', {
+							templateUrl: 'views/sydney/volunteer-work.html',
+							controller: 'MainCtrl'
+						}).
 						when('/sydney/leadership-discovery', {
 							templateUrl: 'views/sydney/leadership-discovery.html',
 							controller: 'MainCtrl'
-						}).
+						}).						
             when('/apps', {
                 templateUrl: 'views/apps.html',
                 controller: 'MainCtrl'
