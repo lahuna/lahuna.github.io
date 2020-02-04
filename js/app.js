@@ -23,47 +23,7 @@ app.config(
             when('/', {
                 templateUrl: 'views/home.html',
                 controller: 'MainCtrl'
-						}).
-						when('/sydney', {
-							templateUrl: 'views/sydney/main.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/code-for-good', {
-							templateUrl: 'views/sydney/code-for-good.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/kimlean-project', {
-							templateUrl: 'views/sydney/kimlean-project.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/artistic-engineer', {
-							templateUrl: 'views/sydney/artistic-engineer.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/diverse-mediator', {
-							templateUrl: 'views/sydney/diverse-mediator.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/riptide', {
-							templateUrl: 'views/sydney/riptide.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/clean-water-challenge', {
-							templateUrl: 'views/sydney/clean-water-challenge.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/ideal-college', {
-							templateUrl: 'views/sydney/ideal-college.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/volunteer-work', {
-							templateUrl: 'views/sydney/volunteer-work.html',
-							controller: 'MainCtrl'
-						}).
-						when('/sydney/leadership-discovery', {
-							templateUrl: 'views/sydney/leadership-discovery.html',
-							controller: 'MainCtrl'
-						}).						
+			}).						
             when('/apps', {
                 templateUrl: 'views/apps.html',
                 controller: 'MainCtrl'
