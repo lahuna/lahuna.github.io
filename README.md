@@ -2,7 +2,7 @@
 A website for Lahuna
 
 ## Location
-https://lahuna.com
+https://lahuna.github.io
 
 ## License
 See LICENSE.md
